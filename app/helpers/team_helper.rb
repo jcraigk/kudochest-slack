@@ -175,8 +175,4 @@ module TeamHelper
   def discord_ditto_emoji(size = nil)
     image_pack_tag('media/images/emoji/plus_one_v1.png', size:, alt: 'Plus One emoji')
   end
-
-  def max_allowed_teams?
-    Team.active.count >= App.max_teams
-  end
 end

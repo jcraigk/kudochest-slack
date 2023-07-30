@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+require 'colorize'
+require 'dotenv'
+require 'securerandom'
+
+Dotenv.load
+
+# Worker(s) first!
+ROLES = %w[worker web].freeze
+BRANCH_PREFIX = 'dokku'
+
+branch = ENV.fetch('BRANCH', 'master')
+
+# Remove `dokku-#{ip}` git remote links
+def cleanup_git_remote
+  `git remote -v`.split("\n").each do |line|
+    name = line.split("\t").first
+    next unless line.end_with?('(push)') && name.start_with?(BRANCH_PREFIX)
+    system "git remote rm #{name}"
+  end
+end
+
+puts '== START DEPLOY'.yellow
+cleanup_git_remote
+
+ROLES.each do |role|
+  ip_addresses = ENV.fetch("#{role.upcase}_BOXES").split(',')
+
+  # Create deploy branch from base branch
+  role_branch = "deploy-#{role}-#{SecureRandom.hex(5)}"
+  system "git checkout -b #{role_branch} #{branch} --quiet"
+
+  # Compile and git add assets
+  if role.include?('worker')
+    puts '== PRECOMPILING ASSETS...'.yellow
+    system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
+    system 'git add ./public/packs/manifest.json --force'
+  end
+
+  if role == 'web'
+    puts '== PRECOMPILING ASSETS...'.yellow
+    system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
+    system 'git add ./public/packs --force'
+  end
+
+  # Copy files from `/deploy/#{role}` to app root
+  system "cp deploy/#{role}/* ./"
+  system "git add -A && git commit -m 'Pre-deploy commit (AUTOMATIC)' --quiet"
+
+  # For each box, add git remote link and execute dokku deploy
+  puts "== ROLE: ".yellow + "#{role} (#{ip_addresses.size})".red
+  ip_addresses.map do |ip|
+    puts "Queuing ".yellow + "#{ip}".red
+
+    # Add git remote link
+    remote_link = "#{BRANCH_PREFIX}-#{ip.tr('.', '-')}"
+    system "git remote add #{remote_link} dokku@#{ip}:karmachest"
+
+    Thread.new do
+      # Push role branch to remote link
+      system "git push #{remote_link} #{role_branch}:master -f"
+    end
+  end.each(&:join)
+
+  # Remove role branch
+  system "git checkout #{branch} --quiet"
+  system "git branch -D #{role_branch} --quiet"
+end
+
+cleanup_git_remote
+puts '== END DEPLOY'.yellow

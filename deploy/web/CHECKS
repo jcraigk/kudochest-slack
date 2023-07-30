@@ -1,0 +1,5 @@
+WAIT=5
+TIMEOUT=2
+ATTEMPTS=10
+
+/healthz  OK

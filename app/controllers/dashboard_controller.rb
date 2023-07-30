@@ -1,6 +1,5 @@
 class DashboardController < ApplicationController
   def show
-    @shared_admin = shared_admin?
     return unless current_profile
     # TODO: This is a hack to fix kaminari anchor bug
     if params[:paged].present?

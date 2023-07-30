@@ -33,20 +33,17 @@ module KudoChest
     config.jabs_term = ENV.fetch('POINTS_TERM', 'kudonts')
     config.point_singular_prefix = ENV.fetch('POINT_SINGULAR_PREFIX', 'a')
     config.jab_singular_prefix = ENV.fetch('JAB_SINGULAR_PREFIX', 'a')
-    config.help_url = 'https://github.com/jcraigk/kudochest/wiki'
-    config.issues_url = 'https://github.com/jcraigk/kudochest/issues'
+    config.help_url = 'https://kudochest.com/help'
+    config.issues_url = 'https://kudochest.com/issues'
     config.asset_host = ENV.fetch('ASSET_HOST', nil)
 
     ## Access Control
-    # Default to single team install
-    config.max_teams = ENV.fetch('MAX_TEAMS', 1)
     # ['example.org'] to restrict to `bob@example.org` etc
     domains = ENV.fetch('USER_EMAIL_DOMAINS', nil).presence&.split(',')
     config.user_email_domains = domains || []
     # Possible values: [slack discord google facebook]
     providers = ENV.fetch('OAUTH_PROVIDERS', nil).presence&.split(',')&.map(&:to_sym)
     config.oauth_providers = providers || []
-    config.shared_admin = ENV.fetch('SHARED_ADMIN', 'false').casecmp('true').zero?
 
     ## Slack
     config.slack_app_id = ENV.fetch('SLACK_APP_ID', nil)

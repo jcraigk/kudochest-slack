@@ -22,14 +22,14 @@ services:
     volumes:
       - /tmp:/storage
 
-  discord_listener:
-    build: .
-    depends_on:
-      - pg
-      - redis
-    env_file:
-      - .env
-    command: bin/discord_listener
+  # discord_listener:
+  #   build: .
+  #   depends_on:
+  #     - pg
+  #     - redis
+  #   env_file:
+  #     - .env
+  #   command: bin/discord_listener
 
   pg:
     image: postgres:15.0-alpine
