@@ -2,6 +2,7 @@
 .DS_Store
 .env
 .yarn-integrity
+/config/master.key
 /node_modules
 /public/packs
 /public/packs-test
