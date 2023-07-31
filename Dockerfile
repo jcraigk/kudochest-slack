@@ -50,5 +50,5 @@ RUN gem install bundler && bundle install
 RUN bundle exec rake assets:precompile
 ## END ASSETS PRECOMPILE
 
-# EXPOSE 3000
+EXPOSE 3000
 # CMD bundle exec puma -p $PORT
