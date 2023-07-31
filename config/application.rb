@@ -21,8 +21,8 @@ module KudoChest
     config.active_job.queue_adapter = :sidekiq
 
     ## Basic Info
-    config.app_name = ENV.fetch('APP_NAME', 'KudoChest')
-    config.bot_name = ENV.fetch('BOT_NAME', 'KudoChest')
+    config.app_name = 'KudoChest'
+    config.bot_name = 'KudoChest'
     config.base_url = ENV.fetch('BASE_URL', "https://#{ENV.fetch('WEB_DOMAIN', 'localhost')}")
     config.from_email = ENV.fetch \
       'FROM_EMAIL',
@@ -38,10 +38,6 @@ module KudoChest
     config.asset_host = ENV.fetch('ASSET_HOST', nil)
 
     ## Access Control
-    # ['example.org'] to restrict to `bob@example.org` etc
-    domains = ENV.fetch('USER_EMAIL_DOMAINS', nil).presence&.split(',')
-    config.user_email_domains = domains || []
-    # Possible values: [slack discord google facebook]
     providers = ENV.fetch('OAUTH_PROVIDERS', nil).presence&.split(',')&.map(&:to_sym)
     config.oauth_providers = providers || []
 

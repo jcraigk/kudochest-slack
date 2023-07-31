@@ -43,8 +43,4 @@ class ApplicationController < ActionController::Base
       limit: params[:limit],
       user: current_user
   end
-
-  def email_domain_allowed?(email)
-    App.user_email_domains.none? || email.split('@').last.in?(App.user_email_domains)
-  end
 end

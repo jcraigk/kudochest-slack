@@ -8,8 +8,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    return redirect_restricted_domain unless email_domain_allowed?(user_params[:email])
-
     @user = User.new(user_params)
     if @user.save
       auto_login(@user, true)
