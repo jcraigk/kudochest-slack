@@ -32,14 +32,12 @@ ROLES.each do |role|
 
   # puts '== PRECOMPILING ASSETS...'.yellow
   # system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
-
-  # Compile and git add assets
-  case role
-  when 'worker' # Only the manifest is required
-    system 'git add ./public/assets/packs/manifest.json --force'
-  when 'web' # All assets are required for CDN distribution
-    system 'git add ./public/assets/packs --force'
-  end
+  # case role
+  # when 'worker' # Only the manifest is required
+  #   system 'git add ./public/assets/packs/manifest.json --force'
+  # when 'web' # All assets are required for CDN distribution
+  #   system 'git add ./public/assets/packs --force'
+  # end
 
   # Copy files from `/deploy/#{role}` to app root
   system "cp deploy/#{role}/* ./"
