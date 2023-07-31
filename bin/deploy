@@ -6,7 +6,7 @@ require 'securerandom'
 Dotenv.load
 
 # Worker(s) first!
-ROLES = %w[worker web].freeze
+roles = ENV.fetch('ROLES', 'worker,web')
 BRANCH_PREFIX = 'dokku'
 
 branch = ENV.fetch('BRANCH', 'main')
@@ -23,7 +23,7 @@ end
 puts '== START DEPLOY'.yellow
 cleanup_git_remote
 
-ROLES.each do |role|
+roles.split(',').each do |role|
   ip_addresses = ENV.fetch("#{role.upcase}_BOXES").split(',')
 
   # Create deploy branch from base branch
