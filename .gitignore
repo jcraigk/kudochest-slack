@@ -4,8 +4,8 @@
 .yarn-integrity
 /config/master.key
 /node_modules
-/public/packs
-/public/packs-test
+/public/assets/packs
+/public/assets-test/packs
 /yarn-error.log
 config/master.key
 log

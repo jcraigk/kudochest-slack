@@ -9,7 +9,7 @@ Dotenv.load
 ROLES = %w[worker web].freeze
 BRANCH_PREFIX = 'dokku'
 
-branch = ENV.fetch('BRANCH', 'master')
+branch = ENV.fetch('BRANCH', 'main')
 
 # Remove `dokku-#{ip}` git remote links
 def cleanup_git_remote
@@ -30,17 +30,15 @@ ROLES.each do |role|
   role_branch = "deploy-#{role}-#{SecureRandom.hex(5)}"
   system "git checkout -b #{role_branch} #{branch} --quiet"
 
-  # Compile and git add assets
-  if role.include?('worker')
-    puts '== PRECOMPILING ASSETS...'.yellow
-    system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
-    system 'git add ./public/packs/manifest.json --force'
-  end
+  puts '== PRECOMPILING ASSETS...'.yellow
+  system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
 
-  if role == 'web'
-    puts '== PRECOMPILING ASSETS...'.yellow
-    system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
-    system 'git add ./public/packs --force'
+  # Compile and git add assets
+  case role
+  when 'worker' # Only the manifest is required
+    system 'git add ./public/assets/packs/manifest.json --force'
+  when 'web' # All assets are required for CDN distribution
+    system 'git add ./public/assets/packs --force'
   end
 
   # Copy files from `/deploy/#{role}` to app root
@@ -54,11 +52,11 @@ ROLES.each do |role|
 
     # Add git remote link
     remote_link = "#{BRANCH_PREFIX}-#{ip.tr('.', '-')}"
-    system "git remote add #{remote_link} dokku@#{ip}:karmachest"
+    system "git remote add #{remote_link} dokku@#{ip}:kudochest"
 
     Thread.new do
       # Push role branch to remote link
-      system "git push #{remote_link} #{role_branch}:master -f"
+      system "git push #{remote_link} #{role_branch}:main -f"
     end
   end.each(&:join)
 
