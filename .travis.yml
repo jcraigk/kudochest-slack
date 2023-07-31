@@ -30,13 +30,14 @@ before_install:
   - gem update --system --no-document
   - gem install bundler --no-document
   - sudo service redis-server stop
+  - mkdir -p vendor/redis
   - wget http://download.redis.io/releases/redis-7.0.0.tar.gz
-  - tar xzf redis-7.0.0.tar.gz
-  - cd redis-7.0.0
+  - tar xzf redis-7.0.0.tar.gz -C vendor/redis --strip-components=1
+  - cd vendor/redis
   - make
   - sudo make install
   - nohup redis-server &
-  - cd ..
+  - cd ../..
 install: bundle install
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
