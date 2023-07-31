@@ -30,8 +30,8 @@ ROLES.each do |role|
   role_branch = "deploy-#{role}-#{SecureRandom.hex(5)}"
   system "git checkout -b #{role_branch} #{branch} --quiet"
 
-  puts '== PRECOMPILING ASSETS...'.yellow
-  system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
+  # puts '== PRECOMPILING ASSETS...'.yellow
+  # system 'bundle exec rails assets:clean && bundle exec rails assets:precompile'
 
   # Compile and git add assets
   case role
