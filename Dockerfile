@@ -51,4 +51,4 @@ RUN bundle exec rake assets:precompile
 ## END ASSETS PRECOMPILE
 
 EXPOSE 3000
-# CMD bundle exec puma -p $PORT
+CMD bundle exec puma -p 3000
