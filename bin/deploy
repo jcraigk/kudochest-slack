@@ -40,8 +40,8 @@ ROLES.each do |role|
   # end
 
   # Copy files from `/deploy/#{role}` to app root
-  system "cp deploy/#{role}/* ./"
-  system "git add -A && git commit -m 'Pre-deploy commit (AUTOMATIC)' --quiet"
+  # system "cp deploy/#{role}/* ./"
+  # system "git add -A && git commit -m 'Pre-deploy commit (AUTOMATIC)' --quiet"
 
   # For each box, add git remote link and execute dokku deploy
   puts "== ROLE: ".yellow + "#{role} (#{ip_addresses.size})".red
