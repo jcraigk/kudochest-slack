@@ -121,7 +121,6 @@ en:
     enable_emoji_tooltip: When enabled, users can give %{points} by reacting with emoji (see below) or using emoji in place of "++" in a message.
     require_topic: Require Topic
     require_topic_tooltip: When enabled, users must specify a topic when giving %{points}. Topics can be company values or processes you want your team to adopt.
-    max_allowed_html: The maximum number of active teams has been reached. Change the <strong>config.max_teams</strong> server setting to integrate more workspaces.
     hint_frequency: Usage Hint Frequency
     hint_frequency_tooltip: Specify how often usage hints will be posted in the channel you specify below. Usage hints are posted at the Bot Action Hour (see Schedule settings).
     hint_channel_rid: Usage Hint Channel
