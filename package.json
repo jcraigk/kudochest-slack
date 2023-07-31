@@ -19,7 +19,8 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3"
+    "webpack-dev-server": "^3",
+    "@babel/plugin-proposal-private-property-in-object": "^7.14.5"
   },
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*.js"
