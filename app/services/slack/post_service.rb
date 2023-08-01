@@ -148,7 +148,8 @@ class Slack::PostService < Base::PostService
   rescue Slack::Web::Api::Errors::FatalError # Unclear why this appears occasionally
     nil
   rescue Slack::Web::Api::Errors::InvalidBlocks => e
-    Sentry.capture_exception(e, extra: e.response)
+    Sentry.capture_exception(e, extra: e.response.merge(message_params(replace_channel_rid)))
+    nil
   end
 
   def delete_message
