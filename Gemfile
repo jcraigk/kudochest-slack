@@ -35,10 +35,6 @@ gem 'sluggi'
 gem 'sorcery'
 gem 'webpacker'
 
-group :production do
-  gem 'honeybadger'
-end
-
 group :development do
   gem 'rubocop'
   gem 'rubocop-performance'

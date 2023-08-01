@@ -170,7 +170,6 @@ GEM
       activesupport (>= 6.1)
     hashdiff (1.0.1)
     hashie (5.0.0)
-    honeybadger (5.2.1)
     http (5.1.1)
       addressable (~> 2.8)
       http-cookie (~> 1.0)
@@ -490,7 +489,6 @@ DEPENDENCIES
   faker
   gemoji
   groupdate
-  honeybadger
   http
   jquery-rails
   kaminari

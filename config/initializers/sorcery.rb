@@ -16,22 +16,22 @@ Rails.application.config.sorcery.configure do |config|
   config.discord.user_info_mapping = { email: 'email' }
 
   # Facebook
-  config.facebook.key = ENV.fetch('OAUTH_FACEBOOK_KEY', nil)
-  config.facebook.secret = ENV.fetch('OAUTH_FACEBOOK_SECRET', nil)
-  config.facebook.callback_url = "#{App.base_url}/oauth/callback/facebook"
-  config.facebook.user_info_path = 'me?fields=email'
-  config.facebook.user_info_mapping = { email: 'email' }
-  config.facebook.access_permissions = %w[email]
-  config.facebook.display = 'page'
-  config.facebook.api_version = 'v2.3'
-  config.facebook.parse = :json
+  # config.facebook.key = ENV.fetch('OAUTH_FACEBOOK_KEY', nil)
+  # config.facebook.secret = ENV.fetch('OAUTH_FACEBOOK_SECRET', nil)
+  # config.facebook.callback_url = "#{App.base_url}/oauth/callback/facebook"
+  # config.facebook.user_info_path = 'me?fields=email'
+  # config.facebook.user_info_mapping = { email: 'email' }
+  # config.facebook.access_permissions = %w[email]
+  # config.facebook.display = 'page'
+  # config.facebook.api_version = 'v2.3'
+  # config.facebook.parse = :json
 
   # Google
-  config.google.key = ENV.fetch('OAUTH_GOOGLE_KEY', nil)
-  config.google.secret = ENV.fetch('OAUTH_GOOGLE_SECRET', nil)
-  config.google.callback_url = "#{App.base_url}/oauth/callback/google"
-  config.google.user_info_mapping = { email: 'email' }
-  config.google.scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+  # config.google.key = ENV.fetch('OAUTH_GOOGLE_KEY', nil)
+  # config.google.secret = ENV.fetch('OAUTH_GOOGLE_SECRET', nil)
+  # config.google.callback_url = "#{App.base_url}/oauth/callback/google"
+  # config.google.user_info_mapping = { email: 'email' }
+  # config.google.scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
 
   # Slack
   config.slack.callback_url = "#{App.base_url}/oauth/callback/slack"

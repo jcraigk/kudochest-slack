@@ -36,8 +36,7 @@ class Base::SubteamSyncService < Base::Service
       Subteam.create!(combined_attrs)
     end
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
-    parameters = { attrs: attrs.to_h, combined_attrs: }
-    Honeybadger.notify(e, parameters:) if defined?(Honeybadger)
+    Sentry.capture_exception(e, extra: { attrs: attrs.to_h, combined_attrs: })
     nil
   end
 

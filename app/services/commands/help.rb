@@ -121,7 +121,7 @@ class Commands::Help < Commands::Base
   end
 
   def footer
-    ":question: <#{App.help_url}|More help> :bug: <#{App.issues_url}|Submit bugs/ideas>"
+    ":question: <#{App.help_url}|More help>"
   end
 
   def slack_giving_points
