@@ -43,4 +43,8 @@ class ApplicationController < ActionController::Base
       limit: params[:limit],
       user: current_user
   end
+
+  def use_public_layout
+    @public_layout = true
+  end
 end

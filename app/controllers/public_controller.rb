@@ -1,8 +1,7 @@
 class PublicController < ApplicationController
   skip_before_action :require_login
   before_action :set_default_platform
-
-  layout 'public'
+  before_action :use_public_layout
 
   def landing
     redirect_to(current_user ? dashboard_path : login_path)

@@ -1,7 +1,6 @@
 class ErrorsController < ApplicationController
   skip_before_action :require_login
-
-  layout 'public'
+  before_action :use_public_layout
 
   def forbidden
     render status: :forbidden, template: 'public/errors/403', formats: %i[html]

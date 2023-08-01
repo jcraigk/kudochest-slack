@@ -1,23 +1,24 @@
 doctype html
 html
   head
-    title #{App.app_name}
+    - title = App.app_name
+    - title += " - #{yield(:subtitle)}" if content_for?(:subtitle)
+    title = title
 
     = render partial: 'layouts/meta'
 
-    = stylesheet_link_tag 'https://fonts.gstatic.com', rel: 'preconnect', crossorigin: :anonymous
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed&display=swap'
     = stylesheet_link_tag 'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
     = stylesheet_pack_tag 'application'
     = javascript_pack_tag 'application'
 
-    = action_cable_meta_tag
-    = csrf_meta_tags
+    - unless @public_layout
+      = action_cable_meta_tag
+      = csrf_meta_tags
 
-  body
+  body class=(@public_layout ? 'public' : nil)
     = render 'layouts/navigation'
 
-    .section#main class=(current_user.theme.dark? ? 'dark-mode' : nil)
+    .section#main class=(current_user&.theme&.dark? ? 'dark-mode' : nil)
       .container
         = render 'layouts/notifications'
 

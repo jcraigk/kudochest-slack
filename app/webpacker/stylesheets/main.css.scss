@@ -47,6 +47,11 @@ $radius: 5px;
 @import "topics.css.scss";
 @import "wallboard.css.scss";
 
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../fonts/BarlowSemiCondensed-Regular.ttf');
+}
+
 .add-btn-container {
   width: 300px;
   margin: auto;

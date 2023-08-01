@@ -1,8 +1,7 @@
 class PasswordResetsController < ApplicationController
   before_action :load_user_from_token, only: :update
+  before_action :use_public_layout, only: %i[new edit]
   skip_before_action :require_login
-
-  layout 'public', only: %i[new edit]
 
   def new; end
 
