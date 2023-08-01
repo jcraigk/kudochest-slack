@@ -21,6 +21,7 @@ module KudoChest
     config.active_job.queue_adapter = :sidekiq
 
     ## Basic Info
+    config.company_name = 'KudoChest'
     config.app_name = 'KudoChest'
     config.bot_name = 'KudoChest'
     config.base_url = ENV.fetch('BASE_URL', "https://#{ENV.fetch('WEB_DOMAIN', 'localhost')}")
@@ -98,6 +99,37 @@ module KudoChest
     config.max_note_length = 255
     config.give_color = '#460878'
     config.receive_color = '#247808'
+
+    # Subscription Plans
+    PlanStruct = Struct.new(:rid, :name, :range, :price)
+    config.subscription_plans = {
+      slack: [
+        PlanStruct.new(
+          'plan_HGklKCmSS2HuRy',
+          'Small Team',
+          0..50,
+          19.99
+        ),
+        PlanStruct.new(
+          'plan_HGkmOnjJZfxYdq',
+          'Medium Team',
+          51..150,
+          39.99
+        ),
+        PlanStruct.new(
+          'plan_HGkmbR9JBbsFtJ',
+          'Large Team',
+          151..300,
+          69.99
+        ),
+        PlanStruct.new(
+          'plan_HGkny4NU72JmIX',
+          'Enterprise Team',
+          301..500,
+          99.99
+        )
+      ]
+    }.with_indifferent_access
   end
 end
 

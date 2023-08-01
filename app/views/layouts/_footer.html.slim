@@ -1,10 +1,21 @@
 footer.footer
   .content.has-text-centered
+
     - if !logged_in?
+      = link_to t('nav.features'), features_path
+      | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      = link_to t('nav.pricing'), pricing_path
+      | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = link_to t('auth.signup'), new_user_path
       | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-    = link_to t('nav.help'), App.help_url
+    = link_to t('nav.help'), help_path
     | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    = link_to t('nav.privacy'), App.privacy_url
+    = link_to t('nav.privacy'), privacy_policy_path
     | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    = link_to t('nav.terms'), terms_path
+    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    = link_to t('nav.cookies'), cookie_policy_path
+
+    br
+    p.copyright &copy; #{copyright_years} #{App.company_name}

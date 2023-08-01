@@ -11,9 +11,11 @@ nav#navbar.navbar aria-label='main navigation' role='navigation'
 
   #navigation.navbar-menu
     .navbar-start
-
       - if !logged_in?
-        = link_to t('nav.help'), App.help_url, class: 'navbar-item'
+        = link_to t('nav.features'), features_path, class: 'navbar-item'
+        = link_to t('nav.pricing'), pricing_path, class: 'navbar-item'
+        = link_to t('nav.help'), help_path, class: 'navbar-item'
+        = link_to t('nav.privacy'), privacy_policy_path, class: 'navbar-item'
 
     .navbar-end
       - if logged_in?

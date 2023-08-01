@@ -1,0 +1,13 @@
+- content_for :subtitle, t('nav.pricing')
+- content_for :meta_description, t('meta.pricing')
+
+.columns
+  - App.subscription_plans[@platform].first(3).each do |plan|
+    .column.is-third
+      = render partial: 'public/pricing/plan', locals: { plan: plan }
+
+.columns
+  .column.is-third
+  .column.is-third
+    = render partial: 'public/pricing/plan', locals: { plan: App.subscription_plans[@platform].last }
+  .column.is-third

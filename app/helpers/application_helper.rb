@@ -108,7 +108,7 @@ module ApplicationHelper
   end
 
   def copyright_years
-    start_year = 2020
+    start_year = 2023
     current_year = Time.current.year
     start_year == current_year ? start_year : "#{start_year} - #{current_year}"
   end

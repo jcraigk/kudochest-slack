@@ -1,0 +1,17 @@
+- content_for :subtitle, t('nav.help')
+- content_for :meta_description, t('meta.help')
+
+.landscape-overlay.help-layout
+  h1.title = t('nav.help')
+
+  = render partial: 'public/help/what_is'
+  br
+
+  = render partial: 'public/help/giving_kudos'
+  br
+
+  = render partial: 'public/help/commands'
+  br
+
+  / h2.subtitle.is-3 Still need help?
+  / = link_to icon_and_text('comments-alt', 'Request Support'), support_path, class: 'button is-primary is-large'

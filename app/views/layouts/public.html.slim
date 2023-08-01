@@ -8,10 +8,10 @@ html
     = stylesheet_link_tag 'https://fonts.gstatic.com', rel: 'preconnect', crossorigin: :anonymous
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed&display=swap"
     = stylesheet_link_tag 'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
-    = stylesheet_pack_tag 'public'
+    = stylesheet_pack_tag 'application'
     = javascript_pack_tag 'application'
 
-  body
+  body.public
     = render 'layouts/navigation'
 
     .section#main

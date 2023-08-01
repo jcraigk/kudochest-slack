@@ -9,6 +9,15 @@ Rails.application.routes.draw do
 
   root to: 'public#landing'
 
+  # Public
+  get :cookies,  to: 'public#cookies',  as: :cookie_policy
+  get :features, to: 'public#features', as: :features
+  get :help,     to: 'public#help',     as: :help
+  get :pricing,  to: 'public#pricing',  as: :pricing
+  get :privacy,  to: 'public#privacy',  as: :privacy_policy
+  get :terms,    to: 'public#terms',    as: :terms
+
+  # Private
   get :dashboard, to: 'dashboard#show', as: :dashboard
   get :wallboard, to: 'wallboard#show', as: :wallboard
 

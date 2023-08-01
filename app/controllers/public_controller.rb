@@ -8,6 +8,18 @@ class PublicController < ApplicationController
     redirect_to(current_user ? dashboard_path : login_path)
   end
 
+  def cookies; end
+
+  def features; end
+
+  def help; end
+
+  def pricing; end
+
+  def privacy; end
+
+  def terms; end
+
   private
 
   def set_default_platform

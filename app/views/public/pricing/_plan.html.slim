@@ -1,0 +1,21 @@
+.pricing.marketing-callout
+  h2.subtitle
+    = image_pack_tag "media/images/logos/#{@platform}.png", class: 'platform-img'
+    = plan[:name]
+
+  - min = plan.range.min
+  p
+    span.icon = fa_icon('users')
+    span.text #{min.zero? ? 1 : min} - #{plan.range.max} #{Team.new(platform: @platform).workspace_noun} members
+  p
+    span.icon3 = fa_icon('money-bill-wave-alt')
+    span.text3 $#{plan.price} / month
+    / br
+    / span.text4 ~ #{number_to_currency(plan.price / plan.range.max.to_f)} / user
+
+  br
+  br
+  .has-text-centered
+    = link_to icon_and_text('rocket', t('features.try_month')),
+              new_user_path,
+              class: 'button is-primary is-large'
