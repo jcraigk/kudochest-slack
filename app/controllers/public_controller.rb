@@ -7,7 +7,7 @@ class PublicController < ApplicationController
     redirect_to(current_user ? dashboard_path : login_path)
   end
 
-  def cookies; end
+  def cookie_policy; end
 
   def features; end
 
@@ -15,7 +15,7 @@ class PublicController < ApplicationController
 
   def pricing; end
 
-  def privacy; end
+  def privacy_policy; end
 
   def terms; end
 

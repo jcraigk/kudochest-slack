@@ -7,7 +7,7 @@ en:
     change_password: Change Password
     claim_admin: Manage Claims
     contact: Contact
-    cookies: Cookie Policy
+    cookies: Cookies
     danger_zone: Danger Zone
     dashboard: Dashboard
     features: Features
@@ -22,6 +22,6 @@ en:
     search: Search
     shop: Shop
     team_wallboard: Wallboard
-    terms: Terms of Service
+    terms: Terms
     topics: Topics
     user_settings: User Settings
