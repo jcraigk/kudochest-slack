@@ -148,6 +148,7 @@ class Slack::PostService < Base::PostService
   rescue Slack::Web::Api::Errors::FatalError # Unclear why this appears occasionally
     nil
   rescue Slack::Web::Api::Errors::InvalidBlocks => e
+    Sentry.capture_message("Invalid image URL: #{image}")
     Sentry.capture_exception(e, extra: e.response.merge(message_params(replace_channel_rid)))
     nil
   end
