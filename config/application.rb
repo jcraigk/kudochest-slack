@@ -28,6 +28,8 @@ module KudoChest
     config.from_email = ENV.fetch \
       'FROM_EMAIL',
       "#{config.app_name} <noreply@#{ENV.fetch('WEB_DOMAIN', 'localhost')}>"
+    config.contact_email = 'kudochest@gmail.com'
+    config.admin_email = 'kudochest@gmail.com'
     config.point_term = ENV.fetch('POINT_TERM', 'kudo')
     config.points_term = ENV.fetch('POINTS_TERM', 'kudos')
     config.jab_term = ENV.fetch('POINT_TERM', 'kudont')

@@ -22,5 +22,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.order = 'random'
 
+  # Silence Sidekiq logging
+  config.before(:suite) do
+    Sidekiq.logger.level = Logger::FATAL if Rails.env.test?
+  end
+
   config.include PointsHelper
 end

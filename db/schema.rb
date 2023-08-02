@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_23_184718) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_01_080922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -46,6 +46,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_184718) do
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_claims_on_created_at"
     t.index ["profile_id", "reward_id", "fulfillment_key"], name: "index_claims_on_profile_id_and_reward_id_and_fulfillment_key", unique: true
+  end
+
+  create_table "inquiries", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "subject", null: false
+    t.text "body", null: false
+    t.text "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_inquiries_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|

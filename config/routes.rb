@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get :help,     to: 'public#help',           as: :help
   get :pricing,  to: 'public#pricing',        as: :pricing
   get :privacy,  to: 'public#privacy_policy', as: :privacy_policy
+  get :support,  to: 'inquiries#new',         as: :support
   get :terms,    to: 'public#terms',          as: :terms
 
   # Private
@@ -76,6 +77,7 @@ Rails.application.routes.draw do
   end
   get 'profile-settings', to: 'profiles#edit', as: :profile_settings
 
+  resources :inquiries, only: %i[new create]
   resources :tips, only: %i[index destroy]
   resources :rewards, except: %i[show]
   resources :topics, except: %i[show]

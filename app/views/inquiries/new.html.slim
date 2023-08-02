@@ -1,0 +1,41 @@
+- content_for :subtitle, t('nav.contact')
+
+.width-750
+  = form_for @inquiry, local: true do |f|
+
+    .card
+      header.card-header
+        p.card-header-title = t('inquiries.submit_new')
+
+      .card-content
+        .field.is-horizontal
+          .field-label
+            = f.label :subject, t('inquiries.subject'), class: 'label'
+          .field-body
+            .field
+              .control
+                .select
+                  = f.select :subject, Inquiry.subject.options, class: 'select'
+
+        .field.is-horizontal
+          .field-label
+            = f.label :body, t('inquiries.body'), class: 'label'
+          .field-body
+            .field
+              .control
+                = f.text_area :body, class: 'input textarea', required: true
+
+        .field.is-horizontal
+          .field-label
+            = f.label :email, t('teams.email'), class: 'label'
+          .field-body
+            .field
+              .control
+                = f.email_field :email, class: 'input'
+
+        br
+        .field.is-horizontal
+          p = t('inquiries.email_help')
+
+        br
+        = submit_button(t('controls.submit'))
