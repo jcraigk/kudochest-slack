@@ -9,35 +9,20 @@
     p The Basic theme mentions recipients, which may result in a direct notification to them depending on their Slack settings.
 
   .theme-info data-name='quiet' style='display: none;'
-    - if @current_team.platform.slack?
-      .command
-        span.profile_ref> Mark
-        ' gave
-        span.profile_ref> Lisa
-        ' #{points_format(1, label: true)}
-      p Quiet themes do not mention recipients so they do not get notified. The usernames are linked to web profiles instead.
-
-    - elsif @current_team.platform.discord?
-      .command
-        strong> Mark
-        ' gave
-        strong> Lisa
-        ' #{points_format(1, label: true)}
-      p Quiet themes do not mention recipients so they do not get notified.
+    .command
+      span.profile_ref> Mark
+      ' gave
+      span.profile_ref> Lisa
+      ' #{points_format(1, label: true)}
+    p Quiet themes do not mention recipients so they do not get notified. The usernames are linked to web profiles instead.
 
   .theme-info data-name='quiet_stat' style='display: none;'
-    - if @current_team.platform.slack?
-      .command
-        span.profile_ref> Mark (231)
-        ' gave
-        span.profile_ref> Lisa (9.7k)
-        ' #{points_format(1, label: true)}
-    - elsif @current_team.platform.discord?
-      .command
-        strong> Mark
-        ' gave
-        strong> Lisa
-        ' #{points_format(1, label: true)}
+    .command
+      span.profile_ref> Mark (231)
+      ' gave
+      span.profile_ref> Lisa (9.7k)
+      ' #{points_format(1, label: true)}
+
     p Quiet themes do not mention recipients so they do not get notified. This theme includes total number of #{App.points_term} received.
 
   .theme-info data-name='fancy' style='display: none;'
@@ -53,10 +38,7 @@
         span.profile_ref> @Lisa
         ' (#{points_format(3,245, label: true)})
       ' #{points_format(1, label: true)}
-      - if @current_team.platform.slack?
-        | #{emojify(':' + @current_team.point_emoji + ':', size: 20)}
-      - elsif @current_team.platform.discord?
-        = discord_point_emoji('16x16')
+      | #{emojify(':' + @current_team.point_emoji + ':', size: 20)}
       |!
     p The Fancy theme mention recipients, displays user stats (level or #{App.points_term}), and includes emoji.
 

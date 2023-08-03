@@ -1,6 +1,6 @@
 en:
   profiles:
-    login_to_connect: Please login or sign up to connect your chat profile
+    login_to_connect: Please login to connect your chat profile
     add_new: Add a Profile
     connect_invalid: Invalid token provided
     connect_chat: Connect Your Chat Profile
@@ -21,7 +21,7 @@ en:
     prefs_modal_title: Preferences
     prefs_modal_info: 'Update your preferences:'
     prefs_modal_allow_dm: Allow direct messages from %{bot}
-    prefs_modal_weekly_report: Receive weekly email report (requires connected profile)
+    prefs_modal_weekly_report: Receive weekly email report (requires web login)
     prefs_modal_announce_tip_sent: Announce when I send %{points}
     prefs_modal_announce_tip_received: Announce when I receive %{points}
     announce_tip_sent: Announce %{points} Sent

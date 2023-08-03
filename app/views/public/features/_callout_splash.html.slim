@@ -13,9 +13,3 @@
           = link_to icon_and_text('rocket', t('features.try_month')),
                     new_user_path,
                     class: 'button btn-cta'
-
-          // "Add to Slack" button may be required for Slack app review
-          / = link_to login_path, class: 'button is-large btn-cta' do
-          /   = image_pack_tag "media/images/logos/#{@platform}.png", size: '24x24'
-          /   | &nbsp;&nbsp;
-          /   = t("features.#{@platform}.login_to_add")

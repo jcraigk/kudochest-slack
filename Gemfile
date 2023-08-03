@@ -3,12 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.2'
 
-gem 'awesome_print'
 gem 'aws-sdk-s3'
 gem 'bulma-rails'
 gem 'chartkick'
-gem 'clipboard-rails'
-gem 'discordrb'
 gem 'dry-initializer'
 gem 'enumerize'
 gem 'factory_bot_rails'

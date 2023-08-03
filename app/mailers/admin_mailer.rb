@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class AdminMailer < ApplicationMailer
   def inquiry_created(inquiry)
     @inquiry = inquiry

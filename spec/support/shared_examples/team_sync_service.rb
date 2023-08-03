@@ -50,4 +50,9 @@ RSpec.shared_examples 'TeamSyncService' do
       expect(SubteamSyncWorker).to have_received(:perform_async).with(team.rid)
     end
   end
+
+  xcontext 'when a user has an active authentication' do
+    it 'auto associates the profiles to the user' do
+    end
+  end
 end

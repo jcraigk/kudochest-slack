@@ -22,11 +22,6 @@ $given-color-dark: #d2b8ff;
 $earned-color: $green;
 $earned-color-dark: #a1f7d0;
 
-$discord-purple: #778ad4;
-$facebook-blue: #4a67ad;
-$google-blue: #5385ed;
-$slack-purple: #441a49;
-
 $radius: 5px;
 
 @import "bulma";
@@ -38,7 +33,6 @@ $radius: 5px;
 @import "dashboard.css.scss";
 @import "errors.css.scss";
 @import "features.css.scss";
-@import "fontawesome_svg_fix.css.scss";
 @import "help.css.scss";
 @import "navbar.css.scss";
 @import "platforms.css.scss";
@@ -50,23 +44,6 @@ $radius: 5px;
 @font-face {
   font-family: 'Barlow Semi Condensed';
   src: url('../fonts/BarlowSemiCondensed-Regular.ttf');
-}
-
-.add-btn-container {
-  width: 300px;
-  margin: auto;
-
-  .discord-btn {
-    height: 40px;
-    float: right;
-
-    i, svg {
-      color: $discord-purple;
-    }
-  }
-  .slack-btn {
-    float: left
-  }
 }
 
 html {
@@ -226,7 +203,7 @@ img.small-radius {
 
 #main {
   padding-top: 80px;
-  min-height: 1100px;
+  min-height: 900px;
 
   .card {
     border-radius: $radius;
@@ -259,92 +236,17 @@ img.small-radius {
   margin-right: 7px;
 }
 
-.team-selector-wide {
-  margin-bottom: 20px;
-
-  .team-selector {
-    width: 100%;
-    margin-bottom: 5px;
-
-    .dropdown-trigger {
-      width: 100%;
-
-      button {
-        width: 100%;
-      }
-    }
-  }
-}
-.team-selector {
-  margin-top: 5px;
-  margin-right: 5px;
-}
-
-
-.big-warning {
-  background-color: $warning;
-  text-align: center;
-  border-radius: $radius;
-}
-
 .notification {
   width: 450px;
   margin-bottom: 20px;
   margin: auto;
 }
 
-#user-container {
-  border-radius: $radius;
-  padding: 30px;
-  background-color: $light;
-  max-width: 450px;
-  margin: auto;
-
-  .external-login-container {
-    margin-top: 50px;
-
-    .external-login-btn {
-      width: 100%;
-      margin-top: 15px;
-      justify-content: left;
-      padding-left: 130px;
-      color: $white-ter;
-
-      @media (max-width: 600px) {
-        padding-left: 60px;
-      }
-    }
-    .external-login-icon {
-      margin-right: 10px;
-    }
-  }
-  .login-logo {
-    background-color: white;
-    border-radius: 3px;
-    width: 25px;
-    height: 25px;
-    position: relative;
-    left: -10px;
-    padding: 3px;
-  }
-  .facebook-btn {
-    background-color: $facebook-blue;
-  }
-  .google-btn {
-    background-color: $google-blue;
-  }
-  .slack-btn {
-    background-color: $slack-purple;
-  }
-  .discord-btn {
-    background-color: $discord-purple;
-  }
-}
-
 .width-full {
   width: 100% !important;
   text-align: center;
 }
+
 .width-750 {
   width: 750px !important;
   margin: auto;
@@ -354,41 +256,8 @@ img.small-radius {
   }
 }
 
-.margin-left {
-  margin-left: 5px;
-}
-
 .reaction-icon {
   margin-left: 30px;
-}
-
-.command-wrapper {
-  margin-top: 15px;
-  margin: 0 auto;
-
-  .command-callout {
-    border-radius: $radius;
-    padding: 6px 20px;
-    border: 1px solid $dark;
-    background-color: $blue-green;
-    color: $light;
-    display: inline-block;
-    font-weight: bold;
-  }
-  .clipboard-btn {
-    border-radius: $radius;
-    border: 1px solid $dark;
-    background-color: $blue-green;
-    color: $light;
-    position: relative;
-    left: 10px;
-    top: 2px;
-    width: 50px;
-    height: 38px;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 1.3rem;
-  }
 }
 
 .footer {

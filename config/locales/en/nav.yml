@@ -25,3 +25,11 @@ en:
     terms: Terms
     topics: Topics
     user_settings: User Settings
+    welcome: Welcome to KudoChest! The bot is now available in your workspace. Below is your personal profile.
+    installing: Installing...
+    being_installed: The app is being installed in your workspace.
+    auto_refresh_html: This page will auto-refresh in <span id="countdown">10</span> seconds.
+    sign_in_with_slack: Sign in with Slack
+    add_to_slack: Add to Slack
+    install_the_app: To install KudoChest, tap the button below.
+    sign_in_only: Already installed? Sign in to view your dashboard.

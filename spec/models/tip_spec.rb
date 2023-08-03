@@ -120,32 +120,4 @@ RSpec.describe Tip do
       expect(slack_client).to have_received(:chat_delete).with(expected_args)
     end
   end
-
-  describe 'delete_discord_response after destroy' do
-    subject(:tip) do
-      create(
-        :tip,
-        from_profile: profile,
-        response_channel_rid:
-        channel.rid,
-        response_ts: ts
-      )
-    end
-
-    let(:team) { create(:team, platform: :discord) }
-    let(:profile) { create(:profile, team:) }
-    let(:ts) { Time.current.to_f.to_s }
-    let(:channel) { build(:channel) }
-    let(:expected_args) { { channel: channel.rid, ts: } }
-
-    before do
-      allow(Discordrb::API::Channel).to receive(:delete_message)
-      tip.destroy
-    end
-
-    it 'calls Slack::SlackApi.chat_delete' do
-      expect(Discordrb::API::Channel)
-        .to have_received(:delete_message).with(App.discord_token, channel.rid, ts)
-    end
-  end
 end

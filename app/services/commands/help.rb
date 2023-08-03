@@ -15,7 +15,6 @@ class Commands::Help < Commands::Base
 
   def keyword_list
     str = "* `admin`  See app configuration\n"
-    str += "  * `connect`  Connect your chat profile to your web account\n"
     str += "  * `help`  You're looking at it!\n"
     str += "  * `levels`  See a chart mapping #{App.points_term} to levels\n" if team.enable_levels?
     # str += "  * `me`  See your current stats\n" # Commented: User can discover this for themselves
@@ -133,7 +132,7 @@ class Commands::Help < Commands::Base
 
   def slack_point_inlines
     "* Type `/#{App.base_command}` by itself for assistance " \
-      '_(tip: use Tab key to navigate input fields)_' \
+      '_(tip: use Tab key to navigate fields)_' \
       "\n  * Type `#{PROF_PREFIX}[user]++`, `#{PROF_PREFIX}[group]++`, " \
       "`#{CHAN_PREFIX}[channel]++`, `#{PROF_PREFIX}channel++`, `#{PROF_PREFIX}here++`, " \
       "or `#{PROF_PREFIX}everyone++` _(tip: append a number like `++2`)_"

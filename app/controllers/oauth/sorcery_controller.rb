@@ -6,8 +6,12 @@ class Oauth::SorceryController < ApplicationController
   end
 
   def callback
-    return redirect_back_or_to(dashboard_path) if login_from(params[:provider])
-    create_user_and_login
+    if login_from(params[:provider])
+      auto_associate_profile
+      redirect_back_or_to(dashboard_path)
+    else
+      create_user_and_login
+    end
   rescue StandardError => e
     Sentry.capture_exception(e)
     redirect_to login_path, alert: t('auth.external_fail', provider: provider_title)
@@ -15,11 +19,19 @@ class Oauth::SorceryController < ApplicationController
 
   private
 
+  def auto_associate_profile
+    rid = current_user.authentications.find_by(provider: params[:provider])&.uid
+    profile = Profile.find_by(rid:)
+    return if profile.blank? || profile.user.present?
+    profile.update!(user: current_user)
+  end
+
   def create_user_and_login
     user = create_from(params[:provider])
     user.activate!
     reset_session
     auto_login(user)
+    auto_associate_profile
 
     redirect_back_or_to(dashboard_path, notice: success_notice)
   rescue ActiveRecord::RecordNotUnique

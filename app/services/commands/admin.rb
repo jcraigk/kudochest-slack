@@ -31,21 +31,21 @@ class Commands::Admin < Commands::Base
 
   def footer_text
     str = ''
-    str += "*Log Channel:* #{channel_link(team.log_channel_rid)}\n" if team.log_channel_rid.present?
+    str += "*Log channel:* #{channel_link(team.log_channel_rid)}\n" if team.log_channel_rid.present?
     str + "*Administrator:* #{team_admin}"
   end
 
   def jab_text
-    str = "*#{App.jabs_term.titleize} Enabled:* #{boolean_str(team.enable_jabs?)}"
+    str = "*#{App.jabs_term.titleize} enabled:* #{boolean_str(team.enable_jabs?)}"
     return str unless team.enable_jabs?
-    str + "\n*Deduct #{App.jabs_term.titleize}:* #{boolean_str(team.deduct_jabs?)}"
+    str + "\n*Deduct #{App.jabs_term}:* #{boolean_str(team.deduct_jabs?)}"
   end
 
   def topic_text
-    str = "*Topics Enabled:* #{boolean_str(team.enable_topics?)}"
+    str = "*Topics enabled:* #{boolean_str(team.enable_topics?)}"
     return str unless team.enable_topics?
-    str += "\n*Topic Required:* #{boolean_str(team.require_topic?)}"
-    str + "\n*Active Topics:* #{team.topics.active.count}"
+    str += "\n*Topic required:* #{boolean_str(team.require_topic?)}"
+    str + "\n*Active topics:* #{team.topics.active.count}"
   end
 
   def notes_text
@@ -54,23 +54,23 @@ class Commands::Admin < Commands::Base
 
   def increment_text
     <<~TEXT.chomp
-      *Minimum Increment:* #{points_format(team.tip_increment, label: true)}
+      *Minimum increment:* #{points_format(team.tip_increment, label: true)}
     TEXT
   end
 
   def time_text
     <<~TEXT.chomp
-      *Time Zone:* #{long_time_zone}
-      *Work Days:* #{work_days}
-      *Work Start Day:* #{team.week_start_day.titleize}
+      *Time zone:* #{long_time_zone}
+      *Work days:* #{work_days}
+      *Work start day:* #{team.week_start_day.titleize}
     TEXT
   end
 
   def emoji_text
-    str = "*Emoji Enabled:* #{boolean_str(team.enable_emoji?)}"
+    str = "*Emoji enabled:* #{boolean_str(team.enable_emoji?)}"
     return str unless team.enable_emoji?
 
-    str += "\n*Emoji Value:* #{points_format(team.emoji_quantity, label: true)}"
+    str += "\n*Emoji value:* #{points_format(team.emoji_quantity, label: true)}"
     str += point_emoji
     str += jab_emoji
     str += ditto_emoji
@@ -78,20 +78,20 @@ class Commands::Admin < Commands::Base
   end
 
   def point_emoji
-    "\n*#{App.points_term.titleize} Emoji:* #{team.point_emoj}"
+    "\n*#{App.points_term.titleize} emoji:* #{team.point_emoj}"
   end
 
   def jab_emoji
-    return unless team.enable_jabs?
-    "\n*#{App.jabs_term.titleize} Emoji:* #{team.jab_emoj}"
+    return '' unless team.enable_jabs?
+    "\n*#{App.jabs_term.titleize} emoji:* #{team.jab_emoj}"
   end
 
   def ditto_emoji
-    "\n*Ditto Emoji:* #{team.ditto_emoj}"
+    "\n*Ditto emoji:* #{team.ditto_emoj}"
   end
 
   def level_text
-    txt = "*Leveling Enabled:* #{boolean_str(team.enable_levels?)}"
+    txt = "*Leveling enabled:* #{boolean_str(team.enable_levels?)}"
     return txt unless team.enable_levels?
     txt + level_detail_text
   end
@@ -99,14 +99,14 @@ class Commands::Admin < Commands::Base
   def level_detail_text
     <<~TEXT.chomp
 
-      *Maximum Level:* #{team.max_level}
-      *Required for Max Level:* #{points_format(team.max_level_points, label: true)}
-      *Progression Curve:* #{team.level_curve.titleize}
+      *Maximum level:* #{team.max_level}
+      *Required for max level:* #{points_format(team.max_level_points, label: true)}
+      *Progression curve:* #{team.level_curve.titleize}
     TEXT
   end
 
   def throttle_points_text
-    txt = "*Throttle #{App.points_term.titleize}:* #{boolean_str(team.throttle_tips)}"
+    txt = "*Throttle #{App.points_term}:* #{boolean_str(team.throttle_tips)}"
     return txt unless team.throttle_tips
     txt + throttle_detail_text
   end
@@ -114,21 +114,21 @@ class Commands::Admin < Commands::Base
   def throttle_detail_text
     <<~TEXT.chomp
 
-      *Exempt Users:* #{team.infinite_profiles_sentence}
-      *Token Dispersal Hour:* #{num_to_hour(team.action_hour)}
-      *Token Dispersal Frequency:* #{team.token_frequency.titleize}
-      *Token Dispersal Quantity:* #{number_with_delimiter(team.token_quantity)}
-      *Token Max Balance:* #{number_with_delimiter(team.token_max)}
+      *Exempt users:* #{team.infinite_profiles_sentence}
+      *Token dispersal hour:* #{num_to_hour(team.action_hour)}
+      *Token dispersal frequency:* #{team.token_frequency.titleize}
+      *Token dispersal quantity:* #{number_with_delimiter(team.token_quantity)}
+      *Token max balance:* #{number_with_delimiter(team.token_max)}
     TEXT
   end
 
   def streak_text
-    txt = "*Giving Streaks Enabled:* #{boolean_str(team.enable_streaks?)}"
+    txt = "*Giving streaks enabled:* #{boolean_str(team.enable_streaks?)}"
     return txt unless team.enable_streaks?
     txt + <<~TEXT.chomp
 
-      *Giving Streak Duration:* #{pluralize(team.streak_duration, 'day')}
-      *Giving Streak Reward:* #{points_format(team.streak_reward, label: true)}
+      *Giving streak duration:* #{pluralize(team.streak_duration, 'day')}
+      *Giving streak reward:* #{points_format(team.streak_reward, label: true)}
     TEXT
   end
 

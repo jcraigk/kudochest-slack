@@ -1,8 +1,12 @@
 class Oauth::SlackController < ApplicationController
+  def add_to_slack
+    url = "https://slack.com/oauth/v2/authorize?client_id=#{App.slack_client_id}&scope=#{App.slack_oauth_scopes.join(',')}"
+    redirect_to url, allow_other_host: true
+  end
+
   def integration
     TeamRegistrar.call(**team_data)
-    redirect_to dashboard_path,
-                notice: t('oauth.code_grant_success_html')
+    redirect_to dashboard_path
   rescue Slack::Web::Api::Errors::SlackError, ArgumentError
     redirect_to dashboard_path, alert: t('oauth.basic_error')
   end
@@ -12,8 +16,8 @@ class Oauth::SlackController < ApplicationController
   def oauth_data
     @oauth_data ||=
       Slack::Web::Client.new.oauth_v2_access(
-        client_id: ENV.fetch('SLACK_CLIENT_ID', nil),
-        client_secret: ENV.fetch('SLACK_CLIENT_SECRET', nil),
+        client_id: App.slack_client_id,
+        client_secret: App.slack_client_secret,
         code: params[:code]
       ).deep_symbolize_keys
   end

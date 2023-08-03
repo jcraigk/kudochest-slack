@@ -20,7 +20,7 @@ module KudoChest
     config.action_cable.worker_pool_size = 4
     config.active_job.queue_adapter = :sidekiq
 
-    ## Basic Info
+    # Basic
     config.company_name = 'KudoChest'
     config.app_name = 'KudoChest'
     config.bot_name = 'KudoChest'
@@ -40,27 +40,36 @@ module KudoChest
     config.privacy_url = 'https://kudochest.com/privacy'
     config.asset_host = ENV.fetch('ASSET_HOST', nil)
 
-    ## Access Control
-    providers = ENV.fetch('OAUTH_PROVIDERS', nil).presence&.split(',')&.map(&:to_sym)
-    config.oauth_providers = providers || []
-
-    ## Slack
+    # Slack
     config.slack_app_id = ENV.fetch('SLACK_APP_ID', nil)
+    config.slack_oauth_scopes = %w[
+      channels:history
+      channels:join
+      channels:read
+      chat:write
+      commands
+      emoji:read
+      groups:history
+      groups:read
+      im:history
+      im:read
+      im:write
+      mpim:history
+      mpim:read
+      reactions:read
+      team:read
+      usergroups:read
+      users:read
+      users.profile:read
+    ]
     config.base_command = ENV.fetch('BASE_COMMAND', 'kudos')
     config.default_point_emoji = 'star'
     config.default_jab_emoji = 'arrow_down'
     config.default_ditto_emoji = 'heavy_plus_sign'
+    config.slack_client_id = ENV.fetch('SLACK_CLIENT_ID', nil)
+    config.slack_client_secret = ENV.fetch('SLACK_CLIENT_SECRET', nil)
 
-    ## Discord
-    config.discord_cdn_base = 'https://cdn.discordapp.com'
-    config.discord_token = "Bot #{ENV.fetch('DISCORD_BOT_TOKEN', nil)}"
-    config.discord_command = "!#{config.base_command}"
-    config.discord_point_emoji = 'plus_plus'
-    config.discord_jab_emoji = 'minus_minus'
-    config.discord_ditto_emoji = 'plus_one'
-    config.discord_permission = '1073743872' # Manage Emojis, Send Messages
-
-    ## Email
+    # Email
     config.action_mailer.default_url_options = { host: config.base_url }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -72,7 +81,7 @@ module KudoChest
       password: ENV.fetch('SMTP_PASSWORD', nil)
     }
 
-    ## Feature defaults/limits
+    # Features
     config.max_response_mentions = 3
     config.undo_cutoff = 1.minute
     config.max_points_per_tip = 100
@@ -91,7 +100,6 @@ module KudoChest
     config.default_streak_reward = 1
     config.max_streak_reward = 5
     config.channel_cache_ttl = 5.minutes
-    # config.leaderboard_trend_days = 7 # TODO: Re-enable leaderboard trends
     config.default_leaderboard_size = 5
     config.modal_cache_ttl = 600 # seconds
     config.password_length = 5

@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def not_authenticated
-    redirect_to main_app.login_path, alert: t('auth.login_required')
+    redirect_to sorcery_login_url('slack'), allow_other_host: true
   end
 
   def not_authorized

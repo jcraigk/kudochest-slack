@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 module FeaturesHelper
   def feature_modal_link(key)
     base = "features.list.#{key}"

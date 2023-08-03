@@ -5,6 +5,8 @@
       = t('teams.add_new', app: App.app_name)
 
   .card-content.has-text-centered
-    .add-btn-container.is-clearfix
-      = render 'shared/add_to_slack_button'
-      = render 'shared/add_to_discord_button'
+    p It doesn't look like KudoChest is installed in your workspace yet. Click the button below to install it!
+
+    br
+
+    = render 'shared/add_to_slack_button'

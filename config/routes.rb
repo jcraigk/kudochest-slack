@@ -32,29 +32,22 @@ Rails.application.routes.draw do
   end
 
   namespace :oauth do
+    get :add_to_slack, to: 'slack#add_to_slack'
     get :slack_integration, to: 'slack#integration'
-    get :discord_integration, to: 'discord#integration'
 
     get 'callback/:provider', to: 'sorcery#callback'
     get ':provider', to: 'sorcery#oauth', as: :at_provider
   end
-  get 'connect/:reg_token', to: 'profiles#connect', as: :profile_connection
 
-  resources :users, only: %i[new create] do
-    collection do
-      get :resend_verification
-    end
+  resources :users, only: [] do
     member do
-      get :verify
       get :edit_preferences
       patch :update_preferences
-      patch :update_email
-      patch :update_password
+      patch :update_email # TODO: Remove this and sync from Slack instead?
     end
   end
   get 'user-settings', to: 'users#edit_preferences', as: :user_settings
   resources :user_sessions, only: %i[new create destroy]
-  resources :password_resets, only: %i[new create edit update]
   get 'login', to: 'user_sessions#new', as: :login
   delete 'logout', to: 'user_sessions#destroy', as: :logout
 

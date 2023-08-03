@@ -11,34 +11,34 @@ RSpec.describe Commands::Admin do
   let(:response) { ChatResponse.new(mode: :private, text:) }
   let(:text) do
     <<~TEXT.chomp
-      *Throttle #{App.points_term.titleize}:* Yes
-      *Exempt Users:* None
-      *Token Dispersal Hour:* 7:00am
-      *Token Dispersal Frequency:* Weekly
-      *Token Dispersal Quantity:* #{team.token_quantity}
-      *Token Max Balance:* #{team.token_max}
-      *Minimum Increment:* #{points_format(team.tip_increment, label: true)}
-      *Topics Enabled:* Yes
-      *Topic Required:* No
-      *Active Topics:* 0
+      *Throttle #{App.points_term}:* Yes
+      *Exempt users:* None
+      *Token dispersal hour:* 7:00am
+      *Token dispersal frequency:* Weekly
+      *Token dispersal quantity:* #{team.token_quantity}
+      *Token max balance:* #{team.token_max}
+      *Minimum increment:* #{points_format(team.tip_increment, label: true)}
+      *Topics enabled:* Yes
+      *Topic required:* No
+      *Active topics:* 0
       *Notes:* Optional
-      *#{App.jabs_term.titleize} Enabled:* Yes
-      *Deduct #{App.jabs_term.titleize}:* Yes
-      *Emoji Enabled:* Yes
-      *Emoji Value:* #{points_format(team.emoji_quantity, label: true)}
-      *#{App.points_term.titleize} Emoji:* #{team.point_emoj}
-      *#{App.jabs_term.titleize} Emoji:* #{team.jab_emoj}
-      *Ditto Emoji:* #{team.ditto_emoj}
-      *Leveling Enabled:* Yes
-      *Maximum Level:* #{team.max_level}
-      *Required for Max Level:* #{points_format(team.max_level_points, label: true)}
-      *Progression Curve:* Gentle
-      *Giving Streaks Enabled:* Yes
-      *Giving Streak Duration:* #{team.streak_duration} days
-      *Giving Streak Reward:* #{points_format(team.streak_reward, label: true)}
-      *Time Zone:* (GMT+00:00) UTC
-      *Work Days:* Monday, Tuesday, Wednesday, Thursday, Friday
-      *Work Start Day:* Monday
+      *#{App.jabs_term.titleize} enabled:* Yes
+      *Deduct #{App.jabs_term}:* Yes
+      *Emoji enabled:* Yes
+      *Emoji value:* #{points_format(team.emoji_quantity, label: true)}
+      *#{App.points_term.titleize} emoji:* #{team.point_emoj}
+      *#{App.jabs_term.titleize} emoji:* #{team.jab_emoj}
+      *Ditto emoji:* #{team.ditto_emoj}
+      *Leveling enabled:* Yes
+      *Maximum level:* #{team.max_level}
+      *Required for max level:* #{points_format(team.max_level_points, label: true)}
+      *Progression curve:* Gentle
+      *Giving streaks enabled:* Yes
+      *Giving streak duration:* #{team.streak_duration} days
+      *Giving streak reward:* #{points_format(team.streak_reward, label: true)}
+      *Time zone:* (GMT+00:00) UTC
+      *Work days:* Monday, Tuesday, Wednesday, Thursday, Friday
+      *Work start day:* Monday
       *Administrator:* #{admin_text}
     TEXT
   end

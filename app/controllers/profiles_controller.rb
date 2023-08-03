@@ -1,13 +1,4 @@
 class ProfilesController < ApplicationController
-  skip_before_action :require_login, only: %i[connect]
-
-  def connect
-    return redirect_to_dashboard alert: invalid_token_msg if requested_profile.blank?
-    return redirect_to_dashboard alert: already_connected_msg if requested_profile.user_id.present?
-    return connect_profile if current_user
-    redirect_to_login
-  end
-
   def show
     @profile = Profile.find_by(slug: params[:id])
     redirect_to dashboard_path if @profile.blank?
@@ -42,11 +33,6 @@ class ProfilesController < ApplicationController
     @profile = Profile.active.where(team: current_profile.team)
     @profile = @profile.where.not(id: last_profile_id) if last_profile_id.positive?
     @profile = @profile.order('RANDOM()').first
-  end
-
-  def redirect_to_login
-    session[:return_to_url] = request.original_url
-    redirect_to login_path, notice: t('profiles.login_to_connect')
   end
 
   def connect_profile

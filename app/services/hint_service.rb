@@ -94,8 +94,7 @@ class HintService < Base::Service
       "Use the `stats` or `me` command to see your personal stats and `stats @username` to see the stats of another user. #{command_blerb}",
       "Use the `top` command to see the top #{App.points_term} earners. #{command_blerb}",
       "Use the `top givers` command to see the top #{App.points_term} givers. #{command_blerb}",
-      "Use the `admin` command to see a list of administrator settings. #{command_blerb}",
-      "Use the `connect` command to browse web-based profiles of yourself and your teammates as well as receive a weekly email report of your activity. #{command_blerb}"
+      "Use the `admin` command to see a list of administrator settings. #{command_blerb}"
     ]
 
     if team.enable_levels?

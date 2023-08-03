@@ -50,10 +50,6 @@ class Tip < ApplicationRecord
     nil
   end
 
-  def delete_discord_response
-    Discordrb::API::Channel.delete_message(App.discord_token, response_channel_rid, response_ts)
-  end
-
   def require_topic?
     from_profile&.team&.require_topic?
   end

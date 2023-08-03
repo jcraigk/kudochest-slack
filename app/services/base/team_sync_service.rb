@@ -37,12 +37,21 @@ class Base::TeamSyncService < Base::Service
     synced_profile_ids =
       remote_team_members.each_with_object([]) do |member, profile_ids|
         next unless app_bot?(member) || active?(member)
-        profile_ids << create_or_update_profile(member).id
+        profile = create_or_update_profile(member)
+        auto_associate_user(profile)
+        profile_ids << profile.id
       end
 
+    # Delete local profiles that were not found remotely
     team.profiles.active.where.not(id: synced_profile_ids).each do |profile|
       profile.update(deleted: true)
     end
+  end
+
+  def auto_associate_user(profile)
+    return if profile.user.present?
+    return if (user = Authentication.find_by(uid: profile.rid)&.user).blank?
+    profile.update!(user:)
   end
 
   def remote_team_members

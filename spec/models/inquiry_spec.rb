@@ -7,7 +7,7 @@ RSpec.describe Inquiry do
 
   it { is_expected.to belong_to(:user).optional }
 
-  it { is_expected.to validate_presence_of(:description) }
+  it { is_expected.to validate_presence_of(:body) }
 
   describe 'sends admin email after creation' do
     let(:mock_mailer) { instance_spy(ActionMailer::MessageDelivery) }
