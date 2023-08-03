@@ -5,12 +5,15 @@ require 'colorize'
 
 Dotenv.load
 
+IMAGE_NAME = 'kudochest/biz-kudochest:edge'
 SUDO_PASSWORD = ENV.fetch('SUDO_PASSWORD')
 DOCKER_PASSWORD = ENV.fetch('DOCKER_PASSWORD')
 ROLES = ENV.fetch('ROLES', 'worker,web')
 COMMANDS = [
   # "echo #{SUDO_PASSWORD} | sudo -S dokku registry:login docker.io kudochest #{DOCKER_PASSWORD}",
-  "echo #{SUDO_PASSWORD} | sudo -S dokku git:from-image kudochest kudochest/biz-kudochest:edge"
+  "echo #{SUDO_PASSWORD} | sudo -S docker rmi #{IMAGE_NAME}",
+  "echo #{SUDO_PASSWORD} | sudo -S dokku git:from-image kudochest #{IMAGE_NAME}",
+  "echo #{SUDO_PASSWORD} | sudo -S dokku ps:rebuild kudochest",
 ]
 SSH_PRIVATE_KEY_PATH = '/Users/jcraigk/.ssh/id_rsa'
 SSH_USERNAME = 'jcraigk'
