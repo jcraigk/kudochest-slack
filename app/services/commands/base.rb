@@ -28,11 +28,7 @@ class Commands::Base < Base::Service
   end
 
   def response_text
-    team.platform.discord? ? discord_response_text : base_text
-  end
-
-  def discord_response_text
-    base_text.gsub('*', '**')
+    base_text
   end
 
   def words

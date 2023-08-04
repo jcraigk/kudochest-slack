@@ -96,7 +96,6 @@ class TeamsController < ApplicationController
   def platform_team_params
     case current_team.platform
     when 'slack' then team_params
-    when 'discord' then team_params.except(:point_emoji, :jab_emoji, :ditto_emoji, :join_channels)
     end
   end
 

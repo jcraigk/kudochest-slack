@@ -152,27 +152,10 @@ module TeamHelper
   def response_mode_options(team)
     case team.platform
     when 'slack' then all_response_options
-    when 'discord' then discord_response_options
     end
   end
 
   def all_response_options
     Team.response_mode.options
-  end
-
-  def discord_response_options
-    Team.response_mode.options(except: %w[adaptive reply])
-  end
-
-  def discord_point_emoji(size = nil)
-    image_pack_tag('media/images/emoji/plus_plus.png', size:, alt: 'Plus Plus emoji')
-  end
-
-  def discord_jab_emoji(size = nil)
-    image_pack_tag('media/images/emoji/minus_minus.png', size:, alt: 'Minus One emoji')
-  end
-
-  def discord_ditto_emoji(size = nil)
-    image_pack_tag('media/images/emoji/plus_one_v1.png', size:, alt: 'Plus One emoji')
   end
 end

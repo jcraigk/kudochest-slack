@@ -107,7 +107,6 @@ en:
     deduct_jabs_tooltip: Whether or not to deduct %{jabs} from user totals, affecting ranking, leveling, and throttling.
     response_mode_adaptive_html: In Adaptive mode, responses are posted in the context where %{points} are given. Similar to Conversational mode, but responses to emoji reactions are posted in a reply thread instead of the main channel.
     response_mode_convo_slack_html: In Conversational mode, responses are posted in the context where %{points} are given. Similar to Adaptive mode, but responses to emoji reactions are posted in the public channel.
-    response_mode_convo_discord_html: In Conversational mode, responses are posted in the same channel where the %{points} was given.
     response_mode_reply_html: As Reply mode posts a reply to the original message that invoked the %{points} gift, creaing a new thread if necessary.
     response_mode_direct_html: In Direct Message mode, responses are sent directly to individual givers and earners of %{points}.
     response_mode_silent_html: When Silent, the bot will not respond when %{points} are given. It will still post to the Log Channel, if specified.

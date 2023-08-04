@@ -24,7 +24,6 @@ RSpec.describe Actions::ReactionRemoved do
       }
     }
   end
-  let(:discord_params) { { emoji:, message_ts: ts } }
   let(:event_ts) { "#{ts}-#{source}-#{sender.id}" }
 
   shared_examples 'success' do
@@ -47,13 +46,6 @@ RSpec.describe Actions::ReactionRemoved do
 
       include_examples 'success'
     end
-
-    context 'when discord' do
-      let(:platform) { :discord }
-      let(:params) { curated_params.merge(discord_params) }
-
-      include_examples 'success'
-    end
   end
 
   context 'when ditto emoji' do
@@ -69,15 +61,6 @@ RSpec.describe Actions::ReactionRemoved do
       let(:params) { curated_params.merge(slack_params) }
 
       include_examples 'success'
-    end
-
-    context 'when discord' do
-      let(:platform) { :discord }
-      let(:params) { curated_params.merge(discord_params) }
-
-      it 'destroys the tip' do
-        expect { action }.to change(Tip, :count).by(-1)
-      end
     end
   end
 end

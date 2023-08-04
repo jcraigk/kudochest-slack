@@ -228,11 +228,4 @@ RSpec.describe Actions::Message do
       end
     end
   end
-
-  context 'when Discord' do
-    let(:platform) { :discord }
-    let(:subteam_mention) { "<#{SUBTEAM_PREFIX[platform]}#{subteam.rid}>" }
-
-    include_examples 'platform parity'
-  end
 end

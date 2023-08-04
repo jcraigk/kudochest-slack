@@ -95,7 +95,7 @@ class Actions::Message < Actions::Base
   end
 
   def bot_mention_prefix?
-    @bot_mention_prefix ||= text.start_with?(app_profile_ref, app_subteam_ref)
+    @bot_mention_prefix ||= text.start_with?(app_profile_ref)
   end
 
   def user_text
@@ -104,11 +104,6 @@ class Actions::Message < Actions::Base
 
   def app_profile_ref
     @app_profile_ref ||= "<#{PROFILE_PREFIX[platform]}#{config[:app_profile_rid]}>"
-  end
-
-  # Discord only
-  def app_subteam_ref
-    @app_subteam_ref ||= "<#{SUBTEAM_PREFIX[platform]}#{config[:app_subteam_rid]}>"
   end
 
   def respond_bad_input(message = nil)

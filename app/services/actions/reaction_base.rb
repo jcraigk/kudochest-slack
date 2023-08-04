@@ -44,7 +44,6 @@ class Actions::ReactionBase < Actions::Base
     @emoji ||=
       case team.platform
       when 'slack' then params[:event][:reaction]
-      when 'discord' then params[:emoji]
       end
   end
 end

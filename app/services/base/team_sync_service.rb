@@ -59,14 +59,10 @@ class Base::TeamSyncService < Base::Service
   end
 
   def create_or_update_profile(member)
-    member = member[:user] if team.platform.discord?
-
     base_attrs = base_attributes(member)
     sync_attrs = syncable_attributes(member).merge(deleted: false)
     profile = create_or_update(base_attrs, sync_attrs)
-
     team.update(app_profile_rid: profile.rid) if app_bot?(member)
-
     profile
   end
 

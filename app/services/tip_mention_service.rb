@@ -97,11 +97,11 @@ class TipMentionService < Base::Service
   end
 
   def profile_entity(rid)
-    Profile.find_with_team(team.rid, rid.delete(PROFILE_PREFIX[:discord])) # Handles Slack too
+    Profile.find_with_team(team.rid, rid.delete(PROFILE_PREFIX[:slack]))
   end
 
   def subteam_entity(rid)
-    raw_rid = rid.delete(SUBTEAM_PREFIX[:discord]).gsub(SUBTEAM_PREFIX[:slack], '')
+    raw_rid = rid.gsub(SUBTEAM_PREFIX[:slack], '')
     Subteam.find_with_team(team.rid, raw_rid)
   end
 

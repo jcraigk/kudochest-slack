@@ -66,14 +66,6 @@ RSpec.describe TeamDecorator do
         expect(team.workspace_noun).to eq('workspace')
       end
     end
-
-    context 'when discord' do
-      before { team.platform = :discord }
-
-      it 'is `guild`' do
-        expect(team.workspace_noun).to eq('guild')
-      end
-    end
   end
 
   describe 'point_emoj' do

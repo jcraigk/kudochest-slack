@@ -129,7 +129,6 @@ class MessageScanner < Base::Service
 
   def emojis
     patterns = emoji_patterns.map { |str| ":#{str}:" }
-    patterns.map! { |str| "<#{str}\\d+>" } if platform == :discord
     str = patterns.join('|').presence || 'no-emoji'
     "(?<emojis>(?:(?:#{str})\\s*)+)"
   end
@@ -156,8 +155,7 @@ class MessageScanner < Base::Service
 
   def group_keyword_pattern
     {
-      slack: '<!(?<group_keyword>everyone|channel|here)>',
-      discord: '@(?<group_keyword>everyone|channel|here)'
+      slack: '<!(?<group_keyword>everyone|channel|here)>'
     }
   end
 end

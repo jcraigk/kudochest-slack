@@ -130,7 +130,6 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
   def channel_ref(medium, rid, name)
     case medium
     when :slack then name == SLACK_DM_NAME ? SLACK_DM_PHRASE : channel_link(rid)
-    when :discord then channel_link(rid)
     when :image then "#{IMG_DELIM}#{CHAN_PREFIX}#{name} #{IMG_DELIM}"
     when :web then channel_webref(name)
     end
@@ -138,7 +137,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
 
   def subteam_ref(medium, rid, handle)
     case medium
-    when :slack, :discord then "<#{SUBTEAM_PREFIX[medium]}#{rid}>"
+    when :slack then "<#{SUBTEAM_PREFIX[medium]}#{rid}>"
     when :image then "#{IMG_DELIM}#{CHAN_PREFIX}#{handle} #{IMG_DELIM}" # TODO: test this
     when :web then subteam_webref(handle)
     end
@@ -152,7 +151,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
       profile.send("#{value_col}=", new_points)
     end
     case medium
-    when :slack, :discord then chat_profile_link(profile)
+    when :slack then chat_profile_link(profile)
     when :image then "#{IMG_DELIM}#{profile.display_name} #{IMG_DELIM}"
     when :web then profile.web_profile_link
     end
@@ -331,7 +330,6 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
     case medium
     when :image then text
     when :slack then "_#{text}_"
-    when :discord then "*#{text}*"
     when :web then "<i>#{text}</i>"
     end
   end

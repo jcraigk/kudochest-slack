@@ -22,10 +22,6 @@ RSpec.describe NoteSanitizer do
     include_examples 'success'
   end
 
-  xcontext 'when Discord' do
-    let(:platform) { :discord }
-  end
-
   context 'when Slack' do
     context 'when channel name is given after pipe char, extacts directly' do
       let(:given_name) { 'given-name' }

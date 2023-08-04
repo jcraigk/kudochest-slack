@@ -30,75 +30,16 @@ class Commands::Help < Commands::Base
     'See recent activity for team or user; optionally give number of days'
   end
 
-  def discord_text
-    <<~TEXT.chomp
-      **#{giving_title}:**
-        #{discord_giving_points}
-
-      **Issuing commands:**
-        * `#{App.discord_command} [keyword]`
-        * `#{PROF_PREFIX}#{team.app_profile.display_name} [keyword]`
-
-      **Command keywords:**
-        #{keyword_list}
-        #{shop_keywords}
-
-      #{footer}
-    TEXT
-  end
-
   def giving_title
     str = "Giving #{App.points_term.titleize}"
     str += " and #{App.jabs_term.titleize}" if team.enable_jabs?
     str
   end
 
-  def discord_giving_points
-    str = discord_point_inlines
-    str += discord_jab_inlines if team.enable_jabs?
-    return str unless team.enable_emoji?
-    str += discord_point_emojis
-    str += discord_jab_emojis if team.enable_jabs?
-    str + discord_ditto
-  end
-
   def giving_terms
     str = App.point_term
     str += "/#{App.jab_term}" if team.enable_jabs?
     str
-  end
-
-  def discord_ditto
-    "\n  * React to #{giving_terms} message with #{team.ditto_emoj} " \
-      "(#{team.ditto_emoji}) to \"ditto\" it"
-  end
-
-  def discord_point_inlines
-    "* Type `#{PROF_PREFIX}user++`, `#{PROF_PREFIX}role++`, " \
-      "`#{CHAN_PREFIX}channel++`, or `#{PROF_PREFIX}everyone++` " \
-      'in a guild channel _(tip: append a number like `++2`)_'
-  end
-
-  def discord_jab_inlines
-    "* Type `#{PROF_PREFIX}user--`, `#{PROF_PREFIX}role--`, " \
-      "`#{CHAN_PREFIX}channel--`, `#{PROF_PREFIX}here--`, or `#{CHAN_PREFIX}everyone--` " \
-      'in a guild channel _(tip: append a number like `++2`)_'
-  end
-
-  def discord_point_emojis
-    "\n  * Type `#{PROF_PREFIX}user`#{team.point_emoj}, " \
-      "`#{PROF_PREFIX}role`#{team.point_emoj}, " \
-      "`#{CHAN_PREFIX}channel`#{team.point_emoj}, " \
-      "or `#{CHAN_PREFIX}everyone`#{team.point_emoj} in a guild channel " \
-      "\n  * React with #{team.point_emoj} (#{team.point_emoji})"
-  end
-
-  def discord_jab_emojis
-    "\n  * Type `#{PROF_PREFIX}user`#{team.jab_emoj}, " \
-      "`#{PROF_PREFIX}role`#{team.jab_emoj}, " \
-      "`#{CHAN_PREFIX}channel`#{team.jab_emoj}, " \
-      "or `#{CHAN_PREFIX}everyone`#{team.jab_emoj} in a guild channel " \
-      "\n  * React with #{team.point_emoj} (#{team.point_emoji})"
   end
 
   def slack_text

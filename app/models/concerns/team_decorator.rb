@@ -45,7 +45,6 @@ module TeamDecorator
   def workspace_noun
     case platform
     when 'slack' then 'workspace'
-    when 'discord' then 'guild'
     end
   end
 

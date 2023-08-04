@@ -189,29 +189,23 @@ PROF_PREFIX = '@'.freeze
 LEGACY_SLACK_SUFFIX_PATTERN = '\|[^>]*'.freeze
 
 RID_CHARS = {
-  slack: '[A-Z0-9]',
-  discord: '\d'
+  slack: '[A-Z0-9]'
 }.with_indifferent_access.freeze
 
 PROFILE_PREFIX = {
-  slack: '@',
-  discord: '@!'
+  slack: '@'
 }.with_indifferent_access.freeze
 SUBTEAM_PREFIX = {
-  slack: '!subteam^',
-  discord: '@&'
+  slack: '!subteam^'
 }.with_indifferent_access.freeze
 PROFILE_REGEX = {
-  slack: /<@([A-Z0-9]+)(\|([^>]+))?>/,
-  discord: /<@!(\d+)>/
+  slack: /<@([A-Z0-9]+)(\|([^>]+))?>/
 }.with_indifferent_access.freeze
 CHANNEL_REGEX = {
-  slack: /<#([A-Z0-9]+)(\|([^>]+))?>/,
-  discord: /<#(\d+)>/
+  slack: /<#([A-Z0-9]+)(\|([^>]+))?>/
 }.freeze
 SUBTEAM_REGEX = {
-  slack: /<!subteam\^([^>]+)>/,
-  discord: /<@&(\d+)>/
+  slack: /<!subteam\^([^>]+)>/
 }.freeze
 
 SLACK_DM_NAME = 'direct-message'.freeze

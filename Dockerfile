@@ -12,7 +12,6 @@ RUN apt-get update -qq && \
       git \
       libmagickwand-dev \
       libpq-dev \
-      libsodium-dev \
       memcached \
       postgresql-client \
       dh-python \

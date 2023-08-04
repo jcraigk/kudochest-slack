@@ -202,14 +202,6 @@ RSpec.describe Team do
       allow(config).to receive(:delete)
     end
 
-    describe 'cache busting on platform update' do
-      let(:platform) { 'discord' }
-
-      before { team.update(platform:) }
-
-      include_examples 'cache busting'
-    end
-
     describe 'cache busting on api_key update' do
       before { team.update(api_key: 'new-key') }
 

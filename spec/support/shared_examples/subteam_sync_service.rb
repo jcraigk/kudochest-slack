@@ -12,7 +12,6 @@ RSpec.shared_examples 'SubteamSyncService' do
     expect(names).to eq(expected_names)
   end
 
-  # Discord one isn't stubbed right for this, but it does work
   it 'adds members to newly created subteam' do
     subteam_profile_rids =
       Subteam.find_by(name: expected_names.first).profiles.map(&:rid).sort

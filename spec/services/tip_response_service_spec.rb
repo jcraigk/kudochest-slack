@@ -83,27 +83,6 @@ RSpec.describe TipResponseService do
     travel_to(Time.zone.local(2019, 11, 11, 21, 1, 1))
   end
 
-  context 'when Discord (simple test)' do
-    let(:platform) { :discord }
-    let(:main_frag) do
-      <<~TEXT.chomp
-        **#{from_profile.display_name}** gave **#{to_profile.display_name}** #{points_format(quantity, label: true)}
-      TEXT
-    end
-    let(:channel_frag) { "in #{channel.link}" }
-    let(:image_channel_frag) { "in #{IMG_DELIM}#{CHAN_PREFIX}#{channel.name} #{IMG_DELIM}" }
-    let(:note_frag) { "Note: *#{tip.note}*" }
-    let(:web_response) do
-      <<~TEXT.chomp
-        #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: <i>#{note}</i>
-      TEXT
-    end
-
-    before { team.update(response_theme: 'quiet') }
-
-    include_examples 'expected response'
-  end
-
   context 'with a single recipient' do
     context 'when response_theme is `basic`' do
       let(:main_frag) do

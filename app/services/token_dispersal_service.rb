@@ -31,19 +31,14 @@ class TokenDispersalService < Base::Service
 
   def success_text(profile)
     <<~TEXT.chomp
-      You received #{number_with_delimiter(quantity)} tokens#{discord_guild}, bringing your total to #{points_format(profile.token_balance)}.
+      You received #{number_with_delimiter(quantity)} tokens, bringing your total to #{points_format(profile.token_balance)}.
     TEXT
   end
 
   def forfeit_text
     <<~TEXT.chomp
-      We tried to give you #{number_with_delimiter(quantity)} tokens#{discord_guild}, but you maxed out at #{number_with_delimiter(max)}.
+      We tried to give you #{number_with_delimiter(quantity)} tokens, but you maxed out at #{number_with_delimiter(max)}.
     TEXT
-  end
-
-  def discord_guild
-    return unless team.platform.discord?
-    " for the #{team.name} guild"
   end
 
   def send_direct_message(profile)

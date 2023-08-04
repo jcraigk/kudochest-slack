@@ -150,18 +150,4 @@ RSpec.describe Actions::ReactionAdded do
 
     include_examples 'exits'
   end
-
-  context 'when discord' do
-    let(:reaction) { App.default_point_emoji }
-    let(:params) { curated_params.merge(emoji: App.default_point_emoji) }
-
-    before do
-      team.update(platform: :discord)
-      action
-    end
-
-    it 'calls TipMentionService' do
-      expect(TipMentionService).to have_received(:call)
-    end
-  end
 end

@@ -17,15 +17,6 @@ See the **[Wiki](https://github.com/jcraigk/kudochest/wiki)** or join the **[Dis
 &nbsp;
 
 
-# Installation
-
-To install KudoChest into your organization's Slack or Discord workspace, you must host the Rails components on a web server you control and configure the Slack or Discord App at the appropriate platform's site.
-
-See the [Installation Instructions](https://github.com/jcraigk/kudochest/wiki/Installation) for more detail.
-&nbsp;
-&nbsp;
-
-
 # Development
 
 For local development, start by reading the [Installation Instructions](https://github.com/jcraigk/kudochest/wiki/Installation), paying special attention to the [Environment Variables](https://github.com/jcraigk/kudochest/wiki/Installation#environment-variables) section. Note that you will only need certain portions of what is described there, depending on your specific area of development.
@@ -34,7 +25,7 @@ For local development, start by reading the [Installation Instructions](https://
 
 For Slack and OAuth callbacks, a tunneling service such as [ngrok](https://ngrok.com/) is recommended to expose your local server publicly.
 
-You'll want to setup a dedicated workspace and App in Slack/Discord specifically for KudoChest development. Do not use your organization's production workspace or App to develop against.
+You'll want to setup a dedicated workspace and App in Slack specifically for KudoChest development. Do not use your organization's production workspace or App to develop against.
 
 If you're working on response images and running Sidekiq in Docker, you'll need to configure a local storage location in `docker-compose.yml` to map to `/storage` in the `sidekiq` container.
 &nbsp;
@@ -92,20 +83,3 @@ To generate seed data for manual testing, first install your local instance of K
 ```
 bundle exec rails seeds:all
 ```
-&nbsp;
-
-
-# Contributors
-
-All contributions are welcome via Issues and Pull Requests. If you notice something wrong in the Wiki, please feel free to fix it!
-
-* Code by [Justin Craig-Kuhn](https://github.com/jcraigk/)
-* Logo and background mural by Evan Mahnke (Discord `8-bit adventurer#3751` / `gallanthomeslice at yahoo`)
-* Animated GIFs and icons by Milton Monroe (Discord `carmelcamel#5829` / `milton dot p dot monroe at gmail`)
-&nbsp;
-&nbsp;
-
-
-# Copyright
-
-This software is released under an [MIT-LICENSE](https://github.com/jcraigk/kudochest/blob/main/MIT-LICENSE).

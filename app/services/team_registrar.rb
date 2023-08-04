@@ -26,16 +26,7 @@ class TeamRegistrar < Base::Service
       platform:,
       rid:,
       response_mode:
-    }.merge(update_attrs).merge(discord_attrs)
-  end
-
-  def discord_attrs
-    return {} unless platform == :discord
-    {
-      point_emoji: App.discord_point_emoji,
-      jab_emoji: App.discord_jab_emoji,
-      ditto_emoji: App.discord_ditto_emoji
-    }
+    }.merge(update_attrs)
   end
 
   def update_attrs
@@ -51,7 +42,6 @@ class TeamRegistrar < Base::Service
   def response_mode
     case platform
     when :slack then :adaptive
-    when :discord then :convo
     end
   end
 end

@@ -11,16 +11,6 @@ en:
       login_to_add: Sign In to Add to Slack
       hero_title: Level Up Your Team
       hero_body_html: "Transform your team's dull chat experience into an <b>engaging space</b> where contributors are <strong>rewarded</strong>!"
-    discord:
-      screenshot1: 'Give karma by chatting "++"'
-      screenshot2: Give karma with emoji
-      screenshot3: View team leaderboards
-      screenshot4: Change settings on the web
-      screenshot5: Monitor your progression
-      screenshot6: Browse your history
-      login_to_add: Sign In to Add to Discord
-      hero_title: Buff Your Guild
-      hero_body_html: "Transform your guild's dull chat experience into an <b>engaging space</b> where contributors are rewarded!"
     list_of_features: List of Features
     click_for_detail: Click for detail
     contact_us: Contact Us

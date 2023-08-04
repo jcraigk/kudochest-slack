@@ -4,8 +4,7 @@ class Base::ImageService < Base::Service
   option :config
 
   RADII = {
-    slack: 5,
-    discord: 30
+    slack: 5
   }.freeze
 
   BASE_PATH = 'lib/response_images'.freeze
@@ -106,7 +105,6 @@ class Base::ImageService < Base::Service
   def small_avatar_url(platform, url)
     case platform.to_sym
     when :slack then url.gsub(/_\d+\.png\z/, '_48.png')
-    when :discord then url.gsub(/\?size=\d+\z/, '?size=64')
     end
   end
 

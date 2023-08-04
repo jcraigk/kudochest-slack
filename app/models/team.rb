@@ -22,7 +22,7 @@ class Team < ApplicationRecord
   belongs_to :owning_user, class_name: 'User', foreign_key: :owner_user_id, inverse_of: :owned_teams
 
   enumerize :platform,
-            in: %w[slack discord]
+            in: %w[slack]
   enumerize :level_curve,
             in: %w[gentle steep linear],
             default: 'gentle'
@@ -172,7 +172,6 @@ class Team < ApplicationRecord
     return unless active?
     ChannelSyncWorker.perform_async(rid)
     TeamSyncWorker.perform_async(rid, first_run)
-    EmojiInstallWorker.perform_async(rid) if first_run && platform.discord?
   end
 
   def bust_cache
