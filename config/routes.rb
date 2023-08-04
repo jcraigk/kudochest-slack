@@ -63,12 +63,11 @@ Rails.application.routes.draw do
   end
   get 'app-settings', to: 'teams#edit', as: :app_settings
 
-  resources :profiles, only: %i[show edit update new] do
+  resources :profiles, only: %i[show edit update] do
     collection do
       get 'random_showcase'
     end
   end
-  get 'profile-settings', to: 'profiles#edit', as: :profile_settings
 
   resources :inquiries, only: %i[new create]
   resources :tips, only: %i[index destroy]

@@ -17,14 +17,15 @@ en:
     points_admin: Browse %{points_title}
     pricing: Pricing
     privacy: Privacy
-    profile_settings: Profile Settings
+    slack_preferences: Slack Preferences
     reward_admin: Manage Shop
     search: Search
     shop: Shop
     team_wallboard: Wallboard
     terms: Terms
     topics: Topics
-    user_settings: User Settings
+    web_prefs: Web Preferences
+    preferences: Preferences
     welcome: Welcome to KudoChest! The bot is now available in your workspace. Below is your personal profile.
     installing: Installing...
     being_installed: The app is being installed in your workspace.

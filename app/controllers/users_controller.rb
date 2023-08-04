@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: %i[new create verify]
+  skip_before_action :require_login, only: %i[new create]
   before_action :use_public_layout, only: %i[new]
 
   def new
@@ -13,16 +13,6 @@ class UsersController < ApplicationController
       redirect_to dashboard_path
     else
       redirect_to new_user_path, alert: @user.errors.full_messages.to_sentence
-    end
-  end
-
-  def verify
-    if (@user = User.load_from_activation_token(params[:id]))
-      @user.activate!
-      auto_login(@user, true)
-      redirect_to dashboard_path, notice: t('auth.user_verified')
-    else
-      not_authenticated
     end
   end
 
@@ -51,11 +41,6 @@ class UsersController < ApplicationController
     current_user.password_confirmation = params[:user][:password_confirmation]
     return update_password_success if current_user.change_password(params[:user][:password])
     update_password_fail
-  end
-
-  def resend_verification
-    current_user.resend_verification_email
-    redirect_to dashboard_path, notice: t('auth.verification_resent', email: current_user.email)
   end
 
   private
@@ -89,7 +74,6 @@ class UsersController < ApplicationController
   end
 
   def update_email_success
-    current_user.resend_verification_email
     redirect_to edit_preferences_user_path(current_user), notice: t('users.update_email_success')
   end
 

@@ -7,22 +7,20 @@
       = current_user.email
 
   .navbar-dropdown.is-right
-    - if current_user.verified?
-      = link_to icon_and_text('tachometer-slow', t('nav.dashboard')),
-                dashboard_path,
+    = link_to icon_and_text('tachometer-slow', t('nav.dashboard')),
+              dashboard_path,
+              class: 'navbar-item'
+    = link_to icon_and_text('tv', t('nav.team_wallboard')),
+              wallboard_path,
+              class: 'navbar-item'
+    - if @current_profile&.team&.enable_loot?
+      = link_to icon_and_text('store', t('nav.shop')),
+                shop_path,
                 class: 'navbar-item'
-    - if current_user.profiles.any?
-      = link_to icon_and_text('tv', t('nav.team_wallboard')),
-                wallboard_path,
+    - if @current_profile&.team&.enable_topics?
+      = link_to icon_and_text('lightbulb', t('nav.topics')),
+                topic_list_path,
                 class: 'navbar-item'
-      - if @current_profile&.team&.enable_loot?
-        = link_to icon_and_text('store', t('nav.shop')),
-                  shop_path,
-                  class: 'navbar-item'
-      - if @current_profile&.team&.enable_topics?
-        = link_to icon_and_text('lightbulb', t('nav.topics')),
-                  topic_list_path,
-                  class: 'navbar-item'
 
     - if current_user.owned_teams.any?
       .navbar-divider
@@ -43,18 +41,9 @@
                 class: 'navbar-item'
 
     .navbar-divider
-
-    - if current_user.profiles.any?
-      = link_to icon_and_text('sliders-h-square', t('nav.profile_settings')),
-                profile_settings_path,
-                class: 'navbar-item'
-    = link_to icon_and_text('user', t('nav.user_settings')),
+    = link_to icon_and_text('user', t('nav.preferences')),
               user_settings_path,
               class: 'navbar-item'
-
-
-    .navbar-divider
-
     = link_to icon_and_text('question-circle',
               t('nav.support')),
               support_url,

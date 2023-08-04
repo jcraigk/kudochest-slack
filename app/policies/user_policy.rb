@@ -11,7 +11,7 @@ class UserPolicy
   end
 
   def update_preferences?
-    users_match_and_verified?
+    users_match?
   end
 
   def update_email?
@@ -19,7 +19,7 @@ class UserPolicy
   end
 
   def update_password?
-    users_match_and_verified? && not_external?
+    users_match? && not_external?
   end
 
   private
@@ -30,9 +30,5 @@ class UserPolicy
 
   def not_external?
     !user.external?
-  end
-
-  def users_match_and_verified?
-    users_match? && user.verified?
   end
 end

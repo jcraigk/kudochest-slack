@@ -19,16 +19,4 @@ class User < ApplicationRecord
   validates :password, length: { minimum: App.password_length }, if: :password
   validates :password, confirmation: true, if: :password
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-
-  accepts_nested_attributes_for :authentications
-
-  def verified?
-    activation_state == 'active'
-  end
-
-  def resend_verification_email
-    setup_activation
-    save!
-    send(:send_activation_needed_email!)
-  end
 end

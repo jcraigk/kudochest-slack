@@ -7,12 +7,6 @@ class ProfilesController < ApplicationController
     build_dashboard_for(@profile)
   end
 
-  def new; end
-
-  def edit
-    authorize current_profile
-  end
-
   def random_showcase
     fetch_showcase_profile
     @leaderboard = LeaderboardPageService.call(profile: @profile)
@@ -22,8 +16,14 @@ class ProfilesController < ApplicationController
 
   def update
     authorize current_profile
-    return update_success if current_profile.update(profile_params)
-    update_failure
+    if current_profile.update(profile_params)
+      flash[:notice] = t('profiles.update_success')
+    else
+      flash[:alert] = t \
+        'profiles.update_fail',
+        msg: current_profile.errors.full_messages.to_sentence
+    end
+    redirect_to user_settings_path
   end
 
   private
@@ -35,13 +35,6 @@ class ProfilesController < ApplicationController
     @profile = @profile.order('RANDOM()').first
   end
 
-  def connect_profile
-    requested_profile.update!(user: current_user)
-    @current_profile = requested_profile
-    session[:profile_id] = @current_profile.id
-    redirect_to_dashboard notice: success_msg
-  end
-
   def requested_profile
     @requested_profile ||= Profile.find_by(reg_token: params[:reg_token])
   end
@@ -50,35 +43,8 @@ class ProfilesController < ApplicationController
     redirect_to dashboard_path, opts
   end
 
-  def success_msg
-    t \
-      'profiles.connect_success',
-      profile: current_profile.long_name,
-      team: current_profile.team.name
-  end
-
-  def already_connected_msg
-    t('profiles.already_connected', email: current_profile.user.email)
-  end
-
-  def invalid_token_msg
-    t('profiles.connect_invalid')
-  end
-
   def profile_params
     params.require(:profile).permit \
       :allow_dm, :weekly_report, :announce_tip_sent, :announce_tip_received, :share_history
-  end
-
-  def update_success
-    flash[:notice] = t('profiles.update_success')
-    redirect_to edit_profile_path(current_profile)
-  end
-
-  def update_failure
-    flash.now[:alert] = t \
-      'profiles.update_fail',
-      msg: current_profile.errors.full_messages.to_sentence
-    render :edit
   end
 end

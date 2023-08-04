@@ -21,7 +21,7 @@ nav#navbar.navbar aria-label='main navigation' role='navigation'
       - if logged_in?
         = render partial: 'layouts/user_dropdown'
 
-      - else
+      - elsif !current_page?(login_path)
         .buttons
           = link_to icon_and_text('sign-in', t('auth.login')),
                     :login,
