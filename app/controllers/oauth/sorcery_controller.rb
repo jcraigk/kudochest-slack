@@ -28,7 +28,6 @@ class Oauth::SorceryController < ApplicationController
 
   def create_user_and_login
     user = create_from(params[:provider])
-    user.activate!
     reset_session
     auto_login(user)
     auto_associate_profile

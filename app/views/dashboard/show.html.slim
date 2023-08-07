@@ -4,7 +4,5 @@
   - if params[:install].present?
     .notification.is-success.width-full = t('nav.welcome')
   = render partial: 'profiles/tiles', locals: { profile: @current_profile, tips: @tips, leaderboard: @leaderboard }
-- elsif current_user.owned_teams.none?
-  = render partial: 'shared/integrate_workspace'
 - else
   = render partial: 'shared/auto_refresh'
