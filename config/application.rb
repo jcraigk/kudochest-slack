@@ -84,9 +84,9 @@ module KudoChest
     # Features
     config.max_response_mentions = 3
     config.undo_cutoff = 1.minute
-    config.max_points_per_tip = 100
+    config.max_points_per_tip = 10
     config.default_max_level = 20
-    config.default_max_level_points = 1_000
+    config.default_max_level_points = 10_000
     config.error_emoji = 'grimacing'
     config.default_token_quantity = 100
     config.max_token_quantity = 1_000

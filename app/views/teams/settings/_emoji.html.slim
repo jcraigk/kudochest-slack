@@ -15,15 +15,6 @@
 
     .field.is-horizontal
       .field-label.is-normal
-        = f.label :emoji_quantity, t('teams.emoji_quantity'), class: 'label'
-      .field-body
-        .field
-          .control
-            .select = f.select :emoji_quantity, Team::EMOJI_VALS.map { |v| [points_format(v), v] }
-            = tooltip_btn('teams.emoji_quantity_tooltip', nil, points: App.points_term)
-
-    .field.is-horizontal
-      .field-label.is-normal
         = f.label :point_emoji,
                   t('teams.point_emoji', points_title: App.points_term.titleize),
                   class: 'label'

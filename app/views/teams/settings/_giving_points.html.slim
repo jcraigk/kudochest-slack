@@ -6,15 +6,6 @@
 
     .field.is-horizontal
       .field-label.is-normal
-        = f.label :tip_increment, t('teams.increment'), class: 'label'
-      .field-body
-        .field
-          .control
-            .select = f.select :tip_increment, Team::TIP_INCREMENTS.map { |v| [points_format(v), v]}
-            = tooltip_btn('teams.increment_tooltip', nil, chars: App.max_note_length, points: App.points_term)
-
-    .field.is-horizontal
-      .field-label.is-normal
         = f.label :max_points_per_tip, t('teams.max_points_per_tip'), class: 'label'
       .field-body
         .field

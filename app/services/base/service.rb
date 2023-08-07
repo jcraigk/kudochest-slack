@@ -9,11 +9,4 @@ class Base::Service
   def self.call(...)
     new(...).call
   end
-
-  private
-
-  def floor_increment(value, increment)
-    mult = 1 / increment.to_f
-    (value * mult).floor / mult
-  end
 end

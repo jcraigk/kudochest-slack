@@ -1,7 +1,6 @@
 en:
   auth:
     external_fail: 'Sign in via %{provider} failed'
-    external_success: 'Sign in via %{provider} successful'
     logged_out: Signed out
     login_fail: Sign in failed
     login_required: Please sign in to proceed

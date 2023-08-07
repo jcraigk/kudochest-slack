@@ -17,7 +17,6 @@ RSpec.describe Commands::Admin do
       *Token dispersal frequency:* Weekly
       *Token dispersal quantity:* #{team.token_quantity}
       *Token max balance:* #{team.token_max}
-      *Minimum increment:* #{points_format(team.tip_increment, label: true)}
       *Topics enabled:* Yes
       *Topic required:* No
       *Active topics:* 0
@@ -25,7 +24,6 @@ RSpec.describe Commands::Admin do
       *#{App.jabs_term.titleize} enabled:* Yes
       *Deduct #{App.jabs_term}:* Yes
       *Emoji enabled:* Yes
-      *Emoji value:* #{points_format(team.emoji_quantity, label: true)}
       *#{App.points_term.titleize} emoji:* #{team.point_emoj}
       *#{App.jabs_term.titleize} emoji:* #{team.jab_emoj}
       *Ditto emoji:* #{team.ditto_emoj}

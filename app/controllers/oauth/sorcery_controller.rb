@@ -32,13 +32,9 @@ class Oauth::SorceryController < ApplicationController
     auto_login(user)
     auto_associate_profile
 
-    redirect_back_or_to(dashboard_path, notice: success_notice)
+    redirect_back_or_to dashboard_path
   rescue ActiveRecord::RecordNotUnique
     redirect_to login_path, alert: t('auth.email_taken', provider: provider_title)
-  end
-
-  def success_notice
-    t('auth.external_success', provider: provider_title)
   end
 
   def auth_params

@@ -56,7 +56,7 @@ class Actions::ReactionAdded < Actions::ReactionBase
     Mention.new \
       rid: "#{PROF_PREFIX}#{author_profile_rid}",
       topic_id:,
-      quantity: (source == 'jab_reaction' ? 0 - team.emoji_quantity : team.emoji_quantity)
+      quantity: (source == 'jab_reaction' ? -1 : 1)
   end
 
   def author_profile_rid

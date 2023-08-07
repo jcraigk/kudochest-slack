@@ -118,7 +118,7 @@ class HintService < Base::Service
       h += [
         "Give #{App.points_term} to the author of a message by reacting with #{team.point_emoj} (`#{team.point_emoj}`)",
         "Give additional #{App.points_term} to a recipient by reacting with #{team.ditto_emoj} (`#{team.ditto_emoj}`)",
-        "Give #{points_format(team.emoji_quantity, label: true)} to a user with inline emoji by entering `@Alice #{team.point_emoj}`"
+        "Give a kudo to a user with inline emoji by entering `@Alice #{team.point_emoj}`"
       ]
     end
 

@@ -77,7 +77,7 @@ class MentionParser < Base::Service
   # "@user ++" => 1
   # "@user 3++2" => 3
   # "@user --4" => -4
-  # "@user :point::point:" => 2 * team.emoji_quantity
+  # "@user :point::point:" => 2
   # "@user :point::jab:" => 0 (rejected for non-unique emoji)
   # "@user :jab::jab::jab:" => -3
   def tip_quantity(match)
@@ -100,7 +100,7 @@ class MentionParser < Base::Service
     # If single emoji with prefix/suffix, use those digits
     return quantity if emojis.size == 1 && !quantity.zero?
     # Otherwise, multiply by number of emoji instances
-    emojis.size * team.emoji_quantity
+    emojis.size
   end
 
   def team

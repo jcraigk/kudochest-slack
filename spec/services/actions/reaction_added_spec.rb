@@ -48,7 +48,7 @@ RSpec.describe Actions::ReactionAdded do
         mentions: [
           Mention.new(
             rid: "#{PROF_PREFIX}#{recipient.rid}",
-            quantity: team.emoji_quantity,
+            quantity: 1,
             topic_id: nil
           )
         ],

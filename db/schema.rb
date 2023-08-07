@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_01_080922) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_050624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -183,8 +183,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_080922) do
     t.boolean "join_channels", default: false, null: false
     t.boolean "enable_cheers", default: true, null: false
     t.boolean "enable_loot", default: true, null: false
-    t.decimal "tip_increment", precision: 4, scale: 2
-    t.decimal "emoji_quantity", precision: 4, scale: 2
     t.boolean "split_tip", default: false, null: false
     t.boolean "weekly_report", default: true, null: false
     t.boolean "enable_topics", default: false, null: false

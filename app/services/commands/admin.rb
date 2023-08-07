@@ -17,7 +17,6 @@ class Commands::Admin < Commands::Base
   def base_text
     <<~TEXT.chomp
       #{throttle_points_text}
-      #{increment_text}
       #{topic_text}
       #{notes_text}
       #{jab_text}
@@ -52,12 +51,6 @@ class Commands::Admin < Commands::Base
     "*Notes:* #{team.tip_notes.titleize}"
   end
 
-  def increment_text
-    <<~TEXT.chomp
-      *Minimum increment:* #{points_format(team.tip_increment, label: true)}
-    TEXT
-  end
-
   def time_text
     <<~TEXT.chomp
       *Time zone:* #{long_time_zone}
@@ -70,7 +63,6 @@ class Commands::Admin < Commands::Base
     str = "*Emoji enabled:* #{boolean_str(team.enable_emoji?)}"
     return str unless team.enable_emoji?
 
-    str += "\n*Emoji value:* #{points_format(team.emoji_quantity, label: true)}"
     str += point_emoji
     str += jab_emoji
     str += ditto_emoji

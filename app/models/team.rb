@@ -3,13 +3,11 @@ class Team < ApplicationRecord
   include Sluggi::Slugged
   include TeamDecorator
 
-  TIP_INCREMENTS = [1.0, 0.5, 0.25, 0.1, 0.05, 0.01].freeze
-  EMOJI_VALS = [1.0, 2.0, 3.0, 4.0, 5.0, 0.75, 0.5, 0.25, 0.2, 0.1, 0.05, 0.02, 0.01].freeze
   WEEKDAYS = Date::DAYNAMES.map(&:downcase).freeze
   CONFIG_ATTRS = %w[
     active api_key app_profile_rid app_subteam_rid avatar_url enable_cheers
     enable_fast_ack point_emoji jab_emoji ditto_emoji enable_emoji enable_jabs
-    emoji_quantity tip_increment log_channel_rid hint_channel_rid max_points_per_tip
+    log_channel_rid hint_channel_rid max_points_per_tip
     platform response_mode response_theme show_channel show_note time_zone
     tip_notes enable_topics require_topic topics rid
   ].freeze
@@ -77,13 +75,9 @@ class Team < ApplicationRecord
   attribute :member_count,       :integer, default: 0
   attribute :points_sent,        :decimal, default: 0.0
   attribute :max_points_per_tip, :integer, default: 5
-  attribute :emoji_quantity,     :decimal, default: 1
-  attribute :tip_increment,      :decimal, default: 1
 
   validates :platform, presence: true
   validates :api_key, uniqueness: true
-  validates :tip_increment, inclusion: { in: TIP_INCREMENTS }
-  validates :emoji_quantity, inclusion: { in: EMOJI_VALS }
   validates :name, presence: true
   validates :rid, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
@@ -120,7 +114,6 @@ class Team < ApplicationRecord
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: App.max_streak_reward
   }
-  validates_with EmojiQuantityValidator
   validates_with RequireTopicValidator
   validates_with TokenQuantityWithinTokenMaxValidator
   validates_with WeekStartDayInWorkDaysValidator

@@ -7,7 +7,7 @@ class QuantityValidator < ActiveModel::Validator
     @record = record
 
     return if valid_import?
-    return unless zero? || abs_exceeds_max? || invalid_increment?
+    return unless zero? || abs_exceeds_max?
 
     record.errors.add(:quantity, error_msg)
   end
@@ -16,16 +16,8 @@ class QuantityValidator < ActiveModel::Validator
 
   def error_msg
     <<~TEXT.chomp
-      must be an increment of #{points_format(increment)} and a maximum of #{points_format(team.max_points_per_tip)}
+      must be less than or equal to #{points_format(team.max_points_per_tip)}
     TEXT
-  end
-
-  def increment
-    @increment ||= record.from_profile&.team&.tip_increment || 1
-  end
-
-  def invalid_increment?
-    (record.quantity % increment).positive?
   end
 
   def abs_exceeds_max?
@@ -40,7 +32,7 @@ class QuantityValidator < ActiveModel::Validator
     record.quantity.zero?
   end
 
-  # Imports are exempt from max/increment
+  # Imports are exempt from maximum
   def valid_import?
     record.source.import? && !zero?
   end

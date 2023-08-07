@@ -111,7 +111,6 @@ RSpec.describe Team do
     let(:validators) { described_class.validators.map(&:class) }
     let(:expected_validators) do
       [
-        EmojiQuantityValidator,
         RequireTopicValidator,
         TokenQuantityWithinTokenMaxValidator,
         WeekStartDayInWorkDaysValidator,
