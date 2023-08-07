@@ -19,14 +19,16 @@ class ProfilesController < ApplicationController
     if current_profile.update(profile_params)
       flash[:notice] = t('profiles.update_success')
     else
-      flash[:alert] = t \
-        'profiles.update_fail',
-        msg: current_profile.errors.full_messages.to_sentence
+      flash[:alert] = update_fail_msg
     end
     redirect_to user_settings_path
   end
 
   private
+
+  def update_fail_msg
+    t('profiles.update_fail', msg: current_profile.errors.full_messages.to_sentence)
+  end
 
   def fetch_showcase_profile
     last_profile_id = params[:last_profile_id].to_i

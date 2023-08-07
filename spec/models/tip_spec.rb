@@ -25,7 +25,7 @@ RSpec.describe Tip do
 
       it 'is invalid without a topic' do
         expect(tip.errors[:topic_id]).to eq \
-          ["must be specified - use the \"topics\" command or visit #{App.base_url}/topic-list"]
+          ["must be specified - use the `topics` command or visit #{App.base_url}/topic-list"]
       end
     end
 

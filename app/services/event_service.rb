@@ -19,7 +19,6 @@ class EventService < Base::Service
 
   def slack_fast_acked?
     params[:platform] == 'slack' &&
-      params.dig(:config, :enable_fast_ack?) &&
       params[:replace_channel_rid].present? &&
       params[:replace_ts].present?
   end

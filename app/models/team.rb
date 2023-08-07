@@ -6,7 +6,7 @@ class Team < ApplicationRecord
   WEEKDAYS = Date::DAYNAMES.map(&:downcase).freeze
   CONFIG_ATTRS = %w[
     active api_key app_profile_rid app_subteam_rid avatar_url enable_cheers
-    enable_fast_ack point_emoji jab_emoji ditto_emoji enable_emoji enable_jabs
+    point_emoji jab_emoji ditto_emoji enable_emoji enable_jabs
     log_channel_rid hint_channel_rid max_points_per_tip
     platform response_mode response_theme show_channel show_note time_zone
     tip_notes enable_topics require_topic topics rid
@@ -46,7 +46,6 @@ class Team < ApplicationRecord
   attribute :active,             :boolean, default: true
   attribute :enable_cheers,      :boolean, default: true
   attribute :enable_emoji,       :boolean, default: true
-  attribute :enable_fast_ack,    :boolean, default: true
   attribute :enable_levels,      :boolean, default: true
   attribute :enable_loot,        :boolean, default: true
   attribute :enable_streaks,     :boolean, default: true

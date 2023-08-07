@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_055313) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_160620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -176,7 +176,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055313) do
     t.string "time_zone", default: "UTC", null: false
     t.string "response_theme"
     t.boolean "installed", null: false
-    t.boolean "enable_fast_ack", null: false
     t.boolean "notify_tokens", null: false
     t.string "platform"
     t.string "app_subteam_rid"

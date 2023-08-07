@@ -63,14 +63,3 @@
             = f.check_box :enable_cheers, class: 'switch is-rounded'
             = f.label :enable_cheers, '&nbsp;'.html_safe, class: 'label'
             = tooltip_btn('teams.enable_cheers_tooltip', 'nudge-up')
-
-    - if @current_team.platform.slack?
-      .field.is-horizontal
-        .field-label.is-switch-label
-          = f.label :enable_fast_ack, t('teams.fast_ack'), class: 'label'
-        .field-body
-          .field
-            .control
-              = f.check_box :enable_fast_ack, class: 'switch is-rounded'
-              = f.label :enable_fast_ack, '&nbsp;'.html_safe, class: 'label'
-              = tooltip_btn('teams.fast_ack_tooltip', 'nudge-up', points: App.points_term)

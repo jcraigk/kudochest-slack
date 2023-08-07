@@ -19,8 +19,7 @@ class Hooks::Slack::BaseController < Hooks::BaseController
   end
 
   def fast_ackable?
-    team_config[:enable_fast_ack] &&
-      !team_config[:response_mode].in?(%w[silent direct]) &&
+    !team_config[:response_mode].in?(%w[silent direct]) &&
       !private_command? &&
       !prefs_submission?
   end
