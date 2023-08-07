@@ -73,7 +73,6 @@ class Team < ApplicationRecord
   attribute :action_hour,        :integer, default: -> { App.default_action_hour }
   attribute :work_days_mask,     :integer, default: 62 # monday - friday
   attribute :member_count,       :integer, default: 0
-  attribute :points_sent,        :decimal, default: 0.0
   attribute :max_points_per_tip, :integer, default: 5
 
   validates :platform, presence: true

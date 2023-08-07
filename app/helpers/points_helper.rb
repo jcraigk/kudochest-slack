@@ -3,7 +3,6 @@ module PointsHelper
 
   def points_format(points, opts = {})
     return '0' if points.blank?
-    points = BigDecimal(points.to_s)
     str = opts[:label] ? labeled_points(points, opts) : formatted_points(points, opts)
     str = "+#{str}" if opts[:plus_prefix] && points.positive?
     str = tag.span(str, class: points_class(points)) if opts[:colorize]
@@ -46,20 +45,6 @@ module PointsHelper
   end
 
   def formatted_points(points, opts)
-    return '0' if points.to_f.zero?
-    return number_to_human(points) if opts[:humanize]
-    format_points(points)
-  end
-
-  def format_points(points)
-    format('%<points>.2f', points:)
-      .delete_suffix('0')
-      .delete_suffix('0')
-      .delete_suffix('.')
-      .reverse
-      .scan(/((?:\d*\.\d{1,3}|\d{1,3})-?)/)
-      .join(',')
-      .reverse
-      .delete_prefix('0')
+    opts[:humanize] ? number_to_human(points) : number_with_delimiter(points, delimiter: ',')
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_050624) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_055313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -73,9 +73,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_050624) do
     t.boolean "allow_dm", null: false
     t.boolean "infinite_tokens", null: false
     t.integer "tokens_accrued", null: false
-    t.decimal "tokens_forfeited", precision: 9, scale: 2, null: false
-    t.decimal "points_received", precision: 9, scale: 2, null: false
-    t.decimal "points_sent", precision: 9, scale: 2, null: false
+    t.integer "tokens_forfeited", default: 0, null: false
+    t.integer "points_received", default: 0, null: false
+    t.integer "points_sent", default: 0, null: false
     t.datetime "last_tip_received_at", precision: nil
     t.date "streak_date"
     t.integer "streak_count", null: false
@@ -88,9 +88,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_050624) do
     t.boolean "announce_tip_sent", default: true, null: false
     t.boolean "announce_tip_received", default: true, null: false
     t.boolean "share_history", default: true, null: false
-    t.decimal "jabs_sent", precision: 9, scale: 2, default: "0.0"
-    t.decimal "jabs_received", precision: 9, scale: 2, default: "0.0"
-    t.decimal "balance", precision: 9, scale: 2, default: "0.0"
+    t.integer "jabs_sent", default: 0, null: false
+    t.integer "jabs_received", default: 0, null: false
+    t.integer "balance", default: 0, null: false
     t.index ["created_at"], name: "index_profiles_on_created_at"
     t.index ["display_name"], name: "index_profiles_on_display_name"
     t.index ["last_tip_received_at"], name: "index_profiles_on_last_tip_received_at"
@@ -165,7 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_050624) do
     t.integer "max_level", null: false
     t.integer "max_level_points", null: false
     t.datetime "tokens_disbursed_at", precision: nil
-    t.decimal "points_sent", precision: 9, scale: 2, null: false
+    t.integer "points_sent", default: 0, null: false
     t.boolean "active", null: false
     t.boolean "enable_streaks", null: false
     t.integer "streak_duration", null: false
@@ -193,8 +193,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_050624) do
     t.string "hint_channel_rid"
     t.datetime "hint_posted_at", precision: nil
     t.boolean "show_note", default: true, null: false
-    t.decimal "jabs_sent", precision: 9, scale: 2, default: "0.0"
-    t.decimal "balance", precision: 9, scale: 2, default: "0.0"
+    t.integer "jabs_sent", default: 0, null: false
+    t.integer "balance", default: 0, null: false
     t.boolean "enable_jabs", default: false
     t.boolean "deduct_jabs", default: false
     t.string "jab_emoji", default: "arrow_down", null: false
@@ -212,7 +212,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_050624) do
     t.string "source", null: false
     t.string "from_channel_rid"
     t.string "from_channel_name"
-    t.decimal "quantity", precision: 9, scale: 2, null: false
+    t.integer "quantity", default: 0, null: false
     t.string "event_ts", null: false
     t.string "note"
     t.string "response_ts"

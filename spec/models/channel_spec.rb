@@ -32,7 +32,7 @@ RSpec.describe Channel do
       create(:channel, name: 'man')
     end
 
-    it 'returns only matching profiles' do
+    it 'returns only matching channels' do
       expect(described_class.matching('cave')).to contain_exactly(channel1, channel2)
     end
   end
