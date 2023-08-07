@@ -22,11 +22,27 @@ class TeamPolicy
     user_owns_team?
   end
 
-  def join_channels?
+  def join_all_channels?
+    user_owns_team?
+  end
+
+  def join_specific_channels?
+    user_owns_team?
+  end
+
+  def skip_join_channels?
     user_owns_team?
   end
 
   def export_data?
+    user_owns_team?
+  end
+
+  def confirm_emoji_added?
+    user_owns_team?
+  end
+
+  def skip_emoji?
     user_owns_team?
   end
 

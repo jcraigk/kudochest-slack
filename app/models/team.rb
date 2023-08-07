@@ -184,7 +184,7 @@ class Team < ApplicationRecord
   end
 
   def join_log_channel
-    return unless platform.slack? && log_channel_rid.present?
+    return if log_channel_rid.blank?
     Slack::ChannelJoinService.call(team: self, channel_rid: log_channel_rid)
   end
 

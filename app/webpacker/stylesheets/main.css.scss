@@ -279,6 +279,7 @@ img.small-radius {
   p.copyright {
     font-weight: bold;
     font-size: 1rem;
+    margin-bottom: 20px;
   }
 }
 
@@ -296,5 +297,24 @@ img.small-radius {
   }
   .subtitle {
     margin-top: 40px !important;
+  }
+}
+
+
+#onboarding {
+  margin-bottom: 30px;
+
+  .emoji-table {
+    margin: auto;
+
+    .emoji_name {
+      text-align: right;
+      font-weight: bold;
+      color: #993123;
+      font-size: 1.3rem;
+    }
+    .emoji_image {
+      text-align: left;
+    }
   }
 }

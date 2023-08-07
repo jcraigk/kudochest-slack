@@ -2,20 +2,23 @@ class ChannelsJoinWorker
   include Sidekiq::Worker
   sidekiq_options lock: :until_executed
 
-  attr_reader :team_id
+  attr_reader :team_id, :channel_rids
 
-  def perform(team_id)
+  def perform(team_id, channel_rids = [])
     @team_id = team_id
-    return unless team.active? && team.platform.slack?
-    join_all_channels
+    @channel_rids = channel_rids.any? ? channel_rids : team.channels.pluck(:rid)
+
+    return unless team.active?
+
+    join_channels
   end
 
   private
 
-  def join_all_channels
-    team.channels.each do |channel|
-      Slack::ChannelJoinService.call(team:, channel_rid: channel.rid)
-      sleep 1
+  def join_channels
+    channel_rids.each do |rid|
+      Slack::ChannelJoinService.call(team:, channel_rid: rid)
+      sleep 0.3 unless Rails.env.test?
     end
   end
 

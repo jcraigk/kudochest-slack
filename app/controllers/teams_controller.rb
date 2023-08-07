@@ -18,12 +18,6 @@ class TeamsController < ApplicationController
     redirect_to app_settings_path, notice: t('teams.reset_requested')
   end
 
-  def join_channels
-    authorize current_team
-    ChannelsJoinWorker.perform_async(current_team.id)
-    redirect_to app_settings_path, notice: t('teams.join_all_channels_requested')
-  end
-
   def export_data
     authorize current_team
     DataExportWorker.perform_async(current_team.id)

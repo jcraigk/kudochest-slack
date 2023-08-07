@@ -51,13 +51,20 @@ Rails.application.routes.draw do
   get 'login', to: 'user_sessions#new', as: :login
   delete 'logout', to: 'user_sessions#destroy', as: :logout
 
+  namespace :onboarding do
+    patch 'join_all_channels'
+    patch 'join_specific_channels'
+    patch 'skip_join_channels'
+    patch 'confirm_emoji_added'
+    patch 'skip_emoji'
+  end
+
   resources :teams, only: %i[edit update new] do
     collection do
       get 'leaderboard_page'
     end
     member do
       patch 'reset_stats'
-      patch 'join_channels'
       patch 'export_data'
     end
   end

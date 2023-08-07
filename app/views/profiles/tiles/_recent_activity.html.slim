@@ -26,8 +26,7 @@
               span data-tooltip=t('tips.affiliation_tooltip') = t('tips.affiliation')
             - if !profile.team.tip_notes.disabled?
               th = t('tips.note')
-            - if profile.team.platform.slack?
-              th = t('tips.permalink')
+            th = t('tips.permalink')
             th
               i.fa.fa-calendar
         tbody
@@ -42,8 +41,7 @@
               td = group_label(tip)
               - if !profile.team.tip_notes.disabled?
                 td = emojify(tip.note, size: 14)
-              - if profile.team.platform.slack?
-                td = chat_permalink_for(tip)
+              td = chat_permalink_for(tip)
               td => time_ago_in_words(tip.created_at) + ' ago'
 
       = paginate tips, params: { paged: true }

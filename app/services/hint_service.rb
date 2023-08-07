@@ -17,23 +17,13 @@ class HintService < Base::Service
       team_rid: team.rid,
       config: team.config,
       mode: :hint,
-      text:,
+      text: blocks,
       channel_rid: team.hint_channel_rid
     team.update!(hint_posted_at: Time.current)
   end
 
   def hint_idx
     @hint_idx ||= rand(hints.size)
-  end
-
-  def text
-    team.platform.slack? ? blocks : raw_text
-  end
-
-  def raw_text
-    <<~TEXT
-      :bulb: *Usage Hint ##{hint_idx + 1}*\n#{hints[hint_idx]}\nEnter `/kudos help` for more help.
-    TEXT
   end
 
   def blocks # rubocop:disable Metrics/MethodLength
@@ -75,7 +65,7 @@ class HintService < Base::Service
   end
 
   def hints
-    team.platform.slack? ? shared_hints + slack_hints : shared_hints
+    shared_hints + slack_hints
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Layout/LineLength

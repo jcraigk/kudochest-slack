@@ -49,7 +49,7 @@ en:
     response_theme: Theme
     response_theme_tooltip: When %{points} is sent, the chatbot will respond with a confirmation message. Here you can select a theme that defines how those responses appear.
     log_channel_rid: Log Channel
-    log_channel_rid_tooltip: To see a copy of all responses in one channel, select one here. The bot will be added to the channel when you change this setting.
+    log_channel_rid_tooltip: 'To see a copy of all responses in one channel, select one here. We recommend creating a public channel named #kudos and inviting all members of your workspace.'
     reset_now_info: You can reset all user %{points} to zero by clicking the button below. Each user will automatically receive an initial token dispersal if throttling is enabled.
     reset_requested: Team stats will be reset momentarily
     reset_stats_now: Reset All %{points_title} Now
@@ -85,9 +85,6 @@ en:
     auto_join_channels: Join New Public Channels
     auto_join_channels_tooltip: When enabled, the bot will automatically be added to new public channels when they are created in Slack.
     join_channel_buttons: You can immediately add the bot to all public channels using the button below.
-    join_all_channels: Join All Public Channels
-    confirm_join_all_channels: Are you sure you want to add the bot to all public channels?
-    join_all_channels_requested: The bot will be added to all public channels momentarily
     export_data_requested: You will receive an email at %{email} with attached CSV file
     loot_shop: Loot Shop
     enable_loot_tooltip: The loot shop allows you to setup real reward items for users to claim based on the amount of %{points} they have.

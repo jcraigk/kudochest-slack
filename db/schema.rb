@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_160620) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_170515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_160620) do
     t.boolean "shared", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "initial_member_count", default: 0, null: false
     t.index ["name", "team_id"], name: "index_channels_on_name_and_team_id", unique: true
     t.index ["rid", "team_id"], name: "index_channels_on_rid_and_team_id", unique: true
     t.index ["team_id"], name: "index_channels_on_team_id"
@@ -197,6 +198,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_160620) do
     t.boolean "enable_jabs", default: false
     t.boolean "deduct_jabs", default: false
     t.string "jab_emoji", default: "arrow_down", null: false
+    t.datetime "onboarded_channels_at"
+    t.datetime "onboarded_emoji_at"
     t.index ["action_hour"], name: "index_teams_on_action_hour"
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"

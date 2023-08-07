@@ -46,17 +46,6 @@ module TeamHelper
   end
   # rubocop:enable Metrics/MethodLength
 
-  def join_all_channels_button(team)
-    link_to \
-      icon_and_text('sign-in', t('teams.join_all_channels')),
-      join_channels_team_path(team),
-      class: 'button',
-      method: :patch,
-      data: {
-        confirm: t('teams.confirm_join_all_channels')
-      }
-  end
-
   def export_data_button(team)
     link_to \
       icon_and_text('cloud-download', t('teams.export_data')),

@@ -1,10 +1,13 @@
 = content_for(:feedback_class) { 'width-750' }
 
 - if @current_profile
-  - if params[:install].present?
-    .notification.is-success.width-full
-      button.delete.delete-notification
-      = t('nav.welcome')
-  = render partial: 'profiles/tiles', locals: { profile: @current_profile, tips: @tips, leaderboard: @leaderboard }
+  - if current_user.owned_team == @current_team
+    = render partial: 'onboarding/welcome'
+    - if @current_team.onboarded?
+      = render partial: 'profiles/tiles', locals: { profile: @current_profile, tips: @tips, leaderboard: @leaderboard }
+    - else
+      = render partial: 'onboarding/integration', locals: { profile: @current_profile }
+  - else
+    = render partial: 'profiles/tiles', locals: { profile: @current_profile, tips: @tips, leaderboard: @leaderboard }
 - else
-  = render partial: 'shared/auto_refresh'
+  = render partial: 'onboarding/installing'

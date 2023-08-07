@@ -60,6 +60,22 @@ module TeamDecorator
     deduct_jabs? ? balance : points_sent
   end
 
+  def emojis
+    slack_client.emoji_list['emoji'].keys
+  end
+
+  def onboarded_channels?
+    onboarded_channels_at.present?
+  end
+
+  def onboarded_emoji?
+    onboarded_emoji_at.present?
+  end
+
+  def onboarded?
+    onboarded_channels? && onboarded_emoji?
+  end
+
   private
 
   def levels_table_titles

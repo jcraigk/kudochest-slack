@@ -39,7 +39,8 @@ class Slack::ChannelSyncService < Base::ChannelSyncService
   def syncable_attributes(channel)
     {
       name: channel[:name],
-      shared: channel[:is_shared]
+      shared: channel[:is_shared],
+      initial_member_count: channel[:num_members]
     }.compact
   end
 end

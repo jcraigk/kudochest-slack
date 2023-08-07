@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_dashboard_for(profile)
+    fetch_current_team
     @leaderboard = LeaderboardPageService.call(profile:)
     @tips = fetch_recent_tips(profile)
     @histogram_data = TipHistogramService.call \

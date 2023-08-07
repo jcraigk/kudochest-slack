@@ -1,0 +1,50 @@
+.card.width-750.card-module
+  header.card-header
+    p.card-header-title
+      = image_pack_tag 'media/images/logos/app-web.png', class: 'icon-img', alt: 'App logo'
+      = t('onboarding.channels_title')
+
+  .card-content.has-text-centered
+    p.has-text-weight-bold.is-size-5 = t('onboarding.channels_start')
+    br
+
+    .columns
+      .column.has-text-right
+        = join_all_channels_button(@current_team)
+
+      .column.has-text-left
+        = link_to \
+          icon_and_text('times', t('onboarding.skip_join_channels')),
+          onboarding_skip_join_channels_path(@current_team),
+          class: 'button is-danger',
+          method: :patch
+
+    hr
+
+    p.is-size-5 = t('onboarding.channels_select')
+    br
+
+    = form_with url: onboarding_join_specific_channels_path, method: :patch do |f|
+      = hidden_field_tag :onboarding, 'true'
+
+      - general_channel = Channel.find_by(name: 'general')
+      - populated_channels = Channel.order(initial_member_count: :desc).limit(10)
+      - top_channels = ([general_channel] + populated_channels).uniq.first(10)
+
+      - top_channels.each do |channel|
+        - id = "channel_#{channel.rid}"
+        .field.is-horizontal
+          .field-label.is-switch-label
+            = f.label id, "##{channel.name}", class: 'label'
+          .field-body
+            .field
+              .control
+                = f.check_box id, class: 'switch is-rounded', checked: true
+                = f.label id, '&nbsp;'.html_safe, class: 'label'
+
+      br
+      = submit_button(t('onboarding.join_specific_channels'))
+
+    br
+
+

@@ -34,8 +34,7 @@ class TipFactory < Base::Service
   end
 
   def fetch_permalink?(source)
-    team.platform.slack? &&
-      source.in?(ChatPermalinkWorker::SOURCES) &&
+    source.in?(ChatPermalinkWorker::SOURCES) &&
       from_channel_rid.present? &&
       (message_ts.present? || event_ts.present?)
   end
@@ -65,7 +64,7 @@ class TipFactory < Base::Service
   end
 
   def channel_name_abbrev(name)
-    return SLACK_DM_NAME if team.platform.slack? && name&.start_with?(SLACK_DM_PREFIX)
+    return SLACK_DM_NAME if name&.start_with?(SLACK_DM_PREFIX)
     name.presence
   end
 

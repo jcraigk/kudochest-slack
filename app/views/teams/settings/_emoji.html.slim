@@ -24,6 +24,14 @@
             = f.text_field :point_emoji, class: 'input narrow2', required: true
             = tooltip_btn('teams.point_emoji_tooltip', nil, points: App.points_term)
 
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :ditto_emoji, t('teams.ditto_emoji'), class: 'label'
+      .field-body
+        .field
+          .control
+            = f.text_field :ditto_emoji, class: 'input narrow2', required: true
+            = tooltip_btn('teams.ditto_emoji_tooltip', nil, points: App.points_term)
 
     .field.is-horizontal
       .field-label.is-normal
@@ -36,24 +44,12 @@
             = f.text_field :jab_emoji, class: 'input narrow2', required: true
             = tooltip_btn('teams.jab_emoji_tooltip', nil, jabs: App.jabs_term)
 
-    .field.is-horizontal
-      .field-label.is-normal
-        = f.label :ditto_emoji, t('teams.ditto_emoji'), class: 'label'
-      .field-body
-        .field
-          .control
-            = f.text_field :ditto_emoji, class: 'input narrow2', required: true
-            = tooltip_btn('teams.ditto_emoji_tooltip', nil, points: App.points_term)
-
     hr
 
-    - if @current_team.platform.slack?
-      p.has-text-centered
-        = t('teams.point_emoji_html', url: 'https://slack.com/help/articles/206870177-Add-custom-emoji')
-        br
-        br
-        = image_pack_tag 'media/images/emoji/app_logo.png', size: '48x48', alt: 'Custom emoji icon'
-        = image_pack_tag 'media/images/emoji/plus_one_v1.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
-        = image_pack_tag 'media/images/emoji/plus_one_v2.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
-        = image_pack_tag 'media/images/emoji/plus_plus.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
-        = image_pack_tag 'media/images/emoji/minus_minus.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
+    p.has-text-centered
+      = t('teams.point_emoji_html', url: App.slack_custom_emoji_url)
+      br
+      br
+      = image_pack_tag 'media/images/emoji/plus_plus.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
+      = image_pack_tag 'media/images/emoji/plus_one.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
+      = image_pack_tag 'media/images/emoji/minus_minus.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'

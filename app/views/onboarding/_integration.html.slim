@@ -1,0 +1,5 @@
+#onboarding
+  - if !@current_team.onboarded_channels?
+    = render partial: 'onboarding/channels'
+  - elsif !@current_team.onboarded_emoji?
+    = render partial: 'onboarding/emoji'

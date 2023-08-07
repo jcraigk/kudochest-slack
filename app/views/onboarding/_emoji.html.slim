@@ -1,0 +1,42 @@
+.card.width-750.card-module
+  header.card-header
+    p.card-header-title
+      = image_pack_tag 'media/images/logos/app-web.png', class: 'icon-img', alt: 'App logo'
+      = t('onboarding.emoji_title')
+
+  .card-content.has-text-centered
+    p.has-text-weight-bold.is-size-5 = t('onboarding.emoji_start')
+    br
+
+    table.table.emoji-table
+      thead
+        tr
+          th.has-text-right = t('onboarding.emoji_name')
+          th = t('onboarding.emoji_image')
+      tbody
+        tr
+          td.emoji_name
+            | :kudos:
+          td.emoji_image = image_pack_tag 'media/images/emoji/plus_plus.png', size: '48x48', alt: 'Custom emoji icon'
+        tr
+          td.emoji_name
+            | :ditto_kudos:
+          td.emoji_image = image_pack_tag 'media/images/emoji/plus_one.png', size: '48x48', alt: 'Custom emoji icon'
+
+    p.is-size-5 = t('onboarding.emoji_explain_html', url: App.slack_custom_emoji_url)
+    br
+
+    .columns
+      .column.has-text-right
+        = link_to \
+          icon_and_text('check', t('onboarding.emoji_added_button')),
+          onboarding_confirm_emoji_added_path,
+          class: 'button is-primary',
+          method: :patch
+
+      .column.has-text-left
+        = link_to \
+          icon_and_text('times', t('onboarding.emoji_skip_button')),
+          onboarding_skip_emoji_path,
+          class: 'button is-danger',
+          method: :patch

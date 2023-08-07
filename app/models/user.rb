@@ -19,4 +19,12 @@ class User < ApplicationRecord
   validates :password, length: { minimum: App.password_length }, if: :password
   validates :password, confirmation: true, if: :password
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def owned_team
+    owned_teams.first
+  end
+
+  def profile
+    profiles.first
+  end
 end
