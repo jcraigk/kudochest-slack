@@ -1,16 +1,5 @@
 en:
   features:
-    slack:
-      screenshot1: 'Give karma by chatting "++"'
-      screenshot2: Give karma with emoji
-      screenshot3: View team leaderboards
-      screenshot4: Use "/karma" for assistance
-      screenshot5: Change settings on the web
-      screenshot6: Monitor your progression
-      screenshot7: Browse your history
-      login_to_add: Sign In to Add to Slack
-      hero_title: Level Up Your Team
-      hero_body_html: "Transform your team's dull chat experience into an <b>engaging space</b> where contributors are <strong>rewarded</strong>!"
     list_of_features: List of Features
     click_for_detail: Click for detail
     contact_us: Contact Us
@@ -25,37 +14,37 @@ en:
     support: Support
     list:
       give_plusplus:
-        title: Give karma with "++"
+        title: Give kudos with "++"
         icon: plus-square
-        detail: Once KarmaChest is installed in your chat workspace, any active user can send and receive karma. Giving karma is an official way of saying "thank you" for a job well done or to call out a special achievement. There are four ways to give karma in Slack, including simply typing "++" after a user, group, or channel name in Slack.
+        detail: Once KudoChest is installed in your chat workspace, any active user can send and receive kudos. Giving kudos is an official way of saying "thank you" for a job well done or to call out a special achievement. There are four ways to give kudos in Slack, including simply typing "++" after a user, group, or channel name in Slack.
       give_emoji:
-        title: Give karma with emoji
+        title: Give kudos with emoji
         icon: smile-wink
-        detail: You may optionally configure KarmaChest to recognize a special emoji to trigger karma, whether issued inline or as a reaction. The icon and karma quantity can be changed at any time by the administrator.
+        detail: You may optionally configure KudoChest to recognize a special emoji to trigger kudos, whether issued inline or as a reaction. The icon and kudos quantity can be changed at any time by the administrator.
       give_modal:
-        title: Give karma with command
+        title: Give kudos with command
         icon: terminal
-        detail: Users can easily give each other karma by typing a simple command in Slack that opens a modal dialog. This dialog assists the user in selecting recipients and specifying other options. It's a great way to get a feel for how the system works before jumping into using "++" or emoji.
+        detail: Users can easily give each other kudos by typing a simple command in Slack that opens a modal dialog. This dialog assists the user in selecting recipients and specifying other options. It's a great way to get a feel for how the system works before jumping into using "++" or emoji.
       levelup:
         title: Level progression
         icon: signal-alt
-        detail: KarmaChest provides meaningful and obtainable goals to all users by breaking down the karma grind into smaller levels, similar to how role playing games work. The leveling curve can be set by the administrator to make it easier or harder to get to higher levels.
-      bonus_karma:
+        detail: KudoChest provides meaningful and obtainable goals to all users by breaking down the kudos grind into smaller levels, similar to how role playing games work. The leveling curve can be set by the administrator to make it easier or harder to get to higher levels.
+      bonus_kudos:
         title: Participation rewards
         icon: rabbit-fast
-        detail: If a user gives karma several days in a row, they activate a Giving Streak. Each day they extend their streak, they receive bonus karma. This is one of several ways that gamification elements are used to improve user engagement.
+        detail: If a user gives kudos several days in a row, they activate a Giving Streak. Each day they extend their streak, they receive bonus kudos. This is one of several ways that gamification elements are used to improve user engagement.
       give_groups:
-        title: Group/channel karma
+        title: Group/channel kudos
         icon: users
-        detail: Karma can be given to individual users, user groups, or entire channels via simple chat commands. When you specify a group or channel, all associated users will recieve karma. The administrator can configure details of how this works.
+        detail: Kudo can be given to individual users, user groups, or entire channels via simple chat commands. When you specify a group or channel, all associated users will recieve kudos. The administrator can configure details of how this works.
       app_settings:
         title: Advanced configuration
         icon: cog
-        detail: KarmaChest provides copious options so that each team can customize the experience to fit their culture. For example, some organizations prefer limited karma giving while others prefer unlimited. Some prefer inviting a bot to every channel to listen for "++" while others prefer a more private approach by using only the "/karma" command. After logging in and installing KarmaChest as a workspace owner, go to App Settings to view all options.
+        detail: KudoChest provides copious options so that each team can customize the experience to fit their culture. For example, some organizations prefer limited kudos giving while others prefer unlimited. Some prefer inviting a bot to every channel to listen for "++" while others prefer a more private approach by using only the "/kudos" command. After logging in and installing KudoChest as a workspace owner, go to App Settings to view all options.
       moderation:
         title: Admin moderation
         icon: hammer-war
-        detail: KarmaChest provides full administrator control over karma transactions including historical search/filtering and ability to destroy karma in situations where a user wrote an offensive note or just made a mistake.
+        detail: KudoChest provides full administrator control over kudos transactions including historical search/filtering and ability to destroy kudos in situations where a user wrote an offensive note or just made a mistake.
       notifications:
         title: Notification options
         icon: satellite-dish
@@ -67,19 +56,19 @@ en:
       responses:
         title: Text or GIF responses
         icon: image
-        detail: When a user gives karma, the bot can respond with a variety of text-based themes or by sending custom animated GIFs. The GIFs can enhance the fun for many teams, but may not be a fit for more formal cultures.
+        detail: When a user gives kudos, the bot can respond with a variety of text-based themes or by sending custom animated GIFs. The GIFs can enhance the fun for many teams, but may not be a fit for more formal cultures.
       loot_shop:
         title: Loot shop
         icon: store
-        detail: Admins can setup real-world rewards such as pizza or movie tickets and allow users to claim the items based on the amount of karma they have received. This makes karma more meaningful and encourages team participation. A simple web-based claim system provides a means of automatically or manually fulfilling user rewards.
+        detail: Admins can setup real-world rewards such as pizza or movie tickets and allow users to claim the items based on the amount of kudos they have received. This makes kudos more meaningful and encourages team participation. A simple web-based claim system provides a means of automatically or manually fulfilling user rewards.
       data:
         title: Data ownership
         icon: database
-        detail: Administrators can easily import and export data at any time using CSV files so you don't have to worry about vendor lock-in. Coming from another chatbot system? No problem, just import your karma in seconds and keep all your users' pass progress.
+        detail: Administrators can easily import and export data at any time using CSV files so you don't have to worry about vendor lock-in. Coming from another chatbot system? No problem, just import your kudos in seconds and keep all your users' pass progress.
       history:
         title: Detailed history
         icon: chart-area
-        detail: As users send and receive karma, each transaction is recorded along with all its details. These data provide the backing for attractive web-based profiles as well as graphical reports, wallboards, and other tools you can use to track karma history either for yourself or across your entire organization.
+        detail: As users send and receive kudos, each transaction is recorded along with all its details. These data provide the backing for attractive web-based profiles as well as graphical reports, wallboards, and other tools you can use to track kudos history either for yourself or across your entire organization.
       weekly_report:
         title: Weekly email digest
         icon: envelope
@@ -87,11 +76,11 @@ en:
       team_wallboard:
         title: Team wallboard
         icon: tv
-        detail: In addition to web-based profiles, wallboards are provided so teams can track karma activity in real-time in open public workspaces outside of the Slack client. Having this visual aid available in your workspace improves user engagement and can act as a great ice-breaking tool for welcoming new team members.
+        detail: In addition to web-based profiles, wallboards are provided so teams can track kudos activity in real-time in open public workspaces outside of the Slack client. Having this visual aid available in your workspace improves user engagement and can act as a great ice-breaking tool for welcoming new team members.
       bonus_calculator:
         title: Bonus calculator
         icon: calculator
-        detail: A great way to assign monetary bonuses to your team is by allowing karma distribution to act as a natural peer review system. KarmaChest provides a Bonus Calculator tool that assists in calculating bonuses for each of your team members so you can take advantage of the collective feedback that's already in the system.
+        detail: A great way to assign monetary bonuses to your team is by allowing kudos distribution to act as a natural peer review system. KudoChest provides a Bonus Calculator tool that assists in calculating bonuses for each of your team members so you can take advantage of the collective feedback that's already in the system.
       help:
         title: Help when you need it
         icon: question-circle
