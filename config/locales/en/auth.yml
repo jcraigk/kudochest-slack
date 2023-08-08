@@ -11,3 +11,4 @@ en:
     not_authorized: You are not authorized to perform that action
     user_not_saved: 'prevented this user from being saved:'
     user_updated: User was successfully updated
+    deleted: Sorry, that Slack profile has been deactivated

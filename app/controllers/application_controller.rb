@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def require_login
+    super # Sorcery gem
+
+    return unless current_profile.deleted?
+    logout
+    redirect_to login_path, alert: t('auth.deleted')
+  end
+
   def current_profile
     current_user&.profile
   end
