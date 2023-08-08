@@ -8,7 +8,7 @@ class Oauth::SorceryController < ApplicationController
   def callback
     if login_from(params[:provider])
       auto_associate_profile
-      redirect_back_or_to(dashboard_path)
+      redirect_back_or_to dashboard_path
     else
       create_user_and_login
     end
@@ -31,7 +31,6 @@ class Oauth::SorceryController < ApplicationController
     reset_session
     auto_login(user)
     auto_associate_profile
-
     redirect_back_or_to dashboard_path
   rescue ActiveRecord::RecordNotUnique => e
     Sentry.capture_exception(e)
@@ -44,28 +43,5 @@ class Oauth::SorceryController < ApplicationController
 
   def provider_title
     params[:provider].titleize
-  end
-end
-
-# TODO: https://github.com/Sorcery/sorcery/pull/288
-class Sorcery::Providers::Slack
-  def get_user_hash(access_token)
-    auth_hash(access_token).tap do |h|
-      h[:user_info] = fetch_user_info(access_token)['user']
-      h[:uid] = h[:user_info]['id']
-    end
-  end
-
-  private
-
-  def fetch_user_info(access_token)
-    return access_token if user_info_present?(access_token)
-    JSON.parse(access_token.get(user_info_path).body)
-  end
-
-  def user_info_present?(access_token)
-    access_token['user'].present? &&
-      access_token['user']['id'].present? &&
-      access_token['user']['email'].present?
   end
 end
