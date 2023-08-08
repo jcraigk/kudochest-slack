@@ -136,7 +136,7 @@ module KudoChest
         PlanStruct.new(
           'plan_HGkny4NU72JmIX',
           'Enterprise Team',
-          301..500,
+          301..,
           99.99
         )
       ]

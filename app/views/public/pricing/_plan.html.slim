@@ -1,12 +1,19 @@
 .pricing.marketing-callout
-  h2.subtitle
+  h2.subtitle.is-size-3
     = image_pack_tag "media/images/logos/#{@platform}.png", class: 'platform-img'
     = plan[:name]
 
-  - min = plan.range.min
-  p
-    span.icon = fa_icon('users')
-    span.text #{min.zero? ? 1 : min} - #{plan.range.max} #{Team.new(platform: @platform).workspace_noun} members
-  p
-    span.icon3 = fa_icon('money-bill-wave-alt')
-    span.text3 $#{plan.price} / month
+
+  p.is-size-4
+    = fa_icon('users')
+    - min = plan.range.min
+    - range_start = number_with_delimiter(min.zero? ? 1 : min)
+    - if plan.range.end.nil?
+      | #{range_start}+ users
+    - else
+      | #{range_start} - #{number_with_delimiter(plan.range.max)} users
+  br
+
+  p.is-size-4
+    = fa_icon('money-bill-wave-alt')
+    | $#{plan.price} per month
