@@ -1,7 +1,7 @@
 h2.title.has-text-centered
   = fa_icon('ticket-alt')
   | &nbsp;&nbsp;
-  = t('claims.my_claims_title', count: number_with_delimiter(@current_profile.claims.count))
+  = t('claims.my_claims_title', count: number_with_delimiter(current_profile.claims.count))
 
 .card.shop
   .card-content

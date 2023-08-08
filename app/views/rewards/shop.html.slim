@@ -10,13 +10,13 @@ h2.title.has-text-centered
     p.is-size-4.has-text-centered
       = t('shop.balance_html',
           points: App.points_term,
-          claimed: points_format(@current_profile.points_claimed),
-          accrued: points_format(@current_profile.points),
-          remaining: points_format(@current_profile.points_unclaimed))
-    - if @current_profile.claims.any?
+          claimed: points_format(current_profile.points_claimed),
+          accrued: points_format(current_profile.points),
+          remaining: points_format(current_profile.points_unclaimed))
+    - if current_profile.claims.any?
       br
       p.has-text-centered
-        = link_to t('shop.view_my_claims', count: number_with_delimiter(@current_profile.claims.count)),
+        = link_to t('shop.view_my_claims', count: number_with_delimiter(current_profile.claims.count)),
                   my_claims_path,
                   class: 'button is-link is-medium'
     br
@@ -35,4 +35,4 @@ h2.title.has-text-centered
           tr
             td.reward-name = reward.name
             td.is-size-5 = reward.description
-            td = claim_button(@current_profile, reward)
+            td = claim_button(current_profile, reward)

@@ -1,6 +1,4 @@
 class RewardsController < ApplicationController
-  before_action :fetch_current_team, except: %i[shop claim]
-
   def index
     authorize Reward
     fetch_rewards
@@ -55,15 +53,15 @@ class RewardsController < ApplicationController
   end
 
   def shop
-    return redirect_to_dasboard(alert: t('shop.disabled')) unless @current_profile.team.enable_loot?
-    @rewards = Reward.shop_list(@current_profile.team)
+    return redirect_to_dasboard(alert: t('shop.disabled')) unless current_profile.team.enable_loot?
+    @rewards = Reward.shop_list(current_profile.team)
   end
 
   def claim # rubocop:disable Metrics/AbcSize
-    return redirect_to_dasboard(alert: t('shop.disabled')) unless @current_profile.team.enable_loot?
+    return redirect_to_dasboard(alert: t('shop.disabled')) unless current_profile.team.enable_loot?
 
-    reward = Reward.find_by(team: @current_profile.team, id: params[:id], active: true)
-    result = RewardClaimService.call(profile: @current_profile, reward:)
+    reward = Reward.find_by(team: current_profile.team, id: params[:id], active: true)
+    result = RewardClaimService.call(profile: current_profile, reward:)
 
     if result.error.present?
       flash[:alert] = result.error
@@ -82,7 +80,7 @@ class RewardsController < ApplicationController
 
   def fetch_rewards
     @rewards =
-      Reward.where(team: @current_team)
+      Reward.where(team: current_team)
             .includes(:team)
             .order(name: :asc)
             .page(params[:page])
@@ -103,7 +101,7 @@ class RewardsController < ApplicationController
 
   def reward_params
     permitted_params.tap do |attrs|
-      attrs[:team] = @current_team
+      attrs[:team] = current_team
       if attrs[:auto_fulfill] == '1'
         attrs[:quantity] = 0
       else

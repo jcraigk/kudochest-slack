@@ -7,18 +7,18 @@
         .column = search_input(t('tips.search_notes_placeholder'))
         .column
           = profile_select \
-              @current_team,
+              current_team,
               :from_profile_id,
               t('tips.from_any_user'),
               params[:from_profile_id]
         .column
           = profile_select \
-              @current_team,
+              current_team,
               :to_profile_id,
               t('tips.to_any_user'),
               params[:to_profile_id]
-        - if @current_team.topics.any?
-          .column = topic_select(@current_team, t('tips.any_topic'), params[:topic_id])
+        - if current_team.topics.any?
+          .column = topic_select(current_team, t('tips.any_topic'), params[:topic_id])
         .column
           p = pluralize(number_with_delimiter(@tips.total_count), 'item') + ' displayed'
         .column.has-text-right = search_button
@@ -31,9 +31,9 @@ br
         th = t('tips.from_user')
         th = t('tips.to_user')
         th = t('tips.quantity')
-        - if @current_team.enable_topics? && @current_team.topics.active.any?
+        - if current_team.enable_topics? && current_team.topics.active.any?
           th = t('tips.topic')
-        - if !@current_team.tip_notes.disabled?
+        - if !current_team.tip_notes.disabled?
           th = t('tips.note')
         th = t('tips.channel')
         th = t('tips.source')
@@ -55,13 +55,13 @@ br
             td = profile_web_link(tip.from_profile)
             td = profile_web_link(tip.to_profile)
             td = points_format(tip.quantity)
-            - if @current_team.enable_topics? && @current_team.topics.active.any?
+            - if current_team.enable_topics? && current_team.topics.active.any?
               td
                 - if tip.topic_id.present?
                   = link_to tip.topic_name, edit_topic_path(tip.topic_id)
                 - else
                   = tip.topic_name
-            - if !@current_team.tip_notes.disabled?
+            - if !current_team.tip_notes.disabled?
               td = highlight(tip.note, params[:search])
             td = tip.channel_webref
             td = tip.source.titleize

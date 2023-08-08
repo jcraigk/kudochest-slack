@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def current_profile
+    current_user&.profile
+  end
+
+  def current_team
+    current_user&.profile&.team
+  end
+
   def submit_button(label = nil, icon = 'check', css = '')
     text = label || t('controls.save_changes')
     button_tag(

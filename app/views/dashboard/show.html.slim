@@ -1,13 +1,13 @@
 = content_for(:feedback_class) { 'width-750' }
 
-- if @current_profile
-  - if current_user.owned_team == @current_team
+- if current_profile
+  - if current_user.owned_team == current_team
     = render partial: 'onboarding/welcome'
-    - if @current_team.onboarded?
-      = render partial: 'profiles/tiles', locals: { profile: @current_profile, tips: @tips, leaderboard: @leaderboard }
+    - if current_team.onboarded?
+      = render partial: 'profiles/tiles', locals: { profile: current_profile, tips: @tips, leaderboard: @leaderboard }
     - else
-      = render partial: 'onboarding/integration', locals: { profile: @current_profile }
+      = render partial: 'onboarding/integration', locals: { profile: current_profile }
   - else
-    = render partial: 'profiles/tiles', locals: { profile: @current_profile, tips: @tips, leaderboard: @leaderboard }
+    = render partial: 'profiles/tiles', locals: { profile: current_profile, tips: @tips, leaderboard: @leaderboard }
 - else
   = render partial: 'onboarding/installing'

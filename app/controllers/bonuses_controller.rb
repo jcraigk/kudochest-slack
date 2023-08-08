@@ -1,6 +1,5 @@
 class BonusesController < ApplicationController
   before_action :ensure_manager!
-  before_action :fetch_current_team
 
   def index; end
 

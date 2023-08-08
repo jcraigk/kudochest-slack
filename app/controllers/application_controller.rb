@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
-  include RememberSelections
 
   protect_from_forgery
 
@@ -8,6 +7,14 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   protected
+
+  def current_profile
+    current_user&.profile
+  end
+
+  def current_team
+    current_user&.profile&.team
+  end
 
   def not_authenticated
     redirect_to sorcery_login_url('slack'), allow_other_host: true
@@ -36,7 +43,6 @@ class ApplicationController < ActionController::Base
   end
 
   def build_dashboard_for(profile)
-    fetch_current_team
     @leaderboard = LeaderboardPageService.call(profile:)
     @tips = fetch_recent_tips(profile)
     @histogram_data = TipHistogramService.call \

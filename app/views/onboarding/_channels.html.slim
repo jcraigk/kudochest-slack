@@ -10,12 +10,12 @@
 
     .columns
       .column.has-text-right
-        = join_all_channels_button(@current_team)
+        = join_all_channels_button(current_team)
 
       .column.has-text-left
         = link_to \
           icon_and_text('times', t('onboarding.skip_join_channels')),
-          onboarding_skip_join_channels_path(@current_team),
+          onboarding_skip_join_channels_path(current_team),
           class: 'button is-danger',
           method: :patch
 

@@ -6,6 +6,7 @@ class Oauth::SlackController < ApplicationController
 
   def integration
     TeamRegistrar.call(**team_data)
+    session[:installing] = true
     redirect_to dashboard_path
   rescue Slack::Web::Api::Errors::SlackError, ArgumentError
     redirect_to dashboard_path, alert: t('oauth.basic_error')

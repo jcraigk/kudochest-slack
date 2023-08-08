@@ -1,6 +1,4 @@
 class ClaimsController < ApplicationController
-  before_action :fetch_current_team, except: %i[my_claims show]
-
   def index
     authorize Claim
     fetch_claims
@@ -35,13 +33,13 @@ class ClaimsController < ApplicationController
   end
 
   def my_claims
-    @claims = Claim.where(profile: @current_profile).order(created_at: :desc)
+    @claims = Claim.where(profile: current_profile).order(created_at: :desc)
   end
 
   private
 
   def team_reward_ids
-    @reward_ids = @current_team.rewards.ids
+    @reward_ids = current_team.rewards.ids
   end
 
   def fetch_claim

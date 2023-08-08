@@ -1,7 +1,4 @@
 class TeamsController < ApplicationController
-  before_action :fetch_current_team
-  before_action :remember_section, only: %i[edit update]
-
   def edit
     authorize current_team
     prepare_infinite_profile_options
@@ -26,14 +23,14 @@ class TeamsController < ApplicationController
   end
 
   def leaderboard_page
-    return if @current_profile.blank?
+    return if current_profile.blank?
     @leaderboard = LeaderboardPageService.call \
-      team: @current_profile.team,
+      team: current_profile.team,
       offset: params[:offset].to_i,
       count: params[:count].to_i
     return if @leaderboard.profiles.blank?
     render partial: 'profiles/tiles/leaderboard_rows',
-           locals: { leaderboard: @leaderboard, profile: @current_profile }
+           locals: { leaderboard: @leaderboard, profile: current_profile }
   end
 
   private

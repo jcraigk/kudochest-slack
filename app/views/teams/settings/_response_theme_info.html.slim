@@ -27,7 +27,7 @@
 
   .theme-info data-name='fancy' style='display: none;'
     .command
-      - if @current_team.enable_levels?
+      - if current_team.enable_levels?
         span.profile_ref> @Mark
         ' (level 2) gave
         span.profile_ref> @Lisa
@@ -38,7 +38,7 @@
         span.profile_ref> @Lisa
         ' (#{points_format(3,245, label: true)})
       ' #{points_format(1, label: true)}
-      | #{emojify(':' + @current_team.point_emoji + ':', size: 20)}
+      | #{emojify(':' + current_team.point_emoji + ':', size: 20)}
       |!
     p The Fancy theme mention recipients, displays user stats (level or #{App.points_term}), and includes emoji.
 

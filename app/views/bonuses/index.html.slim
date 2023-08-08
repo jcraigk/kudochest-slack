@@ -19,7 +19,7 @@
           .field
             .control
               = text_field_tag :start_date,
-                               params[:start_date].presence || Time.use_zone(@current_team.time_zone) { @current_team.created_at }.strftime('%Y-%m-%d'),
+                               params[:start_date].presence || Time.use_zone(current_team.time_zone) { current_team.created_at }.strftime('%Y-%m-%d'),
                                class: 'input narrow2',
                                required: true,
                                type: 'date'
@@ -32,7 +32,7 @@
           .field
             .control
               = text_field_tag :end_date,
-                               params[:end_date].presence || Time.use_zone(@current_team.time_zone) { Time.current }.strftime('%Y-%m-%d'),
+                               params[:end_date].presence || Time.use_zone(current_team.time_zone) { Time.current }.strftime('%Y-%m-%d'),
                                class: 'input narrow2',
                                required: true,
                                type: 'date'

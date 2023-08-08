@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     end
   end
   get 'user-settings', to: 'users#edit_preferences', as: :user_settings
-  resources :user_sessions, only: %i[new create destroy]
+  resources :user_sessions, only: %i[new destroy]
   get 'login', to: 'user_sessions#new', as: :login
   delete 'logout', to: 'user_sessions#destroy', as: :logout
 

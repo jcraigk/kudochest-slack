@@ -1,6 +1,4 @@
 class TopicsController < ApplicationController
-  before_action :fetch_current_team
-
   def index
     authorize Topic
     fetch_topics
@@ -55,8 +53,8 @@ class TopicsController < ApplicationController
   end
 
   def list
-    if @current_profile.team.enable_topics?
-      @topics = Topic.active.where(team: @current_team).order(name: :asc)
+    if current_profile.team.enable_topics?
+      @topics = Topic.active.where(team: current_team).order(name: :asc)
     else
       redirect_to_dasboard(alert: t('topics.disabled'))
     end
@@ -70,7 +68,7 @@ class TopicsController < ApplicationController
 
   def fetch_topics
     @topics =
-      Topic.where(team: @current_team)
+      Topic.where(team: current_team)
            .includes(:team)
            .order(name: :asc)
            .page(params[:page])
@@ -90,7 +88,7 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    permitted_params.merge(team: @current_team)
+    permitted_params.merge(team: current_team)
   end
 
   def permitted_params

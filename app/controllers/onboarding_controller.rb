@@ -1,6 +1,4 @@
 class OnboardingController < ApplicationController
-  before_action :fetch_current_team
-
   def join_all_channels
     authorize current_team
     current_team.update!(join_channels: true)

@@ -1,8 +1,8 @@
 .navbar-item.has-dropdown.dropdown#user-dropdown
   a.navbar-link.dropdown-trigger
-    - if @current_profile
-      img.small-radius alt='Profile avatar image' src=@current_profile.avatar_url class="platform-#{@current_profile.team.platform}"
-      = @current_profile.webref
+    - if current_profile
+      img.small-radius alt='Profile avatar image' src=current_profile.avatar_url class="platform-#{current_profile.team.platform}"
+      = current_profile.webref
     - else
       = current_user.email
 
@@ -13,11 +13,11 @@
     = link_to icon_and_text('tv', t('nav.team_wallboard')),
               wallboard_path,
               class: 'navbar-item'
-    - if @current_profile&.team&.enable_loot?
+    - if current_team&.enable_loot?
       = link_to icon_and_text('store', t('nav.shop')),
                 shop_path,
                 class: 'navbar-item'
-    - if @current_profile&.team&.enable_topics?
+    - if current_team&.enable_topics?
       = link_to icon_and_text('lightbulb', t('nav.topics')),
                 topic_list_path,
                 class: 'navbar-item'

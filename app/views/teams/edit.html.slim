@@ -5,9 +5,8 @@
     .team-setting-link data-link='responses'
       = icon_and_text('comment', t('teams.chat_responses'))
 
-    - if @current_team.platform.slack?
-      .team-setting-link data-link='presence'
-        = icon_and_text('door-open', t('teams.presence'))
+    .team-setting-link data-link='presence'
+      = icon_and_text('door-open', t('teams.presence'))
 
     .team-setting-link data-link='hints'
       = icon_and_text('lightbulb', t('teams.hints'))
@@ -43,12 +42,11 @@
       = icon_and_text('exclamation-circle', t('teams.stat_resets', points_title: App.points_term.titleize))
 
   .column
-    = form_for @current_team, local: true do |f|
+    = form_for current_team, local: true do |f|
       = hidden_field_tag :section, session[:section]
 
       = render partial: 'teams/settings/responses', locals: { f: f }
-      - if @current_team.platform.slack?
-        = render partial: 'teams/settings/presence', locals: { f: f }
+      = render partial: 'teams/settings/presence', locals: { f: f }
       = render partial: 'teams/settings/hints', locals: { f: f }
       = render partial: 'teams/settings/giving_points', locals: { f: f }
       = render partial: 'teams/settings/emoji', locals: { f: f }

@@ -1,6 +1,4 @@
 class TipsController < ApplicationController
-  before_action :fetch_current_team
-
   def index
     authorize Tip
     fetch_tips
