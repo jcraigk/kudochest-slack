@@ -125,7 +125,7 @@ class Slack::PostService < Base::PostService
     post_params = message_params(to_profile_rid).merge(as_user: true)
     slack_client.chat_postMessage(post_params)
   rescue Slack::Web::Api::Errors::InvalidBlocks => e
-    Sentry.capture_exception(e, extra: post_params)
+    Sentry.capture_exception(e, extra: { post_params: })
   end
 
   def respond_ephemeral(to_profile_rid)

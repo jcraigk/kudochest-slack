@@ -33,8 +33,9 @@ class Oauth::SorceryController < ApplicationController
     auto_associate_profile
 
     redirect_back_or_to dashboard_path
-  rescue ActiveRecord::RecordNotUnique
-    redirect_to login_path, alert: t('auth.email_taken', provider: provider_title)
+  rescue ActiveRecord::RecordNotUnique => e
+    Sentry.capture_exception(e)
+    redirect_to login_path, alert: t('auth.login_fail', extra: { params: })
   end
 
   def auth_params
