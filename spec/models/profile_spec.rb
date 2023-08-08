@@ -5,7 +5,6 @@ RSpec.describe Profile do
 
   it { is_expected.to be_a(ApplicationRecord) }
   it { is_expected.to be_a(Sluggi::Slugged) }
-  it { is_expected.to be_a(TokenRegisterable) }
 
   it { is_expected.to belong_to(:team) }
   it { is_expected.to belong_to(:user).optional }

@@ -1,7 +1,6 @@
 class Profile < ApplicationRecord
   include ProfileDecorator
   include Sluggi::Slugged
-  include TokenRegisterable
 
   belongs_to :team
   belongs_to :user, optional: true

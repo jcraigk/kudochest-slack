@@ -10,13 +10,13 @@ Rails.application.routes.draw do
   root to: 'public#landing'
 
   # Public
-  get :cookies,  to: 'public#cookie_policy',  as: :cookie_policy
-  get :features, to: 'public#features',       as: :features
-  get :help,     to: 'public#help',           as: :help
-  get :pricing,  to: 'public#pricing',        as: :pricing
-  get :privacy,  to: 'public#privacy_policy', as: :privacy_policy
-  get :support,  to: 'inquiries#new',         as: :support
-  get :terms,    to: 'public#terms',          as: :terms
+  get :cookie_policy,  to: 'public#cookie_policy'
+  get :features,       to: 'public#features'
+  get :help,           to: 'public#help'
+  get :pricing,        to: 'public#pricing'
+  get :privacy_policy, to: 'public#privacy_policy'
+  get :support,        to: 'inquiries#new'
+  get :terms,          to: 'public#terms'
 
   # Private
   get :dashboard, to: 'dashboard#show', as: :dashboard
@@ -46,33 +46,33 @@ Rails.application.routes.draw do
       patch :update_email # TODO: Remove this and sync from Slack instead?
     end
   end
-  get 'user-settings', to: 'users#edit_preferences', as: :user_settings
+  get :user_settings, to: 'users#edit_preferences'
   resources :user_sessions, only: %i[new destroy]
-  get 'login', to: 'user_sessions#new', as: :login
-  delete 'logout', to: 'user_sessions#destroy', as: :logout
+  get :login, to: 'user_sessions#new', as: :login
+  delete :logout, to: 'user_sessions#destroy', as: :logout
 
   namespace :onboarding do
-    patch 'join_all_channels'
-    patch 'join_specific_channels'
-    patch 'skip_join_channels'
-    patch 'confirm_emoji_added'
-    patch 'skip_emoji'
+    patch :join_all_channels
+    patch :join_specific_channels
+    patch :skip_join_channels
+    patch :confirm_emoji_added
+    patch :skip_emoji
   end
 
   resources :teams, only: %i[edit update new] do
     collection do
-      get 'leaderboard_page'
+      get :leaderboard_page
     end
     member do
-      patch 'reset_stats'
-      patch 'export_data'
+      patch :reset_stats
+      patch :export_data
     end
   end
-  get 'app-settings', to: 'teams#edit', as: :app_settings
+  get :app_settings, to: 'teams#edit'
 
   resources :profiles, only: %i[show edit update] do
     collection do
-      get 'random_showcase'
+      get :random_showcase
     end
   end
 
@@ -83,11 +83,11 @@ Rails.application.routes.draw do
   resources :bonuses, only: %i[index create]
   resources :claims, except: %i[new create]
 
-  get  'shop',         to: 'rewards#shop',       as: :shop
-  get  'topic-list',   to: 'topics#list',        as: :topic_list
-  post 'claim',        to: 'rewards#claim',      as: :claim_reward
-  get  'my-claims',    to: 'claims#my_claims',   as: :my_claims
-  get  'unsubscribe',  to: 'emails#unsubscribe', as: :unsubscribe
+  get  :shop,         to: 'rewards#shop'
+  get  :topic_list,   to: 'topics#list'
+  post :claim_reward, to: 'rewards#claim'
+  get  :my_claims,    to: 'claims#my_claims'
+  get  :unsubscribe,  to: 'emails#unsubscribe'
 
   match '/404', to: 'errors#not_found', via: :all
   match '/403', to: 'errors#forbidden', via: :all

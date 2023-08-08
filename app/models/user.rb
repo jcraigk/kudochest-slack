@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  include TokenRegisterable
   extend Enumerize
 
   authenticates_with_sorcery!

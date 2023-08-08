@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_170515) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_08_032735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -68,7 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_170515) do
     t.string "title"
     t.string "slug", null: false
     t.string "avatar_url", null: false
-    t.string "reg_token", null: false
     t.boolean "bot_user", null: false
     t.boolean "deleted", null: false
     t.boolean "allow_dm", null: false
@@ -97,7 +96,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_170515) do
     t.index ["last_tip_received_at"], name: "index_profiles_on_last_tip_received_at"
     t.index ["points_received"], name: "index_profiles_on_points_received"
     t.index ["points_sent"], name: "index_profiles_on_points_sent"
-    t.index ["reg_token"], name: "index_profiles_on_reg_token", unique: true
     t.index ["rid", "team_id"], name: "index_profiles_on_rid_and_team_id", unique: true
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["team_id"], name: "index_profiles_on_team_id"
@@ -267,12 +265,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_170515) do
     t.string "activation_state"
     t.string "activation_token"
     t.datetime "activation_token_expires_at", precision: nil
-    t.string "reg_token", null: false
     t.boolean "admin", null: false
     t.string "theme"
     t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reg_token"], name: "index_users_on_reg_token", unique: true
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end

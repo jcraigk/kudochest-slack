@@ -37,14 +37,6 @@ class ProfilesController < ApplicationController
     @profile = @profile.order('RANDOM()').first
   end
 
-  def requested_profile
-    @requested_profile ||= Profile.find_by(reg_token: params[:reg_token])
-  end
-
-  def redirect_to_dashboard(opts)
-    redirect_to dashboard_path, opts
-  end
-
   def profile_params
     params.require(:profile).permit \
       :allow_dm, :weekly_report, :announce_tip_sent, :announce_tip_received, :share_history

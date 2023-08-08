@@ -4,7 +4,6 @@ RSpec.describe User do
   subject(:user) { build(:user) }
 
   it { is_expected.to be_a(ApplicationRecord) }
-  it { is_expected.to be_a(TokenRegisterable) }
 
   it { is_expected.to have_many(:profiles) }
 
