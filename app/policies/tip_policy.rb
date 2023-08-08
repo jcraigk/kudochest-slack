@@ -7,7 +7,7 @@ class TipPolicy
   end
 
   def index?
-    user.owned_teams.any?
+    user.owned_team.present?
   end
 
   def destroy?

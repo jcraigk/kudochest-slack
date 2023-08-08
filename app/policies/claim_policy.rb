@@ -7,7 +7,7 @@ class ClaimPolicy
   end
 
   def index?
-    user.owned_teams.any?
+    user.owned_team.present?
   end
 
   def edit?
@@ -33,6 +33,6 @@ class ClaimPolicy
   end
 
   def user_owns_claim?
-    claim.profile_id.in?(user.profiles.ids)
+    claim.profile_id == user.profile.id
   end
 end

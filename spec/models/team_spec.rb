@@ -9,7 +9,7 @@ RSpec.describe Team do
   it do
     expect(team)
       .to belong_to(:owning_user)
-      .class_name('User').with_foreign_key(:owner_user_id).inverse_of(:owned_teams)
+      .class_name('User').with_foreign_key(:owner_user_id).inverse_of(:owned_team)
   end
 
   it { is_expected.to have_many(:channels).dependent(:destroy) }

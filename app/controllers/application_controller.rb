@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def require_login
     super # Sorcery gem
 
-    return unless current_profile.deleted?
+    return unless current_profile&.deleted?
     logout
     redirect_to login_path, alert: t('auth.deleted')
   end

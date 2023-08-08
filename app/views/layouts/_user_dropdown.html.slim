@@ -22,7 +22,7 @@
                 topic_list_path,
                 class: 'navbar-item'
 
-    - if current_user.owned_teams.any?
+    - if current_user.owned_team.present?
       .navbar-divider
       = link_to icon_and_text('cog', t('nav.app_settings')),
                 app_settings_path(section: :responses),

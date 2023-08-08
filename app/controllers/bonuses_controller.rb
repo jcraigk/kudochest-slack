@@ -1,5 +1,5 @@
 class BonusesController < ApplicationController
-  before_action :ensure_manager!
+  before_action :ensure_manager! # TODO: Replace with policy
 
   def index; end
 
@@ -24,6 +24,6 @@ class BonusesController < ApplicationController
   end
 
   def ensure_manager!
-    redirect_to dashboard_path unless current_user.owned_teams.any?
+    redirect_to dashboard_path if current_user.owned_team.blank?
   end
 end

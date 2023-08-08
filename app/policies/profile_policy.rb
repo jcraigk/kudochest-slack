@@ -33,6 +33,6 @@ class ProfilePolicy
   end
 
   def active_teammate?
-    profile.active? && profile.team_id.in?(user.profiles.active.map(&:team_id))
+    profile.active? && profile.team == user.profile.team
   end
 end

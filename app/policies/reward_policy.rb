@@ -7,15 +7,15 @@ class RewardPolicy
   end
 
   def index?
-    user.owned_teams.any?
+    user.owned_team.present?
   end
 
   def new?
-    user.owned_teams.any?
+    user.owned_team.present?
   end
 
   def create?
-    user.owned_teams.any?
+    user.owned_team.present?
   end
 
   def edit?

@@ -17,7 +17,10 @@ class Team < ApplicationRecord
   has_many :subteams, dependent: :destroy
   has_many :topics, dependent: :destroy
   has_many :rewards, dependent: :destroy
-  belongs_to :owning_user, class_name: 'User', foreign_key: :owner_user_id, inverse_of: :owned_teams
+  belongs_to :owning_user,
+             class_name: 'User',
+             foreign_key: :owner_user_id,
+             inverse_of: :owned_team
 
   enumerize :platform,
             in: %w[slack]
