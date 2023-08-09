@@ -28,6 +28,7 @@ COPY . .
 
 RUN apt-get update -qq && apt-get install -y nodejs npm
 RUN npm install -g yarn
+RUN yarn global add webpack
 
 RUN gem install bundler && bundle install
 RUN bundle exec rake assets:precompile
