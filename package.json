@@ -15,7 +15,6 @@
     "select-pure": "^2.1.0",
     "select2": "^4.0.13",
     "webpack": "^5.88.2",
-    "webpack-cli": "^3.3.12",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
