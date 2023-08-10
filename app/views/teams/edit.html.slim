@@ -63,6 +63,7 @@
         = cancel_changes_button
         = submit_button
 
+= javascript_include_tag 'settings'
 = javascript_include_tag 'https://unpkg.com/select-pure@0.6.2/dist/bundle.min.js'
 
 javascript:
@@ -83,66 +84,79 @@ javascript:
   var dirty = false
   var submitted = false
 
-  $(window).on('beforeunload', function(){
+  window.addEventListener('beforeunload', function(e) {
     if (dirty && !submitted) {
-      return 'Are you sure you want to leave?';
+      e.returnValue = 'Are you sure you want to leave?';
     }
   });
 
   function updateButtons() {
+    var saveButton = document.getElementById('btn-save-changes');
+    var discardButton = document.getElementById('btn-discard-changes');
+
     if (dirty) {
-      $('#btn-save-changes').addClass('is-primary')
-      $('#btn-discard-changes').addClass('is-danger')
+      saveButton.classList.add('is-primary');
+      discardButton.classList.add('is-danger');
     } else {
-      $('#btn-save-changes').removeClass('is-primary')
-      $('#btn-discard-changes').removeClass('is-danger')
+      saveButton.classList.remove('is-primary');
+      discardButton.classList.remove('is-danger');
     }
   }
 
   function dirtyForm() {
-    dirty = true
-    updateButtons()
+    dirty = true;
+    updateButtons();
   }
 
   function cleanForm() {
-    dirty = false
-    updateButtons()
+    dirty = false;
+    updateButtons();
   }
 
-  $(function() {
-    updateButtons()
+  window.addEventListener('DOMContentLoaded', function() {
+    updateButtons();
 
-    $('.card').hide()
+    var cards = document.querySelectorAll('.card');
+    cards.forEach(function(card) {
+      card.style.display = 'none';
+    });
 
-    if ('#{session[:section]}' != '') {
-      $("[data-section='#{session[:section]}']").show()
-      $("[data-link='#{session[:section]}']").addClass('is-active')
+    var section = '#{session[:section]}';
+    if (section !== '') {
+      document.querySelector("[data-section='" + section + "']").style.display = 'block';
+      document.querySelector("[data-link='" + section + "']").classList.add('is-active');
     } else {
-      $('.card:first').show()
-      $('.team-setting-link:first').addClass('is-active')
+      document.querySelector('.card:first-child').style.display = 'block';
+      document.querySelector('.team-setting-link:first-child').classList.add('is-active');
     }
 
-    $('.team-setting-link').on('click', function() {
-      $('.card').hide()
-      $('.team-setting-link').removeClass('is-active')
-      $(this).addClass('is-active')
-      var section_name = $(this).data('link')
-      $('#section').attr('value', section_name)
-      var section_selector = "[data-section='" + section_name  + "']"
-      $(section_selector).show()
-    })
+    var links = document.querySelectorAll('.team-setting-link');
+    links.forEach(function(link) {
+      link.addEventListener('click', function() {
+        cards.forEach(function(card) {
+          card.style.display = 'none';
+        });
+        var links = document.querySelectorAll('.team-setting-link');
+        links.forEach(function(innerLink) {
+          innerLink.classList.remove('is-active');
+        });
+        this.classList.add('is-active');
+        var sectionName = this.dataset.link;
+        document.getElementById('section').value = sectionName;
+        var sectionSelector = document.querySelector("[data-section='" + sectionName + "']");
+        sectionSelector.style.display = 'block';
+      });
+    });
 
-    $(':input').on('change', function() {
-      dirtyForm()
-    })
-    $(window).on('select-pure-change', function() {
-      dirtyForm()
-    })
+    var inputs = document.querySelectorAll('input, select, textarea, button');
+    inputs.forEach(function(input) {
+      input.addEventListener('change', dirtyForm);
+    });
 
-    $('#btn-discard-changes').on('click', function() {
-      cleanForm
-    })
-    $('#btn-save-changes').on('click', function() {
-      submitted = true
-    })
-  })
+    window.addEventListener('select-pure-change', dirtyForm);
+
+    document.getElementById('btn-discard-changes').addEventListener('click', cleanForm);
+    document.getElementById('btn-save-changes').addEventListener('click', function() {
+      submitted = true;
+    });
+  });

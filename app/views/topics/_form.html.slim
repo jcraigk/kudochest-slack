@@ -73,9 +73,11 @@
 
 javascript:
   // Auto-generate keyword from the name
-  $('#topic_name').on('change', function() {
-    if (! $('#topic_keyword').val()) {
-      var snake_case = $(this).val().match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g).map(x => x.toLowerCase()).join('_');
-      $('#topic_keyword').val(snake_case)
+  document.getElementById('topic_name').addEventListener('change', function() {
+    var keywordElement = document.getElementById('topic_keyword');
+    if (!keywordElement.value) {
+      var snake_case = this.value.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g).map(x => x.toLowerCase()).join('_');
+      keywordElement.value = snake_case;
     }
-  })
+  });
+

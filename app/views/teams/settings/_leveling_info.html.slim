@@ -23,33 +23,3 @@
         data: current_team.level_points_map,
         user: @current_user,
         id: 'level-chart3'
-
-
-javascript:
-  $(function() {
-    Chart.defaults.global.layout = {
-      padding: {
-        top: 30
-      }
-    }
-    Chart.defaults.global.defaultFontFamily = 'Barlow Semi Condensed'
-    Chart.defaults.global.defaultFontSize = 13
-    Chart.defaults.global.defaultFontColor = "#{current_user.theme.dark? ? '#fff' : '#555'}"
-    var chart = Chartkick.charts['level-chart1']
-    chart.setOptions(chart.options)
-    var chart = Chartkick.charts['level-chart2']
-    chart.setOptions(chart.options)
-    var chart = Chartkick.charts['level-chart3']
-    chart.setOptions(chart.options)
-
-    showInfo($('#team_level_curve').val())
-
-    $('#team_level_curve').on('change', function() {
-      $('.setting-value').hide()
-      showInfo($(this).val())
-    })
-
-    function showInfo(key) {
-      $('.setting-value[data-name="' + key + '"]').show()
-    }
-  })

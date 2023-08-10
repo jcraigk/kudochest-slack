@@ -45,19 +45,3 @@
               td => time_ago_in_words(tip.created_at) + ' ago'
 
       = paginate tips, params: { paged: true }
-
-javascript:
-  $(function () {
-    Chart.defaults.global.layout = {
-      padding: {
-        top: 30
-      }
-    }
-    Chart.defaults.global.defaultFontFamily = 'Barlow Semi Condensed'
-    Chart.defaults.global.defaultFontSize = 13
-    Chart.defaults.global.defaultFontColor = "#{current_user.theme.dark? ? '#fff' : '#555'}"
-    var chart = Chartkick.charts['histogram']
-    if (typeof chart !== 'undefined') {
-      chart.setOptions(chart.options)
-    }
-  })

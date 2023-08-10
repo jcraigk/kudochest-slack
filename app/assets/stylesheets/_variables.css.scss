@@ -1,0 +1,25 @@
+@import 'bulma';
+
+$blue: rgb(72, 151, 224);
+$green: rgb(36, 120, 82);
+$blue-green: #428a8a;
+$red: rgb(207, 75, 75);
+$yellow: rgb(225, 196, 129);
+$highlight: rgb(255, 244, 219);
+$highlight-dark: rgb(92, 89, 81);
+$grey-mid: rgb(110, 110, 110);
+$brown: #332416;
+
+$danger: $red;
+$info: $blue-green;
+$link: $blue;
+$primary: $green;
+$success: $green;
+$warning: $yellow;
+
+$given-color: #432478;
+$given-color-dark: #d2b8ff;
+$earned-color: $green;
+$earned-color-dark: #a1f7d0;
+
+$radius: 5px;

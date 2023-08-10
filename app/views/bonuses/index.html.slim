@@ -1,5 +1,7 @@
 = content_for(:feedback_class) { 'width-full' }
 
+= javascript_include_tag 'bonuses'
+
 .card
   header.card-header
     p.card-header-title = t('nav.bonus_calculator')
@@ -121,20 +123,3 @@
       br
       .has-text-right
         = submit_button t('bonuses.request_csv'), 'cloud-download-alt'
-
-
-javascript:
-  $(function() {
-    showInfo($('#bonus-calc-style').val())
-
-    $('#bonus-calc-style').on('change', function() {
-      $('.style-info').hide()
-      $('.style-control').hide()
-      showInfo($(this).val())
-    })
-
-    function showInfo(key) {
-      $('.style-info[data-name="' + key + '"]').show()
-      $('.style-control[data-name="' + key + '"]').show()
-    }
-  })

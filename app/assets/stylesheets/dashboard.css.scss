@@ -1,3 +1,5 @@
+@import 'variables';
+
 .profile-tile {
   .media {
     margin-bottom: 15px !important;
@@ -7,43 +9,43 @@
   }
 
   .wood {
-    background-image: url('../images/levels/badges/wood.png')
+    background-image: image-url('levels/badges/wood.png')
   }
   .woodleaves {
-    background-image: url('../images/levels/badges/woodleaves.png')
+    background-image: image-url('levels/badges/woodleaves.png')
   }
   .stone {
-    background-image: url('../images/levels/badges/stone.png')
+    background-image: image-url('levels/badges/stone.png')
   }
   .stoneleaves {
-    background-image: url('../images/levels/badges/stoneleaves.png')
+    background-image: image-url('levels/badges/stoneleaves.png')
   }
   .bronze {
-    background-image: url('../images/levels/badges/bronze.png')
+    background-image: image-url('levels/badges/bronze.png')
   }
   .silver {
-    background-image: url('../images/levels/badges/silver.png')
+    background-image: image-url('levels/badges/silver.png')
   }
   .gold {
-    background-image: url('../images/levels/badges/gold.png')
+    background-image: image-url('levels/badges/gold.png')
   }
   .sapphire {
-    background-image: url('../images/levels/badges/sapphire.png')
+    background-image: image-url('levels/badges/sapphire.png')
   }
   .ruby {
-    background-image: url('../images/levels/badges/ruby.png')
+    background-image: image-url('levels/badges/ruby.png')
   }
   .columnleaves {
-    background-image: url('../images/levels/badges/columnleaves.png')
+    background-image: image-url('levels/badges/columnleaves.png')
   }
   .trophy-1 {
-    background-image: url('../images/trophies/1.png')
+    background-image: image-url('trophies/1.png')
   }
   .trophy-2 {
-    background-image: url('../images/trophies/2.png')
+    background-image: image-url('trophies/2.png')
   }
   .trophy-3 {
-    background-image: url('../images/trophies/3.png')
+    background-image: image-url('trophies/3.png')
   }
 
   // #achievements {

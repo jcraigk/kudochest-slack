@@ -1,7 +1,7 @@
 - content_for :subtitle, t('nav.features')
 - content_for :meta_description, t('meta.features')
 
-= javascript_pack_tag 'features'
+= javascript_include_tag 'features'
 
 = render partial: 'public/features/callout_splash'
 = render partial: 'public/features/callout_js_demo'

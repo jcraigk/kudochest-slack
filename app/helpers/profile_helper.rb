@@ -62,7 +62,7 @@ module ProfileHelper
 
   def level_as_pixel_digits(lvl)
     lvl.to_s.chars.map do |digit|
-      image_pack_tag "media/images/levels/digits/#{digit}.png", class: 'digit', alt: "Level #{lvl}"
+      image_tag "levels/digits/#{digit}.png", class: 'digit', alt: "Level #{lvl}"
     end.join.html_safe # rubocop:disable Rails/OutputSafety
   end
 

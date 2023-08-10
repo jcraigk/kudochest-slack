@@ -1,3 +1,5 @@
+= javascript_include_tag 'rewards'
+
 = form_for @reward, local: true do |f|
 
   = render 'shared/model_errors', record: @reward
@@ -97,20 +99,3 @@
         data: { confirm: t('rewards.confirm_destroy') }
     = back_button(rewards_path)
     = submit_button
-
-javascript:
-  $(function() {
-    var $auto_fulfill = $('input[name="reward[auto_fulfill]"]')
-    $auto_fulfill.on('click', function() { toggleInputs() })
-    toggleInputs()
-
-    function toggleInputs() {
-      if ($auto_fulfill.is(':checked')) {
-        $('#quantity-control').hide()
-        $('#keys-control').show()
-      } else {
-        $('#quantity-control').show()
-        $('#keys-control').hide()
-      }
-    }
-  })

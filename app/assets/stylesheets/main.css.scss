@@ -1,49 +1,27 @@
-@charset "utf-8";
+@charset 'utf-8';
 
-$blue: rgb(72, 151, 224);
-$green: rgb(36, 120, 82);
-$blue-green: #428a8a;
-$red: rgb(207, 75, 75);
-$yellow: rgb(225, 196, 129);
-$highlight: rgb(255, 244, 219);
-$highlight-dark: rgb(92, 89, 81);
-$grey-mid: rgb(110, 110, 110);
-$brown: #332416;
+@import 'bulma';
+@import 'vendor/bulma-tooltip.min';
+@import 'vendor/select-pure.css.scss';
+@import 'vendor/bulma-switch.sass';
+@import 'vendor/select2';
 
-$danger: $red;
-$info: $blue-green;
-$link: $blue;
-$primary: $green;
-$success: $green;
-$warning: $yellow;
-
-$given-color: #432478;
-$given-color-dark: #d2b8ff;
-$earned-color: $green;
-$earned-color-dark: #a1f7d0;
-
-$radius: 5px;
-
-@import "bulma";
-@import "bulma-tooltip";
-@import "select2";
-@import "vendor/select-pure.css.scss";
-@import "vendor/bulma-switch.sass";
-
-@import "dashboard.css.scss";
-@import "errors.css.scss";
-@import "features.css.scss";
-@import "help.css.scss";
-@import "navbar.css.scss";
-@import "platforms.css.scss";
-@import "shop.css.scss";
-@import "team_owner.css.scss";
-@import "topics.css.scss";
-@import "wallboard.css.scss";
+@import 'dashboard.css.scss';
+@import 'errors.css.scss';
+@import 'features.css.scss';
+@import 'help.css.scss';
+@import 'navbar.css.scss';
+@import 'platforms.css.scss';
+@import 'shop.css.scss';
+@import 'team_owner.css.scss';
+@import 'topics.css.scss';
+@import 'wallboard.css.scss';
 
 @font-face {
   font-family: 'Barlow Semi Condensed';
-  src: url('../fonts/BarlowSemiCondensed-Regular.ttf');
+  src: font-url('BarlowSemiCondensed-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 html {
@@ -62,7 +40,7 @@ html {
 
   body.public {
     background-color: $brown !important;
-    background-image: url('../images/backgrounds/vertical-mural.png');
+    background-image: image-url('backgrounds/vertical-mural.png');
     background-repeat: no-repeat;
     background-size: 100% auto;
 

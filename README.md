@@ -3,7 +3,7 @@
 &nbsp;
 &nbsp;
 
-![KudoChest Logo](https://github.com/jcraigk/kudochest/blob/main/app/webpacker/images/logos/app-144.png)
+![KudoChest Logo](https://github.com/jcraigk/kudochest/blob/main/app/assets/images/logos/app-144.png)
 &nbsp;
 &nbsp;
 
@@ -38,10 +38,7 @@ You may run all components in Docker with logging exposed using the command `mak
 
 Alternatively you can run services (PG and Redis) in Docker while running the Rails processes natively. This often eases debugging and development.
 
-For running the Rails stack you'll need the following:
-* Ruby (use [rvm](https://rvm.io/) or [asdf](https://asdf-vm.com/))
-* [NodeJS](https://nodejs.org/en/)
-* [Yarn](https://www.npmjs.com/package/yarn)
+For running the Rails stack you'll need Ruby (use [rvm](https://rvm.io/) or [asdf](https://asdf-vm.com/)).
 
 ```bash
 # Install Ruby dependencies
@@ -51,9 +48,6 @@ bundle install
 make services
 bundle exec rails db:create
 bundle exec rails db:reset
-
-# Install javascript dependencies
-yarn install
 
 # Start web server (terminal 1)
 bundle exec rails s

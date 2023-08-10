@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  before_action :remember_section, only: %i[edit update]
+
   def edit
     authorize current_team
     prepare_infinite_profile_options

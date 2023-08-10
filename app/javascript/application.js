@@ -1,13 +1,10 @@
-require.context('../images', true);
+//= require chartkick
+//= require Chart.bundle
+//= require jquery
+//= require jquery_ujs
+//= require vendor/select2
 
-import 'chart.js'
-import 'chartkick'
-import 'select2'
-import $ from 'jquery'
-
-require('@rails/ujs').start()
-
-$(document).ready(function() {
+$().ready(function() {
   // Navbar burger menu
   $('.navbar-burger').on('click', function(e) {
     $('.navbar-burger').toggleClass('is-active')

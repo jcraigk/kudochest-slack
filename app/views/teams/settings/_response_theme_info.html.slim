@@ -43,24 +43,9 @@
     p The Fancy theme mention recipients, displays user stats (level or #{App.points_term}), and includes emoji.
 
   .theme-info data-name='gif_day' style='display: none;'
-    = image_pack_tag "media/images/response_images/day.gif", alt: "Day Graphic", class: 'gif'
+    = image_tag "response_images/day.gif", alt: "Day Graphic", class: 'gif'
     p The Graphical - Day theme produces an animated GIF response.
 
   .theme-info data-name='gif_night' style='display: none;'
-    = image_pack_tag "media/images/response_images/night.gif", alt: "Night Graphic", class: 'gif'
+    = image_tag "response_images/night.gif", alt: "Night Graphic", class: 'gif'
     p The Graphical - Night theme produces an animated GIF response.
-
-
-javascript:
-  $(function() {
-    showInfo($('#team_response_theme').val())
-
-    $('#team_response_theme').on('change', function() {
-      $('.theme-info').hide()
-      showInfo($(this).val())
-    })
-
-    function showInfo(key) {
-      $('.theme-info[data-name="' + key + '"]').show()
-    }
-  })

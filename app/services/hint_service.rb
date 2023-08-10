@@ -1,7 +1,6 @@
 class HintService < Base::Service
   include ActionView::Helpers::AssetUrlHelper
   include PointsHelper
-  include Webpacker::Helper
 
   option :team
 
@@ -55,9 +54,7 @@ class HintService < Base::Service
   end
 
   def logo_image_path
-    asset_pack_path('media/images/logos/app-reverse-144.png')
-  rescue Webpacker::Manifest::MissingEntryError
-    nil
+    image_path('logos/app-reverse-144.png')
   end
 
   def responder

@@ -149,6 +149,6 @@ module ApplicationHelper
 
   def rank_or_trophy(rank)
     return rank unless rank.in?(1..3)
-    image_pack_tag "media/images/trophies/#{rank}.png", size: '20x25'
+    image_tag "trophies/#{rank}.png", size: '20x25'
   end
 end

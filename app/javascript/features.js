@@ -1,6 +1,6 @@
-import $ from 'jquery'
+//= require jquery
 
-$(document).ready(function() {
+$().ready(function() {
   // JS Demo
   var txt = ['@Lisa ++', '@Vincent ++2 great presentation!', '/kudos top']
   var response_classes = ['response-lisa', 'response-vincent', 'response-top']

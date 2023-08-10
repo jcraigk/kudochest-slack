@@ -8,8 +8,8 @@ html
     = render partial: 'layouts/meta'
 
     = stylesheet_link_tag 'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
-    = stylesheet_pack_tag 'application'
-    = javascript_pack_tag 'application'
+    = stylesheet_link_tag 'application'
+    = javascript_importmap_tags
 
     - unless @public_layout
       = action_cable_meta_tag

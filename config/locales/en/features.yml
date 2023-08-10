@@ -1,5 +1,16 @@
 en:
   features:
+    slack:
+      screenshot1: 'Give karma by chatting "++"'
+      screenshot2: Give karma with emoji
+      screenshot3: View team leaderboards
+      screenshot4: Use "/karma" for assistance
+      screenshot5: Change settings on the web
+      screenshot6: Monitor your progression
+      screenshot7: Browse your history
+      login_to_add: Sign In to Add to Slack
+      hero_title: Level Up Your Team
+      hero_body_html: "Transform your team's dull chat experience into an <b>engaging space</b> where contributors are <strong>rewarded</strong>!"
     list_of_features: List of Features
     click_for_detail: Click for detail
     contact_us: Contact Us

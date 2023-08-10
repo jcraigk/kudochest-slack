@@ -1,3 +1,5 @@
+@import 'variables';
+
 @media (max-width: 600px) {
   #features-js-demo {
     display: none;
@@ -148,11 +150,11 @@
         border-radius: 10px;
       }
       #chat1-avatar {
-        background-image: url('../images/features/avatar-mark.png');
+        background-image: image-url('features/avatar-mark.png');
         top: 55px;
       }
       #chat2-avatar {
-        background-image: url('../images/features/avatar-kudochest.png');
+        background-image: image-url('features/avatar-kudochest.png');
         top: 270px;
       }
       p {
@@ -207,17 +209,17 @@
           .response-lisa {
             width: 500px;
             height: 120px;
-            background-image: url('../images/features/response-lisa.gif');
+            background-image: image-url('features/response-lisa.gif');
           }
           .response-vincent {
             width: 500px;
             height: 120px;
-            background-image: url('../images/features/response-vincent.gif');
+            background-image: image-url('features/response-vincent.gif');
           }
           .response-top {
             width: 400px;
             height: 180px;
-            background-image: url('../images/features/response-top.gif');
+            background-image: image-url('features/response-top.gif');
           }
         }
       }

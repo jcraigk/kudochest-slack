@@ -14,17 +14,3 @@
 
   .setting-value data-name='silent' style='display: none;'
     p = t('teams.response_mode_silent_html', points: App.points_term)
-
-javascript:
-  $(function() {
-    showInfo($('#team_response_mode').val())
-
-    $('#team_response_mode').on('change', function() {
-      $('.setting-value').hide()
-      showInfo($(this).val())
-    })
-
-    function showInfo(key) {
-      $('.setting-value[data-name="' + key + '"]').show()
-    }
-  })
