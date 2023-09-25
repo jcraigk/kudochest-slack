@@ -43,7 +43,7 @@ class Base::TeamSyncService < Base::Service
       end
 
     # Delete local profiles that were not found remotely
-    team.profiles.active.where.not(id: synced_profile_ids).each do |profile|
+    team.profiles.active.where.not(id: synced_profile_ids).find_each do |profile|
       profile.update(deleted: true)
     end
   end
