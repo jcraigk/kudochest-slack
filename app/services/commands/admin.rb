@@ -146,6 +146,6 @@ class Commands::Admin < Commands::Base
   end
 
   def long_time_zone
-    ActiveSupport::TimeZone.find { |tz| tz.name == team.time_zone }.to_s
+    ActiveSupport::TimeZone.all.find { |tz| tz.name == team.time_zone }.to_s
   end
 end
