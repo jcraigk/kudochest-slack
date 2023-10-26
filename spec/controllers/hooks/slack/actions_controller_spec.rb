@@ -5,7 +5,7 @@ describe Hooks::Slack::ActionsController do
 
   subject(:response) { post(hooks_slack_action_path, params) }
 
-  include_context 'with Slack request verification and active team' do
+  include_context 'with active team' do
     let(:team) { team }
   end
 

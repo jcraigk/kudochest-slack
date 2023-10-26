@@ -5,12 +5,12 @@ en:
     being_installed: The app is being installed in your workspace.
     auto_refresh_html: This page will auto-refresh in <span id="countdown">10</span> seconds.
     channels_title: Join Public Channels
-    channels_start: Let's get started by adding the bot to some public channels!
+    channels_start: Let's get started by adding the bot to some public Slack channels!
     channels_select: 'Alternatively you can select from these recommended channels:'
     join_specific_channels: Join Selected Channels
     skip_join_channels: Don't Join Any Channels
     join_all_channels: Join All Public Channels
-    confirm_join_all_channels: Are you sure you want to add the bot to all public channels?
+    confirm_join_all_channels: Are you sure you want to add the bot to all public Slack channels?
     join_all_channels_requested: Awesome! The bot is now being added to all public channels!
     join_channels_requested: Awesome! The bot is now being added to the specified channels!
     join_channels_skipped: Okay, the bot will not be automatically added to any channels. You can change this in <a href="%{url}" target="_blank">App Settings</a> at any time.

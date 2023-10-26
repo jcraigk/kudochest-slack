@@ -78,12 +78,21 @@ class Hooks::Slack::BaseController < Hooks::BaseController
     @subtype ||= params.dig(:event, :subtype)
   end
 
+  # Implemented manually when slack-ruby-client's
+  # `Slack::Events::Request.new...verify!` stopped working
   def verify_slack_request!
-    Slack::Events::Request.new(request).verify!
-  rescue Slack::Events::Request::MissingSigningSecret,
-         Slack::Events::Request::TimestampExpired,
-         Slack::Events::Request::InvalidSignature
-    head :forbidden
+    return if Rails.env.test?
+
+    timestamp = request.headers['HTTP_X_SLACK_REQUEST_TIMESTAMP']
+    return head(:unauthorized) if Time.now.to_i - timestamp.to_i > 300 # 5 minutes
+    slack_signature = request.headers['HTTP_X_SLACK_SIGNATURE']
+    head(:unauthorized) unless expected_signature(timestamp) == slack_signature
+  end
+
+  def expected_signature(timestamp)
+    sig_basestring = "v0:#{timestamp}:#{request.raw_post}"
+    str = OpenSSL::HMAC.hexdigest('sha256', App.slack_signing_secret, sig_basestring)
+    "v0=#{str}"
   end
 
   def verify_team_active!

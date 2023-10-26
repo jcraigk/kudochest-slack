@@ -5,7 +5,7 @@ describe Hooks::Slack::EventsController do
 
   subject(:response) { post(hooks_slack_command_path) }
 
-  include_context 'with Slack request verification and active team' do
+  include_context 'with active team' do
     let(:team) { create(:team) }
   end
 

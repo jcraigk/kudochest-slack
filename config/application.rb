@@ -11,6 +11,7 @@ Bundler.require(*Rails.groups)
 
 module KudoChest
   class Application < Rails::Application
+    config.load_defaults 7.1
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml')]
     config.exceptions_app = routes
     config.hosts.clear
@@ -40,6 +41,7 @@ module KudoChest
 
     # Slack
     config.slack_app_id = ENV.fetch('SLACK_APP_ID', nil)
+    config.slack_signing_secret = ENV.fetch('SLACK_SIGNING_SECRET', nil)
     config.slack_oauth_scopes = %w[
       channels:history
       channels:join

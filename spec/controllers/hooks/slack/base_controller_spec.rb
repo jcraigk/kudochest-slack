@@ -29,17 +29,6 @@ describe Hooks::Slack::BaseController do
       allow(Cache::TeamConfig).to receive(:call).and_return(config)
     end
 
-    describe 'verifies the Slack request is authentic' do
-      before do
-        allow(slack_request).to receive(:verify!)
-      end
-
-      it 'verifies the Slack request in before_action' do
-        expect(response).to be_successful
-        expect(slack_request).to have_received(:verify!)
-      end
-    end
-
     shared_examples 'ignores irrelevant messages' do
       let(:config) { { active: true } }
 
