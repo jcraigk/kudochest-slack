@@ -11,7 +11,7 @@ class PublicController < ApplicationController
 
   def pricing; end
 
-  def privacy_policy; end
+  def privacy; end
 
   def terms; end
 

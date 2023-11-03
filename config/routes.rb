@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get :features,       to: 'public#features'
   get :help,           to: 'public#help'
   get :pricing,        to: 'public#pricing'
-  get :privacy_policy, to: 'public#privacy_policy'
+  get :privacy,        to: 'public#privacy'
   get :support,        to: 'inquiries#new'
   get :terms,          to: 'public#terms'
 

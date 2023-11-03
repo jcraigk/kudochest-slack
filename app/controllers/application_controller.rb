@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       [
         dashboard_path, support_path, cookie_policy_path,
         features_path, help_path, pricing_path,
-        privacy_policy_path, terms_path
+        privacy_path, terms_path
       ]
     redirect_to :dashboard if current_team&.oversized?
   end
