@@ -20,7 +20,7 @@
       - if current_team.onboarded?
         = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
       - else
-        = render 'onboarding/integration', profile: current_profile
+        = render 'onboarding/config', profile: current_profile
 
     // Dashboard for normal users
     - else

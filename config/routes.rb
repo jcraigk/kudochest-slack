@@ -72,7 +72,8 @@ Rails.application.routes.draw do
     patch :skip_emoji
   end
 
-  resources :teams, only: %i[edit update new] do
+  # TODO: Should we have teams.new?
+  resources :teams, only: %i[edit update] do
     collection do
       get :leaderboard_page
     end
