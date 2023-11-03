@@ -19,6 +19,9 @@ Rails.application.configure do
   # config.require_master_key = true
 
   config.public_file_server.enabled = true # Expose precompiled assets
+  config.public_file_server.headers = {
+    'Access-Control-Allow-Origin' => '*'
+  }
 
   # Default to quiet logging for privacy
   config.log_level = ENV.fetch('LOG_LEVEL', :error)
