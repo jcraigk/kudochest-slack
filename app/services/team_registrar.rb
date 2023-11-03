@@ -7,10 +7,9 @@ class TeamRegistrar < Base::Service
   option :owner_user_id
 
   def call
-    create_or_update_team.tap do |team|
-      ChannelSyncWorker.perform_async(team.rid)
-      TeamSyncWorker.perform_async(team.rid, true)
-    end
+    team = create_or_update_team
+    ChannelSyncWorker.perform_async(team.rid)
+    TeamSyncWorker.perform_async(team.rid, true)
   end
 
   private
