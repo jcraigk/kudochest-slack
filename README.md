@@ -132,7 +132,7 @@ dokku letsencrypt:set kudochest email kudochest@gmail.com
 dokku letsencrypt:enable kudochest
 ```
 
-5. Download the cert/key?
+5. Download the cert/key? (This isn't necessary)
 ```
 Your account credentials have been saved in your Let's Encrypt
 configuration directory at "/certs/accounts".

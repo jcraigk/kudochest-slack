@@ -2,6 +2,7 @@
 require 'net/ssh'
 require 'dotenv'
 require 'colorize'
+require 'thread'
 
 Dotenv.load
 
@@ -10,31 +11,61 @@ SUDO_PASSWORD = ENV.fetch('SUDO_PASSWORD')
 DOCKER_PASSWORD = ENV.fetch('DOCKER_PASSWORD')
 ROLES = ENV.fetch('ROLES', 'worker,web')
 COMMANDS = [
-  # "echo #{SUDO_PASSWORD} | sudo -S dokku registry:login docker.io kudochest #{DOCKER_PASSWORD}",
+  "echo #{SUDO_PASSWORD} | sudo -S dokku registry:login docker.io kudochest #{DOCKER_PASSWORD}",
   "echo #{SUDO_PASSWORD} | sudo -S docker rmi #{IMAGE_NAME}",
   "echo #{SUDO_PASSWORD} | sudo -S dokku git:from-image kudochest #{IMAGE_NAME}",
   "echo #{SUDO_PASSWORD} | sudo -S dokku ps:rebuild kudochest",
 ]
 SSH_PRIVATE_KEY_PATH = '/Users/jcraigk/.ssh/id_rsa'
 SSH_USERNAME = 'jcraigk'
+COLORS = %i[red green yellow blue magenta cyan white]
 
-def execute_commands_on_ip(ip_address, commands)
+
+@color_index = 0
+@color_for_ip = {}
+def assign_ip_color(ip_address)
+  unless @color_for_ip[ip_address]
+    @color_for_ip[ip_address] = COLORS[@color_index]
+    @color_index = (@color_index + 1) % COLORS.size
+  end
+  @color_for_ip[ip_address]
+end
+
+def execute_commands_on_ip(ip_address, commands, color)
   Net::SSH.start(ip_address, SSH_USERNAME, keys: [SSH_PRIVATE_KEY_PATH]) do |ssh|
     commands.each do |command|
       result = ssh.exec!(command)
-      # puts command.yellow
-      puts result
-      puts ("-" * 50).light_blue
+      # puts "[#{ip_address}] #{command}".colorize(color) # Uncomment to show commands (including secrets!)
+      puts "[#{ip_address}] #{result}".colorize(color)
     end
   end
 end
 
-ROLES.split(',').each do |role|
-  ENV.fetch("#{role.upcase}_BOXES").split(',').each do |ip_address|
-    puts "START: #{ip_address}".light_blue
-    execute_commands_on_ip(ip_address, COMMANDS)
-    puts "COMPLETE: #{ip_address}".light_blue
-    puts ("=" * 50).light_blue
+def spinner
+  spinner_chars = %w[| / - \\]
+  loop do
+    spinner_chars.each do |char|
+      print "\r#{char} Waiting for servers..."
+      sleep 0.1
+    end
   end
 end
 
+####################################################################################################
+
+$stdout.sync = true  # Flush output immediately
+spinner_thread = Thread.new { spinner } # Start spinner in a separate thread
+threads = []
+ROLES.split(',').each do |role|
+  ENV.fetch("#{role.upcase}_BOXES", '').split(',').each do |ip_address|
+    color = assign_ip_color(ip_address)
+    threads << Thread.new do
+      puts ("===== Role `#{role}` @ #{ip_address} BEGIN ========").colorize(color)
+      execute_commands_on_ip(ip_address, COMMANDS, color)
+      puts ("===== Role `#{role}` @ #{ip_address} COMPLETE =====").colorize(color)
+    end
+  end
+end
+
+threads.each(&:join) # Wait for all threads to complete
+spinner_thread.kill
