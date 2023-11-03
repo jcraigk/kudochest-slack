@@ -7,25 +7,17 @@
 // If team size is acceptable
 - else
 
-  // If app is already installed
-  - if current_profile
+  // Display upgrade screen for delinquent teams
+  - if current_team.delinquent?
+    = render 'layouts/upgrade'
 
-    // Display upgrade screen for delinquent teams
-    - if current_team.delinquent?
-      = render 'layouts/upgrade'
-
-    // Onboarding for admins
-    - elsif current_user.owned_team == current_team
-      = render 'onboarding/welcome'
-      - if current_team.onboarded?
-        = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
-      - else
-        = render 'onboarding/config', profile: current_profile
-
-    // Dashboard for normal users
-    - else
+  // Onboarding for admins
+  - elsif current_user.owned_team == current_team
+    - if current_team.onboarded?
       = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
+    - else
+      = render 'onboarding/config', profile: current_profile
 
-  // Installing app...
-  - elsif current_team.active?
-    = render 'onboarding/installing'
+  // Dashboard for normal users
+  - else
+    = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard

@@ -1,8 +1,6 @@
 en:
   onboarding:
     welcome: Welcome to KudoChest! The bot is now available in your workspace.
-    installing: Installing...
-    being_installed: Please wait while we configure the app for your Slack workspace.
     channels_title: Join Public Channels
     channels_start: Let's get started by adding the bot to some public Slack channels!
     channels_select: 'Alternatively you can select from these recommended channels:'

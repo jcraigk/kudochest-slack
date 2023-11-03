@@ -1,6 +1,6 @@
 class Base::ChannelSyncService < Base::Service
   option :team
-  option :new_channel_rid
+  option :new_channel_rid, optional: true
 
   def call
     sync_active_channels

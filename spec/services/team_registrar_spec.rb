@@ -31,8 +31,8 @@ RSpec.describe TeamRegistrar, :freeze_time do
 
   before do
     allow(Slack::Web::Client).to receive(:new).and_return(slack_client)
-    allow(ChannelSyncWorker).to receive(:perform_async)
-    allow(TeamSyncWorker).to receive(:perform_async)
+    allow(Slack::ChannelSyncService).to receive(:call)
+    allow(Slack::TeamSyncService).to receive(:call)
   end
 
   context 'when no team with RID exists' do
@@ -44,10 +44,10 @@ RSpec.describe TeamRegistrar, :freeze_time do
       service
     end
 
-    it 'creates a Team and calls sync workers' do
+    it 'creates a Team and calls sync services' do
       expect(Team).to have_received(:create!).with(team_attrs)
-      expect(ChannelSyncWorker).to have_received(:perform_async).with(team.rid)
-      expect(TeamSyncWorker).to have_received(:perform_async).with(team.rid, true)
+      expect(Slack::ChannelSyncService).to have_received(:call).with(team:)
+      expect(Slack::TeamSyncService).to have_received(:call).with(team:, first_run: true)
     end
   end
 
@@ -62,8 +62,8 @@ RSpec.describe TeamRegistrar, :freeze_time do
 
     it 'updates existing team and calls sync workers' do
       expect(team).to have_received(:update!)
-      expect(ChannelSyncWorker).to have_received(:perform_async).with(team.rid)
-      expect(TeamSyncWorker).to have_received(:perform_async).with(team.rid, true)
+      expect(Slack::ChannelSyncService).to have_received(:call).with(team:)
+      expect(Slack::TeamSyncService).to have_received(:call).with(team:, first_run: true)
     end
   end
 end

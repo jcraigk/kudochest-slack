@@ -8,8 +8,8 @@ class TeamRegistrar < Base::Service
 
   def call
     team = create_or_update_team
-    ChannelSyncWorker.perform_async(team.rid)
-    TeamSyncWorker.perform_async(team.rid, true)
+    Slack::ChannelSyncService.call(team:)
+    Slack::TeamSyncService.call(team:, first_run: true)
   end
 
   private

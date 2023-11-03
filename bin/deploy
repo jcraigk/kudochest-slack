@@ -35,8 +35,8 @@ def execute_commands_on_ip(ip_address, commands, color)
   Net::SSH.start(ip_address, SSH_USERNAME, keys: [SSH_PRIVATE_KEY_PATH]) do |ssh|
     commands.each do |command|
       result = ssh.exec!(command)
-      # puts "[#{ip_address}] #{command}".colorize(color) # Uncomment to show commands (including secrets!)
-      puts "[#{ip_address}] #{result}".colorize(color)
+      # puts "\n[#{ip_address}] #{command}".colorize(color) # Uncomment to show commands (including secrets!)
+      puts "\n[#{ip_address}] #{result}".colorize(color)
     end
   end
 end
@@ -60,9 +60,9 @@ ROLES.split(',').each do |role|
   ENV.fetch("#{role.upcase}_BOXES", '').split(',').each do |ip_address|
     color = assign_ip_color(ip_address)
     threads << Thread.new do
-      puts ("===== Role `#{role}` @ #{ip_address} BEGIN ========").colorize(color)
+      puts ("\n===== Role `#{role}` #{ip_address} BEGIN ========").colorize(color)
       execute_commands_on_ip(ip_address, COMMANDS, color)
-      puts ("===== Role `#{role}` @ #{ip_address} COMPLETE =====").colorize(color)
+      puts ("\n===== Role `#{role}` #{ip_address} COMPLETE =====").colorize(color)
     end
   end
 end
