@@ -8,6 +8,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to login_path, notice: t('auth.logged_out')
+    redirect_to root_path, notice: t('auth.logged_out')
   end
 end

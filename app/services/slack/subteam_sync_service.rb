@@ -20,9 +20,4 @@ class Slack::SubteamSyncService < Base::SubteamSyncService
       handle: remote_subteam[:handle]
     }
   end
-
-  # Slack does not create a subteam for bots
-  def app_subteam_rid
-    nil
-  end
 end

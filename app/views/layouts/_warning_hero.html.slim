@@ -1,0 +1,19 @@
+- if current_team&.inactive? || current_team&.delinquent?
+
+  section.hero.is-warning
+    .hero-body
+
+      - if current_team&.inactive?
+
+        p.title = t('teams.uninstalled')
+        p.subtitle = "#{current_team.uninstalled_by} on #{current_team.uninstalled_at.strftime('%B %d, %Y')}."
+        = render 'shared/add_to_slack_button' unless current_team&.oversized?
+
+      - elsif current_team&.delinquent?
+
+        p.title = t('teams.delinquent')
+        p.subtitle
+          - if current_team.subscribed_at_least_once?
+            = t('teams.subscription_expired')
+          - if current_team.subscribed_at_least_once?
+            = t('teams.trial_expired')

@@ -1,8 +1,10 @@
 #showcase_profile_id data-id=@profile.id
 
-= render partial: 'profiles/tiles/stats', locals: { profile: @profile }
+= render 'profiles/tiles/stats', profile: @profile
 
 br
 
-= render partial: 'profiles/tiles/leaderboard',
-         locals: { profile: @profile, leaderboard: @leaderboard, hide_paging: @hide_paging }
+= render 'profiles/tiles/leaderboard',
+         profile: @profile,
+         leaderboard: @leaderboard,
+         hide_paging: @hide_paging

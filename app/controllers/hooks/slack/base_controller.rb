@@ -4,7 +4,6 @@ class Hooks::Slack::BaseController < Hooks::BaseController
   before_action :verify_challenge_param
   before_action :ignore_irrelevant_messages!
   before_action :verify_slack_request!
-  before_action :verify_team_active!
 
   def receiver
     enqueue_slack_event_worker
@@ -93,11 +92,6 @@ class Hooks::Slack::BaseController < Hooks::BaseController
     sig_basestring = "v0:#{timestamp}:#{request.raw_post}"
     str = OpenSSL::HMAC.hexdigest('sha256', App.slack_signing_secret, sig_basestring)
     "v0=#{str}"
-  end
-
-  def verify_team_active!
-    return if team_config[:active]
-    head :ok
   end
 
   def text

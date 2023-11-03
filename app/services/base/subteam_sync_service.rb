@@ -4,7 +4,6 @@ class Base::SubteamSyncService < Base::Service
   def call
     destroy_old_subteams
     sync_active_subteams
-    assign_app_subteam
   end
 
   private
@@ -18,11 +17,6 @@ class Base::SubteamSyncService < Base::Service
 
   def assign_profiles(subteam)
     subteam.profiles = Profile.where(team:, rid: profile_rids_for(subteam))
-  end
-
-  def assign_app_subteam
-    return if app_subteam_rid.blank?
-    team.update!(app_subteam_rid:)
   end
 
   def find_or_create_subteam(attrs) # rubocop:disable Metrics/MethodLength

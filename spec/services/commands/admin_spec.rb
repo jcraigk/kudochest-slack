@@ -6,7 +6,7 @@ RSpec.describe Commands::Admin do
   subject(:command) { described_class.call(team_rid: team.rid, profile_rid: profile.rid) }
 
   let(:user) { create(:user) }
-  let(:team) { create(:team, owning_user: user, throttle_tips: true, enable_topics: true) }
+  let(:team) { create(:team, owner: user, throttle_tips: true, enable_topics: true) }
   let(:profile) { create(:profile, team:) }
   let(:response) { ChatResponse.new(mode: :private, text:) }
   let(:text) do

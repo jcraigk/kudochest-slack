@@ -20,7 +20,7 @@ module KudoChest
     config.active_job.queue_adapter = :sidekiq
 
     # Basic
-    config.company_name = 'KudoChest'
+    config.company_name = 'Eight Three, LLC'
     config.app_name = 'KudoChest'
     config.bot_name = 'KudoChest'
     config.base_url = ENV.fetch('BASE_URL', "https://#{ENV.fetch('WEB_DOMAIN', 'localhost')}")
@@ -94,7 +94,7 @@ module KudoChest
     config.default_token_max = 100
     config.max_token_max = 1_000
     config.default_action_hour = 13
-    config.default_time_zone = 'Pacific Time (US & Canada)'
+    config.default_team_time_zone = 'Pacific Time (US & Canada)'
     config.default_streak_duration = 5
     config.min_streak_duration = 3
     config.max_streak_duration = 100
@@ -112,35 +112,47 @@ module KudoChest
     config.receive_color = '#247808'
 
     # Subscription Plans
-    PlanStruct = Struct.new(:rid, :name, :range, :price)
-    config.subscription_plans = {
-      slack: [
-        PlanStruct.new(
-          'plan_HGklKCmSS2HuRy',
-          'Small Team',
-          0..50,
-          19.99
-        ),
-        PlanStruct.new(
-          'plan_HGkmOnjJZfxYdq',
-          'Medium Team',
-          51..150,
-          39.99
-        ),
-        PlanStruct.new(
-          'plan_HGkmbR9JBbsFtJ',
-          'Large Team',
-          151..300,
-          69.99
-        ),
-        PlanStruct.new(
-          'plan_HGkny4NU72JmIX',
-          'Enterprise Team',
-          301..,
-          99.99
-        )
-      ]
-    }.with_indifferent_access
+    config.trial_period = 90.days
+    config.max_team_size = 2_500
+    config.subscription_grace_period = 7.days
+    PlanStruct = Struct.new(:price_rid, :name, :range, :price)
+    config.subscription_plans = [
+      PlanStruct.new(
+        ENV.fetch('STRIPE_SMALL_PRICE_RID', nil),
+        'Small Team Plan',
+        0..50,
+        19.99
+      ),
+      PlanStruct.new(
+        ENV.fetch('STRIPE_MEDIUM_PRICE_RID', nil),
+        'Medium Team Plan',
+        51..150,
+        39.99
+      ),
+      PlanStruct.new(
+        ENV.fetch('STRIPE_LARGE_PRICE_RID', nil),
+        'Large Team Plan',
+        151..300,
+        69.99
+      ),
+      PlanStruct.new(
+        ENV.fetch('STRIPE_XL_PRICE_RID', nil),
+        'XL Team Plan',
+        301..500,
+        99.99
+      ),
+      PlanStruct.new(
+        ENV.fetch('STRIPE_ENT_PRICE_RID', nil),
+        'Enterprise Plan',
+        501..config.max_team_size,
+        199.99
+      )
+    ]
+
+    # Stripe
+    config.stripe_signing_secret = ENV.fetch('STRIPE_SIGNING_SECRET', nil)
+    config.stripe_webhook_secret = ENV.fetch('STRIPE_WEBHOOK_SECRET', nil)
+    config.stripe_publishable_key = ENV.fetch('STRIPE_PUBLISHABLE_KEY', nil)
   end
 end
 

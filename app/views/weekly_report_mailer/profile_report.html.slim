@@ -1,10 +1,10 @@
-= render partial: 'header'
+= render 'header'
 
 = mail_profile_avatar_image(@profile)
 
 h1 Personal Stats for #{mail_profile_link(@profile)}
 
-= render partial: 'profile_digest'
+= render 'profile_digest'
 
 br
 br
@@ -15,6 +15,6 @@ br
 
 h1 Team Stats for #{@team.name}
 
-= render partial: 'team_digest'
+= render 'team_digest'
 
-= render partial: 'footer'
+= render 'footer'

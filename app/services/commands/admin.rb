@@ -138,7 +138,7 @@ class Commands::Admin < Commands::Base
   end
 
   def owner
-    @owner ||= team.owning_user
+    @owner ||= team.owner
   end
 
   def owner_profile_link

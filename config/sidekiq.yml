@@ -1,8 +1,12 @@
 :max_retries: 5
 
 :scheduler:
-  HourlyTeamWorker:
-    cron: '0 0 * * * * America/Los_Angeles' # Hourly
+  :schedule:
+    HourlyTeamWorker:
+      cron: '0 0 * * * *' # Hourly
 
-  WeeklyReport::RecurrentWorker:
-    cron: '0 0 8 * * 1 America/Los_Angeles' # Every Monday at 8am
+    SubscriptionExpiryWorker:
+      cron: '0 0 22 * * * America/Los_Angeles' # Nightly at 10pm Pacific
+
+    WeeklyReport::RecurrentWorker:
+      cron: '0 0 5 * * 1 America/Los_Angeles' # Every Monday at 5am Pacific

@@ -49,4 +49,4 @@
             .select = f.select :level_curve, Team.level_curve.options
             = tooltip_btn('teams.level_curve_tooltip', nil, points: App.points_term)
     br
-    = render partial: 'teams/settings/leveling_info'
+    = render 'teams/settings/leveling_info'

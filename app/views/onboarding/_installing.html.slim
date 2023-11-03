@@ -6,26 +6,13 @@
 
   .card-content.has-text-centered
     p.has-text-weight-bold = t('onboarding.being_installed')
-    p = t('onboarding.auto_refresh_html')
     br
-
-    progress.progress.is-primary.my-progress-bar role="progressbar" value="0" max="100"
+    progress.progress.is-primary.install-progress-bar role='progressbar' value='0' max='100'
 
 javascript:
-  // Countdown message
-  var timeLeft = 9;
-  var countdownTimer = setInterval(function(){
-    document.getElementById('countdown').innerHTML = timeLeft;
-    timeLeft -= 1;
-    if(timeLeft <= 0){
-      clearInterval(countdownTimer);
-      location.href = window.location.pathname + '?install=true';
-    }
-  }, 1000);
-
-  // Progress bar
+  // Refresh timer with progress bar
   document.addEventListener('DOMContentLoaded', () => {
-    let progressBar = document.querySelector('.my-progress-bar');
+    let progressBar = document.querySelector('.install-progress-bar');
     let value = 0;
 
     let interval = setInterval(() => {
@@ -34,6 +21,7 @@ javascript:
 
       if (value >= 100) {
         clearInterval(interval);
+        location.href = window.location.pathname + '?install=true';
       }
     }, 100);
   });

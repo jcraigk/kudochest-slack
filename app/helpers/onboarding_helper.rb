@@ -4,9 +4,6 @@ module OnboardingHelper
       icon_and_text('sign-in', t('onboarding.join_all_channels')),
       onboarding_join_all_channels_path(team, app_settings:),
       class: 'button is-primary',
-      method: :patch,
-      data: {
-        confirm: t('onboarding.confirm_join_all_channels')
-      }
+      method: :patch
   end
 end

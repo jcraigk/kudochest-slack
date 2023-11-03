@@ -1,13 +1,31 @@
 = content_for(:feedback_class) { 'width-750' }
 
-- if current_profile
-  - if current_user.owned_team == current_team
-    = render partial: 'onboarding/welcome'
-    - if current_team.onboarded?
-      = render partial: 'profiles/tiles', locals: { profile: current_profile, tips: @tips, leaderboard: @leaderboard }
-    - else
-      = render partial: 'onboarding/integration', locals: { profile: current_profile }
-  - else
-    = render partial: 'profiles/tiles', locals: { profile: current_profile, tips: @tips, leaderboard: @leaderboard }
+// Display error if team is too large
+- if current_team&.oversized?
+  = render 'layouts/oversized'
+
+// If team size is acceptable
 - else
-  = render partial: 'onboarding/installing'
+
+  // If app is already installed
+  - if current_profile
+
+    // Display upgrade screen for delinquent teams
+    - if current_team.delinquent?
+      = render 'layouts/upgrade'
+
+    // Onboarding for admins
+    - elsif current_user.owned_team == current_team
+      = render 'onboarding/welcome'
+      - if current_team.onboarded?
+        = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
+      - else
+        = render 'onboarding/integration', profile: current_profile
+
+    // Dashboard for normal users
+    - else
+      = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
+
+  // Installing app...
+  - elsif current_team.active?
+    = render 'onboarding/installing'

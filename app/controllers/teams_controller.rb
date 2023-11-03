@@ -14,14 +14,14 @@ class TeamsController < ApplicationController
   def reset_stats
     authorize current_team
     TeamResetWorker.perform_async(current_team.id)
-    redirect_to app_settings_path, notice: t('teams.reset_requested')
+    redirect_to app_settings_path(section: 'danger_zone'), notice: t('teams.reset_requested')
   end
 
   def export_data
     authorize current_team
     DataExportWorker.perform_async(current_team.id)
     redirect_to app_settings_path,
-                notice: t('teams.export_data_requested', email: current_team.owning_user.email)
+                notice: t('teams.export_data_requested', email: current_team.owner.email)
   end
 
   def leaderboard_page
@@ -33,6 +33,19 @@ class TeamsController < ApplicationController
     return if @leaderboard.profiles.blank?
     render partial: 'profiles/tiles/leaderboard_rows',
            locals: { leaderboard: @leaderboard, profile: current_profile }
+  end
+
+  def uninstall
+    authorize current_team
+
+    if current_team.recurring_subscription?
+      return redirect_to \
+        app_settings_path(section: 'danger_zone'),
+        alert: t('teams.recurring_subscription_html')
+    end
+
+    current_team.uninstall!('Uninstalled via web by workspace admin')
+    redirect_to app_settings_path(section: 'danger_zone'), notice: t('teams.uninstalled')
   end
 
   private

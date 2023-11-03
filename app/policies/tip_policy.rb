@@ -11,6 +11,6 @@ class TipPolicy
   end
 
   def destroy?
-    tip.from_profile.team.owning_user == user
+    tip.from_profile.team.owner == user
   end
 end

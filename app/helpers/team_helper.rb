@@ -14,6 +14,17 @@ module TeamHelper
       }
   end
 
+  def uninstall_button(team)
+    link_to \
+      icon_and_text('exclamation-circle', t('teams.uninstall_now')),
+      uninstall_team_path(team),
+      class: 'button is-danger',
+      method: :patch,
+      data: {
+        confirm: t('teams.confirm_uninstall')
+      }
+  end
+
   def active_claim_button(reward)
     link_to \
       icon_and_text(

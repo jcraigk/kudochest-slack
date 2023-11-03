@@ -5,15 +5,9 @@ html
     - title += " - #{yield(:subtitle)}" if content_for?(:subtitle)
     title = title
 
-    = render partial: 'layouts/meta'
-
-    = stylesheet_link_tag 'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
-    = stylesheet_link_tag 'application'
-    = javascript_importmap_tags
-
-    - unless @public_layout
-      = action_cable_meta_tag
-      = csrf_meta_tags
+    = render 'layouts/meta'
+    = render 'layouts/asset_links'
+    = render 'layouts/security'
 
   body class=(@public_layout ? 'public' : nil)
     = render 'layouts/navigation'
@@ -21,7 +15,7 @@ html
     .section#main class=(current_user&.theme&.dark? ? 'dark-mode' : nil)
       .container
         = render 'layouts/notifications'
-
+        = render 'layouts/warning_hero'
         = yield
 
     = render 'layouts/footer'

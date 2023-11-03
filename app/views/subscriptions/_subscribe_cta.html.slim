@@ -1,0 +1,12 @@
+hr
+
+p = subscription_explanation(current_team, suggested_plan)
+br
+
+- if current_team.active?
+  p = t('billing.explanation2', price: suggested_plan.price)
+  br
+
+  = stripe_subscribe_button(current_team)
+- else
+  p = t('billing.reinstall_first')

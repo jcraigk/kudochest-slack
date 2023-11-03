@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def current_team
-    current_user&.profile&.team
+    current_user&.profile&.team || Team.find_by(owner: current_user)
   end
 
   def submit_button(label = nil, icon = 'check', css = '')

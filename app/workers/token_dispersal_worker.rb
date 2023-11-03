@@ -4,7 +4,7 @@ class TokenDispersalWorker
 
   def perform(team_id)
     team = Team.find(team_id)
-    return unless team.active? && team.throttle_tips?
+    return if team.inactive? && team.throttle_tips?
     TokenDispersalService.call(team:)
   end
 end

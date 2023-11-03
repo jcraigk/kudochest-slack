@@ -12,6 +12,7 @@ en:
     dashboard: Dashboard
     features: Features
     help: Help
+    support: Support
     manage_loot: Manage Loot
     manage_topics: Manage Topics
     points_admin: Browse %{points_title}

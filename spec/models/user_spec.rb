@@ -11,7 +11,7 @@ RSpec.describe User do
     expect(user).to(
       have_one(:owned_team)
         .class_name('Team').with_foreign_key(:owner_user_id)
-        .inverse_of(:owning_user).dependent(:nullify)
+        .inverse_of(:owner).dependent(:nullify)
     )
   end
 

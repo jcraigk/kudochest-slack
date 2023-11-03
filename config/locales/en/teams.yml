@@ -33,6 +33,7 @@ en:
     add_new_explain_html: "The largest team we can accommodate is %{count} members. Click a button only if you're an admin."
     add_new: Install %{app}
     confirm_reset_stats: Are you sure you want to reset all user %{points} immediately? This action cannot be undone.
+    confirm_uninstall: Are you sure you want to uninstall the app from your Slack workspace?
     enable_levels_tooltip: Leveling provides incremental acheivements for users to attain by breaking up the accrual of longterm %{points}. If levelinng is disabled, total %{points} will be shown in its place.
     enable: Enable
     leaderboard_empty: No activity yet. The leaderboard updates periodically.
@@ -50,9 +51,12 @@ en:
     response_theme_tooltip: When %{points} is sent, the chatbot will respond with a confirmation message. Here you can select a theme that defines how those responses appear.
     log_channel_rid: Log Channel
     log_channel_rid_tooltip: 'To see a copy of all responses in one channel, select one here. We recommend creating a public channel named #kudos and inviting all members of your workspace.'
-    reset_now_info: You can reset all user %{points} to zero by clicking the button below. Each user will automatically receive an initial token dispersal if throttling is enabled.
+    reset_now_info: You can reset all user %{points} to zero by clicking the button below. This will delete your entire history and is not recoverable. Each user will automatically receive an initial token dispersal if throttling is enabled.
+    uninstall_now_info: You can uninstall the app from your Slack workspace by clicking the button below. Note that this will not delete your history in case you decide to come back.
+    reinstall_now_info: The app is not currently installed in your workspace. Install it now using the button below.
     reset_requested: Team stats will be reset momentarily
     reset_stats_now: Reset All %{points_title} Now
+    uninstall_now: Uninstall App Now
     show_channel: Show Channel in Log
     show_channel_tooltip: Whether responses in the Log Channel include a reference to the channel where the %{points} were given. The chat client will obscure the name of private channels based on individual user permissions.
     show_note: Show Note in Log
@@ -116,3 +120,12 @@ en:
     hint_channel_rid: Usage Hint Channel
     hint_channel_rid_tooltip: Select the channel that the bot will post usage hints in.
     hints: Usage Hints
+    oversized_title: Oversized Team
+    oversized_body: Sorry, your team has more members than we can handle at this time (%{count}). If you are close to that limit, please contact us.
+    danger_zone: Danger Zone
+    uninstalled: The app has been uninstalled from your workspace.
+    oversized_alert: Sorry, your team is too large for us to handle right now. Please contact us.
+    delinquent: Your account needs attention.
+    subscription_expired_html: Your subscription has expired, visit the <a href="/billing">billing page</a> to resubscribe.
+    trial_expired_html: Your trial has expired, visit the <a href="/billing">billing page</a> to subscribe.
+    recurring_subscription_html: Before you can uninstall the app, please cancel your active subscription on the <a href="/billing">billing page</a>.

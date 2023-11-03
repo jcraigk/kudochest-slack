@@ -3,23 +3,33 @@ class WeeklyReport::ProfileWorker
   include PointsHelper
   include Sidekiq::Worker
 
-  TIMEFRAME = 1.week.freeze
-  TEAM_CACHE_TTL = 10.minutes
+  COOLDOWN = 6.days.freeze
+  CACHE_TTL = 10.minutes
 
   attr_reader :profile_id
 
   def perform(profile_id)
     @profile_id = profile_id
 
-    return unless profile.user&.email.present? && profile.weekly_report?
+    return unless send_weekly_report?
 
     send_email
   end
 
   private
 
+  def send_weekly_report?
+    profile.user&.email.present? &&
+      profile.weekly_report? &&
+      (
+        profile.weekly_report_notified_at.nil? ||
+        profile.weekly_report_notified_at < COOLDOWN.ago
+      )
+  end
+
   def send_email
     WeeklyReportMailer.profile_report(profile_data, team_data).deliver
+    profile.update!(weekly_report_notified_at: Time.current)
   end
 
   def profile_data
@@ -29,7 +39,7 @@ class WeeklyReport::ProfileWorker
   def team_data
     Rails.cache.fetch(
       "weekly_report/#{profile.team.id}",
-      expires_in: TEAM_CACHE_TTL.from_now
+      expires_in: CACHE_TTL
     ) do
       Reports::TeamDigestService.call(team: profile.team)
     end

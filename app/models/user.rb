@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_one :owned_team,
           class_name: 'Team',
           foreign_key: :owner_user_id,
-          inverse_of: :owning_user,
+          inverse_of: :owner,
           dependent: :nullify
   has_many :authentications, dependent: :destroy
 

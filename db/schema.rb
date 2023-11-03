@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_08_044109) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_044109) do
     t.integer "jabs_sent", default: 0, null: false
     t.integer "jabs_received", default: 0, null: false
     t.integer "balance", default: 0, null: false
+    t.datetime "weekly_report_notified_at"
     t.index ["created_at"], name: "index_profiles_on_created_at"
     t.index ["display_name"], name: "index_profiles_on_display_name"
     t.index ["last_tip_received_at"], name: "index_profiles_on_last_tip_received_at"
@@ -100,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_044109) do
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["team_id"], name: "index_profiles_on_team_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
+    t.index ["weekly_report_notified_at"], name: "index_profiles_on_weekly_report_notified_at"
   end
 
   create_table "rewards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -165,7 +167,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_044109) do
     t.integer "max_level_points", null: false
     t.datetime "tokens_disbursed_at", precision: nil
     t.integer "points_sent", default: 0, null: false
-    t.boolean "active", null: false
     t.boolean "enable_streaks", null: false
     t.integer "streak_duration", null: false
     t.integer "streak_reward", null: false
@@ -174,10 +175,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_044109) do
     t.string "app_profile_rid"
     t.string "time_zone", default: "UTC", null: false
     t.string "response_theme"
-    t.boolean "installed", null: false
     t.boolean "notify_tokens", null: false
     t.string "platform"
-    t.string "app_subteam_rid"
     t.boolean "join_channels", default: false, null: false
     t.boolean "enable_cheers", default: true, null: false
     t.boolean "enable_loot", default: true, null: false
@@ -198,12 +197,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_044109) do
     t.string "jab_emoji", default: "arrow_down", null: false
     t.datetime "onboarded_channels_at"
     t.datetime "onboarded_emoji_at"
+    t.boolean "gratis_subscription", default: false, null: false
+    t.datetime "trial_expires_at"
+    t.string "stripe_customer_rid"
+    t.string "stripe_price_rid"
+    t.string "stripe_subscription_rid"
+    t.datetime "stripe_expires_at"
+    t.datetime "stripe_canceled_at"
+    t.datetime "stripe_declined_at"
+    t.datetime "trial_expiry_notified_at"
+    t.datetime "team_size_notified_at"
+    t.datetime "uninstalled_at"
+    t.string "uninstalled_by"
+    t.datetime "weekly_report_notified_at"
     t.index ["action_hour"], name: "index_teams_on_action_hour"
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"
     t.index ["owner_user_id"], name: "index_teams_on_owner_user_id"
     t.index ["rid"], name: "index_teams_on_rid", unique: true
     t.index ["slug"], name: "index_teams_on_slug", unique: true
+    t.index ["stripe_customer_rid"], name: "index_teams_on_stripe_customer_rid"
+    t.index ["stripe_price_rid"], name: "index_teams_on_stripe_price_rid"
+    t.index ["stripe_subscription_rid"], name: "index_teams_on_stripe_subscription_rid"
+    t.index ["weekly_report_notified_at"], name: "index_teams_on_weekly_report_notified_at"
   end
 
   create_table "tips", force: :cascade do |t|

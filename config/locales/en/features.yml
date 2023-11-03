@@ -14,7 +14,7 @@ en:
     list_of_features: List of Features
     click_for_detail: Click for detail
     contact_us: Contact Us
-    try_month: Try It Free!
+    try_it_free: Try It Free!
     onboarding_deck: Onboarding Deck
     watch_video: Watch Video
     view_demo: See How It Works
@@ -23,6 +23,10 @@ en:
     pricing: Pricing
     help: Help
     support: Support
+    cta_hero_title: 90 days free, no payment method required.
+    cta_hero_subtitle_with_link_html: Affording <a href="/pricing">subscription pricing</a> after trial ends.
+    cta_hero_subtitle: Affording subscription pricing after trial ends.
+    larger_team_html: Larger team?<br><a href="/support">Contact us</a>.
     list:
       give_plusplus:
         title: Give kudos with "++"

@@ -1,0 +1,57 @@
+h1.title = subscription_plan_name(current_team)
+
+#subscription-status
+  - if current_team.gratis_subscription?
+    p
+      b> Expires:
+      | Never
+
+  - elsif current_team.trial?
+    p
+      b> Expires:
+      => current_team.trial_expires_at.strftime('%B %-d, %Y')
+      | (in #{distance_of_time_in_words(Time.current, current_team.trial_expires_at)})
+
+    = render 'subscribe_cta', suggested_plan:
+
+  - elsif current_team.active?
+    p
+      b> Status:
+      - if current_team.stripe_canceled_at.present?
+        | Canceled, <strong>will expire</strong>
+      - elsif current_team.stripe_declined_at.present?
+        | Declined, <strong>will expire</strong>
+      - else
+        | Active, automatic renewal
+
+    p
+      b> Price:
+      | $
+      => current_team.subscription_plan.price
+      | per month
+
+    p
+      - if current_team.stripe_canceled_at.present? || current_team.stripe_declined_at.present?
+        b.expires> Expires:
+      - else
+        b> Next payment:
+      = current_team.stripe_expires_at.strftime('%B %-d, %Y')
+
+    - if current_team.stripe_canceled_at.present? || current_team.stripe_declined_at.present?
+      = render 'subscribe_cta', suggested_plan:
+    - else
+      hr
+
+      - if !current_team.member_count.in?(current_team.subscription_plan.range)
+        .notification.is-warning
+          - if current_team.member_count > current_team.subscription_plan.range.end
+            p Warning: your current team size exceeds the maximum allowed by your plan.
+          - elsif current_team.member_count < current_team.subscription_plan.range.end
+            p Warning: your current team size has dropped below the range of your plan.
+          p = subscription_explanation(current_team, suggested_plan)
+          p Please cancel and resubscribe below.
+
+      = stripe_cancel_button
+
+  - else
+    = render 'subscribe_cta', suggested_plan:

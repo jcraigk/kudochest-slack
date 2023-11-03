@@ -33,6 +33,6 @@ class RewardPolicy
   private
 
   def user_owns_team?
-    reward.team.owning_user == user
+    reward.team.owner == user
   end
 end

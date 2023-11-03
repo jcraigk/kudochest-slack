@@ -32,5 +32,4 @@
                       i.fa.fa-chevron-right.main-icon
                       i.fa.fa-spinner.fa-spin.spin-icon.is-hidden
           tbody#leaderboard-body
-            = render partial: 'profiles/tiles/leaderboard_rows',
-                     locals: { leaderboard: leaderboard, profile: profile }
+            = render 'profiles/tiles/leaderboard_rows', leaderboard:, profile:

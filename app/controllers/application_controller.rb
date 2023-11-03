@@ -4,24 +4,37 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_action :require_login, except: %i[not_authenticated]
+  before_action :redirect_oversized_team
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   protected
+
+  def redirect_oversized_team
+    return if request.path.in? \
+      [
+        dashboard_path, support_path, cookie_policy_path,
+        features_path, help_path, pricing_path,
+        privacy_policy_path, terms_path
+      ]
+    redirect_to :dashboard if current_team&.oversized?
+  end
 
   def require_login
     super # Sorcery gem
 
     return unless current_profile&.deleted?
     logout
-    redirect_to login_path, alert: t('auth.deleted')
+    redirect_to root_path, alert: t('auth.deleted')
   end
 
+  # Defined in ApplicationHelper but also needed here :shrug:
   def current_profile
     current_user&.profile
   end
 
+  # Defined in ApplicationHelper but also needed here :shrug:
   def current_team
-    current_user&.profile&.team
+    current_user&.profile&.team || Team.find_by(owner: current_user)
   end
 
   def not_authenticated

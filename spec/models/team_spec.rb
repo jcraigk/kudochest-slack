@@ -8,7 +8,7 @@ RSpec.describe Team do
 
   it do
     expect(team)
-      .to belong_to(:owning_user)
+      .to belong_to(:owner)
       .class_name('User').with_foreign_key(:owner_user_id).inverse_of(:owned_team)
   end
 
@@ -89,24 +89,6 @@ RSpec.describe Team do
     end
   end
 
-  describe 're-activation' do
-    subject(:team) { create(:team, active: false) }
-
-    before do
-      allow(ChannelSyncWorker).to receive(:perform_async)
-      allow(TeamSyncWorker).to receive(:perform_async)
-      team.update(active: true)
-    end
-
-    it 'calls ChannelSyncWorker' do
-      expect(ChannelSyncWorker).to have_received(:perform_async).with(team.rid)
-    end
-
-    it 'calls TeamSyncWorker' do
-      expect(TeamSyncWorker).to have_received(:perform_async).with(team.rid, false)
-    end
-  end
-
   describe 'custom validators' do
     let(:validators) { described_class.validators.map(&:class) }
     let(:expected_validators) do
@@ -128,13 +110,84 @@ RSpec.describe Team do
     expect(team.week_start_day).to eq('monday')
   end
 
+  context 'when becoming oversized' do
+    let(:slack_client) { instance_spy(Slack::Web::Client) }
+
+    before do
+      allow(Slack::Web::Client).to receive(:new).and_return(slack_client)
+      allow(slack_client).to receive(:apps_uninstall)
+    end
+
+    xit 'sets active to false if team gets oversized during trial subscription' do
+      team.update(member_count: App.max_team_size + 1)
+      expect(team.reload.active?).to be(false)
+    end
+  end
+
+  describe '#oversized?' do
+    it 'returns true if exceeding App.max_team_size' do
+      team.member_count = 10_000
+      expect(team.oversized?).to be(true)
+    end
+  end
+
   describe '#active scope' do
     let(:active_team) { create(:team) }
 
-    before { create(:team, active: false) }
+    before { create(:team, uninstalled_at: Time.current) }
 
     it 'returns only active teams' do
       expect(described_class.active).to eq([active_team])
+    end
+  end
+
+  describe '#trial_expired scope' do
+    let(:expired_team) { create(:team, trial_expires_at: 120.days.ago) }
+
+    before { create(:team, trial_expires_at: 120.days.from_now) }
+
+    it 'returns only expired teams' do
+      expect(described_class.trial_expired).to eq([expired_team])
+    end
+  end
+
+  describe '#subscribed_at_least_once scope' do
+    let(:subscribed_team) { create(:team, stripe_expires_at: Time.current) }
+
+    before { create(:team, stripe_expires_at: nil) }
+
+    it 'returns only teams that have subscribed at least once' do
+      expect(described_class.subscribed_at_least_once).to eq([subscribed_team])
+    end
+  end
+
+  describe '#never_subscribed scope' do
+    let(:never_subscribed_team) { create(:team, stripe_expires_at: nil) }
+
+    before { create(:team, stripe_expires_at: Time.current) }
+
+    it 'returns only not teams that have never subscribed' do
+      expect(described_class.never_subscribed).to eq([never_subscribed_team])
+    end
+  end
+
+  describe '#gratis scope' do
+    let(:gratis_team) { create(:team, gratis_subscription: true) }
+
+    before { create(:team, gratis_subscription: false) }
+
+    it 'returns only gratis teams' do
+      expect(described_class.gratis).to eq([gratis_team])
+    end
+  end
+
+  describe '#non_gratis scope' do
+    let(:non_gratis_team) { create(:team, gratis_subscription: false) }
+
+    before { create(:team, gratis_subscription: true) }
+
+    it 'returns only non-gratis teams' do
+      expect(described_class.non_gratis).to eq([non_gratis_team])
     end
   end
 
@@ -222,8 +275,8 @@ RSpec.describe Team do
       include_examples 'cache busting'
     end
 
-    describe 'cache busting on active update' do
-      before { team.update(active: false) }
+    describe 'cache busting on re-install' do
+      before { team.update(api_key: 'abcdefg') }
 
       include_examples 'cache busting'
     end
@@ -286,6 +339,23 @@ RSpec.describe Team do
 
     it 'returns the expected profile' do
       expect(team.app_profile).to eq(profile)
+    end
+  end
+
+  describe '#uninstall!' do
+    let(:slack_client) { instance_spy(Slack::Web::Client) }
+
+    before do
+      allow(Slack::Web::Client).to receive(:new).and_return(slack_client)
+      allow(slack_client).to receive(:apps_uninstall)
+      team.uninstall!('Test')
+    end
+
+    it 'calls Slack::Web::Client#apps_uninstall' do
+      expect(slack_client).to have_received(:apps_uninstall).with \
+        client_id: App.slack_client_id,
+        client_secret: App.slack_client_secret
+      expect(team.reload.inactive?).to be(true)
     end
   end
 

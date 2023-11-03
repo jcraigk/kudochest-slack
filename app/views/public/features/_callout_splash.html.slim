@@ -5,11 +5,11 @@
         h1 = t("features.#{@platform}.hero_title")
         p.callout = t("features.#{@platform}.hero_body_html", app: App.app_name)
 
-        = link_to icon_and_text('play', t('features.watch_video')),
-                  '#features-video',
-                  class: 'button is-primary btn-cta'
+        / = link_to icon_and_text('play', t('features.watch_video')),
+        /           '#features-video',
+        /           class: 'button is-primary btn-cta'
 
-        / - unless current_user
-        /   = link_to icon_and_text('rocket', t('features.try_month')),
-        /             new_user_path,
-        /             class: 'button btn-cta'
+        - unless current_user
+          = link_to icon_and_text('rocket', t('features.try_it_free')),
+                    root_path,
+                    class: 'button is-success btn-cta'

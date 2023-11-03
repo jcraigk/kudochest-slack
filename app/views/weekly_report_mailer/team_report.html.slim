@@ -1,9 +1,9 @@
-= render partial: 'header'
+= render 'header'
 
 = mail_team_avatar_image(@team)
 
 h1 Team Stats for #{@team.name}
 
-= render partial: 'team_digest'
+= render 'team_digest'
 
-= render partial: 'footer'
+= render 'footer'

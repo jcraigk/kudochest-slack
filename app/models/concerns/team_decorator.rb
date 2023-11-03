@@ -1,6 +1,10 @@
 module TeamDecorator
   extend ActiveSupport::Concern
 
+  def oversized?
+    member_count > App.max_team_size
+  end
+
   def slack_client
     @slack_client ||= Slack::Web::Client.new(token: api_key)
   end
@@ -13,6 +17,42 @@ module TeamDecorator
       levels_table_row(level, points, delta)
     end
     (levels_table_titles + rows).join("\n")
+  end
+
+  def delinquent?
+    no_subscription? && trial_expires_at.past?
+  end
+
+  def trial?
+    no_subscription? && trial_expires_at.future?
+  end
+
+  def no_subscription?
+    !gratis_subscription? && !current_subscription?
+  end
+
+  def current_subscription?
+    stripe_expires_at&.future? || false
+  end
+
+  def recurring_subscription?
+    current_subscription? && !stripe_canceled_at? && !stripe_declined_at?
+  end
+
+  def subscribed_at_least_once?
+    stripe_expires_at.present?
+  end
+
+  def active?
+    uninstalled_at.nil?
+  end
+
+  def inactive?
+    uninstalled_at.present?
+  end
+
+  def subscription_plan
+    App.subscription_plans.find { |plan| plan.price_rid == stripe_price_rid }
   end
 
   def point_emoj

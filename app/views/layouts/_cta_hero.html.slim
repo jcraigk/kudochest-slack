@@ -1,0 +1,8 @@
+section.hero.is-primary#cta-hero
+  .hero-body
+    p.title = t('features.cta_hero_title')
+    p.subtitle
+      - if display_link
+        = t('features.cta_hero_subtitle_with_link_html')
+      - else
+        = t('features.cta_hero_subtitle')

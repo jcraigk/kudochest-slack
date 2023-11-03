@@ -47,8 +47,11 @@ RSpec.describe Actions::UserChange do
     }
   end
 
+  before { allow(TeamSyncWorker).to receive(:perform_async) }
+
   it 'responds silently' do
     expect(action).to be(true)
+    expect(TeamSyncWorker).to have_received(:perform_async).with(team.rid)
   end
 
   it 'updates the profile' do

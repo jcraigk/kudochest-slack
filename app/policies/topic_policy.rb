@@ -33,6 +33,6 @@ class TopicPolicy
   private
 
   def user_owns_team?
-    topic.team.owning_user == user
+    topic.team.owner == user
   end
 end

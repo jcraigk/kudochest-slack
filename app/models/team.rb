@@ -5,7 +5,7 @@ class Team < ApplicationRecord
 
   WEEKDAYS = Date::DAYNAMES.map(&:downcase).freeze
   CONFIG_ATTRS = %w[
-    active api_key app_profile_rid app_subteam_rid avatar_url enable_cheers
+    api_key app_profile_rid avatar_url enable_cheers
     point_emoji jab_emoji ditto_emoji enable_emoji enable_jabs
     log_channel_rid hint_channel_rid max_points_per_tip
     platform response_mode response_theme show_channel show_note time_zone
@@ -17,7 +17,7 @@ class Team < ApplicationRecord
   has_many :subteams, dependent: :destroy
   has_many :topics, dependent: :destroy
   has_many :rewards, dependent: :destroy
-  belongs_to :owning_user,
+  belongs_to :owner,
              class_name: 'User',
              foreign_key: :owner_user_id,
              inverse_of: :owned_team
@@ -46,7 +46,6 @@ class Team < ApplicationRecord
             in: %w[never hourly daily weekly],
             default: 'never'
 
-  attribute :active,             :boolean, default: true
   attribute :enable_cheers,      :boolean, default: true
   attribute :enable_emoji,       :boolean, default: true
   attribute :enable_levels,      :boolean, default: true
@@ -65,7 +64,7 @@ class Team < ApplicationRecord
   attribute :weekly_report,      :boolean, default: true
   attribute :point_emoji,        :string,  default: -> { App.default_point_emoji }
   attribute :ditto_emoji,        :string,  default: -> { App.default_ditto_emoji }
-  attribute :time_zone,          :string,  default: -> { App.default_time_zone }
+  attribute :time_zone,          :string,  default: -> { App.default_team_time_zone }
   attribute :streak_duration,    :integer, default: -> { App.default_streak_duration }
   attribute :streak_reward,      :integer, default: -> { App.default_streak_reward }
   attribute :max_level,          :integer, default: -> { App.default_max_level }
@@ -123,15 +122,25 @@ class Team < ApplicationRecord
   before_update :bust_cache, if: -> { changes.keys.intersect?(CONFIG_ATTRS) }
   before_update :sync_topic_attrs
   after_update_commit :reset_profile_tokens, if: :saved_change_to_throttle_tips?
-  after_update_commit :sync_remote, if: :saved_change_to_active?
   after_update_commit :join_log_channel, if: :saved_change_to_log_channel_rid?
 
-  scope :active, -> { where(active: true) }
+  scope :active, -> { where(uninstalled_at: nil) }
+  scope :trial_expired, lambda {
+    non_gratis.never_subscribed.where('trial_expires_at < ?', Time.current)
+  }
+  scope :subscribed_at_least_once, -> { where.not(stripe_expires_at: nil) }
+  scope :never_subscribed, -> { where(stripe_expires_at: nil) }
+  scope :gratis, -> { where(gratis_subscription: true) }
+  scope :non_gratis, -> { where(gratis_subscription: false) }
 
   def self.bust_cache
     find_each do |team|
       Cache::TeamConfig.new(team.platform, team.rid).delete
     end
+  end
+
+  def bust_cache
+    Cache::TeamConfig.new(platform, rid).delete
   end
 
   def work_days=(weekdays)
@@ -162,14 +171,13 @@ class Team < ApplicationRecord
     @app_profile ||= profiles.find_by(rid: app_profile_rid)
   end
 
-  def sync_remote(first_run: false)
-    return unless active?
-    ChannelSyncWorker.perform_async(rid)
-    TeamSyncWorker.perform_async(rid, first_run)
-  end
-
-  def bust_cache
-    Cache::TeamConfig.new(platform, rid).delete
+  def uninstall!(reason, call_slack: true)
+    if call_slack
+      slack_client.apps_uninstall \
+        client_id: App.slack_client_id,
+        client_secret: App.slack_client_secret
+    end
+    update!(uninstalled_at: Time.current, uninstalled_by: reason)
   end
 
   private

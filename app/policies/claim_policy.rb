@@ -29,7 +29,7 @@ class ClaimPolicy
   private
 
   def user_owns_team?
-    claim.reward.team.owning_user == user
+    claim.reward.team.owner == user
   end
 
   def user_owns_claim?

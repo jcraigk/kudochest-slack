@@ -38,26 +38,26 @@
     .team-setting-link data-link='data'
       = icon_and_text('database', t('teams.data_title'))
 
-    .team-setting-link data-link='reset'
-      = icon_and_text('exclamation-circle', t('teams.stat_resets', points_title: App.points_term.titleize))
+    .team-setting-link data-link='danger_zone'
+      = icon_and_text('exclamation-circle', t('teams.danger_zone', points_title: App.points_term.titleize))
 
   .column
     = form_for current_team, local: true do |f|
       = hidden_field_tag :section, session[:section]
 
-      = render partial: 'teams/settings/responses', locals: { f: f }
-      = render partial: 'teams/settings/presence', locals: { f: f }
-      = render partial: 'teams/settings/hints', locals: { f: f }
-      = render partial: 'teams/settings/giving_points', locals: { f: f }
-      = render partial: 'teams/settings/emoji', locals: { f: f }
-      = render partial: 'teams/settings/throttling', locals: { f: f }
-      = render partial: 'teams/settings/streaks', locals: { f: f }
-      = render partial: 'teams/settings/schedule', locals: { f: f }
-      = render partial: 'teams/settings/reports', locals: { f: f }
-      = render partial: 'teams/settings/leveling', locals: { f: f }
-      = render partial: 'teams/settings/loot', locals: { f: f }
-      = render partial: 'teams/settings/data', locals: { f: f }
-      = render partial: 'teams/settings/reset', locals: { f: f }
+      = render 'teams/settings/responses', f:
+      = render 'teams/settings/presence', f:
+      = render 'teams/settings/hints', f:
+      = render 'teams/settings/giving_points', f:
+      = render 'teams/settings/emoji', f:
+      = render 'teams/settings/throttling', f:
+      = render 'teams/settings/streaks', f:
+      = render 'teams/settings/schedule', f:
+      = render 'teams/settings/reports', f:
+      = render 'teams/settings/leveling', f:
+      = render 'teams/settings/loot', f:
+      = render 'teams/settings/data', f:
+      = render 'teams/settings/danger_zone', f:
 
       .team_edit_footer
         = cancel_changes_button
@@ -90,32 +90,7 @@ javascript:
     }
   });
 
-  function updateButtons() {
-    var saveButton = document.getElementById('btn-save-changes');
-    var discardButton = document.getElementById('btn-discard-changes');
-
-    if (dirty) {
-      saveButton.classList.add('is-primary');
-      discardButton.classList.add('is-danger');
-    } else {
-      saveButton.classList.remove('is-primary');
-      discardButton.classList.remove('is-danger');
-    }
-  }
-
-  function dirtyForm() {
-    dirty = true;
-    updateButtons();
-  }
-
-  function cleanForm() {
-    dirty = false;
-    updateButtons();
-  }
-
   window.addEventListener('DOMContentLoaded', function() {
-    updateButtons();
-
     var cards = document.querySelectorAll('.card');
     cards.forEach(function(card) {
       card.style.display = 'none';
@@ -126,8 +101,8 @@ javascript:
       document.querySelector("[data-section='" + section + "']").style.display = 'block';
       document.querySelector("[data-link='" + section + "']").classList.add('is-active');
     } else {
-      document.querySelector('.card:first-child').style.display = 'block';
-      document.querySelector('.team-setting-link:first-child').classList.add('is-active');
+      document.querySelector('.card:first-of-type').style.display = 'block';
+      document.querySelector('.team-setting-link:first-of-type').classList.add('is-active');
     }
 
     var links = document.querySelectorAll('.team-setting-link');

@@ -32,6 +32,7 @@ gem 'slim'
 gem 'sluggi'
 gem 'sorcery'
 gem 'sprockets-rails'
+gem 'stripe'
 
 group :development do
   gem 'rubocop'

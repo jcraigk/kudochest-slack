@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :team do
-    owning_user factory: :user
+    owner factory: :user
 
     platform { 'slack' }
     sequence(:name) { |n| "Team #{n}" }
@@ -8,10 +8,10 @@ FactoryBot.define do
     avatar_url { Faker::Internet.url }
     api_key { SecureRandom.hex }
     app_profile_rid { FactoryHelper.rid(platform, 'U') }
-    app_subteam_rid { FactoryHelper.rid(platform, 'S') }
     max_level { App.default_max_level }
     max_level_points { App.default_max_level_points }
     token_max { App.default_token_max }
+    trial_expires_at { App.trial_period.from_now }
     time_zone { 'UTC' }
     action_hour { 7 }
     enable_jabs { true }

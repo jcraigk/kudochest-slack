@@ -1,13 +1,19 @@
 - content_for :subtitle, t('nav.pricing')
 - content_for :meta_description, t('meta.pricing')
 
-.columns
-  - App.subscription_plans[@platform].first(3).each do |plan|
-    .column.is-third
-      = render partial: 'public/pricing/plan', locals: { plan: plan }
+= render 'layouts/cta_hero', display_link: false
 
 .columns
+  - App.subscription_plans[0..2].each do |plan|
+    .column.is-third
+      = render 'public/pricing/plan', plan:
+
+.columns
+  - App.subscription_plans[3..4].each do |plan|
+    .column.is-third
+      = render 'public/pricing/plan', plan:
   .column.is-third
-  .column.is-third
-    = render partial: 'public/pricing/plan', locals: { plan: App.subscription_plans[@platform].last }
-  .column.is-third
+    .pricing.marketing-callout
+      h2.subtitle.is-size-3
+        i.fa.fa-users
+        = t('features.larger_team_html')

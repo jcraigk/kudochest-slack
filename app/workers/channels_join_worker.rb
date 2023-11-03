@@ -8,7 +8,7 @@ class ChannelsJoinWorker
     @team_id = team_id
     @channel_rids = channel_rids.any? ? channel_rids : team.channels.pluck(:rid)
 
-    return unless team.active?
+    return if team.inactive?
 
     join_channels
   end

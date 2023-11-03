@@ -7,7 +7,10 @@ class TeamRegistrar < Base::Service
   option :owner_user_id
 
   def call
-    create_or_update_team.tap { |team| team&.sync_remote(first_run: true) }
+    create_or_update_team.tap do |team|
+      ChannelSyncWorker.perform_async(team.rid)
+      TeamSyncWorker.perform_async(team.rid, true)
+    end
   end
 
   private
@@ -25,6 +28,7 @@ class TeamRegistrar < Base::Service
     {
       platform:,
       rid:,
+      trial_expires_at: App.trial_period.from_now,
       response_mode:
     }.merge(update_attrs)
   end
@@ -35,7 +39,8 @@ class TeamRegistrar < Base::Service
       avatar_url:,
       owner_user_id:,
       api_key:,
-      installed: true
+      uninstalled_at: nil,
+      uninstalled_by: nil
     }
   end
 

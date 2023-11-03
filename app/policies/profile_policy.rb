@@ -21,7 +21,7 @@ class ProfilePolicy
   private
 
   def user_owns_team?
-    profile.team.owning_user == user
+    profile.team.owner == user
   end
 
   def user_owns_profile?

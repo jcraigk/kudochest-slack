@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get 'healthz', to: 'ops#healthz'
 
-  root to: 'public#landing'
+  root to: 'user_sessions#new'
 
   # Public
   get :cookie_policy,  to: 'public#cookie_policy'
@@ -29,6 +29,10 @@ Rails.application.routes.draw do
       post :event, to: 'events#receiver'
       post :options, to: 'options#receiver'
     end
+
+    namespace :stripe do
+      post :event, to: 'events#receiver'
+    end
   end
 
   namespace :oauth do
@@ -37,6 +41,16 @@ Rails.application.routes.draw do
 
     get 'callback/:provider', to: 'sorcery#callback'
     get ':provider', to: 'sorcery#oauth', as: :at_provider
+  end
+
+  resources :subscriptions, only: %i[index], path: :billing do
+    collection do
+      post :stripe_checkout_start
+      get :stripe_checkout_success
+      get :stripe_checkout_cancel
+      patch :stripe_cancel
+      get :payment_confirmation
+    end
   end
 
   resources :users, only: [] do
@@ -48,7 +62,6 @@ Rails.application.routes.draw do
   end
   get :user_settings, to: 'users#edit_preferences'
   resources :user_sessions, only: %i[new destroy]
-  get :login, to: 'user_sessions#new', as: :login
   delete :logout, to: 'user_sessions#destroy', as: :logout
 
   namespace :onboarding do
@@ -65,6 +78,7 @@ Rails.application.routes.draw do
     end
     member do
       patch :reset_stats
+      patch :uninstall
       patch :export_data
     end
   end

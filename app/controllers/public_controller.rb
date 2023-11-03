@@ -3,10 +3,6 @@ class PublicController < ApplicationController
   before_action :set_default_platform
   before_action :use_public_layout
 
-  def landing
-    redirect_to(current_user ? dashboard_path : login_path)
-  end
-
   def cookie_policy; end
 
   def features; end

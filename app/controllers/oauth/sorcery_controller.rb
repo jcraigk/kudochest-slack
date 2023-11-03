@@ -14,7 +14,7 @@ class Oauth::SorceryController < ApplicationController
     end
   rescue StandardError => e
     Sentry.capture_exception(e)
-    redirect_to login_path, alert: t('auth.external_fail', provider: provider_title)
+    redirect_to root_path, alert: t('auth.external_fail', provider: provider_title)
   end
 
   private
@@ -34,7 +34,7 @@ class Oauth::SorceryController < ApplicationController
     redirect_back_or_to dashboard_path
   rescue ActiveRecord::RecordNotUnique => e
     Sentry.capture_exception(e)
-    redirect_to login_path, alert: t('auth.login_fail', extra: { params: })
+    redirect_to root_path, alert: t('auth.login_fail', extra: { params: })
   end
 
   def auth_params

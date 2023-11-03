@@ -174,11 +174,40 @@ form {
 .centered-text {
   text-align: center;
 }
+.hero {
+  margin-bottom: 30px;
 
+  .hero-body {
+    padding: 1.5rem;
+  }
+}
+.expires {
+  background-color: hsl(348, 100%, 61%);
+  padding: 5px;
+  border-radius: 5px;
+}
 img.small-radius {
   border-radius: 3px;
 }
+#cta-hero {
+  background-color: #dbd76d;
+  border-radius: 20px;
+  margin-bottom: 50px;
 
+  p {
+    color: black;
+  }
+  a {
+    text-decoration: underline;
+  }
+}
+#subscription-status {
+  font-size: 1.5rem;
+
+  p {
+    margin-bottom: 10px;
+  }
+}
 #main {
   padding-top: 80px;
   min-height: 900px;
@@ -213,7 +242,11 @@ img.small-radius {
 .btn-icon {
   margin-right: 7px;
 }
-
+.big-warning {
+  background-color: $warning;
+  text-align: center;
+  border-radius: $radius;
+}
 .notification {
   width: 450px;
   margin-bottom: 20px;

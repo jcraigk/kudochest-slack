@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Actions::AppUninstalled do
+RSpec.describe Actions::AppUninstalled, :freeze_time do
   subject(:action) { described_class.call(**params) }
 
   let!(:team) { create(:team) }
@@ -11,8 +11,8 @@ RSpec.describe Actions::AppUninstalled do
     action
   end
 
-  it 'deactivates the team' do
-    expect(team.reload.active?).to be(false)
-    expect(team.reload.installed?).to be(false)
+  it 'marks the team uninstalled' do
+    expect(team.reload.uninstalled_at).to eq(Time.current)
+    expect(team.reload.uninstalled_by).to eq('Uninstalled via Slack by workspace admin')
   end
 end

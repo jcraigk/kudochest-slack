@@ -7,7 +7,13 @@ class Actions::UserChange < Actions::Base
   private
 
   def update_profile
-    profile&.update!(profile_attrs)
+    if profile.present?
+      profile.update!(profile_attrs)
+      TeamSyncWorker.perform_async(params[:team_rid])
+      true
+    else
+      false
+    end
   end
 
   def profile

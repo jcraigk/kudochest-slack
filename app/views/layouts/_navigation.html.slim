@@ -1,6 +1,6 @@
 nav#navbar.navbar aria-label='main navigation' role='navigation'
   .navbar-brand
-    a.navbar-item.navbar-title href=(logged_in? ? dashboard_path : login_path)
+    a.navbar-item.navbar-title href=(logged_in? ? dashboard_path : root_path)
       = image_tag 'logos/app-web.png', size: '32x'
       span.app-name = App.app_name
 
@@ -19,10 +19,10 @@ nav#navbar.navbar aria-label='main navigation' role='navigation'
 
     .navbar-end
       - if logged_in?
-        = render partial: 'layouts/user_dropdown'
+        = render 'layouts/user_dropdown'
 
-      - elsif !current_page?(login_path)
+      - elsif !current_page?(root_path)
         .buttons
           = link_to icon_and_text('sign-in', t('auth.login')),
-                    :login,
+                    :root,
                     class: 'button is-primary btn-login'

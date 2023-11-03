@@ -10,6 +10,14 @@ class TeamPolicy
     user_owns_team?
   end
 
+  def stripe_checkout_start?
+    user_owns_team?
+  end
+
+  def stripe_cancel?
+    user_owns_team?
+  end
+
   def edit?
     user_owns_team?
   end
@@ -19,6 +27,10 @@ class TeamPolicy
   end
 
   def reset_stats?
+    user_owns_team?
+  end
+
+  def uninstall?
     user_owns_team?
   end
 
@@ -49,6 +61,6 @@ class TeamPolicy
   private
 
   def user_owns_team?
-    team.owning_user == user
+    team.owner == user
   end
 end

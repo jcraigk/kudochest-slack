@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 require:
   - rubocop-performance
   - rubocop-rails
@@ -38,6 +36,10 @@ Rails/EnvironmentVariableAccess:
 Rails/HttpPositionalArguments: # https://github.com/rubocop-hq/rubocop/issues/7264
   Exclude:
     - spec/controllers/**/*
+Rails/I18nLocaleTexts:
+  Enabled: false
+RSpec/PendingWithoutReason:
+  Enabled: false
 Rails/SkipsModelValidations:
   Exclude:
     - lib/tasks/**/*

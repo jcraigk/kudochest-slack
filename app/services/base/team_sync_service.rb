@@ -11,17 +11,25 @@ class Base::TeamSyncService < Base::Service
   def sync_team_data
     sync_member_count
 
+    if team.oversized?
+      team.uninstall!('Team exceeds maximum size')
+      return BillingMailer.team_oversized(team).deliver_later
+    end
+
     sync_profiles
     sync_subteams
-    handle_token_dispersal if first_run
+
+    return unless first_run
+
+    handle_token_dispersal
+    OnboardingMailer.welcome(team).deliver_later
   end
 
   def sync_member_count
-    team.member_count = active_member_count
-    team.save!
+    team.update!(member_count:)
   end
 
-  def active_member_count
+  def member_count
     remote_team_members.count { |member| active?(member) }
   end
 

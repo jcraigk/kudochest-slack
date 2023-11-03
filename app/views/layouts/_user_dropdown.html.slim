@@ -25,8 +25,11 @@
     - if current_user.owned_team.present?
       .navbar-divider
       = link_to icon_and_text('cog', t('nav.app_settings')),
-                app_settings_path(section: :responses),
+                app_settings_path,
                 class: 'navbar-item'
+      = link_to icon_and_text('credit-card', t('nav.billing')),
+            subscriptions_path,
+            class: 'navbar-item'
       = link_to icon_and_text('eye', t('nav.points_admin', points_title: App.points_term.titleize)),
                 tips_path,
                 class: 'navbar-item'
