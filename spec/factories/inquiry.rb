@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :inquiry do
-    user
+    profile
 
     subject { 'general' }
     body { Faker::Lorem.sentence(word_count: 25) }

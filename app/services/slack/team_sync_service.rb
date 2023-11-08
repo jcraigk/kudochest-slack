@@ -31,6 +31,7 @@ class Slack::TeamSyncService < Base::TeamSyncService
     {
       display_name: display_name(member),
       real_name: real_name(member),
+      email: member[:profile][:email],
       title: member[:profile][:title],
       bot_user: app_bot?(member),
       avatar_url: member[:profile][:image_512]

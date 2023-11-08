@@ -9,7 +9,7 @@
         /           '#features-video',
         /           class: 'button is-primary btn-cta'
 
-        - unless current_user
+        - unless current_profile
           = link_to icon_and_text('rocket', t('features.try_it_free')),
                     root_path,
                     class: 'button is-success btn-cta'

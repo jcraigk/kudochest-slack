@@ -5,7 +5,7 @@
     = column_chart_with_labels \
         name: "#{App.points_term.titleize} required to attain level",
         data: current_team.level_points_map,
-        user: @current_user,
+        profile: current_profile,
         id: 'level-chart1'
 
   .setting-value data-name='steep' style='display: none;'
@@ -13,7 +13,7 @@
     = column_chart_with_labels \
         name: "#{App.points_term.titleize} required to attain level",
         data: current_team.level_points_map,
-        user: @current_user,
+        profile: current_profile,
         id: 'level-chart2'
 
   .setting-value data-name='linear' style='display: none;'
@@ -21,5 +21,5 @@
     = column_chart_with_labels \
         name: "#{App.points_term.titleize} required to attain level",
         data: current_team.level_points_map,
-        user: @current_user,
+        profile: current_profile,
         id: 'level-chart3'

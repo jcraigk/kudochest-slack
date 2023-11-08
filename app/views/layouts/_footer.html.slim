@@ -2,7 +2,7 @@ footer.footer
   .content.has-text-centered
     br
 
-    - if !logged_in?
+    - unless current_profile
       = link_to t('nav.features'), features_path
       | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = link_to t('nav.pricing'), pricing_path

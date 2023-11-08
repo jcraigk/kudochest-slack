@@ -4,8 +4,17 @@
     .card
       header.card-header
         p.card-header-title = t('nav.slack_preferences')
-
       .card-content
+
+        .field.is-horizontal
+          .field-label.is-normal
+            = f.label :theme, t('profiles.website_theme'), class: 'label'
+          .field-body
+            .field
+              .control
+                .select
+                  = f.select :theme, Profile.theme.options
+
         .field.is-horizontal
           .field-label.is-switch-label
             = f.label :allow_dm, t('profiles.allow_dm'), class: 'label'
@@ -62,5 +71,15 @@
                 = f.label :weekly_report, '&nbsp;'.html_safe, class: 'label'
                 = tooltip_btn('profiles.weekly_report_tooltip', 'nudge-up')
 
+        .field.is-horizontal
+          .field-label
+            = f.label :email, t('profiles.email'), class: 'label'
+          .field-body
+            .field
+              = current_profile.email
+              = tooltip_btn('profiles.email_tooltip', 'nudge-up')
+
+
     br
     = submit_button
+

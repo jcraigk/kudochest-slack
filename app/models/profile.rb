@@ -2,8 +2,9 @@ class Profile < ApplicationRecord
   include ProfileDecorator
   include Sluggi::Slugged
 
+  enumerize :theme, in: %w[light dark], default: 'light'
+
   belongs_to :team
-  belongs_to :user, optional: true
   has_many :tips_received,
            class_name: 'Tip',
            foreign_key: :to_profile_id,
@@ -17,11 +18,16 @@ class Profile < ApplicationRecord
   has_many :subteam_memberships # rubocop:disable Rails/HasManyOrHasOneDependent
   has_many :subteams, through: :subteam_memberships, dependent: :destroy
   has_many :claims, dependent: :destroy
+  has_one :owned_team,
+          class_name: 'Team',
+          foreign_key: :owner_profile_id,
+          inverse_of: :owner,
+          dependent: :nullify
 
   attribute :allow_dm,            :boolean, default: true
   attribute :bot_user,            :boolean, default: false
   attribute :deleted,             :boolean, default: false
-  attribute :weekly_report,       :boolean, default: true
+  attribute :weekly_report,       :boolean, default: false
   attribute :infinite_tokens,     :boolean, default: false
   attribute :points_claimed,      :integer, default: 0
   attribute :points_received,     :integer, default: 0
@@ -40,7 +46,6 @@ class Profile < ApplicationRecord
   validates :avatar_url, presence: true
   validates :display_name, presence: true
   validates :slug, presence: true
-  validates_with OneProfilePerTeamPerUserValidator
 
   default_scope { includes(:team) }
   scope :active, -> { where(bot_user: false, deleted: false) }
@@ -48,18 +53,18 @@ class Profile < ApplicationRecord
     where('profiles.display_name ILIKE :str OR profiles.real_name ILIKE :str', str: "%#{str}%")
   }
 
+  def self.find_with_team(team_rid, profile_rid)
+    joins(:team)
+      .where('teams.rid' => team_rid)
+      .find_by(rid: profile_rid)
+  end
+
   def active?
     !bot_user && !deleted
   end
 
   def reset_slug!
     update!(slug: clean_slug(slug_value))
-  end
-
-  def self.find_with_team(team_rid, profile_rid)
-    joins(:team)
-      .where('teams.rid' => team_rid)
-      .find_by(rid: profile_rid)
   end
 
   def token_balance

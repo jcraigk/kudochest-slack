@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_07_211312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
-
-  create_table "authentications", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "provider", null: false
-    t.string "uid", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
-  end
 
   create_table "channels", force: :cascade do |t|
     t.bigint "team_id"
@@ -50,18 +41,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
   end
 
   create_table "inquiries", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "profile_id"
     t.string "subject", null: false
     t.text "body", null: false
     t.text "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_inquiries_on_user_id"
+    t.index ["profile_id"], name: "index_inquiries_on_profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|
     t.bigint "team_id"
-    t.bigint "user_id"
     t.string "rid", null: false
     t.string "display_name", null: false
     t.string "real_name", null: false
@@ -84,7 +74,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
     t.datetime "welcomed_at", precision: nil
     t.datetime "last_tip_sent_at", precision: nil
     t.integer "points_claimed", default: 0, null: false
-    t.boolean "weekly_report", default: true, null: false
+    t.boolean "weekly_report", default: false, null: false
     t.boolean "announce_tip_sent", default: true, null: false
     t.boolean "announce_tip_received", default: true, null: false
     t.boolean "share_history", default: true, null: false
@@ -92,15 +82,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
     t.integer "jabs_received", default: 0, null: false
     t.integer "balance", default: 0, null: false
     t.datetime "weekly_report_notified_at"
+    t.string "email"
+    t.string "auth_token"
+    t.datetime "last_login_at"
+    t.string "theme", default: "light", null: false
+    t.boolean "admin", default: false, null: false
+    t.index ["auth_token"], name: "index_profiles_on_auth_token"
     t.index ["created_at"], name: "index_profiles_on_created_at"
     t.index ["display_name"], name: "index_profiles_on_display_name"
+    t.index ["email"], name: "index_profiles_on_email"
     t.index ["last_tip_received_at"], name: "index_profiles_on_last_tip_received_at"
     t.index ["points_received"], name: "index_profiles_on_points_received"
     t.index ["points_sent"], name: "index_profiles_on_points_sent"
     t.index ["rid", "team_id"], name: "index_profiles_on_rid_and_team_id", unique: true
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["team_id"], name: "index_profiles_on_team_id"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["weekly_report_notified_at"], name: "index_profiles_on_weekly_report_notified_at"
   end
 
@@ -141,7 +137,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.integer "owner_user_id"
+    t.integer "owner_profile_id"
     t.string "rid", null: false
     t.string "name", null: false
     t.string "slug", null: false
@@ -181,7 +177,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
     t.boolean "enable_cheers", default: true, null: false
     t.boolean "enable_loot", default: true, null: false
     t.boolean "split_tip", default: false, null: false
-    t.boolean "weekly_report", default: true, null: false
+    t.boolean "weekly_report", default: false, null: false
     t.boolean "enable_topics", default: false, null: false
     t.boolean "require_topic", default: false, null: false
     t.boolean "enable_emoji", default: true, null: false
@@ -213,7 +209,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
     t.index ["action_hour"], name: "index_teams_on_action_hour"
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"
-    t.index ["owner_user_id"], name: "index_teams_on_owner_user_id"
+    t.index ["owner_profile_id"], name: "index_teams_on_owner_profile_id"
     t.index ["rid"], name: "index_teams_on_rid", unique: true
     t.index ["slug"], name: "index_teams_on_slug", unique: true
     t.index ["stripe_customer_rid"], name: "index_teams_on_stripe_customer_rid"
@@ -264,29 +260,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_03_021341) do
     t.index ["team_id", "keyword"], name: "index_topics_on_team_id_and_keyword", unique: true
     t.index ["team_id", "name"], name: "index_topics_on_team_id_and_name", unique: true
     t.index ["team_id"], name: "index_topics_on_team_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "crypted_password"
-    t.string "salt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "remember_me_token"
-    t.datetime "remember_me_token_expires_at", precision: nil
-    t.string "reset_password_token"
-    t.datetime "reset_password_token_expires_at", precision: nil
-    t.datetime "reset_password_email_sent_at", precision: nil
-    t.integer "access_count_to_reset_password_page", default: 0
-    t.string "activation_state"
-    t.string "activation_token"
-    t.datetime "activation_token_expires_at", precision: nil
-    t.boolean "admin", null: false
-    t.string "theme"
-    t.index ["activation_token"], name: "index_users_on_activation_token"
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
 end

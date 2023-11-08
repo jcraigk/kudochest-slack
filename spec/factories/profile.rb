@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :profile do
     team
-    user
 
     sequence(:real_name) { |n| "Real Name #{n}" }
     sequence(:display_name) { |n| "display-name-#{n}" }
+    sequence(:email) { |n| "profile-#{n}@example.com" }
     rid { FactoryHelper.rid(team.platform, 'U') }
     avatar_url { Faker::Internet.url }
   end

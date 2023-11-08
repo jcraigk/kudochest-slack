@@ -56,7 +56,7 @@ class SubscriptionsController < ApplicationController
 
   def new_customer
     Stripe::Customer.create \
-      email: current_user.email,
+      email: current_profile.email,
       name: current_team.name
   end
 

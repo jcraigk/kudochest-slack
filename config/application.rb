@@ -60,6 +60,7 @@ module KudoChest
       team:read
       usergroups:read
       users:read
+      users:read.email
       users.profile:read
     ]
     config.base_command = ENV.fetch('BASE_COMMAND', 'kudos')

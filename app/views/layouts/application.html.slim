@@ -12,7 +12,7 @@ html
   body class=(@public_layout ? 'public' : nil)
     = render 'layouts/navigation'
 
-    .section#main class=(current_user&.theme&.dark? ? 'dark-mode' : nil)
+    .section#main class=(current_profile&.theme&.dark? ? 'dark-mode' : nil)
       .container
         = render 'layouts/notifications'
         = render 'layouts/warning_hero'

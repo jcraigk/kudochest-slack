@@ -2,8 +2,8 @@ Subject: <%= @inquiry.subject %>
 
 Body: <%= @inquiry.body %>
 
-Given Email: <%= @inquiry.email %>
+Provided Email: <%= @inquiry.email %>
 
-User Email: <%= @inquiry.user&.email || 'N/A' %>
+Profile Email: <%= @inquiry.profile&.email || 'N/A' %>
 
-User ID: <%= @inquiry.user&.id || 'N/A' %>
+Profile ID: <%= @inquiry.profile&.id || 'N/A' %>

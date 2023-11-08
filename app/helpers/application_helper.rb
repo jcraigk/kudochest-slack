@@ -1,12 +1,4 @@
 module ApplicationHelper
-  def current_profile
-    current_user&.profile
-  end
-
-  def current_team
-    current_user&.profile&.team || Team.find_by(owner: current_user)
-  end
-
   def submit_button(label = nil, icon = 'check', css = '')
     text = label || t('controls.save_changes')
     button_tag(

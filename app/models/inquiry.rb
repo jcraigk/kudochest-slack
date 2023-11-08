@@ -1,7 +1,5 @@
 class Inquiry < ApplicationRecord
-  extend Enumerize
-
-  belongs_to :user, optional: true
+  belongs_to :profile, optional: true
 
   enumerize :subject,
             in: %w[general support bug feature],

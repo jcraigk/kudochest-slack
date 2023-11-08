@@ -2,12 +2,39 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
   protect_from_forgery
-
-  before_action :require_login, except: %i[not_authenticated]
-  before_action :redirect_oversized_team
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
-  protected
+  before_action :require_login
+  before_action :redirect_oversized_team
+
+  helper_method :current_profile, :current_team
+
+  def login_profile(rid)
+    if (profile = Profile.find_by(rid:))&.active?
+      create_auth_token(profile)
+      true
+    else
+      cookies.delete(:auth_token)
+      false
+    end
+  end
+
+  def create_auth_token(profile)
+    secret = SecureRandom.hex(16)
+    update_profile_for_login(profile, secret)
+    cookies.permanent.signed[:auth_token] = {
+      value:,
+      httponly: true,
+      secure: Rails.env.production?
+    }
+  end
+
+  def update_profile_for_login(profile, auth_token)
+    profile.auth_token = auth_token
+    # profile.weekly_report = true if profile.last_login_at.nil? # Slack requires explicit opt-in
+    profile.last_login_at = Time.current
+    profile.save!
+  end
 
   def redirect_oversized_team
     return if request.path.in? \
@@ -20,25 +47,24 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    super # Sorcery gem
-
-    return unless current_profile&.deleted?
+    return redirect_to root_path, alert: t('auth.login_required') unless current_profile
+    return unless current_profile.deleted?
     logout
     redirect_to root_path, alert: t('auth.deleted')
   end
 
-  # Defined in ApplicationHelper but also needed here :shrug:
+  def pundit_user
+    current_profile
+  end
+
   def current_profile
-    current_user&.profile
+    return @current_profile if defined?(@current_profile)
+    return if (auth_token = cookies.signed[:auth_token]).blank?
+    @current_profile = Profile.find_by(auth_token:)
   end
 
-  # Defined in ApplicationHelper but also needed here :shrug:
   def current_team
-    current_user&.profile&.team || Team.find_by(owner: current_user)
-  end
-
-  def not_authenticated
-    redirect_to sorcery_login_url('slack'), allow_other_host: true
+    current_profile&.team
   end
 
   def not_authorized
@@ -66,10 +92,7 @@ class ApplicationController < ActionController::Base
   def build_dashboard_for(profile)
     @leaderboard = LeaderboardPageService.call(profile:)
     @tips = fetch_recent_tips(profile)
-    @histogram_data = TipHistogramService.call \
-      profile:,
-      limit: params[:limit],
-      user: current_user
+    @histogram_data = TipHistogramService.call(profile:, limit: params[:limit])
   end
 
   def use_public_layout

@@ -24,8 +24,8 @@ en:
     help: Help
     support: Support
     cta_hero_title: 90 days free, no payment method required.
-    cta_hero_subtitle_with_link_html: Affording <a href="/pricing">subscription pricing</a> after trial ends.
-    cta_hero_subtitle: Affording subscription pricing after trial ends.
+    cta_hero_subtitle_with_link_html: Affordable <a href="/pricing">subscription pricing</a> after trial ends.
+    cta_hero_subtitle: Affordable subscription pricing after trial ends.
     larger_team_html: Larger team?<br><a href="/support">Contact us</a>.
     list:
       give_plusplus:
@@ -87,7 +87,7 @@ en:
       weekly_report:
         title: Weekly email digest
         icon: envelope
-        detail: Each week, an email containing a summary of activity from the previous week will be sent to the administrator as well as to each individual user who opts in. This regular communication keeps folks engaged and informed.
+        detail: Each week, an email containing a summary of activity from the previous week can be sent to the administrator as well as to each individual user who opts in. This regular communication keeps folks engaged and informed.
       team_wallboard:
         title: Team wallboard
         icon: tv

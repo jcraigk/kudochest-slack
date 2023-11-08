@@ -4,12 +4,13 @@ class TeamRegistrar < Base::Service
   option :name
   option :avatar_url
   option :api_key
-  option :owner_user_id
+  option :owner_profile_rid
 
   def call
     team = create_or_update_team
     Slack::ChannelSyncService.call(team:)
     Slack::TeamSyncService.call(team:, first_run: true)
+    assign_owner(team)
   end
 
   private
@@ -21,6 +22,10 @@ class TeamRegistrar < Base::Service
 
   def existing_team
     @existing_team ||= Team.find_by(rid:)
+  end
+
+  def assign_owner(team)
+    team.update!(owner: Profile.find_by(rid: owner_profile_rid))
   end
 
   def new_attrs
@@ -36,7 +41,6 @@ class TeamRegistrar < Base::Service
     {
       name:,
       avatar_url:,
-      owner_user_id:,
       api_key:,
       uninstalled_at: nil,
       uninstalled_by: nil

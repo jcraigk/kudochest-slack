@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :team do
-    owner factory: :user
-
     platform { 'slack' }
     sequence(:name) { |n| "Team #{n}" }
     rid { FactoryHelper.rid(platform, 'T') }
@@ -16,6 +14,12 @@ FactoryBot.define do
     action_hour { 7 }
     enable_jabs { true }
     deduct_jabs { true }
+
+    trait :with_owner do
+      after(:build) do |team|
+        team.owner = build(:profile, team:) if team.owner.nil?
+      end
+    end
 
     trait :with_profiles do
       after(:create) do |team|

@@ -1,5 +1,4 @@
 class Team < ApplicationRecord
-  extend Enumerize
   include Sluggi::Slugged
   include TeamDecorator
 
@@ -18,9 +17,10 @@ class Team < ApplicationRecord
   has_many :topics, dependent: :destroy
   has_many :rewards, dependent: :destroy
   belongs_to :owner,
-             class_name: 'User',
-             foreign_key: :owner_user_id,
-             inverse_of: :owned_team
+             class_name: 'Profile',
+             foreign_key: :owner_profile_id,
+             inverse_of: :owned_team,
+             optional: true
 
   enumerize :platform,
             in: %w[slack]
@@ -61,7 +61,7 @@ class Team < ApplicationRecord
   attribute :show_channel,       :boolean, default: true
   attribute :show_note,          :boolean, default: true
   attribute :split_tip,          :boolean, default: false
-  attribute :weekly_report,      :boolean, default: true
+  attribute :weekly_report,      :boolean, default: false
   attribute :point_emoji,        :string,  default: -> { App.default_point_emoji }
   attribute :ditto_emoji,        :string,  default: -> { App.default_ditto_emoji }
   attribute :time_zone,          :string,  default: -> { App.default_team_time_zone }

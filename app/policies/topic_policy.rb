@@ -1,38 +1,38 @@
 class TopicPolicy
-  attr_reader :user, :topic
+  attr_reader :profile, :topic
 
-  def initialize(user, topic)
-    @user = user
+  def initialize(profile, topic)
+    @profile = profile
     @topic = topic
   end
 
   def index?
-    user.owned_team.present?
+    profile.owned_team.present?
   end
 
   def new?
-    user.owned_team.present?
+    profile.owned_team.present?
   end
 
   def create?
-    user.owned_team.present?
+    profile.owned_team.present?
   end
 
   def edit?
-    user_owns_team?
+    profile_owns_team?
   end
 
   def update?
-    user_owns_team?
+    profile_owns_team?
   end
 
   def destroy?
-    user_owns_team?
+    profile_owns_team?
   end
 
   private
 
-  def user_owns_team?
-    topic.team.owner == user
+  def profile_owns_team?
+    topic.team.owner == profile
   end
 end

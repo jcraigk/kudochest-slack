@@ -24,6 +24,7 @@ class Actions::UserChange < Actions::Base
     {
       display_name:,
       real_name:,
+      email: profile_params[:email],
       title: profile_params[:title],
       deleted: user_params[:deleted],
       avatar_url: profile_params[:image_512]

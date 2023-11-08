@@ -12,7 +12,7 @@
     = render 'layouts/upgrade'
 
   // Onboarding for admins
-  - elsif current_user.owned_team == current_team
+  - elsif current_profile.owned_team == current_team
     - if current_team.onboarded?
       = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
     - else

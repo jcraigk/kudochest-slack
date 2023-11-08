@@ -1,5 +1,0 @@
-en:
-  oauth:
-    basic_error: Sorry, something went wrong with Slack integration
-    generic_error: Sorry, something went wrong
-    permissions_required: You must grant all requested permissions in order to install the bot

@@ -1,38 +1,34 @@
 class ProfilePolicy
-  attr_reader :user, :profile
+  attr_reader :current_profile, :profile
 
-  def initialize(user, profile)
-    @user = user
+  def initialize(current_profile, profile)
+    @current_profile = current_profile
     @profile = profile
   end
 
   def show?
-    active_profile_on_same_team? || user_owns_team?
+    mine? || active_teammate? || current_profile_owns_team?
   end
 
   def edit?
-    user_owns_profile?
+    mine?
   end
 
   def update?
-    user_owns_profile?
+    mine?
   end
 
   private
 
-  def user_owns_team?
-    profile.team.owner == user
+  def current_profile_owns_team?
+    profile.team.owner == current_profile
   end
 
-  def user_owns_profile?
-    profile.user == user
-  end
-
-  def active_profile_on_same_team?
-    profile.user == user || active_teammate?
+  def mine?
+    current_profile == profile
   end
 
   def active_teammate?
-    profile.active? && profile.team == user.profile.team
+    profile.active? && profile.team == current_profile.profile.team
   end
 end

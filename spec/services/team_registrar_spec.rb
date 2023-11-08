@@ -3,13 +3,14 @@ require 'rails_helper'
 RSpec.describe TeamRegistrar, :freeze_time do
   subject(:service) { described_class.call(**opts) }
 
+  let(:profile) { create(:profile) }
   let(:opts) do
     {
       platform: :slack,
       rid: team.rid,
       name: team.name,
       api_key: team.api_key,
-      owner_user_id: team.owner_user_id,
+      owner_profile_rid: profile.rid,
       avatar_url: 'url230'
     }
   end
@@ -21,7 +22,6 @@ RSpec.describe TeamRegistrar, :freeze_time do
       response_mode: :adaptive,
       rid: team.rid,
       name: team.name,
-      owner_user_id: team.owner_user_id,
       api_key: team.api_key,
       avatar_url: 'url230',
       uninstalled_at: nil,
@@ -48,11 +48,12 @@ RSpec.describe TeamRegistrar, :freeze_time do
       expect(Team).to have_received(:create!).with(team_attrs)
       expect(Slack::ChannelSyncService).to have_received(:call).with(team:)
       expect(Slack::TeamSyncService).to have_received(:call).with(team:, first_run: true)
+      expect(team.reload.owner).to eq(profile)
     end
   end
 
   context 'when team with RID exists' do
-    let!(:team) { create(:team, owner: create(:user)) }
+    let!(:team) { create(:team) }
 
     before do
       allow(Team).to receive(:find_by).with({ rid: team.rid }).and_return(team)
@@ -61,7 +62,7 @@ RSpec.describe TeamRegistrar, :freeze_time do
     end
 
     it 'updates existing team and calls sync workers' do
-      expect(team).to have_received(:update!)
+      expect(team).to have_received(:update!).twice
       expect(Slack::ChannelSyncService).to have_received(:call).with(team:)
       expect(Slack::TeamSyncService).to have_received(:call).with(team:, first_run: true)
     end

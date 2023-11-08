@@ -7,11 +7,8 @@ class ProfilesController < ApplicationController
     build_dashboard_for(@profile)
   end
 
-  def random_showcase
-    fetch_showcase_profile
-    @leaderboard = LeaderboardPageService.call(profile: @profile)
-    @hide_paging = true
-    render 'profiles/random_showcase', layout: false
+  def edit
+    authorize current_profile
   end
 
   def update
@@ -21,7 +18,14 @@ class ProfilesController < ApplicationController
     else
       flash[:alert] = update_fail_msg
     end
-    redirect_to user_settings_path
+    redirect_to preferences_path
+  end
+
+  def random_showcase
+    fetch_showcase_profile
+    @leaderboard = LeaderboardPageService.call(profile: @profile)
+    @hide_paging = true
+    render 'profiles/random_showcase', layout: false
   end
 
   private
@@ -39,6 +43,6 @@ class ProfilesController < ApplicationController
 
   def profile_params
     params.require(:profile).permit \
-      :allow_dm, :weekly_report, :announce_tip_sent, :announce_tip_received, :share_history
+      :allow_dm, :weekly_report, :announce_tip_sent, :announce_tip_received, :share_history, :theme
   end
 end

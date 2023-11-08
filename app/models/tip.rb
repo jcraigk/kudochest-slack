@@ -1,5 +1,4 @@
 class Tip < ApplicationRecord
-  extend Enumerize
   include TipDecorator
 
   enumerize :source, in: %w[

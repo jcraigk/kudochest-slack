@@ -3,11 +3,11 @@ class InquiriesController < ApplicationController
   before_action :use_public_layout
 
   def new
-    @inquiry = Inquiry.new(subject: params[:subject], email: current_user&.email)
+    @inquiry = Inquiry.new(subject: params[:subject], email: current_profile&.email)
   end
 
   def create
-    @inquiry = Inquiry.new(permitted_params.merge(user: current_user))
+    @inquiry = Inquiry.new(permitted_params.merge(profile: current_profile))
 
     if @inquiry.save
       redirect_to new_inquiry_path, notice: t('inquiries.submit_thanks')

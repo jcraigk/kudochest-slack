@@ -1,14 +1,10 @@
 en:
   auth:
-    external_fail: 'Sign in via %{provider} failed'
     logged_out: Signed out
     login_fail: Sign in failed
     login_required: Please sign in to proceed
-    login_success: Sign in successful
     login: Sign In
-    login_existing: Sign in to existing account
     logout: Sign out
     not_authorized: You are not authorized to perform that action
-    user_not_saved: 'prevented this user from being saved:'
-    user_updated: User was successfully updated
     deleted: Sorry, that Slack profile has been deactivated
+    install_error: Sorry, something went wrong with Slack integration

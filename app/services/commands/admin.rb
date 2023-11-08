@@ -133,16 +133,12 @@ class Commands::Admin < Commands::Base
   end
 
   def team_admin
-    return owner.email if owner_profile_link.blank?
-    "#{owner_profile_link} (#{owner.email})"
+    return owner.email if owner.link.blank?
+    "#{owner.link} (#{owner.email})"
   end
 
   def owner
     @owner ||= team.owner
-  end
-
-  def owner_profile_link
-    @owner_profile_link ||= owner.profile&.link
   end
 
   def long_time_zone

@@ -2,7 +2,6 @@ class TipHistogramService < Base::Service
   include ChartHelper
 
   option :profile
-  option :user
   option :limit, default: proc {}
 
   def call
@@ -17,7 +16,7 @@ class TipHistogramService < Base::Service
     {
       name: "#{App.points_term.titleize} Given",
       data: histogram_data(:tips_sent),
-      library: chartjs_library_options(user)
+      library: chartjs_library_options(profile)
     }
   end
 
@@ -25,7 +24,7 @@ class TipHistogramService < Base::Service
     {
       name: "#{App.points_term.titleize} Received",
       data: histogram_data(:tips_received),
-      library: chartjs_library_options(user)
+      library: chartjs_library_options(profile)
     }
   end
 

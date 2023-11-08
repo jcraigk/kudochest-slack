@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe TipHistogramService do
-  subject(:call) { described_class.call(profile:, user:, limit: 5) }
+  subject(:call) { described_class.call(profile:, limit: 5) }
 
   let!(:profile) { create(:profile) }
-  let(:user) { build(:user) }
   let(:color) { '#000000' }
   let(:library) do
     {
@@ -21,12 +20,12 @@ RSpec.describe TipHistogramService do
   end
 
   shared_examples 'expected result' do
-    it 'returns expected resultset' do
+    it 'returns expected results' do
       expect(call).to eq(expected_result)
     end
   end
 
-  xcontext 'when user theme is dark' do
+  xcontext 'when profile theme is dark' do
     it 'colors labels white' do
     end
   end

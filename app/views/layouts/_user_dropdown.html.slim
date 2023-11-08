@@ -1,10 +1,7 @@
 .navbar-item.has-dropdown.dropdown#user-dropdown
   a.navbar-link.dropdown-trigger
-    - if current_profile
-      img.small-radius alt='Profile avatar image' src=current_profile.avatar_url class="platform-#{current_profile.team.platform}"
-      = current_profile.webref
-    - else
-      = current_user.email
+    img.small-radius alt='Profile avatar image' src=current_profile.avatar_url class="platform-#{current_profile.team.platform}"
+    = current_profile.webref
 
   .navbar-dropdown.is-right
     = link_to icon_and_text('tachometer-slow', t('nav.dashboard')),
@@ -22,7 +19,7 @@
                 topic_list_path,
                 class: 'navbar-item'
 
-    - if current_user.owned_team.present?
+    - if current_profile.owned_team.present?
       .navbar-divider
       = link_to icon_and_text('cog', t('nav.app_settings')),
                 app_settings_path,
@@ -45,7 +42,7 @@
 
     .navbar-divider
     = link_to icon_and_text('user', t('nav.preferences')),
-              user_settings_path,
+              preferences_path,
               class: 'navbar-item'
     = link_to icon_and_text('question-circle',
               t('nav.support')),

@@ -5,7 +5,7 @@ RSpec.describe Inquiry do
 
   it { is_expected.to be_a(ApplicationRecord) }
 
-  it { is_expected.to belong_to(:user).optional }
+  it { is_expected.to belong_to(:profile).optional }
 
   it { is_expected.to validate_presence_of(:body) }
 

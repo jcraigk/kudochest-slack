@@ -4,7 +4,7 @@
   .column
     = render 'profiles/tiles/leaderboard', profile:, leaderboard:, hide_paging: false
 
-- if current_user == profile.user || profile.share_history?
+- if current_profile == profile || profile.share_history?
   .columns
     .column
       = render 'profiles/tiles/recent_activity', profile:, tips:

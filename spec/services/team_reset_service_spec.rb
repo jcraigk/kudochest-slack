@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe TeamResetService do
   subject(:call) { described_class.call(team:) }
 
-  let(:user) { create(:user) }
   let(:team) { create(:team) }
-  let(:profile) { create(:profile, team:, user:) }
+  let(:profile) { create(:profile, team:) }
   let(:received_tips) { create_list(:tip, 3, to_profile: profile) }
   let(:sent_tips) { create_list(:tip, 3, from_profile: profile) }
   let(:response_attrs) do

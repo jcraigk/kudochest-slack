@@ -17,9 +17,12 @@ en:
     prefs_modal_announce_tip_sent: Announce when I send %{points}
     prefs_modal_announce_tip_received: Announce when I receive %{points}
     announce_tip_sent: Announce %{points} Sent
-    announce_tip_sent_tooltip: Post a public chat message when you send %{points} to other users
+    announce_tip_sent_tooltip: Post a public chat message when you send %{points} to other users if public responses are enabled for your team
     announce_tip_received: Announce %{points} Received
-    announce_tip_received_tooltip: Post a public chat message when you receive %{points} from other users
+    announce_tip_received_tooltip: Post a public chat message when you receive %{points} from other users if public responses are enabled for your team
     share_history: Share Activity History
     share_history_tooltip: Whether to share details of your %{points} history with your teammates
-    prefs_modal_share_history: Share my activity history with teammates
+    email: Email
+    email_tooltip: If you want to change your email address, edit it from Slack and it will be updated here automatically.
+    website_theme: Website Theme
+    unsubscribed_html: <strong>%{email}</strong> has been unsubscribed from all future emails

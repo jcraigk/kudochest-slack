@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   get 'healthz', to: 'ops#healthz'
 
-  root to: 'user_sessions#new'
+  # Web sessions
+  root to: 'sessions#new'
+  delete :logout, to: 'sessions#destroy', as: :logout
 
   # Public
   get :cookie_policy,  to: 'public#cookie_policy'
@@ -35,12 +37,11 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :oauth do
-    get :add_to_slack, to: 'slack#add_to_slack'
-    get :slack_integration, to: 'slack#integration'
-
-    get 'callback/:provider', to: 'sorcery#callback'
-    get ':provider', to: 'sorcery#oauth', as: :at_provider
+  namespace :slack do
+    get :install
+    get :install_callback
+    get :login
+    get :login_callback
   end
 
   resources :subscriptions, only: %i[index], path: :billing do
@@ -52,17 +53,6 @@ Rails.application.routes.draw do
       get :payment_confirmation
     end
   end
-
-  resources :users, only: [] do
-    member do
-      get :edit_preferences
-      patch :update_preferences
-      patch :update_email # TODO: Remove this and sync from Slack instead?
-    end
-  end
-  get :user_settings, to: 'users#edit_preferences'
-  resources :user_sessions, only: %i[new destroy]
-  delete :logout, to: 'user_sessions#destroy', as: :logout
 
   namespace :onboarding do
     patch :join_all_channels
@@ -90,6 +80,7 @@ Rails.application.routes.draw do
       get :random_showcase
     end
   end
+  get :preferences, to: 'profiles#edit'
 
   resources :inquiries, only: %i[new create]
   resources :tips, only: %i[index destroy]

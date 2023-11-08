@@ -46,7 +46,6 @@ class Base::TeamSyncService < Base::Service
       remote_team_members.each_with_object([]) do |member, profile_ids|
         next unless app_bot?(member) || active?(member)
         profile = create_or_update_profile(member)
-        auto_associate_user(profile)
         profile_ids << profile.id
       end
 
@@ -54,12 +53,6 @@ class Base::TeamSyncService < Base::Service
     team.profiles.active.where.not(id: synced_profile_ids).find_each do |profile|
       profile.update(deleted: true)
     end
-  end
-
-  def auto_associate_user(profile)
-    return if profile.user.present?
-    return if (user = Authentication.find_by(uid: profile.rid)&.user).blank?
-    profile.update!(user:)
   end
 
   def remote_team_members
@@ -78,7 +71,7 @@ class Base::TeamSyncService < Base::Service
     profile = Profile.find_by(base_attrs)
 
     if profile
-      profile.update(sync_attrs)
+      profile.update!(sync_attrs)
     else
       profile = Profile.create!(base_attrs.merge(sync_attrs))
     end

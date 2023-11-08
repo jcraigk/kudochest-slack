@@ -10,6 +10,7 @@ RSpec.describe Actions::UserChange do
   let(:new_real_name) { 'New Real Name' }
   let(:image_url) { 'https://www.example.com' }
   let(:title) { 'My title' }
+  let(:email) { 'person@example.com' }
   let(:original_display_name) { 'Alice' }
   let(:curated_params) do
     {
@@ -26,6 +27,7 @@ RSpec.describe Actions::UserChange do
             display_name_normalized: new_display_name,
             real_name_normalized: new_real_name,
             title:,
+            email:,
             image_512: image_url,
             team: team_rid
           },
@@ -43,6 +45,7 @@ RSpec.describe Actions::UserChange do
     {
       display_name: new_display_name,
       title:,
+      email:,
       avatar_url: image_url
     }
   end

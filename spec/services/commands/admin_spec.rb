@@ -5,9 +5,8 @@ RSpec.describe Commands::Admin do
 
   subject(:command) { described_class.call(team_rid: team.rid, profile_rid: profile.rid) }
 
-  let(:user) { create(:user) }
-  let(:team) { create(:team, owner: user, throttle_tips: true, enable_topics: true) }
   let(:profile) { create(:profile, team:) }
+  let(:team) { create(:team, :with_owner, throttle_tips: true, enable_topics: true) }
   let(:response) { ChatResponse.new(mode: :private, text:) }
   let(:text) do
     <<~TEXT.chomp
@@ -37,26 +36,11 @@ RSpec.describe Commands::Admin do
       *Time zone:* (GMT+00:00) UTC
       *Work days:* Monday, Tuesday, Wednesday, Thursday, Friday
       *Work start day:* Monday
-      *Administrator:* #{admin_text}
+      *Administrator:* #{team.owner.link} (#{team.owner.email})
     TEXT
   end
 
-  shared_examples 'expected response' do
-    it 'returns stats text' do
-      expect(command).to eq(response)
-    end
-  end
-
-  context 'when admin has not connected a team profile' do
-    let(:admin_text) { user.email }
-
-    include_examples 'expected response'
-  end
-
-  context 'when admin has connected a team profile' do
-    let!(:profile) { create(:profile, team:, user:) }
-    let(:admin_text) { "#{profile.link} (#{user.email})" }
-
-    include_examples 'expected response'
+  it 'returns stats text' do
+    expect(command).to eq(response)
   end
 end
