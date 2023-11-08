@@ -8,3 +8,4 @@ en:
     not_authorized: You are not authorized to perform that action
     deleted: Sorry, that Slack profile has been deactivated
     install_error: Sorry, something went wrong with Slack integration
+    already_installed: The app is already installed in your workspace. It's ready to go!

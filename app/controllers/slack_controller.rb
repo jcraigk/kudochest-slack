@@ -15,9 +15,9 @@ class SlackController < ApplicationController
 
   def install_callback
     return login_failed unless state_match?
-    TeamRegistrar.call(**team_data)
+    notice = TeamRegistrar.call(**team_data) ? t('onboarding.welcome') : t('auth.already_installed')
     login_profile(owner_profile_rid)
-    redirect_to dashboard_path, notice: t('onboarding.welcome')
+    redirect_to dashboard_path, notice:
   rescue Slack::Web::Api::Errors::SlackError, ArgumentError
     redirect_after_error
   end

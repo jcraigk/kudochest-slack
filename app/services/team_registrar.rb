@@ -7,13 +7,20 @@ class TeamRegistrar < Base::Service
   option :owner_profile_rid
 
   def call
+    return false if existing_team&.active?
+
+    register_team
+    true
+  end
+
+  private
+
+  def register_team
     team = create_or_update_team
     Slack::ChannelSyncService.call(team:)
     Slack::TeamSyncService.call(team:, first_run: true)
     assign_owner(team)
   end
-
-  private
 
   def create_or_update_team
     return existing_team.tap { |team| team.update!(update_attrs) } if existing_team
