@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     secret = SecureRandom.hex(16)
     update_profile_for_login(profile, secret)
     cookies.permanent.signed[:auth_token] = {
-      value:,
+      value: secret,
       httponly: true,
       secure: Rails.env.production?
     }
