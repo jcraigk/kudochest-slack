@@ -18,7 +18,7 @@ COMMANDS = [
 ]
 SSH_PRIVATE_KEY_PATH = '/Users/jcraigk/.ssh/id_rsa'
 SSH_USERNAME = 'jcraigk'
-COLORS = %i[green cyan yellow blue white]
+COLORS = %i[green cyan yellow blue white magenta]
 
 
 @color_index = 0
