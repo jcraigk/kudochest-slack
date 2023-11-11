@@ -33,6 +33,9 @@ end
 class AdminConstraint
   def matches?(request)
     return true if Rails.env.development?
-    User.find_by(id: request.session[:user_id])&.admin? || false
+
+    cookie_jar = ActionDispatch::Cookies::CookieJar.build(request)
+    auth_token = cookie_jar.signed[:auth_token]
+    auth_token.present? && Profile.find_by(auth_token:)&.admin?
   end
 end
