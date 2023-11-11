@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get :pricing,        to: 'public#pricing'
   get :privacy,        to: 'public#privacy'
   get :support,        to: 'inquiries#new'
+  get :contact,        to: 'inquiries#new'
+  get :feedback,       to: 'inquiries#new'
   get :terms,          to: 'public#terms'
 
   # Private

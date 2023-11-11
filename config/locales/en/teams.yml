@@ -74,7 +74,7 @@ en:
     action_hour: Bot Action Hour
     token_max_tooltip: The maximum number of tokens a user can accrue.
     token_max: Maximum Token Balance
-    token_quantity_tooltip: The number of tokens sent to each user at the frequency selected above.
+    token_quantity_tooltip: The number of tokens sent to each user at the frequency specified.
     token_quantity: Token Dispersal Quantity
     update_fail: 'Could not update app settings: %{msg}'
     update_success: App settings updated successfully
