@@ -29,13 +29,10 @@ Sidekiq.configure_client do |config|
   end
 end
 
-# https://github.com/mperham/sidekiq/wiki/Monitoring
 class AdminConstraint
   def matches?(request)
     return true if Rails.env.development?
-
-    cookie_jar = ActionDispatch::Cookies::CookieJar.build(request)
-    auth_token = cookie_jar.signed[:auth_token]
+    auth_token = request.cookie_jar.signed[:auth_token]
     auth_token.present? && Profile.find_by(auth_token:)&.admin?
   end
 end
