@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   def show
-    @profile = Profile.find_by(slug: params[:id])
-    redirect_to dashboard_path if @profile.blank?
+    redirect_to dashboard_path if (@profile = Profile.find_by(slug: params[:id])).blank?
+    redirect_to dashboard_path, alert: t('profiles.deleted') if @profile.deleted?
 
     authorize @profile
     build_dashboard_for(@profile)

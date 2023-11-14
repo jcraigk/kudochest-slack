@@ -29,6 +29,6 @@ class ProfilePolicy
   end
 
   def active_teammate?
-    profile.active? && profile.team == current_profile.profile.team
+    profile.active? && profile.team == current_profile.team
   end
 end
