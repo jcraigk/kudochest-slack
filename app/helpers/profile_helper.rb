@@ -7,23 +7,20 @@ module ProfileHelper
     tag.span(class: 'progress-footer') do
       break 'Maximum level' if profile.max_level?
       <<~TEXT.chomp
-        Earn #{points_format(profile.points_required_for_next_level, label: true)} to level up
+        Earn #{points_format(profile.points_remaining_until_next_level, label: true)} to level up
       TEXT
     end
   end
 
   def percent_of_current_level(profile)
     return 100 if profile.max_level?
-    return 0 unless (points_toward_next = points_toward_next_level(profile)).positive?
-    ((points_toward_next / profile.points_required_for_next_level.to_f) * 100).floor
+    delta = profile.points_required_for_next_level - profile.points_required_for_current_level
+    return 0 if delta.zero?
+    (((profile.total_points - profile.points_required_for_current_level) / delta.to_f) * 100).floor
   end
 
   def points_toward_next_level(profile)
-    profile.points - points_required_for_current_level(profile)
-  end
-
-  def points_required_for_current_level(profile)
-    LevelToPointsService.call(team: profile.team, level: profile.level)
+    profile.points - profile.points_required_for_next_level
   end
 
   def level_progress_bar(profile)

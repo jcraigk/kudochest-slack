@@ -64,12 +64,20 @@ module ProfileDecorator
 
   def next_level_points_sentence
     return 'max level' if max_level?
-    "#{points_format(points_required_for_next_level, label: true)} until level #{level + 1}"
+    "#{points_format(points_remaining_until_next_level, label: true)} until level #{level + 1}"
+  end
+
+  def points_remaining_until_next_level
+    return 0 if max_level?
+    points_required_for_next_level - total_points
   end
 
   def points_required_for_next_level
-    return 0 if max_level?
-    LevelToPointsService.call(team:, level: next_level) - total_points
+    LevelToPointsService.call(team:, level: next_level)
+  end
+
+  def points_required_for_current_level
+    LevelToPointsService.call(team:, level:)
   end
 
   def level

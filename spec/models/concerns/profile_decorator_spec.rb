@@ -148,12 +148,12 @@ RSpec.describe ProfileDecorator do
     end
   end
 
-  describe '#points_required_for_next_level' do
+  describe '#points_remaining_until_next_level' do
     context 'when profile is at max level' do
       before { profile.update(balance: profile.team.max_level_points) }
 
       it 'returns 0' do
-        expect(profile.points_required_for_next_level).to eq(0)
+        expect(profile.points_remaining_until_next_level).to eq(0)
       end
     end
 
@@ -161,7 +161,7 @@ RSpec.describe ProfileDecorator do
       before { profile.update(balance: 26) }
 
       it 'returns points quantity' do
-        expect(profile.points_required_for_next_level).to eq(9)
+        expect(profile.points_remaining_until_next_level).to eq(9)
       end
     end
   end

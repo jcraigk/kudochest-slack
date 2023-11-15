@@ -23,7 +23,7 @@ namespace :seeds do
         num.times do
           channel = team.channels.sample
           topic_id = rand(3).zero? ? nil : team.topics.sample&.id
-          quantity = team.enable_jabs? ? (-5..5).to_a.reject(&:zero?).sample : rand(1..5)
+          quantity = team.enable_jabs? ? (-1..5).to_a.reject(&:zero?).sample : rand(1..5)
           profile_tips += TipFactory.call \
             topic_id:,
             from_profile: profile,
@@ -45,8 +45,13 @@ namespace :seeds do
 
       print 'Randomizing temporal distribution of Tips...'
       tips.each do |tip|
-        tip.update_column(:created_at, Time.current - rand(1..20).days)
+        tip.update_columns(created_at: Time.current - rand(1..1_728_000).seconds) # up to 20 days
       end
+      profiles.each do |profile|
+        last_tip_received_at = profile.tips_received.order(created_at: :desc).first.created_at
+        profile.update(last_tip_received_at:)
+      end
+
       puts 'done'
     end
 
