@@ -8,11 +8,11 @@
     .team-setting-link data-link='presence'
       = icon_and_text('door-open', t('teams.presence'))
 
-    .team-setting-link data-link='hints'
-      = icon_and_text('lightbulb', t('teams.hints'))
+    / .team-setting-link data-link='hints'
+    /   = icon_and_text('lightbulb', t('teams.hints'))
 
     .team-setting-link data-link='giving_points'
-      = icon_and_text('hand-holding-seedling', t('teams.giving_points', points_title: App.points_term.titleize))
+      = icon_and_text('hand-holding-medical', t('teams.giving_points', points_title: App.points_term.titleize))
 
     .team-setting-link data-link='emoji'
       = icon_and_text('smile', t('teams.emoji'))
@@ -21,7 +21,7 @@
       = icon_and_text('tachometer', t('teams.throttling'))
 
     .team-setting-link data-link='streaks'
-      = icon_and_text('rabbit-fast', t('teams.giving_streaks'))
+      = icon_and_text('star', t('teams.giving_streaks'))
 
     .team-setting-link data-link='schedule'
       = icon_and_text('clock', t('teams.schedule'))
@@ -47,7 +47,7 @@
 
       = render 'teams/settings/responses', f:
       = render 'teams/settings/presence', f:
-      = render 'teams/settings/hints', f:
+      / = render 'teams/settings/hints', f:
       = render 'teams/settings/giving_points', f:
       = render 'teams/settings/emoji', f:
       = render 'teams/settings/throttling', f:

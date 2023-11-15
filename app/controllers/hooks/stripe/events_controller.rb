@@ -1,3 +1,5 @@
+# Checkout and subscription auto-pay last tested on Nov 14, 2023
+
 class Hooks::Stripe::EventsController < Hooks::Stripe::BaseController
   def receiver # rubocop:disable Metrics/MethodLength
     # Rails.logger.info('-------- STRIPE EVENT --------')
@@ -22,6 +24,8 @@ class Hooks::Stripe::EventsController < Hooks::Stripe::BaseController
 
   private
 
+  # Occurs after checkout and subscription auto-pay
+  # Redundant but harmless after checkout
   def handle_auto_payment_succeeded
     team.update!(basic_stripe_attrs)
   end

@@ -46,7 +46,7 @@ en:
         detail: KudoChest provides meaningful and obtainable goals to all users by breaking down the kudos grind into smaller levels, similar to how role playing games work. The leveling curve can be set by the administrator to make it easier or harder to get to higher levels.
       bonus_kudos:
         title: Participation rewards
-        icon: rabbit-fast
+        icon: star
         detail: If a user gives kudos several days in a row, they activate a Giving Streak. Each day they extend their streak, they receive bonus kudos. This is one of several ways that gamification elements are used to improve user engagement.
       give_groups:
         title: Group/channel kudos
