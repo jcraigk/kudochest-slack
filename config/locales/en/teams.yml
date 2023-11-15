@@ -16,7 +16,7 @@ en:
     enable_streaks_tooltip: Giving Streaks provide bonus %{points} to users who maintain habits of giving %{points} at least once per working day.
     streak_duration: Duration
     streak_duration_tooltip: The number of consecutive days the user must give %{points} to trigger a streak. Only Working Days are considered (configured separately).
-    streak_reward: Bonus Quantity
+    streak_reward: Quantity
     streak_reward_tooltip: The %{points} quantity a user will receive per day for continuing a streak after triggering it. For example, if Duration is set to 3 and Bonus Quantity to 2, after 3 consecutive days of giving %{points}, the user will receive 2 bonus %{points} when they give any %{points} for the first time on the 4th day. They will continue to receive 2 bonus %{points} for each consecutive day they continue to give.
     giving_points: Giving %{points_title}
     emoji: Emoji
@@ -27,7 +27,7 @@ en:
     ditto_emoji: Ditto Emoji
     ditto_emoji_tooltip: Enter the name of the emoji icon (without the surrounding colons) you want to use for giving %{points} to recipients listed in a previous message. For example, if Bob posted "@Alice++", another user could react to Bob's message with the Ditto Emoji to give Alice more %{points}.
     max_points_per_tip: Maximum Quantity
-    max_points_per_tip_tooltip: Maximum amount of %{points} a user can gift at a time. Must be between 1 and %{max}.
+    max_points_per_tip_tooltip: Maximum amount of %{points} a user can give at a time. Must be between 1 and %{max}.
     limit_points: Enable
     limit_points_tooltip: When enabled, tokens are disbursed at periodic intervals and each time a user sends %{points} their token balance is decreased. When their balance reaches zero, the user must wait for the next dispersal before giving more %{points}.
     add_new_explain_html: "The largest team we can accommodate is %{count} members. Click a button only if you're an admin."
@@ -102,7 +102,7 @@ en:
     deduct_jabs_tooltip: Whether or not to deduct %{jabs} from user totals, affecting ranking, leveling, and throttling.
     response_mode_adaptive_html: In Adaptive mode, responses are posted in the context where %{points} are given. Similar to Conversational mode, but responses to emoji reactions are posted in a reply thread instead of the main channel.
     response_mode_convo_slack_html: In Conversational mode, responses are posted in the context where %{points} are given. Similar to Adaptive mode, but responses to emoji reactions are posted in the public channel.
-    response_mode_reply_html: As Reply mode posts a reply to the original message that invoked the %{points} gift, creaing a new thread if necessary.
+    response_mode_reply_html: As Reply mode posts a reply to the original message that invoked the %{points} action, creaing a new thread if necessary.
     response_mode_direct_html: In Direct Message mode, responses are sent directly to individual givers and earners of %{points}.
     response_mode_silent_html: When Silent, the bot will not respond when %{points} are given. It will still post to the Log Channel, if specified.
     reports: Reports
