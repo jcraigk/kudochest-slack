@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_07_211312) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -62,8 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_211312) do
     t.boolean "deleted", null: false
     t.boolean "allow_dm", null: false
     t.boolean "infinite_tokens", null: false
-    t.integer "tokens_accrued", null: false
-    t.integer "tokens_forfeited", default: 0, null: false
+    t.integer "tokens", default: 0, null: false
     t.integer "points_received", default: 0, null: false
     t.integer "points_sent", default: 0, null: false
     t.datetime "last_tip_received_at", precision: nil
@@ -156,12 +155,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_211312) do
     t.string "point_emoji", null: false
     t.boolean "show_channel", null: false
     t.integer "work_days_mask", null: false
-    t.string "week_start_day", null: false
+    t.string "token_day", null: false
     t.boolean "enable_levels", null: false
     t.string "level_curve", null: false
     t.integer "max_level", null: false
     t.integer "max_level_points", null: false
-    t.datetime "tokens_disbursed_at", precision: nil
     t.integer "points_sent", default: 0, null: false
     t.boolean "enable_streaks", null: false
     t.integer "streak_duration", null: false
@@ -206,6 +204,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_211312) do
     t.datetime "uninstalled_at"
     t.string "uninstalled_by"
     t.datetime "weekly_report_notified_at"
+    t.datetime "next_tokens_at"
     t.index ["action_hour"], name: "index_teams_on_action_hour"
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"

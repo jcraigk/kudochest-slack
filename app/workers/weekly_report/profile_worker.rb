@@ -19,7 +19,7 @@ class WeeklyReport::ProfileWorker
   private
 
   def send_weekly_report?
-    profile.user&.email.present? &&
+    profile.email.present? &&
       profile.weekly_report? &&
       (
         profile.weekly_report_notified_at.nil? ||
@@ -46,6 +46,6 @@ class WeeklyReport::ProfileWorker
   end
 
   def profile
-    @profile ||= Profile.includes(:team, :user).find(profile_id)
+    @profile ||= Profile.includes(:team).find(profile_id)
   end
 end

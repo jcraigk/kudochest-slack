@@ -198,9 +198,7 @@ class TipMentionService < Base::Service
 
   def need_tokens?
     return @need_tokens unless @need_tokens.nil?
-    quantity = mention_point_sum
-    quantity += mention_jab_sum if team.deduct_jabs?
-    @need_tokens = TokenLimitService.call(profile:, quantity:)
+    @need_tokens = TokenLimitService.call(profile:, quantity: mention_point_sum + mention_jab_sum)
   end
 
   def mention_point_sum

@@ -23,9 +23,6 @@
     .team-setting-link data-link='streaks'
       = icon_and_text('star', t('teams.giving_streaks'))
 
-    .team-setting-link data-link='schedule'
-      = icon_and_text('clock', t('teams.schedule'))
-
     .team-setting-link data-link='reports'
       = icon_and_text('chart-pie-alt', t('teams.reports'))
 
@@ -52,7 +49,6 @@
       = render 'teams/settings/emoji', f:
       = render 'teams/settings/throttling', f:
       = render 'teams/settings/streaks', f:
-      = render 'teams/settings/schedule', f:
       = render 'teams/settings/reports', f:
       = render 'teams/settings/leveling', f:
       = render 'teams/settings/loot', f:

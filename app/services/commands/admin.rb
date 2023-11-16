@@ -55,7 +55,6 @@ class Commands::Admin < Commands::Base
     <<~TEXT.chomp
       *Time zone:* #{long_time_zone}
       *Work days:* #{work_days}
-      *Work start day:* #{team.week_start_day.titleize}
     TEXT
   end
 
@@ -103,13 +102,14 @@ class Commands::Admin < Commands::Base
     txt + throttle_detail_text
   end
 
-  def throttle_detail_text
+  def throttle_detail_text # rubocop:disable Metrics/AbcSize
     <<~TEXT.chomp
 
       *Exempt users:* #{team.infinite_profiles_sentence}
-      *Token dispersal hour:* #{num_to_hour(team.action_hour)}
-      *Token dispersal frequency:* #{team.token_frequency.titleize}
-      *Token dispersal quantity:* #{number_with_delimiter(team.token_quantity)}
+      *Token disbursal day:* #{team.token_day.titleize}
+      *Token disbursal hour:* #{num_to_hour(team.action_hour)}
+      *Token disbursal frequency:* #{team.token_frequency.titleize}
+      *Token disbursal quantity:* #{number_with_delimiter(team.token_quantity)}
       *Token max balance:* #{number_with_delimiter(team.token_max)}
     TEXT
   end

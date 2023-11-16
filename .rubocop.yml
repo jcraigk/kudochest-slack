@@ -11,6 +11,8 @@ AllCops:
     - vendor/**/*
   NewCops: enable
   TargetRubyVersion: 3.2.2
+FactoryBot/ConsistentParenthesesStyle:
+  Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EmptyLineAfterMagicComment:

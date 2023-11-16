@@ -21,7 +21,7 @@ gem 'pg'
 gem 'puma'
 gem 'pundit'
 gem 'rails'
-gem 'rmagick'
+# gem 'rmagick' # TODO: Re-enable graphical responses
 gem 'sass-rails'
 gem 'sentry-rails'
 gem 'sentry-ruby'

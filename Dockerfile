@@ -9,17 +9,17 @@ ENV APP_NAME=${APP_NAME} \
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
       build-essential \
-      libmagickwand-dev \
+      # libmagickwand-dev \ # TODO: Re-enable graphical responses
       libpq-dev \
       memcached \
       postgresql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*;
 
-# Response images
-COPY lib/image_magick/policy.xml /etc/ImageMagick-6/policy.xml
-RUN mkdir -p /storage/response_images/cache
-RUN mkdir -p /storage/response_images/tmp
+# TODO: Re-enable graphical responses
+# COPY lib/image_magick/policy.xml /etc/ImageMagick-6/policy.xml
+# RUN mkdir -p /storage/response_images/cache
+# RUN mkdir -p /storage/response_images/tmp
 
 WORKDIR $INSTALL_PATH
 

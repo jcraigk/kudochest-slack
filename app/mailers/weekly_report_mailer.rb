@@ -10,7 +10,7 @@ class WeeklyReportMailer < ApplicationMailer
     @profile_data = profile_data
     @team = team_data.team
     @team_data = team_data
-    email = @profile.user.email
+    email = @profile.email
     assign_unsub_token(email)
 
     mail to: email, subject: t('weekly_report.profile_subject')

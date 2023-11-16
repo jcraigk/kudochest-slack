@@ -13,11 +13,9 @@ en:
         team:
           attributes:
             token_quantity:
-              within_token_max: must be less than or equal to Max Tokens
+              within_token_max: must be less than or equal to 1,000
             work_days:
               at_least_one: must specify at least one working day
-            week_start_day:
-              must_be_working_day: must be a working day
         tip:
           attributes:
             base:

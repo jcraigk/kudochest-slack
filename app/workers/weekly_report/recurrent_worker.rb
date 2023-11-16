@@ -22,7 +22,6 @@ class WeeklyReport::RecurrentWorker
 
   def run_profile_report_workers
     profiles.find_each do |profile|
-      next if profile.user&.email.blank?
       WeeklyReport::ProfileWorker.perform_async(profile.id)
     end
   end

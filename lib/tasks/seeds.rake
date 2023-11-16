@@ -19,7 +19,7 @@ namespace :seeds do
       profiles.each do |profile|
         profile_tips = []
         num = rand(20..50)
-        profile.with_lock { profile.increment!(:tokens_accrued, num) }
+        profile.update!(tokens: num)
         num.times do
           channel = team.channels.sample
           topic_id = rand(3).zero? ? nil : team.topics.sample&.id

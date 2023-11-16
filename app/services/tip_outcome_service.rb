@@ -1,6 +1,6 @@
 # Given a set of Tips, which are assumed to be recently created:
 #  * Update each recipient profile's points/jabs received and received timestamp
-#  * Update the sender profile points/jabs sent and sent timestamp
+#  * Update the sender profile points/jabs sent, sent timestamp, and tokens (if applicable)
 #  * Update the team's points/jabs sent
 
 class TipOutcomeService < Base::Service
@@ -52,7 +52,13 @@ class TipOutcomeService < Base::Service
     points_sent = from_profile.points_sent.send(operator, total_points)
     jabs_sent = from_profile.jabs_sent.send(operator, total_jabs)
     last_tip_sent_at = destroy ? previous_sent_at : tips.first.created_at
-    from_profile.update!(points_sent:, jabs_sent:, last_tip_sent_at:)
+    attrs = { points_sent:, jabs_sent:, last_tip_sent_at: }
+    if team.throttle_tips?
+      tokens = from_profile.tokens - tips.sum { |tip| tip.quantity.abs }
+      raise InsufficientTokens if tokens.negative? # In case of race condition, see if this happens
+      attrs[:tokens] = tokens
+    end
+    from_profile.update!(attrs)
   end
 
   def update_team

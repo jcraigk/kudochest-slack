@@ -2,7 +2,7 @@
 
 :scheduler:
   :schedule:
-    HourlyTeamWorker:
+    HourlyTokenWorker:
       cron: '0 0 * * * *' # Hourly
 
     SubscriptionExpiryWorker:

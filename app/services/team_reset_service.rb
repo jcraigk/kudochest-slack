@@ -2,10 +2,7 @@ class TeamResetService < Base::Service
   option :team
 
   def call
-    Team.transaction do
-      reset_all_stats
-      TokenDispersalService.call(team:, notify: false)
-    end
+    Team.transaction { reset_all_stats }
   end
 
   private
@@ -23,8 +20,7 @@ class TeamResetService < Base::Service
       points_received: 0,
       points_sent: 0,
       points_claimed: 0,
-      tokens_accrued: 0,
-      tokens_forfeited: 0,
+      tokens: 0,
       last_tip_received_at: nil,
       last_tip_sent_at: nil
   end

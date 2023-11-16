@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe TokenDispersalWorker do
+RSpec.describe TokenDisbursalWorker do
   subject(:perform) { described_class.new.perform(team.id) }
 
   let(:team) { create(:team, throttle_tips: true) }
 
   before do
     allow(Team).to receive(:find).with(team.id).and_return(team)
-    allow(TokenDispersalService).to receive(:call)
+    allow(TokenDisbursalService).to receive(:call)
     perform
   end
 
-  it 'calls TokenDispersalService' do
-    expect(TokenDispersalService).to have_received(:call).with(team:)
+  it 'calls TokenDisbursalService' do
+    expect(TokenDisbursalService).to have_received(:call).with(team:)
   end
 end

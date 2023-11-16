@@ -30,16 +30,18 @@ class Team < ApplicationRecord
   enumerize :response_mode,
             in: %w[adaptive convo reply direct silent],
             default: 'adaptive'
+  # TODO: Re-enable graphical responses
+  # Disabled themes: %w[gif_day gif_night]
   enumerize :response_theme,
-            in: %w[basic fancy quiet quiet_stat gif_day gif_night],
+            in: %w[basic fancy quiet quiet_stat],
             default: 'basic'
   enumerize :tip_notes,
             in: %w[optional required disabled],
             default: 'optional'
   enumerize :token_frequency,
-            in: %w[daily weekly monthly quarterly yearly],
+            in: %w[weekly monthly quarterly yearly],
             default: 'weekly'
-  enumerize :week_start_day,
+  enumerize :token_day,
             in: Date::DAYNAMES.map(&:downcase),
             default: 'monday'
   enumerize :hint_frequency,
@@ -91,7 +93,7 @@ class Team < ApplicationRecord
     less_than_or_equal_to: App.max_token_quantity
   }
   validates :token_max, numericality: {
-    greater_than_or_equal_to: 1,
+    greater_than_or_equal_to: :token_quantity,
     less_than_or_equal_to: App.max_token_max
   }
   validates :max_level, numericality: {
@@ -116,12 +118,12 @@ class Team < ApplicationRecord
   }
   validates_with RequireTopicValidator
   validates_with TokenQuantityWithinTokenMaxValidator
-  validates_with WeekStartDayInWorkDaysValidator
   validates_with WorkDaysValidator
 
   before_update :bust_cache, if: -> { changes.keys.intersect?(CONFIG_ATTRS) }
   before_update :sync_topic_attrs
   after_update_commit :reset_profile_tokens, if: :saved_change_to_throttle_tips?
+  after_update_commit :trim_profile_tokens, if: :saved_change_to_token_max?
   after_update_commit :join_log_channel, if: :saved_change_to_log_channel_rid?
 
   scope :active, -> { where(uninstalled_at: nil) }
@@ -132,6 +134,7 @@ class Team < ApplicationRecord
   scope :never_subscribed, -> { where(stripe_expires_at: nil) }
   scope :gratis, -> { where(gratis_subscription: true) }
   scope :non_gratis, -> { where(gratis_subscription: false) }
+  scope :throttled, -> { where(throttle_tips: true) }
 
   def self.bust_cache
     find_each do |team|
@@ -153,20 +156,6 @@ class Team < ApplicationRecord
     end
   end
 
-  def next_tokens_at
-    NextIntervalService.call \
-      team: self,
-      attr: :token_frequency,
-      start_at: tokens_disbursed_at
-  end
-
-  def next_hint_at
-    NextIntervalService.call \
-      team: self,
-      attr: :hint_frequency,
-      start_at: hint_posted_at
-  end
-
   def app_profile
     @app_profile ||= profiles.find_by(rid: app_profile_rid)
   end
@@ -180,10 +169,24 @@ class Team < ApplicationRecord
     update!(uninstalled_at: Time.current, uninstalled_by: reason)
   end
 
+  def update_next_tokens_at
+    update!(next_tokens_at: NextTokenDisbursalService.call(team: self))
+  end
+
   private
 
   def reset_profile_tokens
-    TokenResetWorker.perform_async(id)
+    if throttle_tips?
+      update_next_tokens_at
+      profiles.active.update_all(tokens: token_quantity) # rubocop:disable Rails/SkipsModelValidations
+    else
+      update!(next_tokens_at: nil)
+      profiles.active.update_all(tokens: 0) # rubocop:disable Rails/SkipsModelValidations
+    end
+  end
+
+  def trim_profile_tokens
+    profiles.active.where('tokens > ?', token_max).update_all(tokens: token_max) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def slug_candidates

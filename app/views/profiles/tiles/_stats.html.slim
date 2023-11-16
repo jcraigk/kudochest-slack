@@ -55,9 +55,9 @@
               - if profile.infinite_tokens?
                 | Tokens: &nbsp;<strong>unlimited</strong>
               - else
-                | Tokens: &nbsp;<strong>#{points_format(profile.token_balance)}</strong>
+                | Tokens: &nbsp;<strong>#{points_format(profile.tokens)}</strong>
                 br
-                span.info You get #{profile.team.token_quantity} more tokens in #{time_until_next_dispersal(profile.team)}
+                span.info You get #{profile.team.token_quantity} more tokens in #{time_until_next_disbursal(profile.team)}
 
         - if profile.team.enable_streaks?
           .column.stats-box

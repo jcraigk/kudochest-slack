@@ -6,11 +6,6 @@ module ProfileDecorator
     ActionController::Base.helpers
   end
 
-  def token_balance_sentence
-    return 'no tokens remaining' if token_balance.zero?
-    "#{points_format(token_balance)} tokens remaining"
-  end
-
   def link
     "<#{PROF_PREFIX}#{rid}>"
   end

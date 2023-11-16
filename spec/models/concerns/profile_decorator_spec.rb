@@ -3,28 +3,6 @@ require 'rails_helper'
 RSpec.describe ProfileDecorator do
   subject(:profile) { build(:profile) }
 
-  describe '#token_balance_sentence' do
-    subject(:profile) { build(:profile, tokens_accrued:) }
-
-    context 'when token balance is zero' do
-      let(:tokens_accrued) { 0 }
-      let(:expected_text) { 'no tokens remaining' }
-
-      it 'returns expected text' do
-        expect(profile.token_balance_sentence).to eq(expected_text)
-      end
-    end
-
-    context 'when token balance is positive' do
-      let(:expected_text) { "#{tokens_accrued} tokens remaining" }
-      let(:tokens_accrued) { 12 }
-
-      it 'returns expected text' do
-        expect(profile.token_balance_sentence).to eq(expected_text)
-      end
-    end
-  end
-
   # TODO: Rename this to "mention"
   describe '#link' do
     it 'returns expected text' do

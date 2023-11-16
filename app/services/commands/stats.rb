@@ -27,19 +27,27 @@ class Commands::Stats < Commands::Base
 
   def token_fragment
     return ':gift: *Tokens:* Unlimited' if requested_profile.infinite_tokens?
+    token_str = token_quantity == 1 ? 'token' : 'tokens'
     <<~TEXT.chomp
-      :gift: *Tokens:* #{points_format(requested_profile.token_balance)} (receiving #{team.token_quantity} tokens in #{next_token_dispersal})
+      :gift: *Tokens:* #{points_format(requested_profile.tokens)} (receiving #{token_quantity} #{token_str} in #{next_token_disbursal})
     TEXT
+  end
+
+  def token_quantity
+    @token_quantity ||=
+      if requested_profile.tokens + team.token_quantity > team.token_max
+        team.token_max - requested_profile.tokens
+      else
+        team.token_quantity
+      end
   end
 
   def streak_fragment
     ":deciduous_tree: *Giving Streak:* #{requested_profile.active_streak_sentence}"
   end
 
-  def next_token_dispersal
-    Time.use_zone(team.time_zone) do
-      distance_of_time_in_words(Time.current, team.next_tokens_at)
-    end
+  def next_token_disbursal
+    distance_of_time_in_words(Time.current, team.next_tokens_at)
   end
 
   def stats_title

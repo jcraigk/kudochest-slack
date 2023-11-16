@@ -39,3 +39,16 @@
                            step: '1',
                            required: true
             = tooltip_btn('teams.streak_reward_tooltip', nil, points: App.points_term)
+
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :work_days, t('teams.work_days'), class: 'label'
+        = tooltip_btn('teams.work_days_tooltip')
+      .field-body
+        .field
+          .control
+            - for weekday in Team::WEEKDAYS
+              = check_box_tag "team[work_days][#{weekday}]", weekday, f.object.work_days.include?(weekday), name: 'team[work_days][]', class: 'switch is-rounded'
+              = label_tag "team_work_days_#{weekday}", weekday.humanize
+              br
+            = hidden_field_tag 'team[work_days][]', ''

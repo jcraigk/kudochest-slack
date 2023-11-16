@@ -25,5 +25,5 @@ en:
     email: Email
     email_tooltip: If you want to change your email address, edit it from Slack and it will be updated here automatically.
     website_theme: Website Theme
-    unsubscribed_html: <strong>%{email}</strong> has been unsubscribed from all future emails
+    unsubscribed_html: <strong>%{email}</strong> has been unsubscribed from weekly reports
     deleted: Sorry, that profile has been deactivated

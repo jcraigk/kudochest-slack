@@ -42,7 +42,10 @@ RSpec.describe Team do
       .is_less_than_or_equal_to(App.max_points_per_tip)
   end
 
-  it { is_expected.to validate_numericality_of(:token_max).is_greater_than_or_equal_to(1) }
+  it do
+    expect(team).to \
+      validate_numericality_of(:token_max).is_greater_than_or_equal_to(team.token_quantity)
+  end
 
   it do
     expect(team)
@@ -95,7 +98,6 @@ RSpec.describe Team do
       [
         RequireTopicValidator,
         TokenQuantityWithinTokenMaxValidator,
-        WeekStartDayInWorkDaysValidator,
         WorkDaysValidator
       ]
     end
@@ -105,9 +107,9 @@ RSpec.describe Team do
     end
   end
 
-  it 'sets default work_days and week_start_day' do
+  it 'sets default work_days and token_day' do
     expect(team.work_days).to eq(%w[monday tuesday wednesday thursday friday])
-    expect(team.week_start_day).to eq('monday')
+    expect(team.token_day).to eq('monday')
   end
 
   context 'when becoming oversized' do
@@ -304,33 +306,27 @@ RSpec.describe Team do
     subject(:team) { create(:team, :with_profiles, throttle_tips: false) }
 
     before do
-      team.profiles.each { |profile| profile.update(points_sent: 10, tokens_accrued: 300) }
-      allow(TokenResetWorker).to receive(:perform_async)
+      team.profiles.each { |profile| profile.update(tokens: 300) }
       team.update(throttle_tips: true)
     end
 
-    it 'calls TokenRessetWorker' do
-      expect(TokenResetWorker).to have_received(:perform_async).with(team.id)
+    it 'resets profile tokens' do
+      expect(team.profiles.reload.map(&:tokens)).to eq(Array.new(3) { team.token_quantity })
     end
   end
 
-  describe '#next_tokens_at' do
-    before { allow(NextIntervalService).to receive(:call) }
+  describe 'when reducing token_max' do
+    subject(:team) { create(:team, :with_profiles, throttle_tips: true, token_max: 200) }
 
-    it 'calls NextIntervalService' do
-      team.next_tokens_at
-      expect(NextIntervalService).to have_received(:call).with \
-        team:, attr: :token_frequency, start_at: team.tokens_disbursed_at
+    let(:new_max) { 150 }
+
+    before do
+      team.profiles.update_all(tokens: 200) # rubocop:disable Rails/SkipsModelValidations
+      team.update(token_max: new_max)
     end
-  end
 
-  describe '#next_hint_at' do
-    before { allow(NextIntervalService).to receive(:call) }
-
-    it 'calls NextIntervalService' do
-      team.next_hint_at
-      expect(NextIntervalService).to have_received(:call).with \
-        team:, attr: :hint_frequency, start_at: team.hint_posted_at
+    it 'reduces profile tokens' do
+      expect(team.profiles.reload.map(&:tokens)).to eq(Array.new(3) { team.token_max })
     end
   end
 

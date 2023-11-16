@@ -15,7 +15,7 @@ en:
     enable_streaks: Enable
     enable_streaks_tooltip: Giving Streaks provide bonus %{points} to users who maintain habits of giving %{points} at least once per working day.
     streak_duration: Duration
-    streak_duration_tooltip: The number of consecutive days the user must give %{points} to trigger a streak. Only Working Days are considered (configured separately).
+    streak_duration_tooltip: The number of consecutive days the user must give %{points} to trigger a streak. Only Work Days are considered.
     streak_reward: Quantity
     streak_reward_tooltip: The %{points} quantity a user will receive per day for continuing a streak after triggering it. For example, if Duration is set to 3 and Bonus Quantity to 2, after 3 consecutive days of giving %{points}, the user will receive 2 bonus %{points} when they give any %{points} for the first time on the 4th day. They will continue to receive 2 bonus %{points} for each consecutive day they continue to give.
     giving_points: Giving %{points_title}
@@ -29,7 +29,7 @@ en:
     max_points_per_tip: Maximum Quantity
     max_points_per_tip_tooltip: Maximum amount of %{points} a user can give at a time. Must be between 1 and %{max}.
     limit_points: Enable
-    limit_points_tooltip: When enabled, tokens are disbursed at periodic intervals and each time a user sends %{points} their token balance is decreased. When their balance reaches zero, the user must wait for the next dispersal before giving more %{points}.
+    limit_points_tooltip: When enabled, tokens are disbursed at periodic intervals and each time a user sends %{points} their token balance is decreased. When their balance reaches zero, the user must wait for the next disbursal before giving more %{points}.
     add_new_explain_html: "The largest team we can accommodate is %{count} members. Click a button only if you're an admin."
     add_new: Install %{app}
     confirm_reset_stats: Are you sure you want to reset all user %{points} immediately? This action cannot be undone.
@@ -51,7 +51,7 @@ en:
     response_theme_tooltip: When %{points} is sent, the chatbot will respond with a confirmation message. Here you can select a theme that defines how those responses appear.
     log_channel_rid: Log Channel
     log_channel_rid_tooltip: 'To see a copy of all responses in one channel, select one here. We recommend creating a public channel named #kudos and inviting all members of your workspace.'
-    reset_now_info: You can reset all user %{points} to zero by clicking the button below. This will delete your entire history and is not recoverable. Each user will automatically receive an initial token dispersal if throttling is enabled.
+    reset_now_info: You can reset all user %{points} to zero by clicking the button below. This will delete your entire history and is not recoverable. Each user will automatically receive an initial token disbursal if throttling is enabled.
     uninstall_now_info: You can uninstall the app from your Slack workspace by clicking the button below. Note that this will not delete your history in case you decide to come back.
     reinstall_now_info: The app is not currently installed in your workspace. Install it now using the button below.
     reset_requested: Team stats will be reset momentarily
@@ -68,20 +68,20 @@ en:
     chat_responses: Responses
     stat_resets: Reset %{points_title}
     throttling: Throttling
-    token_frequency_tooltip: The frequency at which users receive tokens, which are required to give %{points} to other users. See the Time section to configure when tokens are distributed.
-    token_frequency: Token Dispersal Frequency
-    action_hour_tooltip: The hour of the day when the bot takes action for your team and does things like distributing tokens and posting usage hints. You may want to adjust this to occur during normal working hours so users actively see the associated notifications.
-    action_hour: Bot Action Hour
+    token_frequency_tooltip: The frequency at which users receive tokens, which are required to give %{points} to other users when throttling is enabled.
+    token_frequency: Token Disbursal Frequency
+    action_hour: Disbursal Hour
+    action_hour_tooltip: The hour of the day when token are disbursed to users. You may want to adjust this to occur during normal working hours so users actively see the associated notifications.
     token_max_tooltip: The maximum number of tokens a user can accrue.
     token_max: Maximum Token Balance
     token_quantity_tooltip: The number of tokens sent to each user at the frequency specified.
-    token_quantity: Token Dispersal Quantity
+    token_quantity: Token Disbursal Quantity
     update_fail: 'Could not update app settings: %{msg}'
     update_success: App settings updated successfully
-    week_start_day: First Day of Week
-    week_start_day_tooltip: Specify which day of the week you want weekly token dispersals to occur. If you've chosen a non-weekly dispersal or reset frequency, this does not apply.
+    token_day: Disbursal Day
+    token_day_tooltip: Specify which day of the week you want token disbursals to occur on. This only applies if you've chosen weekly disbursals.
     work_days: Work Days
-    work_days_tooltip: Specify the standard work days for your team. This determines how token dispersals and giving streaks are awarded.
+    work_days_tooltip: Specify the standard work days for your team. This determines how giving streaks are awarded.
     point_emoji_html: 'Here are a few custom emoji icons you can <a href="%{url}">use in Slack</a>:'
     notify_tokens: Token Notifications
     notify_tokens_tooltip: Each time tokens are distributed to users, a direct message can be sent to each user letting them know. If you leave this on, be mindful of choosing an appropriate Bot Action Hour in the Time tab so users are notified during working hours.
@@ -129,3 +129,5 @@ en:
     subscription_expired_html: Your subscription has expired, visit the <a href="/billing">billing page</a> to resubscribe.
     trial_expired_html: Your trial has expired, visit the <a href="/billing">billing page</a> to subscribe.
     recurring_subscription_html: Before you can uninstall the app, please cancel your active subscription on the <a href="/billing">billing page</a>.
+    next_disbursal: Next Token Disbursal
+    next_disbursal_tooltip: Tokens will be disbursed to all non-exempt users at this time based on the settings above.

@@ -5,7 +5,7 @@ RSpec.describe Commands::Stats do
     described_class.call(team_rid: team.rid, profile_rid:, text: request_text)
   end
 
-  let(:team) { create(:team, throttle_tips: true, tokens_disbursed_at: Time.current) }
+  let(:team) { create(:team, throttle_tips: true, next_tokens_at: 2.days.from_now) }
   let(:profile) { create(:profile, team:) }
   let(:profile_rid) { profile.rid }
   let(:response) { ChatResponse.new(mode: :public, text: response_text) }
@@ -21,7 +21,7 @@ RSpec.describe Commands::Stats do
   end
 
   before do
-    travel_to(Time.zone.local(2019, 11, 8, 21, 1, 1))
+    travel_to(Time.zone.local(2023, 11, 8, 21, 1, 1))
     allow(LeaderboardPageService).to receive(:call).and_return(leaderboard_data)
   end
 

@@ -127,12 +127,4 @@ RSpec.describe Profile do
       end
     end
   end
-
-  describe '#token_balance' do
-    before { profile.update(tokens_accrued: 30, points_sent: 20) }
-
-    it 'returns tokens_accrued - points_sent' do
-      expect(profile.token_balance).to eq(10)
-    end
-  end
 end

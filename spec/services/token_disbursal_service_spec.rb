@@ -1,10 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe TokenDispersalService do
+RSpec.describe TokenDisbursalService do
   subject(:service) { described_class.call(team:, notify:) }
 
-  let(:team) { create(:team, platform:) }
-  let(:platform) { :slack }
+  let(:team) { create(:team, throttle_tips: true) }
   let!(:profile1) { create(:profile, team:) }
   let!(:profile2) { create(:profile, team:) }
   let!(:profile3) { create(:profile, team:, infinite_tokens: true) }
@@ -14,7 +13,7 @@ RSpec.describe TokenDispersalService do
 
   before do
     travel_to(Time.zone.local(2019, 11, 8, 21, 1, 1))
-    team.update(tokens_disbursed_at: Time.current)
+    team.update(next_tokens_at: 2.days.from_now)
     allow(Slack::PostService).to receive(:call)
   end
 
@@ -42,17 +41,12 @@ RSpec.describe TokenDispersalService do
 
     it 'increases token accrual for each active profile' do
       service
-      expect(profile1.reload.tokens_accrued).to eq(quantity)
-      expect(profile2.reload.tokens_accrued).to eq(quantity)
+      expect(profile1.reload.tokens).to eq(quantity)
+      expect(profile2.reload.tokens).to eq(quantity)
     end
 
     it 'does not increase when proflies.infinite_tokens?' do
-      expect(profile3.reload.tokens_accrued).not_to eq(quantity)
-    end
-
-    it 'updates team.tokens_disbursed_at' do
-      service
-      expect(team.tokens_disbursed_at).to eq(Time.current)
+      expect(profile3.reload.tokens).not_to eq(quantity)
     end
 
     it 'sends notification to each user' do
@@ -63,7 +57,7 @@ RSpec.describe TokenDispersalService do
     context 'when no tokens are forfeited' do
       let(:text) do
         <<~TEXT.chomp
-          You received #{quantity} tokens, bringing your total to #{quantity}. The next dispersal of #{quantity} tokens will occur in 2 days.
+          You received #{quantity} tokens, bringing your total to #{quantity}. The next disbursal of #{quantity} tokens will occur in 2 days.
         TEXT
       end
 
@@ -73,25 +67,16 @@ RSpec.describe TokenDispersalService do
     context 'when some or all tokens are forfeited' do
       let(:text) do
         <<~TEXT.chomp
-          We tried to give you #{quantity} tokens, but you maxed out at #{max}. The next dispersal of #{quantity} tokens will occur in 2 days.
+          We tried to give you #{quantity} tokens, but you maxed out at #{max}. The next disbursal of #{quantity} tokens will occur in 2 days.
         TEXT
       end
 
       before do
-        profile1.update(tokens_accrued: team.token_max - 3)
-        profile2.update(tokens_accrued: team.token_max - 3)
+        profile1.update(tokens: team.token_max - 3)
+        profile2.update(tokens: team.token_max - 3)
       end
 
       include_examples 'text response'
-    end
-  end
-
-  context 'when `notify` option is false' do
-    let(:notify) { false }
-
-    it 'does not send notifications' do
-      service
-      expect(Slack::PostService).not_to have_received(:call)
     end
   end
 

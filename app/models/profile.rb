@@ -36,8 +36,7 @@ class Profile < ApplicationRecord
   attribute :jabs_sent,           :integer, default: 0
   attribute :balance,             :integer, default: 0
   attribute :streak_count,        :integer, default: 0
-  attribute :tokens_accrued,      :integer, default: 0
-  attribute :tokens_forfeited,    :integer, default: 0
+  attribute :tokens,              :integer, default: 0
 
   alias_attribute :points, :points_received
   alias_attribute :jabs, :jabs_received
@@ -65,12 +64,6 @@ class Profile < ApplicationRecord
 
   def reset_slug!
     update!(slug: clean_slug(slug_value))
-  end
-
-  def token_balance
-    balance = tokens_accrued - points_sent
-    balance -= jabs_sent if team.deduct_jabs?
-    balance
   end
 
   private

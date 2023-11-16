@@ -25,7 +25,7 @@ RSpec.shared_examples 'TeamSyncService', :freeze_time do
   context 'when team is not oversized' do
     before do
       allow(SubteamSyncWorker).to receive(:perform_async)
-      allow(TokenDispersalService).to receive(:call)
+      allow(TokenDisbursalService).to receive(:call)
       allow(OnboardingMailer).to receive(:welcome).and_return(mailer_double)
       service
     end
@@ -60,10 +60,6 @@ RSpec.shared_examples 'TeamSyncService', :freeze_time do
 
     context 'when first_run is true (initial team sync)' do
       let(:first_run) { true }
-
-      it 'calls TokenDispersalService without notifications' do
-        expect(TokenDispersalService).to have_received(:call).with(team:, notify: false)
-      end
 
       it 'calls OnboardingMailer.welcome' do
         expect(OnboardingMailer).to have_received(:welcome)

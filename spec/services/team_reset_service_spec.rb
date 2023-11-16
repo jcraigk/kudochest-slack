@@ -21,7 +21,6 @@ RSpec.describe TeamResetService do
     travel_to(Time.zone.local(2019, 11, 5))
     received_tips
     sent_tips
-    allow(TokenDispersalService).to receive(:call)
     allow(Slack::PostService).to receive(:call)
   end
 
@@ -38,10 +37,5 @@ RSpec.describe TeamResetService do
   it 'resets team stats' do
     call
     expect(team.points_sent).to eq(0)
-  end
-
-  it 'disburses fresh tokens' do
-    call
-    expect(TokenDispersalService).to have_received(:call).with(team:, notify: false)
   end
 end

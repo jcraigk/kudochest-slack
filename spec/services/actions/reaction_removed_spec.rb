@@ -4,7 +4,7 @@ RSpec.describe Actions::ReactionRemoved do
   subject(:action) { described_class.call(**params) }
 
   let(:team) { create(:team, platform:) }
-  let(:sender) { create(:profile, team:, tokens_accrued: 10) }
+  let(:sender) { create(:profile, team:, tokens: 10) }
   let(:recipient) { create(:profile, team:) }
   let(:ts) { Time.current.to_f }
   let(:curated_params) do

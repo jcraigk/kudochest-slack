@@ -21,7 +21,6 @@ class Base::TeamSyncService < Base::Service
 
     return unless first_run
 
-    handle_token_dispersal
     OnboardingMailer.welcome(team).deliver_later
   end
 
@@ -31,10 +30,6 @@ class Base::TeamSyncService < Base::Service
 
   def member_count
     remote_team_members.count { |member| active?(member) }
-  end
-
-  def handle_token_dispersal
-    TokenDispersalService.call(team:, notify: false)
   end
 
   def sync_subteams

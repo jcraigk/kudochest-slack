@@ -20,23 +20,23 @@ RSpec.describe TokenLimitService do
       end
     end
 
-    context 'when profile.accrued_tokens is sufficient' do
-      before { profile.tokens_accrued = 2 }
+    context 'when profile.tokens is sufficient' do
+      before { profile.tokens = 2 }
 
       it 'returns false' do
         expect(service).to be(false)
       end
     end
 
-    context 'when profile.accrued_tokens is not sufficient' do
+    context 'when profile.tokens is not sufficient' do
       let(:text) do
         <<~TEXT.chomp
-          :#{App.error_emoji}: Sorry #{profile.link}, your token balance of 1 is not sufficient.
+          :#{App.error_emoji}: Sorry #{profile.link}, your token balance of 1 is insufficient.
         TEXT
       end
 
       before do
-        profile.tokens_accrued = 1
+        profile.tokens = 1
       end
 
       it 'returns text' do

@@ -26,15 +26,6 @@
 
     .field.is-horizontal
       .field-label.is-normal
-        = f.label :token_frequency, t('teams.token_frequency'), class: 'label'
-      .field-body
-        .field
-          .control
-            .select = f.select :token_frequency, Team.token_frequency.options
-            = tooltip_btn('teams.token_frequency_tooltip', points: App.points_term)
-
-    .field.is-horizontal
-      .field-label.is-normal
         = f.label :token_quantity, t('teams.token_quantity'), class: 'label'
       .field-body
         .field
@@ -68,3 +59,47 @@
             = f.check_box :notify_tokens, class: 'switch is-rounded'
             = f.label :notify_tokens, '&nbsp;'.html_safe, class: 'label'
             = tooltip_btn('teams.notify_tokens_tooltip', 'nudge-up')
+
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :token_frequency, t('teams.token_frequency'), class: 'label'
+      .field-body
+        .field
+          .control
+            .select = f.select :token_frequency, Team.token_frequency.options
+            = tooltip_btn('teams.token_frequency_tooltip', nil, points: App.points_term)
+
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :time_zone, t('teams.time_zone'), class: 'label'
+      .field-body
+        .field
+          .control
+            .select = f.time_zone_select(:time_zone)
+            = tooltip_btn('teams.time_zone_tooltip')
+
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :token_day, t('teams.token_day'), class: 'label'
+      .field-body
+        .field
+          .control
+            .select = f.select :token_day, Team.token_day.options
+            = tooltip_btn('teams.token_day_tooltip')
+
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :action_hour, t('teams.action_hour'), class: 'label'
+      .field-body
+        .field
+          .control
+            .select = hour_select(f, :action_hour)
+            = tooltip_btn('teams.action_hour_tooltip')
+
+    - if current_team.throttle_tips?
+      .field.is-horizontal
+        .field-label.is-normal
+          = f.label :action_hour, t('teams.next_disbursal'), class: 'label'
+        .field-body
+          p = current_team.next_tokens_at.in_time_zone(current_team.time_zone).strftime('%b %-d at %-I%P')
+          = tooltip_btn('teams.next_disbursal_tooltip')
