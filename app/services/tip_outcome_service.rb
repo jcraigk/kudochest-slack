@@ -21,7 +21,7 @@ class TipOutcomeService < Base::Service
       lock_records_for_transaction
 
       update_to_profiles
-      update_from_profile
+      update_from_profile if from_profile != team.app_profile
       update_team
       tips.map(&:destroy) if destroy
     end
@@ -55,7 +55,7 @@ class TipOutcomeService < Base::Service
     attrs = { points_sent:, jabs_sent:, last_tip_sent_at: }
     if team.throttle_tips?
       tokens = from_profile.tokens - tips.sum { |tip| tip.quantity.abs }
-      raise InsufficientTokens if tokens.negative? # In case of race condition, see if this happens
+      raise InsufficientTokensError if tokens.negative?
       attrs[:tokens] = tokens
     end
     from_profile.update!(attrs)

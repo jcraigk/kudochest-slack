@@ -12,50 +12,45 @@ namespace :seeds do
   task tips: :environment do
     tips = []
     team = Team.first
-
-    time = Benchmark.measure do
-      print 'Generating Tips...'
-      profiles = team.profiles.active
-      profiles.each do |profile|
-        profile_tips = []
-        num = rand(20..50)
-        profile.update!(tokens: num)
-        num.times do
-          channel = team.channels.sample
-          topic_id = rand(3).zero? ? nil : team.topics.sample&.id
-          quantity = team.enable_jabs? ? (-1..5).to_a.reject(&:zero?).sample : rand(1..5)
-          profile_tips += TipFactory.call \
-            topic_id:,
-            from_profile: profile,
-            to_entity: 'Profile',
-            to_profiles: [(profiles - [profile]).sample],
-            from_channel_rid: channel.rid,
-            from_channel_name: channel.name,
-            quantity:,
-            note: Faker::Lorem.sentence(word_count: rand(4..8)),
-            event_ts: Time.current.to_f.to_s,
-            channel_rid: channel.rid,
-            source: 'seed',
-            timestamp: Time.current
-        end
-        TipOutcomeService.call(tips: profile_tips)
-        tips += profile_tips
+    print 'Generating Tips...'
+    profiles = team.profiles.active
+    profiles.each do |profile|
+      profile_tips = []
+      profile.update!(tokens: 1_000) if team.throttle_tips?
+      rand(20..50).times do
+        channel = team.channels.sample
+        topic_id = rand(3).zero? ? nil : team.topics.sample&.id
+        quantity = team.enable_jabs? ? (-1..5).to_a.reject(&:zero?).sample : rand(1..5)
+        profile_tips += TipFactory.call \
+          topic_id:,
+          from_profile: profile,
+          to_entity: 'Profile',
+          to_profiles: [(profiles - [profile]).sample],
+          from_channel_rid: channel.rid,
+          from_channel_name: channel.name,
+          quantity:,
+          note: Faker::Lorem.sentence(word_count: rand(4..8)),
+          event_ts: Time.current.to_f.to_s,
+          channel_rid: channel.rid,
+          source: 'seed',
+          timestamp: Time.current
       end
-      puts 'done'
+      TipOutcomeService.call(tips: profile_tips)
+      tips += profile_tips
+      profile.update!(tokens: team.token_quantity)
+    end
+    puts 'done'
 
-      print 'Randomizing temporal distribution of Tips...'
-      tips.each do |tip|
-        tip.update_columns(created_at: Time.current - rand(1..1_728_000).seconds) # up to 20 days
-      end
-      profiles.each do |profile|
-        last_tip_received_at = profile.tips_received.order(created_at: :desc).first.created_at
-        profile.update(last_tip_received_at:)
-      end
-
-      puts 'done'
+    print 'Randomizing temporal distribution of Tips...'
+    tips.each do |tip|
+      tip.update_columns(created_at: Time.current - rand(1..1_728_000).seconds) # up to 20 days
+    end
+    profiles.each do |profile|
+      last_tip_received_at = profile.tips_received.order(created_at: :desc).first.created_at
+      profile.update(last_tip_received_at:)
     end
 
-    puts "Created #{tips.size} Tips in #{time.real.round(2)} seconds"
+    puts 'done'
   end
 
   desc 'Generate Topics for testing'

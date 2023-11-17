@@ -160,8 +160,8 @@ end
 App = Rails.configuration
 
 # Errors
-class ChatFeedback < StandardError; end
-class InsufficientTokens < StandardError; end
+class ChatFeedbackError < StandardError; end
+class InsufficientTokensError < StandardError; end
 
 # Structs
 ChannelData = Struct.new(:rid, :name)

@@ -18,6 +18,6 @@ class Slack::ChannelMemberService < Base::ChannelMemberService
   def member_online?(rid)
     team.slack_client.users_getPresence(user: rid)[:presence] == 'active'
   rescue Slack::Web::Api::Errors::TooManyRequestsError
-    raise ChatFeedback, I18n.t('slack.too_many_for_here')
+    raise ChatFeedbackError, I18n.t('slack.too_many_for_here')
   end
 end
