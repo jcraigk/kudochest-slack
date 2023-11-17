@@ -171,7 +171,7 @@ class Slack::PostService < Base::PostService
     slack_client.views_open \
       trigger_id:,
       view: Slack::Modals::Preferences.call(team_rid:, profile_rid:)
-  rescue Slack::Web::Api::Errors::ExpiredTriggerId
+  rescue Slack::Web::Api::Errors::ExpiredTriggerId, ArgumentError
     nil
   end
 

@@ -26,7 +26,7 @@ class Hooks::Slack::EventsController < Hooks::Slack::BaseController
   private
 
   def fast_ack
-    return unless mentions_found? || command?
+    return unless mentions_found? || (command? && !bot_dm?)
     super
   end
 

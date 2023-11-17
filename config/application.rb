@@ -197,7 +197,7 @@ COMMAND_KEYWORDS = {
   topics: %w[],
   undo: %w[revoke]
 }.freeze
-PRIVATE_KEYWORDS = %w[admin connect help claim].freeze
+PRIVATE_KEYWORDS = %w[admin help claim].freeze
 
 CHAN_PREFIX = '#'.freeze
 PROF_PREFIX = '@'.freeze
