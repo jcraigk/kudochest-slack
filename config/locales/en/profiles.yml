@@ -13,9 +13,10 @@ en:
     prefs_modal_title: Preferences
     prefs_modal_info: 'Update your preferences:'
     prefs_modal_allow_dm: Allow direct messages from %{bot}
-    prefs_modal_weekly_report: Receive weekly email report (requires web login)
     prefs_modal_announce_tip_sent: Announce when I send %{points}
     prefs_modal_announce_tip_received: Announce when I receive %{points}
+    prefs_modal_share_history: Allow teammates to see my history
+    prefs_modal_weekly_report: Receive weekly email report
     announce_tip_sent: Announce %{points} Sent
     announce_tip_sent_tooltip: Post a public chat message when you send %{points} to other users if public responses are enabled for your team
     announce_tip_received: Announce %{points} Received

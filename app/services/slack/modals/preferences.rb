@@ -84,9 +84,18 @@ class Slack::Modals::Preferences < Base::Service
       value: opt,
       text: {
         type: :plain_text,
-        text: t("profiles.prefs_modal_#{opt}", bot: App.bot_name, points: App.points_term)
+        text: text_for(opt)
       }
     }
+  end
+
+  def text_for(opt)
+    t(
+      "profiles.prefs_modal_#{opt}",
+      bot: App.bot_name,
+      points: App.points_term,
+      email: profile.email
+    )
   end
 
   def profile
