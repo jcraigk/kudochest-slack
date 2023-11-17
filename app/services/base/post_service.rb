@@ -25,13 +25,13 @@ class Base::PostService < Base::Service
   private
 
   def handle_responses
-    return post_log_message if response_mode == :silent
+    return post_log_message if response_mode == :silent && tips.present?
     return post_response if mode == :fast_ack
     return post_hint if mode == :hint
-    post_to_all_channels
+    post_to_all_modalities
   end
 
-  def post_to_all_channels
+  def post_to_all_modalities
     post_response
     attach_tips_to_response
     broadcast_via_websocket
