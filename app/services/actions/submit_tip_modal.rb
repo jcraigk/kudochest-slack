@@ -10,7 +10,6 @@ class Actions::SubmitTipModal < Actions::Base
     TipMentionService.call \
       profile:,
       mentions:,
-      note:,
       source: 'modal',
       event_ts:,
       channel_rid: params[:channel_rid],
@@ -29,7 +28,8 @@ class Actions::SubmitTipModal < Actions::Base
         Mention.new \
           rid: "#{prefix(val)}#{val}",
           topic_id:,
-          quantity:
+          quantity:,
+          note:
       end || []
   end
 
