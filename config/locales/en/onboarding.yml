@@ -12,7 +12,7 @@ en:
     join_channels_skipped: Okay, the bot will not be automatically added to any channels. You can change this in <a href="%{url}" target="_blank">App Settings</a> at any time.
     emoji_title: Setup Custom Emoji
     emoji_start: KudoChest works best with custom emoji!
-    emoji_explain_html: 'Right-click to save the images above and then <a href="%{url}">add them to Slack</a>. Once completed, click the button below, or you may opt out.'
+    emoji_explain_html: 'Right-click to save the images above and then <a href="%{url}" target="_blank">add them to Slack</a>. Once completed, click the button below, or you may opt out.'
     emoji_name: Emoji Name
     emoji_image: Image
     emoji_skipped: Got it! You can change your emoji from <a href="%{url}">App Settings</a> at any time.
