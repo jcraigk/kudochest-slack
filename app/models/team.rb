@@ -34,7 +34,7 @@ class Team < ApplicationRecord
   # Disabled themes: %w[gif_day gif_night]
   enumerize :response_theme,
             in: %w[basic fancy quiet quiet_stat],
-            default: 'basic'
+            default: 'quiet_stat'
   enumerize :tip_notes,
             in: %w[optional required disabled],
             default: 'optional'

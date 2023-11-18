@@ -44,9 +44,9 @@ en:
     max_level: Maximum Level
     max_level_tooltip: The maximum level a user can attain.
     response_mode: Mode
-    response_mode_tooltip: When %{points} is sent, the chatbot will respond with a confirmation message. Here you can select where these messages go in Slack.
+    response_mode_tooltip: When %{points} are sent, the chatbot will respond with a confirmation message. Here you can select where these messages go in Slack.
     response_theme: Theme
-    response_theme_tooltip: When %{points} is sent, the chatbot will respond with a confirmation message. Here you can select a theme that defines how those responses appear.
+    response_theme_tooltip: When %{points} are sent, the chatbot will respond with a confirmation message. Here you can select a theme that defines how those responses appear.
     log_channel_rid: Log Channel
     log_channel_rid_tooltip: 'To see a copy of all responses in one channel, select one here. We recommend creating a public channel named #kudos and inviting all members of your workspace.'
     reset_now_info: You can reset all user %{points} to zero by clicking the button below. This will delete your entire history and is not recoverable. Each user will automatically receive an initial token disbursal if throttling is enabled.
@@ -100,7 +100,7 @@ en:
     deduct_jabs_tooltip: Whether or not to deduct %{jabs} from user totals, affecting ranking, leveling, and throttling.
     response_mode_adaptive_html: In Adaptive mode, responses are posted in the context where %{points} are given. Similar to Conversational mode, but responses to emoji reactions are posted in a reply thread instead of the main channel.
     response_mode_convo_slack_html: In Conversational mode, responses are posted in the context where %{points} are given. Similar to Adaptive mode, but responses to emoji reactions are posted in the public channel.
-    response_mode_reply_html: As Reply mode posts a reply to the original message that invoked the %{points} action, creaing a new thread if necessary.
+    response_mode_reply_html: As Reply mode posts a reply to the original message that invoked the %{points} action, creating a new thread if necessary. If invoked by slash command, a direct message is sent to the user.
     response_mode_direct_html: In Direct Message mode, responses are sent directly to individual givers and earners of %{points}.
     response_mode_silent_html: When Silent, the bot will not respond when %{points} are given. It will still post to the Log Channel, if specified.
     reports: Reports

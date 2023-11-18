@@ -11,6 +11,16 @@ $(function() {
     showTheme($(this).val())
   })
 
+  // Response Mode
+  function showMode(key) {
+    $('.mode-info[data-name="' + key + '"]').show()
+  }
+  showMode($('#team_response_mode').val())
+  $('#team_response_mode').on('change', function() {
+    $('.mode-info').hide()
+    showMode($(this).val())
+  })
+
   // Level Curve
   function showSetting(key) {
     $('.setting-value[data-name="' + key + '"]').show()
