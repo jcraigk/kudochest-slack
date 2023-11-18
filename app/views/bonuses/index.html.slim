@@ -83,7 +83,7 @@
               .style-info data-name='split_pot' style='display: none;'
                 p = t('bonuses.split_pot_info_html', points: App.points_term)
               .style-info data-name='points_value' style='display: none;'
-                p = t('bonuses.points_value_info_html')
+                p = t('bonuses.points_value_info_html', point: App.point_term, points: App.points_term)
               .style-info data-name='salary_percent' style='display: none;'
                 p = t('bonuses.salary_percent_info_html', points: App.points_term)
               br
@@ -117,7 +117,7 @@
                                  class: 'input narrow2',
                                  type: 'number',
                                  min: 1
-                = tooltip_btn('bonuses.dollar_per_point_tooltip', point: App.point_term)
+                = tooltip_btn('bonuses.dollar_per_point_tooltip', nil, point: App.point_term)
 
       br
       br

@@ -65,7 +65,7 @@ br
               td = highlight(tip.note, params[:search])
             td = tip.channel_webref
             td = tip.source.titleize
-            td = Time.use_zone(tip.from_profile.team.time_zone) { tip.created_at }.strftime('%b %-d %-l:%M%P')
+            td = Time.use_zone(tip.from_profile.team.time_zone) { tip.created_at }.strftime('%b %-d, %Y @ %-l:%M%P')
             td = link_to \
                  fa_icon('trash-alt'),
                  tip_path(tip),

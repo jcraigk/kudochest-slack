@@ -15,7 +15,7 @@ en:
     support: Support
     manage_loot: Manage Loot
     manage_topics: Manage Topics
-    points_admin: Browse %{points_title}
+    points_admin: Manage %{points_title}
     pricing: Pricing
     privacy: Privacy
     slack_preferences: Slack Preferences

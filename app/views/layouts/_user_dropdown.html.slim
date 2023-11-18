@@ -7,9 +7,9 @@
     = link_to icon_and_text('tachometer-slow', t('nav.dashboard')),
               dashboard_path,
               class: 'navbar-item'
-    = link_to icon_and_text('tv', t('nav.team_wallboard')),
-              wallboard_path,
-              class: 'navbar-item'
+    / = link_to icon_and_text('tv', t('nav.team_wallboard')),
+    /           wallboard_path,
+    /           class: 'navbar-item'
     - if current_team&.enable_loot?
       = link_to icon_and_text('store', t('nav.shop')),
                 shop_path,
@@ -47,8 +47,7 @@
     = link_to icon_and_text('question-circle',
               t('nav.support')),
               support_url,
-              class: 'navbar-item',
-              target: '_blank'
+              class: 'navbar-item'
     = link_to icon_and_text('sign-out', t('auth.logout')),
               logout_path,
               method: :delete,
