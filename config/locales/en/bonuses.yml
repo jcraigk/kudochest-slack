@@ -23,4 +23,3 @@ en:
     pot_size_tooltip: Enter the dollar amount that represents the total amount of money you want to split amongst all who received %{points}
     dollar_per_point: Value Per %{point_title}
     dollar_per_point_tooltip: Enter the dollar amount that represents 1 %{point}. For example, 20 cents should be entered as "0.20".
-    calculator_email_body: As requested, attached you will find a CSV file containing bonus calculations for %{team}.

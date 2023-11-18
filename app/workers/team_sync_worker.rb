@@ -1,6 +1,5 @@
 class TeamSyncWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
 
   def perform(team_rid, first_run = false)
     team = Team.find_by!(rid: team_rid)

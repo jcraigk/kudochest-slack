@@ -2,7 +2,6 @@ require 'csv'
 
 class DataExportWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
 
   attr_reader :team_id
 

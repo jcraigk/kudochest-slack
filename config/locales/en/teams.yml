@@ -7,8 +7,6 @@ en:
     import_instructions: You can import %{points} from other systems by providing a CSV file with chat display_name (string) in the first column and total %{points} (integer) in the second column.
     export_instructions: To have a CSV file emailed to you that contains summed %{points} data for all users, click the button below.
     export_data: Export Data
-    data_export_email_body: As requested, attached you will find a CSV file containing summed %{points} counts for all users from %{team}.
-    confirm_export_data: Are you sure you want to export all %{points} data?
     infinite_profiles: Exempt Users
     infinite_profiles_tooltip: It often makes sense to exempt certain people from %{points} limits so they can give %{points} to the entire organization at once. For example, a CEO may want to give %{points} to the entire company when a milestone is reached.
     giving_streaks: Giving Streaks
@@ -106,7 +104,7 @@ en:
     response_mode_direct_html: In Direct Message mode, responses are sent directly to individual givers and earners of %{points}.
     response_mode_silent_html: When Silent, the bot will not respond when %{points} are given. It will still post to the Log Channel, if specified.
     reports: Reports
-    weekly_report: Email Weekly Team Digest
+    weekly_report: Email Weekly Report
     weekly_report_tooltip: Email a weekly digest of team activity to your address on file under Preferences.
     topics: Topics
     enable_topics: Enable Topics

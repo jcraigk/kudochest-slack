@@ -1,6 +1,5 @@
 class ChannelsJoinWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
 
   attr_reader :team_id, :channel_rids
 

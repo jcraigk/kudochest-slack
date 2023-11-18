@@ -20,7 +20,7 @@ class TeamsController < ApplicationController
   def export_data
     authorize current_team
     DataExportWorker.perform_async(current_team.id)
-    redirect_to app_settings_path,
+    redirect_to app_settings_path(section: :data),
                 notice: t('teams.export_data_requested', email: current_team.owner.email)
   end
 

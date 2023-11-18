@@ -62,10 +62,7 @@ module TeamHelper
       icon_and_text('cloud-download', t('teams.export_data')),
       export_data_team_path(team),
       class: 'button',
-      method: :patch,
-      data: {
-        confirm: t('teams.confirm_export_data')
-      }
+      method: :patch
   end
 
   def claim_button(profile, reward)
