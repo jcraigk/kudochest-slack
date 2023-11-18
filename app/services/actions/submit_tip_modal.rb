@@ -54,11 +54,10 @@ class Actions::SubmitTipModal < Actions::Base
   end
 
   def quantity
-    BigDecimal \
-      submission.find { |_k, v| v[:quantity].present? }
-                &.second
-                &.dig(:quantity, :selected_option, :value)
-                .presence || '0'
+    submission.find { |_k, v| v[:quantity].present? }
+              &.second
+              &.dig(:quantity, :selected_option, :value)
+              .to_i
   end
 
   def topic_id

@@ -74,21 +74,21 @@ RSpec.describe Actions::SubmitTipModal do
     end
     let(:mentions) do
       [
-        Mention.new(rid: "#{PROF_PREFIX}#{profile.rid}", topic_id: nil, quantity:),
-        Mention.new(rid: "#{CHAN_PREFIX}#{channel.rid}", topic_id: nil, quantity:),
+        Mention.new(rid: "#{PROF_PREFIX}#{profile.rid}", topic_id: nil, quantity:, note:),
+        Mention.new(rid: "#{CHAN_PREFIX}#{channel.rid}", topic_id: nil, quantity:, note:),
         Mention.new(
           rid: "#{SUBTEAM_PREFIX[:slack]}#{subteam.rid}",
           topic_id: nil,
-          quantity:
+          quantity:,
+          note:
         ),
-        Mention.new(rid: 'everyone', topic_id: nil, quantity:)
+        Mention.new(rid: 'everyone', topic_id: nil, quantity:, note:)
       ]
     end
     let(:expected_args) do
       {
         profile: sender,
         mentions:,
-        note:,
         source: 'modal',
         event_ts: ts,
         channel_rid: channel.rid,

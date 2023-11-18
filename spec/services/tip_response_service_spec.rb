@@ -6,7 +6,7 @@ RSpec.describe TipResponseService do
 
   subject(:service) { described_class.call(tips:) }
 
-  let(:team) { build(:team, platform:) }
+  let(:team) { build(:team, platform:, response_theme: 'basic') }
   let(:from_profile) { create(:profile, team:) }
   let(:to_profile) { create(:profile, team:) }
   let(:quantity) { 1 }
