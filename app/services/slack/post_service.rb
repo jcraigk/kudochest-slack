@@ -184,7 +184,7 @@ class Slack::PostService < Base::PostService
   end
 
   def recipients
-    @recipients ||= tips.map(&:to_profile).uniq
+    @recipients ||= tips&.map(&:to_profile)&.uniq || []
   end
 
   def response_action
