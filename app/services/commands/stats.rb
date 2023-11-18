@@ -43,7 +43,7 @@ class Commands::Stats < Commands::Base
   end
 
   def streak_fragment
-    ":deciduous_tree: *Giving Streak:* #{requested_profile.active_streak_sentence}"
+    ":comet: *Giving Streak:* #{requested_profile.active_streak_sentence}"
   end
 
   def next_token_disbursal

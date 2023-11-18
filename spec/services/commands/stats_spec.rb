@@ -38,7 +38,7 @@ RSpec.describe Commands::Stats do
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
         :gift: *Tokens:* 0 (receiving #{team.token_quantity} tokens in 2 days)
-        :deciduous_tree: *Giving Streak:* 0 days
+        :comet: *Giving Streak:* 0 days
       TEXT
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Commands::Stats do
           :point_left: *Kudos Given:* 0
           :point_left: *Kudonts Given:* 0
           :gift: *Tokens:* Unlimited
-          :deciduous_tree: *Giving Streak:* 0 days
+          :comet: *Giving Streak:* 0 days
         TEXT
       end
 
@@ -79,7 +79,7 @@ RSpec.describe Commands::Stats do
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :deciduous_tree: *Giving Streak:* 0 days
+        :comet: *Giving Streak:* 0 days
       TEXT
     end
 
@@ -98,7 +98,7 @@ RSpec.describe Commands::Stats do
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :deciduous_tree: *Giving Streak:* 0 days
+        :comet: *Giving Streak:* 0 days
       TEXT
     end
 
@@ -120,7 +120,7 @@ RSpec.describe Commands::Stats do
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :deciduous_tree: *Giving Streak:* 0 days
+        :comet: *Giving Streak:* 0 days
       TEXT
     end
 
