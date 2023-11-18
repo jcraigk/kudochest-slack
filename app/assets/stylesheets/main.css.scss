@@ -223,6 +223,10 @@ img.small-radius {
   background: rgba(255, 255, 255, .85);
   padding: 30px;
 
+  li a {
+    white-space: nowrap;
+  }
+
   li:hover {
     text-decoration: underline;
   }

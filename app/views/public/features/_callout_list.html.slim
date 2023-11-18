@@ -22,15 +22,3 @@
         ul
           - %i[bonus_calculator history team_wallboard data app_settings help].each do |key|
             li = feature_modal_link(key)
-
-  .columns
-    .column.has-text-centered
-      = link_to icon_and_text('question', t('features.help')),
-                help_path,
-                class: 'button is-primary btn-cta'
-      = link_to icon_and_text('dollar-sign', t('features.pricing')),
-                pricing_path,
-                class: 'button is-primary btn-cta'
-      = link_to icon_and_text('comments-alt', t('features.support')),
-                support_path,
-                class: 'button is-primary btn-cta'
