@@ -54,8 +54,9 @@ class TipOutcomeService < Base::Service
     last_tip_sent_at = destroy ? previous_sent_at : tips.first.created_at
     attrs = { points_sent:, jabs_sent:, last_tip_sent_at: }
     if team.throttle_tips?
-      tokens = from_profile.tokens - tips.sum { |tip| tip.quantity.abs }
-      raise InsufficientTokensError if tokens.negative?
+      token_operator = destroy ? '+' : '-'
+      tokens = from_profile.tokens.send(token_operator, tips.sum { |tip| tip.quantity.abs })
+      raise InsufficientTokensError if !destroy && tokens.negative?
       attrs[:tokens] = tokens
     end
     from_profile.update!(attrs)
