@@ -28,7 +28,7 @@ RSpec.describe Commands::Admin do
       *Deduct #{App.jabs_term}:* Yes
       *Emoji enabled:* Yes
       *#{App.points_term.titleize} emoji:* #{team.point_emoj}
-      *#{App.jabs_term.titleize} emoji:* #{team.jab_emoj}
+      *#{App.jab_term.titleize} emoji:* #{team.jab_emoj}
       *Ditto emoji:* #{team.ditto_emoj}
       *Leveling enabled:* Yes
       *Maximum level:* #{team.max_level}

@@ -36,7 +36,7 @@ class TipOutcomeService < Base::Service
     @to_profiles ||= tips.filter_map(&:to_profile).uniq
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update_to_profiles
     tips.each do |tip|
       profile = tip.to_profile
@@ -68,7 +68,7 @@ class TipOutcomeService < Base::Service
     balance = team.balance.send(operator, total_points - total_jabs)
     team.update!(points_sent:, jabs_sent:, balance:)
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def refresh_leaderboards
     unless tips.all?(&:jab?)
