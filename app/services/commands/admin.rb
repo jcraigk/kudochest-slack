@@ -74,7 +74,7 @@ class Commands::Admin < Commands::Base
 
   def jab_emoji
     return '' unless team.enable_jabs?
-    "\n*#{App.jabs_term.titleize} emoji:* #{team.jab_emoj}"
+    "\n*#{App.jab_term.titleize} emoji:* #{team.jab_emoj}"
   end
 
   def ditto_emoji

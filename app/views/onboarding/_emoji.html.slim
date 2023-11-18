@@ -17,11 +17,13 @@
         tr
           td.emoji_name
             | :kudos:
-          td.emoji_image = image_tag 'emoji/plus_plus.png', size: '48x48', alt: 'Custom emoji icon'
+          td.emoji_image
+            img src='/static/emoji/kudos.png' width='48' height='48' alt='Custom emoji icon'
         tr
           td.emoji_name
             | :ditto_kudos:
-          td.emoji_image = image_tag 'emoji/plus_one.png', size: '48x48', alt: 'Custom emoji icon'
+          td.emoji_image
+            img src='/static/emoji/ditto_kudos.png' width='48' height='48' alt='Custom emoji icon'
 
     p.is-size-5 = t('onboarding.emoji_explain_html', url: App.slack_custom_emoji_url)
     br

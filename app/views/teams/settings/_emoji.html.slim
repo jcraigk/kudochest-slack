@@ -36,7 +36,7 @@
     .field.is-horizontal
       .field-label.is-normal
         = f.label :jab_emoji,
-                  t('teams.jab_emoji', jabs_title: App.jabs_term.titleize),
+                  t('teams.jab_emoji', jab_title: App.jab_term.titleize),
                   class: 'label'
       .field-body
         .field
@@ -50,6 +50,9 @@
       = t('teams.point_emoji_html', url: App.slack_custom_emoji_url)
       br
       br
-      = image_tag 'emoji/plus_plus.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
-      = image_tag 'emoji/plus_one.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
-      = image_tag 'emoji/minus_minus.png', size: '48x48', alt: 'Custom emoji icon', class: 'reaction-icon'
+      img src='/static/emoji/kudos.png' width='48' height='48' alt='Custom emoji icon' class='reaction-icon'
+      img src='/static/emoji/ditto_kudos.png' width='48' height='48' alt='Custom emoji icon' class='reaction-icon'
+      img src='/static/emoji/kudont.png' width='48' height='48' alt='Custom emoji icon' class='reaction-icon'
+
+
+

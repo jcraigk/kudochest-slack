@@ -20,7 +20,7 @@ en:
     emoji: Emoji
     point_emoji: "%{points_title} Emoji"
     point_emoji_tooltip: Enter the name of the emoji icon (without the surrounding colons) you want to use for giving %{points} to the author of a message. For example, if Bob posted "I brought donuts," another user could react to Bob's message with this emoji to give him %{points}.
-    jab_emoji: "%{jabs_title} Emoji"
+    jab_emoji: "%{jab_title} Emoji"
     jab_emoji_tooltip: Enter the name of the emoji icon (without the surrounding colons) you want to use for giving %{jabs} to the author of a message. For example, if Bob posted "It's punday today," another user could react to Bob's message with this emoji to give him %{jabs}. This requires %{jabs} to be enabled.
     ditto_emoji: Ditto Emoji
     ditto_emoji_tooltip: Enter the name of the emoji icon (without the surrounding colons) you want to use for giving %{points} to recipients listed in a previous message. For example, if Bob posted "@Alice++", another user could react to Bob's message with the Ditto Emoji to give Alice more %{points}.
