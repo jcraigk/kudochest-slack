@@ -1,4 +1,4 @@
-require 'rmagick'
+# require 'rmagick' # TODO: Re-enable graphical responses
 
 class ResponseImageService < Base::Service
   option :type
