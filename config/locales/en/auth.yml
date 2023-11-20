@@ -9,3 +9,4 @@ en:
     deleted: Sorry, that Slack profile has been deactivated
     install_error: Sorry, something went wrong with Slack integration
     already_installed: The app is already installed in your workspace. It's ready to go!
+    not_installed: You must install the app before you can login

@@ -72,5 +72,7 @@ RSpec.describe MentionParser do
   end
 
   xcontext 'when topic emoji is given' do
+    # TODO: @Alice ++2 :fire:
+    # TODO: @Alice :fire: :fire:
   end
 end

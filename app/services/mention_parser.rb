@@ -63,12 +63,17 @@ class MentionParser < Base::Service
   def topic_id_from_emoji(match)
     return if match[:inline_emoji].blank?
     first_emoji = match[:inline_emoji].split(':').compact_blank.first
-    team.topics.active.find { |topic| first_emoji == topic.emoji }&.id
+    topics.find { |topic| first_emoji == topic.emoji }&.id
   end
 
   def topic_id_from_match(match)
     return if (keyword = match[:topic_keyword]).blank?
-    team.topics.active.find { |topic| keyword == topic.keyword }&.id
+    id = topics.find { |topic| keyword == topic.keyword }&.id
+    id || topics.find { |topic| keyword == ":#{topic.emoji}:" }&.id
+  end
+
+  def topics
+    @topics ||= team.topics.active
   end
 
   # Generate a quantity given a mention match

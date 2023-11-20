@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe MessageScanner do
-  subject(:call) { described_class.call(text, team.config) }
+  subject(:call) { described_class.call(text:, regex: Regexp.new(team.config[:regex])) }
 
   let(:team) { create(:team) }
   let(:matches) { [] }

@@ -43,7 +43,7 @@ class Hooks::Slack::BaseController < Hooks::BaseController
   end
 
   def matches
-    @matches ||= MessageScanner.call(text, team_config)
+    @matches ||= MessageScanner.call(text:, regex: Regexp.new(team_config[:regex]))
   end
 
   def relevant_text?

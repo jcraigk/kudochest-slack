@@ -1,6 +1,4 @@
 class NoteSanitizer < Base::Service
-  option :platform
-  option :team_rid
   option :text
 
   def call
@@ -10,6 +8,10 @@ class NoteSanitizer < Base::Service
   end
 
   private
+
+  def platform
+    :slack
+  end
 
   def sanitized_text
     replace_channel_mentions
@@ -67,17 +69,17 @@ class NoteSanitizer < Base::Service
   end
 
   def profile_reference(rid)
-    return unless (profile = Profile.find_with_team(team_rid, rid))
+    return unless (profile = Profile.find_by(rid:))
     "#{PROF_PREFIX}#{profile.display_name}"
   end
 
   def subteam_reference(rid)
-    return unless (subteam = Subteam.find_with_team(team_rid, rid))
+    return unless (subteam = Subteam.find_by(rid:))
     "#{PROF_PREFIX}#{subteam.handle}"
   end
 
   def channel_reference(rid)
-    return unless (channel = Channel.find_with_team(team_rid, rid))
+    return unless (channel = Channel.find_by(rid:))
     "#{CHAN_PREFIX}#{channel.name}"
   end
 end

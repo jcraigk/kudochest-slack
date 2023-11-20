@@ -2,13 +2,10 @@
 # Because this is called on every message sent from chat, it should be efficient.
 
 class MessageScanner < Base::Service
-  param :text
-  param :config
-
-  attr_reader :platform
+  option :text
+  option :regex
 
   def call
-    @platform = config[:platform].to_sym
     matches_on_text
   end
 
@@ -65,7 +62,7 @@ class MessageScanner < Base::Service
   end
 
   def note(idx)
-    NoteSanitizer.call(platform:, team_rid: config[:rid], text: raw_note(idx))
+    NoteSanitizer.call(text: raw_note(idx))
   end
 
   # Note is all text between matches, defaulting to tail
@@ -83,79 +80,7 @@ class MessageScanner < Base::Service
     @tail_note ||= text.split(scan_results[-1][:match])[1]&.strip
   end
 
-  def topic_keywords
-    "(?<topic_keywords>#{config[:topics]&.pluck(:keyword)&.join('|')})?"
-  end
-
   def sanitized_text
     text&.strip&.tr("\u00A0", ' ') || '' # `\u00A0` is unicode space (from Slack)
-  end
-
-  def regex
-    Regexp.new("(?<match>#{mention}#{spaces}#{triggers}#{spaces}#{topic_keywords})")
-  end
-
-  def mention # rubocop:disable Metrics/MethodLength
-    <<~TEXT.gsub(/\s+/, '')
-      (?:
-        <
-          (?<entity_rid>
-            (?:
-              #{Regexp.escape(PROFILE_PREFIX[platform])}
-              |
-              #{Regexp.escape(CHAN_PREFIX)}
-              |
-              #{Regexp.escape(SUBTEAM_PREFIX[platform])}
-            )
-            #{RID_CHARS[platform]}+
-          )
-          (?:#{LEGACY_SLACK_SUFFIX_PATTERN})?
-        >
-        |
-        #{group_keyword_pattern[platform]}
-      )
-    TEXT
-  end
-
-  def triggers
-    "#{quantity_prefix}(?:#{inlines}|#{emojis})#{quantity_suffix}"
-  end
-
-  def inlines
-    patterns = POINT_INLINES.map { |str| Regexp.escape(str) }
-    patterns << JAB_INLINES.map { |str| Regexp.escape(str) } if config[:enable_jabs]
-    "(?<inlines>#{patterns.join('|')})"
-  end
-
-  def emojis
-    patterns = emoji_patterns.map { |str| ":#{str}:" }
-    str = patterns.join('|').presence || 'no-emoji'
-    "(?<emojis>(?:(?:#{str})\\s*)+)"
-  end
-
-  def emoji_patterns
-    return [] unless config[:enable_emoji]
-    emojis = [config[:point_emoji]]
-    emojis << config[:jab_emoji] if config[:enable_jabs]
-    emojis += config[:topics].pluck(:emoji) if config[:enable_topics]
-    emojis
-  end
-
-  def quantity_prefix
-    '(?<prefix_quantity>\d+\.?\d*)?\s?'
-  end
-
-  def quantity_suffix
-    '\s?(?<suffix_quantity>\d+\.?\d*)?'
-  end
-
-  def spaces
-    '\s{0,20}'
-  end
-
-  def group_keyword_pattern
-    {
-      slack: '<!(?<group_keyword>everyone|channel|here)>'
-    }
   end
 end

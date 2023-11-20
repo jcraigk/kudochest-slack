@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe NoteSanitizer do
-  subject(:service) { described_class.call(platform:, team_rid: team.rid, text:) }
+  subject(:service) { described_class.call(team_rid: team.rid, text:) }
 
-  let(:team) { create(:team, platform:) }
-  let(:platform) { :slack }
+  let(:team) { create(:team) }
   let(:subteam) { create(:subteam, team:) }
   let(:profile) { create(:profile, team:) }
   let(:channel) { create(:channel, team:) }

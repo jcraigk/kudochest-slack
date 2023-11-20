@@ -25,13 +25,13 @@ class SlackController < ApplicationController
   def login_callback
     return login_failed unless state_match?
     return redirect_to dashboard_path if login_profile(login_profile_rid)
-    login_failed
+    login_failed(t('auth.not_installed'))
   end
 
   private
 
-  def login_failed
-    redirect_to root_path, alert: t('auth.login_fail')
+  def login_failed(message = nil)
+    redirect_to root_path, alert: message || t('auth.login_fail')
   end
 
   def init_state
