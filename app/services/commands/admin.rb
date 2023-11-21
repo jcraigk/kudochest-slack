@@ -31,7 +31,7 @@ class Commands::Admin < Commands::Base
   def footer_text
     str = ''
     str += "*Log channel:* #{channel_link(team.log_channel_rid)}\n" if team.log_channel_rid.present?
-    str + "*Administrator:* #{team_admin}"
+    str + "*Administrator:* #{owner.link}"
   end
 
   def jab_text
@@ -130,11 +130,6 @@ class Commands::Admin < Commands::Base
 
   def work_days
     team.work_days.map(&:titleize).join(', ')
-  end
-
-  def team_admin
-    return owner.email if owner.link.blank?
-    "#{owner.link} (#{owner.email})"
   end
 
   def owner

@@ -10,7 +10,7 @@ en:
     fulfillment_key: Fulfillment Key
     fulfillment_key_tooltip: If this loot can be delivered electronically, enter the unique URL or code here. Otherwise, just leave it blank.
     edit: Edit Loot Claim
-    fulfilled_tooltip: Because this claim is on an item that is not set to be fulfilled automatically , it must be fulfilled manually. Once the claim is fulfilled, mark it so using this control.
+    fulfilled_tooltip: Because this claim is on an item that is not set to be fulfilled automatically , it must be fulfilled manually. Once the claim is fulfilled, mark it as such using this control.
     fulfilled_at: Fulfilled At
     confirm_destroy: Are you sure you want to permanently delete this loot claim?
     updated: Claim successfully updated

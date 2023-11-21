@@ -33,7 +33,7 @@
     .field-body
       .field
         .control
-          p = @claim.created_at.strftime('%-m/%-d/%y %-l:%M%P')
+          p = @claim.created_at.in_time_zone(current_team.time_zone).strftime('%-m/%-d/%y %-l:%M%P')
 
   - if @claim.fulfilled_at.present?
     .field.is-horizontal
@@ -42,7 +42,7 @@
       .field-body
         .field
           .control
-            p = @claim.fulfilled_at.strftime('%-m/%-d/%y %-l:%M%P')
+            p = @claim.fulfilled_at.in_time_zone(current_team.time_zone).strftime('%-m/%-d/%y %-l:%M%P')
 
   .field.is-horizontal
     .field-label.is-switch-label

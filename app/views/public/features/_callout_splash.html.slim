@@ -6,8 +6,9 @@
         p.callout = t("features.#{@platform}.hero_body_html", app: App.app_name)
 
         = link_to icon_and_text('play', t('features.watch_video')),
-                  '#features-video',
-                  class: 'button is-primary btn-cta'
+                  'https://www.youtube.com/watch?v=8w7NAzQMe0c',
+                  class: 'button is-primary btn-cta',
+                  target: '_blank'
 
         - unless current_profile
           = link_to icon_and_text('rocket', t('features.try_it_free')),

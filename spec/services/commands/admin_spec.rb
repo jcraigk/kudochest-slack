@@ -39,7 +39,7 @@ RSpec.describe Commands::Admin do
       *Giving streak reward:* #{points_format(team.streak_reward, label: true)}
       *Time zone:* (GMT+00:00) UTC
       *Work days:* Monday, Tuesday, Wednesday, Thursday, Friday
-      *Administrator:* #{team.owner.link} (#{team.owner.email})
+      *Administrator:* #{team.owner.link}
     TEXT
   end
 
