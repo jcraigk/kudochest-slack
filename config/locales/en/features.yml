@@ -16,8 +16,10 @@ en:
     support: Support
     cta_hero_title: First 6 weeks free, no payment method required.
     cta_hero_title_mobile: First 6 weeks free
-    cta_hero_subtitle_with_link_html: Affordable <a href="/pricing">subscription pricing</a>
+    cta_hero_subtitle_with_link_html: Affordable <a href="/pricing">subscription pricing</a> after trial ends.
+    cta_hero_subtitle_with_link_mobile_html: Affordable <a href="/pricing">subscription pricing</a>
     cta_hero_subtitle: Affordable subscription pricing after trial ends.
+    cta_hero_subtitle_mobile: Affordable subscription pricing
     larger_team_html: Larger team?<br><a href="/support">Contact us</a>.
     list:
       give_plusplus:

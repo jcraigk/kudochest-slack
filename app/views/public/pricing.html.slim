@@ -1,7 +1,7 @@
 - content_for :subtitle, t('nav.pricing')
 - content_for :meta_description, t('meta.pricing')
 
-= render 'layouts/cta_hero', display_link: true
+= render 'layouts/cta_hero', display_link: false
 
 .columns
   - App.subscription_plans[0..2].each do |plan|

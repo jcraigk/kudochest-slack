@@ -1,9 +1,16 @@
 section.hero.is-primary#cta-hero
   .hero-body
-    p.title.is-hidden-mobile = t('features.cta_hero_title')
-    p.title.is-hidden-tablet = t('features.cta_hero_title_mobile')
-    p.subtitle
-      - if display_link
-        = t('features.cta_hero_subtitle_with_link_html')
-      - else
-        = t('features.cta_hero_subtitle')
+    .is-hidden-mobile
+      p.title = t('features.cta_hero_title')
+    .is-hidden-tablet
+      p.title = t('features.cta_hero_title_mobile')
+    - if display_link
+      .is-hidden-mobile
+        p.subtitle = t('features.cta_hero_subtitle_with_link_html')
+      .is-hidden-tablet
+        p.subtitle = t('features.cta_hero_subtitle_with_link_mobile_html')
+    - else
+      .is-hidden-mobile
+        p.subtitle = t('features.cta_hero_subtitle')
+      .is-hidden-tablet
+        p.subtitle = t('features.cta_hero_subtitle_mobile')
