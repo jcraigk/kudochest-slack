@@ -1,6 +1,7 @@
 section.hero.is-primary#cta-hero
   .hero-body
-    p.title = t('features.cta_hero_title')
+    p.title.is-hidden-mobile = t('features.cta_hero_title')
+    p.title.is-hidden-tablet = t('features.cta_hero_title_mobile')
     p.subtitle
       - if display_link
         = t('features.cta_hero_subtitle_with_link_html')

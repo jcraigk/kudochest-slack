@@ -52,8 +52,11 @@ html {
     }
     .footer {
       background-color: $brown !important;
-      padding-bottom: 50px;
-      padding-top: 50px;
+      padding-top: 20px;
+
+      a {
+        margin-left: 10px;
+      }
     }
   }
 }
@@ -97,10 +100,6 @@ form {
 }
 .install-container {
   margin-bottom: 50px !important;
-}
-.video-container {
-  margin-bottom: 350px !important;
-  border-radius: 20px;
 }
 .tabs {
   a {
@@ -338,4 +337,23 @@ img.small-radius {
       text-align: left;
     }
   }
+}
+
+.video-container {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%; /* Aspect ratio 16:9 */
+  width: 100%;
+
+  iframe {
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+.video-cta {
+  margin-bottom: 150px !important;
 }

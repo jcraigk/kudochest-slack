@@ -66,6 +66,7 @@ class Team < ApplicationRecord
   attribute :weekly_report,      :boolean, default: false
   attribute :point_emoji,        :string,  default: -> { App.default_point_emoji }
   attribute :ditto_emoji,        :string,  default: -> { App.default_ditto_emoji }
+  attribute :jab_emoji,          :string,  default: -> { App.default_jab_emoji }
   attribute :time_zone,          :string,  default: -> { App.default_team_time_zone }
   attribute :streak_duration,    :integer, default: -> { App.default_streak_duration }
   attribute :streak_reward,      :integer, default: -> { App.default_streak_reward }

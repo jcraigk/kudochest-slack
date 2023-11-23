@@ -64,9 +64,9 @@ module KudoChest
       users.profile:read
     ]
     config.base_command = ENV.fetch('BASE_COMMAND', 'kudos')
-    config.default_point_emoji = 'star'
-    config.default_jab_emoji = 'arrow_down'
-    config.default_ditto_emoji = 'heavy_plus_sign'
+    config.default_point_emoji = 'thumbsup'
+    config.default_jab_emoji = 'thumbsdown'
+    config.default_ditto_emoji = 'repeat_one'
     config.slack_client_id = ENV.fetch('SLACK_CLIENT_ID', nil)
     config.slack_client_secret = ENV.fetch('SLACK_CLIENT_SECRET', nil)
     config.slack_custom_emoji_url = 'https://slack.com/help/articles/206870177-Add-custom-emoji'
@@ -113,7 +113,7 @@ module KudoChest
     config.receive_color = '#247808'
 
     # Subscription Plans
-    config.trial_period = 90.days
+    config.trial_period = 42.days
     config.max_team_size = 2_500
     config.subscription_grace_period = 7.days
     PlanStruct = Struct.new(:price_rid, :name, :range, :price)

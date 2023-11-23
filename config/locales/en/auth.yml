@@ -3,8 +3,8 @@ en:
     logged_out: Signed out
     login_fail: Sign in failed
     login_required: Please sign in to proceed
-    login: Sign In
-    logout: Sign out
+    login: Login
+    logout: Logout
     not_authorized: You are not authorized to perform that action
     deleted: Sorry, that Slack profile has been deactivated
     install_error: Sorry, something went wrong with Slack integration

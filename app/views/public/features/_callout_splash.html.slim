@@ -2,8 +2,8 @@
   .columns
     .column.is-half
       .callout.marketing-callout
-        h1 = t("features.#{@platform}.hero_title")
-        p.callout = t("features.#{@platform}.hero_body_html", app: App.app_name)
+        h1 = t('features.hero_title')
+        p.callout = t('features.hero_body_html')
 
         = link_to icon_and_text('play', t('features.watch_video')),
                   'https://www.youtube.com/watch?v=8w7NAzQMe0c',
