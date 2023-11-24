@@ -191,7 +191,7 @@ class Team < ApplicationRecord
   # rubocop:enable Rails/SkipsModelValidations
 
   def reset_profile_tokens?
-    attrs = %w[throttle_tips token_frequency token_day token_quantity time_zone]
+    attrs = %w[throttle_tips token_frequency token_day action_hour token_quantity time_zone]
     saved_changes.keys.any? { |k| attrs.include?(k) }
   end
 
