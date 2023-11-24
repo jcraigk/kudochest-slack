@@ -40,6 +40,18 @@ RSpec.describe NextTokenDisbursalService do
     end
   end
 
+  context 'when token_frequency is monthly' do
+    let(:token_frequency) { 'monthly' }
+
+    it 'calculates the next monthly token disbursal time' do
+      travel_to Time.zone.local(2023, 1, 24, 10, 0, 0) do
+        time_zone = ActiveSupport::TimeZone[team.time_zone]
+        expected_time = time_zone.local(2023, 2, 27, 9, 0, 0) # First Monday of February
+        expect(service).to eq(expected_time)
+      end
+    end
+  end
+
   context 'when token_frequency is quarterly' do
     let(:token_frequency) { 'quarterly' }
 

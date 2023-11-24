@@ -101,5 +101,5 @@
         .field-label.is-normal
           = f.label :action_hour, t('teams.next_disbursal'), class: 'label'
         .field-body
-          p = current_team.next_tokens_at.in_time_zone(current_team.time_zone).strftime('%b %-d at %-I%P')
+          p = current_team.next_tokens_at.in_time_zone(current_team.time_zone).strftime('%b %-d, %Y at %-I%P')
           = tooltip_btn('teams.next_disbursal_tooltip')

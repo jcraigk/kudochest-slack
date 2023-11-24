@@ -123,7 +123,7 @@ class Team < ApplicationRecord
 
   before_update :bust_cache, if: -> { changes.keys.intersect?(CONFIG_ATTRS) }
   before_update :sync_topic_attrs
-  after_update_commit :reset_profile_tokens, if: :saved_change_to_throttle_tips?
+  after_update_commit :reset_profile_tokens
   after_update_commit :trim_profile_tokens, if: :saved_change_to_token_max?
   after_update_commit :join_log_channel, if: :saved_change_to_log_channel_rid?
 
@@ -171,19 +171,28 @@ class Team < ApplicationRecord
   end
 
   def update_next_tokens_at
-    update!(next_tokens_at: NextTokenDisbursalService.call(team: self))
+    update_column(:next_tokens_at, NextTokenDisbursalService.call(team: self)) # rubocop:disable Rails/SkipsModelValidations
   end
 
   private
 
+  # rubocop:disable Rails/SkipsModelValidations
   def reset_profile_tokens
+    return unless reset_profile_tokens?
+
     if throttle_tips?
       update_next_tokens_at
-      profiles.active.update_all(tokens: token_quantity) # rubocop:disable Rails/SkipsModelValidations
+      profiles.active.update_all(tokens: token_quantity)
     else
-      update!(next_tokens_at: nil)
-      profiles.active.update_all(tokens: 0) # rubocop:disable Rails/SkipsModelValidations
+      update_column(:next_tokens_at, nil)
+      profiles.active.update_all(tokens: 0)
     end
+  end
+  # rubocop:enable Rails/SkipsModelValidations
+
+  def reset_profile_tokens?
+    attrs = %w[throttle_tips token_frequency token_day token_quantity time_zone]
+    saved_changes.keys.any? { |k| attrs.include?(k) }
   end
 
   def trim_profile_tokens

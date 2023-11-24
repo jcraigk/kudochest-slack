@@ -11,6 +11,10 @@ class NextTokenDisbursalService < Base::Service
     calculate_next_time(1.week, tolerance: 2.days)
   end
 
+  def next_monthly
+    calculate_next_time(1.month)
+  end
+
   def next_quarterly
     calculate_next_time(3.months)
   end
