@@ -41,36 +41,36 @@ br
           i.fa.fa-calendar
         th
       tbody
-      - if @tips.none?
-        tr
-          td.has-text-centered colspan='100'
-            br
-            br
-            p = t('tips.none_found')
-            br
-            br
-      - else
-        - @tips.each do |tip|
+        - if @tips.none?
           tr
-            td = profile_web_link(tip.from_profile)
-            td = profile_web_link(tip.to_profile)
-            td = points_format(tip.quantity)
-            - if current_team.enable_topics? && current_team.topics.active.any?
-              td
-                - if tip.topic_id.present?
-                  = link_to tip.topic_name, edit_topic_path(tip.topic_id)
-                - else
-                  = tip.topic_name
-            - if !current_team.tip_notes.disabled?
-              td = highlight(tip.note, params[:search])
-            td = tip.channel_webref
-            td = tip.source.titleize
-            td = Time.use_zone(tip.from_profile.team.time_zone) { tip.created_at }.strftime('%b %-d, %Y @ %-l:%M%P')
-            td = link_to \
-                 fa_icon('trash-alt'),
-                 tip_path(tip),
-                 method: :delete,
-                 class: 'button is-danger',
-                 data: { confirm: t('tips.confirm_destroy') }
+            td.has-text-centered colspan='100'
+              br
+              br
+              p = t('tips.none_found')
+              br
+              br
+        - else
+          - @tips.each do |tip|
+            tr
+              td = profile_web_link(tip.from_profile)
+              td = profile_web_link(tip.to_profile)
+              td = points_format(tip.quantity)
+              - if current_team.enable_topics? && current_team.topics.active.any?
+                td
+                  - if tip.topic_id.present?
+                    = link_to tip.topic_name, edit_topic_path(tip.topic_id)
+                  - else
+                    = tip.topic_name
+              - if !current_team.tip_notes.disabled?
+                td = highlight(tip.note, params[:search])
+              td = tip.channel_webref
+              td = tip.source.titleize
+              td = Time.use_zone(tip.from_profile.team.time_zone) { tip.created_at }.strftime('%b %-d, %Y @ %-l:%M%P')
+              td = link_to \
+                  fa_icon('trash-alt'),
+                  tip_path(tip),
+                  method: :delete,
+                  class: 'button is-danger',
+                  data: { confirm: t('tips.confirm_destroy') }
 
     = paginate @tips
