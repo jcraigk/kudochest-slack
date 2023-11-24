@@ -3,7 +3,7 @@ module BillingHelper
     link_to \
       icon_and_text('lock', t('billing.cancel_title')),
       stripe_cancel_subscriptions_path,
-      class: 'button is-danger is-light',
+      class: 'button is-danger is-light mr-2',
       method: :patch,
       data: { confirm: t('billing.cancel_confirm') }
   end
