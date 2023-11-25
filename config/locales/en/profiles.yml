@@ -5,7 +5,7 @@ en:
     update_fail: 'Could not update profile settings: %{msg}'
     update_success: Successfully updated profile settings
     allow_dm: Allow Direct Messages
-    allow_dm_tooltip: Sometimes the chatbot will send you direct notifications if your team admin has setup the system that way. To silence these messages, deselect this option.
+    allow_dm_tooltip: Sometimes the chatbot will send you direct notifications if your team admin has setup the system that way. To silence these messages, disable this option.
     weekly_report: Email Weekly Digest
     weekly_report_tooltip: Send a weekly activity report to the email shown below
     no_recent_activity: You have not given or earned any %{points} recently.

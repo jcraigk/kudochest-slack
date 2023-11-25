@@ -22,7 +22,7 @@
     - if current_profile.owned_team.present?
       .navbar-divider
       = link_to icon_and_text('cog', t('nav.app_settings')),
-                app_settings_path,
+                app_settings_path(section: 'responses'),
                 class: 'navbar-item'
       = link_to icon_and_text('credit-card', t('nav.billing')),
             subscriptions_path,
