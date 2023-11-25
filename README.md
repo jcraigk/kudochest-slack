@@ -3,7 +3,7 @@
 &nbsp;
 
 
-**KudoChest** is a team engagement tool for **Slack**. It allows users within a workspace to give each other points that accrue over time. A point represents a token of appreciation or recognition for a job well done. Users can view their profile, browse history, and access leaderboards on the web or within the chat client. App settings and moderation tools are provided via web UI.
+**KudoChest** is a team engagement tool for **Slack**. It allows users within a workspace to give each other tokens of gratitude, called kudos, that accrue over time. This boosts team morale and improves productivity. Users can view their profile, browse history, and access leaderboards on the web or within the chat client. App settings and moderation tools are provided via web UI.
 
 This is a **Ruby on Rails** application backed by **Postgres** and **Redis**. It integrates tightly with chat platforms, keeping teams and users synced server-side. This enables web-based user profiles and other UX enhancements not possible in standard bots.
 &nbsp;

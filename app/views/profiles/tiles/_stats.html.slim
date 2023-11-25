@@ -50,15 +50,6 @@
               br
               | #{App.jabs_term.titleize} given: &nbsp;<strong>#{points_format(profile.jabs_sent)}</strong>
 
-            - if profile.team.throttle_tips? && profile == current_profile
-              br
-              - if profile.infinite_tokens?
-                | Tokens: &nbsp;<strong>unlimited</strong>
-              - else
-                | Tokens: &nbsp;<strong>#{points_format(profile.tokens)}</strong>
-                br
-                span.info You get #{profile.team.token_quantity} more tokens in #{time_until_next_disbursal(profile.team)}
-
         - if profile.team.enable_streaks?
           .column.stats-box
             p.subtitle.is-5

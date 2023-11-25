@@ -17,8 +17,8 @@
     .team-setting-link data-link='emoji'
       = icon_and_text('smile', t('teams.emoji'))
 
-    .team-setting-link data-link='throttling'
-      = icon_and_text('tachometer', t('teams.throttling'))
+    .team-setting-link data-link='throttle'
+      = icon_and_text('tachometer', t('teams.throttle'))
 
     .team-setting-link data-link='streaks'
       = icon_and_text('star', t('teams.giving_streaks'))
@@ -47,7 +47,7 @@
       / = render 'teams/settings/hints', f:
       = render 'teams/settings/giving_points', f:
       = render 'teams/settings/emoji', f:
-      = render 'teams/settings/throttling', f:
+      = render 'teams/settings/throttle', f:
       = render 'teams/settings/streaks', f:
       = render 'teams/settings/reports', f:
       = render 'teams/settings/leveling', f:
@@ -70,10 +70,10 @@ javascript:
     autocomplete: true,
     icon: 'fa fa-times',
     options: #{{@team_profile_options.to_json}},
-    value: #{{@infinite_profile_rids.to_json}},
+    value: #{{@exempt_profile_rids.to_json}},
     onChange: value => {
       this.dispatchEvent(event)
-      $('#infinite_profile_rids').val(value.join(':'))
+      $('#exempt_profile_rids').val(value.join(':'))
     }
   })
 

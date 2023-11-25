@@ -4,7 +4,7 @@ RSpec.describe TipMentionService, :freeze_time do
   subject(:service) { described_class.call(**opts) }
 
   let(:team) do
-    create(:team, throttle_tips: false, split_tip: false)
+    create(:team, split_tip: false)
   end
   let(:channel) { create(:channel, team:) }
   let(:profile) { create(:profile, team:) }
@@ -43,21 +43,24 @@ RSpec.describe TipMentionService, :freeze_time do
     let(:result) { ChatResponse.new(mode: :silent) }
 
     before do
-      profile.update(announce_tip_sent: false, tokens: 10)
+      profile.update(announce_tip_sent: false)
     end
 
     include_examples 'expected result'
   end
 
-  context 'when sender requires more tokens' do
+  context 'when sender has exceeded throttle limit' do
     let(:text) do
       <<~TEXT.squish
-        :#{App.error_emoji}: Sorry #{profile.link}, your token balance of 0 is insufficient. The next disbursal of #{team.token_quantity} tokens will occur in 2 days.
+        :#{App.error_emoji}: Sorry #{profile.link}, you must wait 1 day to give more #{App.points_term}.
       TEXT
     end
     let(:result) { ChatResponse.new(mode: :error, text:) }
 
-    before { team.update_columns(throttle_tips: true, next_tokens_at: 2.days.from_now) } # rubocop:disable Rails/SkipsModelValidations
+    before do
+      team.update(throttle_period: 'day', throttle_quantity: 1)
+      create(:tip, from_profile: profile)
+    end
 
     include_examples 'expected result'
   end
@@ -68,7 +71,6 @@ RSpec.describe TipMentionService, :freeze_time do
     let(:result) { ChatResponse.new(mode: :error, text:) }
 
     before do
-      profile.tokens = 10
       team.tip_notes = 'required'
     end
 

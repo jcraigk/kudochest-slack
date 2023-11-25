@@ -24,14 +24,12 @@ RSpec.describe Team do
   it { is_expected.to validate_uniqueness_of(:rid) }
   it { is_expected.to validate_uniqueness_of(:api_key) }
   it { is_expected.to validate_presence_of(:avatar_url) }
-  it { is_expected.to validate_numericality_of(:action_hour).is_greater_than_or_equal_to(0) }
-  it { is_expected.to validate_numericality_of(:action_hour).is_less_than_or_equal_to(23) }
-  it { is_expected.to validate_numericality_of(:token_quantity).is_greater_than_or_equal_to(1) }
+  it { is_expected.to validate_numericality_of(:throttle_quantity).is_greater_than_or_equal_to(1) }
 
   it do
     expect(team)
-      .to validate_numericality_of(:token_quantity)
-      .is_less_than_or_equal_to(App.max_token_quantity)
+      .to validate_numericality_of(:throttle_quantity)
+      .is_less_than_or_equal_to(App.max_throttle_quantity)
   end
 
   it { is_expected.to validate_numericality_of(:max_points_per_tip).is_greater_than_or_equal_to(1) }
@@ -40,17 +38,6 @@ RSpec.describe Team do
     expect(team)
       .to validate_numericality_of(:max_points_per_tip)
       .is_less_than_or_equal_to(App.max_points_per_tip)
-  end
-
-  it do
-    expect(team).to \
-      validate_numericality_of(:token_max).is_greater_than_or_equal_to(team.token_quantity)
-  end
-
-  it do
-    expect(team)
-      .to validate_numericality_of(:token_max)
-      .is_less_than_or_equal_to(App.max_token_max)
   end
 
   it { is_expected.to validate_numericality_of(:max_level).is_greater_than_or_equal_to(10) }
@@ -97,7 +84,6 @@ RSpec.describe Team do
     let(:expected_validators) do
       [
         RequireTopicValidator,
-        TokenQuantityWithinTokenMaxValidator,
         WorkDaysValidator
       ]
     end
@@ -107,9 +93,8 @@ RSpec.describe Team do
     end
   end
 
-  it 'sets default work_days and token_day' do
+  it 'sets default work_days' do
     expect(team.work_days).to eq(%w[monday tuesday wednesday thursday friday])
-    expect(team.token_day).to eq('monday')
   end
 
   context 'when becoming oversized' do
@@ -299,34 +284,6 @@ RSpec.describe Team do
       before { team.update(app_profile_rid: 'OTHER') }
 
       include_examples 'cache busting'
-    end
-  end
-
-  describe 'when activating tip throttling' do
-    subject(:team) { create(:team, :with_profiles, throttle_tips: false) }
-
-    before do
-      team.profiles.each { |profile| profile.update(tokens: 300) }
-      team.update(throttle_tips: true)
-    end
-
-    it 'resets profile tokens' do
-      expect(team.profiles.reload.map(&:tokens)).to eq(Array.new(3) { team.token_quantity })
-    end
-  end
-
-  describe 'when reducing token_max' do
-    subject(:team) { create(:team, :with_profiles, throttle_tips: true, token_max: 200) }
-
-    let(:new_max) { 150 }
-
-    before do
-      team.profiles.update_all(tokens: 200) # rubocop:disable Rails/SkipsModelValidations
-      team.update(token_max: new_max)
-    end
-
-    it 'reduces profile tokens' do
-      expect(team.profiles.reload.map(&:tokens)).to eq(Array.new(3) { team.token_max })
     end
   end
 

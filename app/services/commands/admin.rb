@@ -97,21 +97,13 @@ class Commands::Admin < Commands::Base
   end
 
   def throttle_points_text
-    txt = "*Throttle #{App.points_term}:* #{boolean_str(team.throttle_tips)}"
-    return txt unless team.throttle_tips
-    txt + throttle_detail_text
-  end
-
-  def throttle_detail_text # rubocop:disable Metrics/AbcSize
-    <<~TEXT.chomp
-
-      *Exempt users:* #{team.infinite_profiles_sentence}
-      *Token disbursal day:* #{team.token_day.titleize}
-      *Token disbursal hour:* #{num_to_hour(team.action_hour)}
-      *Token disbursal frequency:* #{team.token_frequency.titleize}
-      *Token disbursal quantity:* #{number_with_delimiter(team.token_quantity)}
-      *Token max balance:* #{number_with_delimiter(team.token_max)}
-    TEXT
+    str =
+      if team.throttled?
+        "#{team.throttle_quantity} #{App.points_term} per #{team.throttle_period}"
+      else
+        'Disabled'
+      end
+    "*Throttle:* #{str}"
   end
 
   def streak_text

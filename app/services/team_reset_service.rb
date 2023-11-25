@@ -16,12 +16,10 @@ class TeamResetService < Base::Service
   end
 
   def reset_profile_stats(profile)
-    tokens = team.throttle_tips? ? team.token_quantity : 0
     profile.update! \
       points_received: 0,
       points_sent: 0,
       points_claimed: 0,
-      tokens:,
       last_tip_received_at: nil,
       last_tip_sent_at: nil
   end

@@ -19,7 +19,6 @@ class TipOutcomeService < Base::Service
   def update_profile_and_team_stats
     Tip.transaction do
       lock_records_for_transaction
-
       update_to_profiles
       update_from_profile if from_profile != team.app_profile
       update_team
@@ -27,7 +26,7 @@ class TipOutcomeService < Base::Service
     end
   end
 
-  # Lock profiles in a consistent order to reduce deadlocks
+  # Lock profiles in consistent order to reduce deadlocks
   def lock_records_for_transaction
     [team, from_profile, *to_profiles].sort_by(&:id).each(&:lock!)
   end
@@ -36,7 +35,7 @@ class TipOutcomeService < Base::Service
     @to_profiles ||= tips.filter_map(&:to_profile).uniq
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def update_to_profiles
     tips.each do |tip|
       profile = tip.to_profile
@@ -53,12 +52,6 @@ class TipOutcomeService < Base::Service
     jabs_sent = from_profile.jabs_sent.send(operator, total_jabs)
     last_tip_sent_at = destroy ? previous_sent_at : tips.first.created_at
     attrs = { points_sent:, jabs_sent:, last_tip_sent_at: }
-    if team.throttle_tips?
-      token_operator = destroy ? '+' : '-'
-      tokens = from_profile.tokens.send(token_operator, tips.sum { |tip| tip.quantity.abs })
-      raise InsufficientTokensError if !destroy && tokens.negative?
-      attrs[:tokens] = tokens
-    end
     from_profile.update!(attrs)
   end
 
@@ -68,7 +61,7 @@ class TipOutcomeService < Base::Service
     balance = team.balance.send(operator, total_points - total_jabs)
     team.update!(points_sent:, jabs_sent:, balance:)
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def refresh_leaderboards
     unless tips.all?(&:jab?)

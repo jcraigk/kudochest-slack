@@ -1,0 +1,39 @@
+.card data-section='throttle' style='display: none;'
+  header.card-header
+    p.card-header-title
+      = t('teams.throttle')
+  .card-content
+
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :throttle_period, t('teams.throttle_period'), class: 'label'
+      .field-body
+        .field
+          .control
+            .select = f.select :throttle_period, Team.throttle_period.options
+            = tooltip_btn('teams.throttle_period_tooltip', nil, points: App.points_term)
+
+    .field.is-horizontal
+      .field-label.is-normal
+        = f.label :throttle_quantity, t('teams.throttle_quantity'), class: 'label'
+      .field-body
+        .field
+          .control
+            = f.text_field :throttle_quantity,
+                           class: 'input input-number',
+                           type: 'number',
+                           step: '1',
+                           min: 1,
+                           max: App.max_throttle_quantity,
+                           required: true
+            = tooltip_btn('teams.throttle_quantity_tooltip')
+
+    .field.is-horizontal
+      .field-label.is-normal
+        label.label for='profile-multi-select' = t('teams.exempt_profiles')
+        = tooltip_btn('teams.exempt_profiles_tooltip', 'nudge-up', points: App.points_term)
+      .field-body
+        .field
+          .control
+            #profile-multi-select
+            = hidden_field_tag :exempt_profile_rids, @exempt_profile_rids.join(':')

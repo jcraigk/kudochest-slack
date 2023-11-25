@@ -2,9 +2,6 @@
 
 :scheduler:
   :schedule:
-    HourlyTokenWorker:
-      cron: '0 0 * * * *' # Hourly
-
     SubscriptionExpiryWorker:
       cron: '0 0 22 * * * America/Los_Angeles' # Nightly at 10pm Pacific
 

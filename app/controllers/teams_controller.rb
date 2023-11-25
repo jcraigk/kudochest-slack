@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
 
   def edit
     authorize current_team
-    prepare_infinite_profile_options
+    prepare_exempt_profile_options
   end
 
   def update
@@ -51,7 +51,7 @@ class TeamsController < ApplicationController
   private
 
   def update_team_attrs
-    update_infinite_profiles
+    update_exempt_profiles
     current_team.update(platform_team_params) ? update_success : update_fail
   end
 
@@ -62,25 +62,25 @@ class TeamsController < ApplicationController
     redirect_to app_settings_path
   end
 
-  def update_infinite_profiles
-    profile_rids = (params[:infinite_profile_rids].presence || '').split(':')
+  def update_exempt_profiles
+    profile_rids = (params[:exempt_profile_rids].presence || '').split(':')
     current_team.profiles
                 .where.not(rid: profile_rids)
-                .where(infinite_tokens: true)
-                .update_all(infinite_tokens: false) # rubocop:disable Rails/SkipsModelValidations
+                .where(throttle_exempt: true)
+                .update_all(throttle_exempt: false) # rubocop:disable Rails/SkipsModelValidations
     current_team.profiles
-                .where(rid: profile_rids, infinite_tokens: false)
-                .update_all(infinite_tokens: true) # rubocop:disable Rails/SkipsModelValidations
+                .where(rid: profile_rids, throttle_exempt: false)
+                .update_all(throttle_exempt: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
-  def prepare_infinite_profile_options
+  def prepare_exempt_profile_options
     @team_profile_options = active_profiles.map do |profile|
       {
         label: profile.long_name,
         value: profile.rid
       }
     end
-    @infinite_profile_rids = active_profiles.select(&:infinite_tokens?).map(&:rid)
+    @exempt_profile_rids = active_profiles.select(&:throttle_exempt?).map(&:rid)
   end
 
   def active_profiles
@@ -89,9 +89,8 @@ class TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit \
-      :throttle_tips, :token_frequency, :token_quantity, :token_max, :action_hour,
-      :hint_frequency, :hint_channel_rid, :notify_tokens, :max_points_per_tip,
-      :tip_notes, :show_channel, :token_day, :enable_levels,
+      :throttle_tips, :throttle_period, :throttle_quantity, :hint_frequency,
+      :hint_channel_rid, :max_points_per_tip, :tip_notes, :show_channel, :enable_levels,
       :level_curve, :enable_emoji, :max_level, :max_level_points,
       :response_mode, :response_theme, :log_channel_rid, :point_emoji, :jab_emoji, :ditto_emoji,
       :enable_streaks, :streak_duration, :streak_reward, :time_zone, :weekly_report,
@@ -111,7 +110,7 @@ class TeamsController < ApplicationController
   end
 
   def update_fail
-    prepare_infinite_profile_options
+    prepare_exempt_profile_options
     flash.now[:alert] = t('teams.update_fail', msg: current_team.errors.full_messages.to_sentence)
     render :edit
   end

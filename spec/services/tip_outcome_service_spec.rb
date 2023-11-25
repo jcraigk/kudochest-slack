@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe TipOutcomeService, :freeze_time do
   subject(:call) { described_class.call(tips:, destroy:) }
 
-  let(:team) { create(:team, throttle_tips: true, next_tokens_at: 1.week.from_now) }
-  let(:from_profile) { create(:profile, team:, tokens: 100) }
+  let(:team) { create(:team, throttle_period: 'day') }
+  let(:from_profile) { create(:profile, team:) }
   let(:tips) { [tip1, tip2, tip3, tip4] }
   let(:tip1) { create(:tip, from_profile:, to_profile: recipient1, quantity: 2) }
   let(:tip2) { create(:tip, from_profile:, to_profile: recipient1, quantity: -5) }
@@ -52,7 +52,6 @@ RSpec.describe TipOutcomeService, :freeze_time do
       expect(from_profile.points_sent).to eq(3)
       expect(from_profile.jabs_sent).to eq(8)
       expect(from_profile.last_tip_sent_at).to eq(Time.current)
-      expect(from_profile.tokens).to eq(89)
     end
 
     it 'increments the team stats' do

@@ -7,8 +7,8 @@ en:
     import_instructions: You can import %{points} from other systems by providing a CSV file with chat display_name (string) in the first column and total %{points} (integer) in the second column.
     export_instructions: To have a CSV file emailed to you that contains summed %{points} data for all users, click the button below.
     export_data: Export Data
-    infinite_profiles: Exempt Users
-    infinite_profiles_tooltip: It often makes sense to exempt certain people from %{points} limits so they can give %{points} to the entire organization at once. For example, a CEO may want to give %{points} to the entire company when a milestone is reached.
+    exempt_profiles: Exempt Users
+    exempt_profiles_tooltip: It often makes sense to exempt certain people from %{points} limits so they can give %{points} to the entire organization at once. For example, a CEO may want to give %{points} to the entire company when a milestone is reached.
     giving_streaks: Giving Streaks
     enable_streaks: Enable
     enable_streaks_tooltip: Giving Streaks provide bonus %{points} to users who maintain habits of giving %{points} at least once per working day.
@@ -26,8 +26,6 @@ en:
     ditto_emoji_tooltip: Enter the name of the emoji icon (without the surrounding colons) you want to use for giving %{points} to recipients listed in a previous message. For example, if Bob posted "@Alice++", another user could react to Bob's message with the Ditto Emoji to give Alice more %{points}.
     max_points_per_tip: Maximum Quantity
     max_points_per_tip_tooltip: Maximum amount of %{points} a user can give at a time. Must be between 1 and %{max}.
-    limit_points: Enable
-    limit_points_tooltip: When enabled, tokens are disbursed at periodic intervals and each time a user sends %{points} their token balance is decreased. When their balance reaches zero, the user must wait for the next disbursal before giving more %{points}.
     add_new_explain_html: "The largest team we can accommodate is %{count} members. Click a button only if you're an admin."
     add_new: Install %{app}
     confirm_reset_stats: Are you sure you want to reset all user %{points} immediately? This action cannot be undone.
@@ -49,7 +47,7 @@ en:
     response_theme_tooltip: When %{points} are sent, the chatbot will respond with a confirmation message. Here you can select a theme that defines how those responses appear.
     log_channel_rid: Log Channel
     log_channel_rid_tooltip: 'To see a copy of all responses in one channel, select one here. We recommend creating a public channel named #kudos and inviting all members of your workspace.'
-    reset_now_info: You can reset all user %{points} to zero by clicking the button below. This will delete your entire history and is not recoverable. Each user will automatically receive an initial token disbursal if throttling is enabled.
+    reset_now_info: You can reset all user %{points} to zero by clicking the button below. This will delete your entire history and is not recoverable.
     uninstall_now_info: You can uninstall the app from your Slack workspace by clicking the button below. Note that this will not delete your history in case you decide to come back.
     reinstall_now_info: The app is not currently installed in your workspace. Install it now using the button below.
     reset_requested: Team stats will be reset momentarily
@@ -65,24 +63,16 @@ en:
     tip_notes: Note
     chat_responses: Responses
     stat_resets: Reset %{points_title}
-    throttling: Throttling
-    token_frequency_tooltip: The frequency at which users receive tokens, which are required to give %{points} to other users when throttling is enabled.
-    token_frequency: Token Disbursal Frequency
-    action_hour: Disbursal Hour
-    action_hour_tooltip: The hour of the day when token are disbursed to users. You may want to adjust this to occur during normal working hours so users actively see the associated notifications.
-    token_max_tooltip: The maximum number of tokens a user can accrue.
-    token_max: Maximum Token Balance
-    token_quantity_tooltip: The number of tokens sent to each user at the frequency specified.
-    token_quantity: Token Disbursal Quantity
+    throttle: Throttle
+    throttle_period_tooltip: The timeframe during which users are limited to giving the number of kudos (or kudonts) specified below. If disabled, users may give each other unlimited kudos.
+    throttle_period: Throttle Period
+    throttle_quantity_tooltip: The number of kudos (or kudonts) a user may give during the time period specified above.
+    throttle_quantity: Throttle Quantity
     update_fail: 'Could not update app settings: %{msg}'
     update_success: App settings updated successfully
-    token_day: Disbursal Day
-    token_day_tooltip: Specify which day of the week you want token disbursals to occur on. This only applies if you've chosen weekly disbursals.
     work_days: Work Days
     work_days_tooltip: Specify the standard work days for your team. This determines how giving streaks are awarded.
     point_emoji_html: 'Here are a few custom emoji icons you can <a href="%{url}">use in Slack</a>:'
-    notify_tokens: Token Notifications
-    notify_tokens_tooltip: Each time tokens are distributed to users, a direct message can be sent to each user letting them know. If you leave this on, be mindful of choosing an appropriate Bot Action Hour in the Time tab so users are notified during working hours.
     presence: Presence
     auto_join_channels: Join New Public Channels
     auto_join_channels_tooltip: When enabled, the bot will automatically be added to new public channels when they are created in Slack.
@@ -127,5 +117,3 @@ en:
     subscription_expired_html: Your subscription has expired, visit the <a href="/billing">billing page</a> to resubscribe.
     trial_expired_html: Your trial has expired, visit the <a href="/billing">billing page</a> to subscribe.
     recurring_subscription_html: Before you can uninstall the app, please cancel your active subscription on the <a href="/billing">billing page</a>.
-    next_disbursal: Next Token Disbursal
-    next_disbursal_tooltip: Tokens will be disbursed to all non-exempt users at this time based on the settings above.

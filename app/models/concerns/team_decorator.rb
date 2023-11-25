@@ -67,10 +67,23 @@ module TeamDecorator
     ":#{ditto_emoji}:"
   end
 
-  def infinite_profiles_sentence
+  def throttled?
+    throttle_period != 'disabled'
+  end
+
+  def throttle_period_days
+    {
+      'disabled' => 0,
+      'day' => 1,
+      'week' => 7,
+      'month' => 30
+    }[throttle_period]
+  end
+
+  def exempt_profiles_sentence
     profile_links =
       profiles.active
-              .where(infinite_tokens: true)
+              .where(throttle_exempt: true)
               .sort_by(&:display_name)
               .map(&:link)
 

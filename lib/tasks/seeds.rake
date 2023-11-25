@@ -16,7 +16,6 @@ namespace :seeds do
     profiles = team.profiles.active
     profiles.each do |profile|
       profile_tips = []
-      profile.update!(tokens: 1_000) if team.throttle_tips?
       rand(20..50).times do
         channel = team.channels.sample
         topic_id = rand(3).zero? ? nil : team.topics.sample&.id
@@ -37,7 +36,6 @@ namespace :seeds do
       end
       TipOutcomeService.call(tips: profile_tips)
       tips += profile_tips
-      profile.update!(tokens: team.token_quantity)
     end
     puts 'done'
 

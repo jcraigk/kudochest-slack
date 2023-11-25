@@ -5,7 +5,7 @@ RSpec.describe Commands::Stats do
     described_class.call(team_rid: team.rid, profile_rid:, text: request_text)
   end
 
-  let(:team) { create(:team, throttle_tips: true, next_tokens_at: 2.days.from_now) }
+  let(:team) { create(:team, throttle_period: 'week') }
   let(:profile) { create(:profile, team:) }
   let(:profile_rid) { profile.rid }
   let(:response) { ChatResponse.new(mode: :public, text: response_text) }
@@ -37,14 +37,14 @@ RSpec.describe Commands::Stats do
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :gift: *Tokens:* 0 (receiving #{team.token_quantity} tokens in 2 days)
+        :alarm_clock: *Throttle:* 100 kudos available to give
         :comet: *Giving Streak:* 0 days
       TEXT
     end
 
     include_examples 'expected response'
 
-    context 'with infinite_token profiles' do
+    context 'with throttle_exempt profiles' do
       let(:response_text) do
         <<~TEXT.chomp
           *Overall Stats for #{profile.dashboard_link}*
@@ -55,12 +55,12 @@ RSpec.describe Commands::Stats do
           :scales: *Balance:* 0
           :point_left: *Kudos Given:* 0
           :point_left: *Kudonts Given:* 0
-          :gift: *Tokens:* Unlimited
+          :alarm_clock: *Throttle:* Exempt
           :comet: *Giving Streak:* 0 days
         TEXT
       end
 
-      before { profile.update(infinite_tokens: true) }
+      before { profile.update(throttle_exempt: true) }
 
       include_examples 'expected response'
     end
@@ -124,7 +124,7 @@ RSpec.describe Commands::Stats do
       TEXT
     end
 
-    before { team.update(throttle_tips: false) }
+    before { team.update(throttle_period: 'disabled') }
 
     include_examples 'expected response'
   end

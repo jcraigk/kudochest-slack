@@ -30,30 +30,30 @@ RSpec.describe TeamDecorator do
     end
   end
 
-  describe 'infinite_profiles_sentence' do
-    context 'when no infinite profiles' do
+  describe 'exempt_profiles_sentence' do
+    context 'when no exempt profiles' do
       let(:sentence) { 'None' }
 
       it 'returns expected sentence' do
-        expect(team.infinite_profiles_sentence).to eq(sentence)
+        expect(team.exempt_profiles_sentence).to eq(sentence)
       end
     end
 
-    context 'when infinite profiles exist' do
+    context 'when exempt profiles exist' do
       let!(:profile2) do
-        create(:profile, team:, display_name: 'A1', infinite_tokens: true)
+        create(:profile, team:, display_name: 'A1', throttle_exempt: true)
       end
       let!(:profile3) do
-        create(:profile, team:, display_name: 'B1', infinite_tokens: true)
+        create(:profile, team:, display_name: 'B1', throttle_exempt: true)
       end
       let(:sentence) { "#{profile2.link} and #{profile3.link}" }
 
       before do
-        create(:profile, team:) # limited profile
+        create(:profile, team:) # Throttled profile
       end
 
       it 'returns expected sentence' do
-        expect(team.infinite_profiles_sentence).to eq(sentence)
+        expect(team.exempt_profiles_sentence).to eq(sentence)
       end
     end
   end

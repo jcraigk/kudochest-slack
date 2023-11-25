@@ -28,7 +28,7 @@ class Profile < ApplicationRecord
   attribute :bot_user,            :boolean, default: false
   attribute :deleted,             :boolean, default: false
   attribute :weekly_report,       :boolean, default: false
-  attribute :infinite_tokens,     :boolean, default: false
+  attribute :throttle_exempt,     :boolean, default: false
   attribute :points_claimed,      :integer, default: 0
   attribute :points_received,     :integer, default: 0
   attribute :points_sent,         :integer, default: 0
@@ -36,7 +36,6 @@ class Profile < ApplicationRecord
   attribute :jabs_sent,           :integer, default: 0
   attribute :balance,             :integer, default: 0
   attribute :streak_count,        :integer, default: 0
-  attribute :tokens,              :integer, default: 0
 
   alias_attribute :points, :points_received
   alias_attribute :jabs, :jabs_received

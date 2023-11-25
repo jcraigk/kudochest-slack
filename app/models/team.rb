@@ -38,12 +38,9 @@ class Team < ApplicationRecord
   enumerize :tip_notes,
             in: %w[optional required disabled],
             default: 'optional'
-  enumerize :token_frequency,
-            in: %w[weekly monthly quarterly yearly],
-            default: 'weekly'
-  enumerize :token_day,
-            in: Date::DAYNAMES.map(&:downcase),
-            default: 'monday'
+  enumerize :throttle_period,
+            in: %w[disabled day week month],
+            default: 'disabled'
   enumerize :hint_frequency,
             in: %w[never hourly daily weekly],
             default: 'never'
@@ -57,8 +54,6 @@ class Team < ApplicationRecord
   attribute :enable_jabs,        :boolean, default: false
   attribute :deduct_jabs,        :boolean, default: false
   attribute :installed,          :boolean, default: true
-  attribute :throttle_tips,      :boolean, default: false
-  attribute :notify_tokens,      :boolean, default: true
   attribute :require_topic,      :boolean, default: false
   attribute :show_channel,       :boolean, default: true
   attribute :show_note,          :boolean, default: true
@@ -72,9 +67,7 @@ class Team < ApplicationRecord
   attribute :streak_reward,      :integer, default: -> { App.default_streak_reward }
   attribute :max_level,          :integer, default: -> { App.default_max_level }
   attribute :max_level_points,   :integer, default: -> { App.default_max_level_points }
-  attribute :token_quantity,     :integer, default: -> { App.default_token_quantity }
-  attribute :token_max,          :integer, default: -> { App.default_token_max }
-  attribute :action_hour,        :integer, default: -> { App.default_action_hour }
+  attribute :throttle_quantity,  :integer, default: -> { App.default_throttle_quantity }
   attribute :work_days_mask,     :integer, default: 62 # monday - friday
   attribute :member_count,       :integer, default: 0
   attribute :max_points_per_tip, :integer, default: 5
@@ -85,17 +78,9 @@ class Team < ApplicationRecord
   validates :rid, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
   validates :avatar_url, presence: true
-  validates :action_hour, numericality: {
-    greater_than_or_equal_to: 0,
-    less_than_or_equal_to: 23
-  }
-  validates :token_quantity, numericality: {
+  validates :throttle_quantity, numericality: {
     greater_than_or_equal_to: 1,
-    less_than_or_equal_to: App.max_token_quantity
-  }
-  validates :token_max, numericality: {
-    greater_than_or_equal_to: :token_quantity,
-    less_than_or_equal_to: App.max_token_max
+    less_than_or_equal_to: App.max_throttle_quantity
   }
   validates :max_level, numericality: {
     greater_than_or_equal_to: 10,
@@ -118,13 +103,10 @@ class Team < ApplicationRecord
     less_than_or_equal_to: App.max_streak_reward
   }
   validates_with RequireTopicValidator
-  validates_with TokenQuantityWithinTokenMaxValidator
   validates_with WorkDaysValidator
 
   before_update :bust_cache, if: -> { changes.keys.intersect?(CONFIG_ATTRS) }
   before_update :sync_topic_attrs
-  after_update_commit :reset_profile_tokens
-  after_update_commit :trim_profile_tokens, if: :saved_change_to_token_max?
   after_update_commit :join_log_channel, if: :saved_change_to_log_channel_rid?
 
   scope :active, -> { where(uninstalled_at: nil) }
@@ -135,7 +117,6 @@ class Team < ApplicationRecord
   scope :never_subscribed, -> { where(stripe_expires_at: nil) }
   scope :gratis, -> { where(gratis_subscription: true) }
   scope :non_gratis, -> { where(gratis_subscription: false) }
-  scope :throttled, -> { where(throttle_tips: true) }
 
   def self.bust_cache
     find_each do |team|
@@ -170,34 +151,7 @@ class Team < ApplicationRecord
     update!(uninstalled_at: Time.current, uninstalled_by: reason)
   end
 
-  def update_next_tokens_at
-    update_column(:next_tokens_at, NextTokenDisbursalService.call(team: self)) # rubocop:disable Rails/SkipsModelValidations
-  end
-
   private
-
-  # rubocop:disable Rails/SkipsModelValidations
-  def reset_profile_tokens
-    return unless reset_profile_tokens?
-
-    if throttle_tips?
-      update_next_tokens_at
-      profiles.active.update_all(tokens: token_quantity)
-    else
-      update_column(:next_tokens_at, nil)
-      profiles.active.update_all(tokens: 0)
-    end
-  end
-  # rubocop:enable Rails/SkipsModelValidations
-
-  def reset_profile_tokens?
-    attrs = %w[throttle_tips token_frequency token_day action_hour token_quantity time_zone]
-    saved_changes.keys.any? { |k| attrs.include?(k) }
-  end
-
-  def trim_profile_tokens
-    profiles.active.where('tokens > ?', token_max).update_all(tokens: token_max) # rubocop:disable Rails/SkipsModelValidations
-  end
 
   def slug_candidates
     [name, "#{name}-#{SecureRandom.hex(3)}"]

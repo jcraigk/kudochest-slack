@@ -25,7 +25,6 @@ RSpec.shared_examples 'TeamSyncService', :freeze_time do
   context 'when team is not oversized' do
     before do
       allow(SubteamSyncWorker).to receive(:perform_async)
-      allow(TokenDisbursalService).to receive(:call)
       allow(OnboardingMailer).to receive(:welcome).and_return(mailer_double)
       service
     end

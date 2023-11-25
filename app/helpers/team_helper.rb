@@ -70,14 +70,6 @@ module TeamHelper
     inactive_claim_button(reward)
   end
 
-  def time_until_next_disbursal(team)
-    distance_of_time_in_words(Time.current, team.next_tokens_at)
-  end
-
-  def next_disbursal_at(team)
-    team.next_tokens_at.strftime('%b %-d %-l:%M%P')
-  end
-
   def profile_select(team, column, blank_label, value)
     select_tag \
       column,

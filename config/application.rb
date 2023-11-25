@@ -64,9 +64,9 @@ module KudoChest
       users.profile:read
     ]
     config.base_command = ENV.fetch('BASE_COMMAND', 'kudos')
-    config.default_point_emoji = 'thumbsup'
-    config.default_jab_emoji = 'thumbsdown'
-    config.default_ditto_emoji = 'repeat_one'
+    config.default_point_emoji = 'star'
+    config.default_jab_emoji = 'arrow_down'
+    config.default_ditto_emoji = 'heavy_plus_sign'
     config.slack_client_id = ENV.fetch('SLACK_CLIENT_ID', nil)
     config.slack_client_secret = ENV.fetch('SLACK_CLIENT_SECRET', nil)
     config.slack_custom_emoji_url = 'https://slack.com/help/articles/206870177-Add-custom-emoji'
@@ -90,11 +90,8 @@ module KudoChest
     config.default_max_level = 20
     config.default_max_level_points = 1_000
     config.error_emoji = 'grimacing'
-    config.default_token_quantity = 100
-    config.max_token_quantity = 1_000
-    config.default_token_max = 100
-    config.max_token_max = 1_000
-    config.default_action_hour = 13
+    config.default_throttle_quantity = 100
+    config.max_throttle_quantity = 10_000
     config.default_team_time_zone = 'Pacific Time (US & Canada)'
     config.default_streak_duration = 5
     config.min_streak_duration = 3
@@ -161,7 +158,7 @@ App = Rails.configuration
 
 # Errors
 class ChatFeedbackError < StandardError; end
-class InsufficientTokensError < StandardError; end
+class ThrottleExceededError < StandardError; end
 
 # Structs
 ChannelData = Struct.new(:rid, :name)

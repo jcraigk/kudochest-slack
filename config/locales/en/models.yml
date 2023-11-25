@@ -12,8 +12,6 @@ en:
               one_team_profile_per_user: You cannot connect more than one profile per team
         team:
           attributes:
-            token_quantity:
-              within_token_max: must be less than or equal to 1,000
             work_days:
               at_least_one: must specify at least one working day
         tip:

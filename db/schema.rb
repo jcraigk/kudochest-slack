@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_24_205004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -61,8 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
     t.boolean "bot_user", null: false
     t.boolean "deleted", null: false
     t.boolean "allow_dm", null: false
-    t.boolean "infinite_tokens", null: false
-    t.integer "tokens", default: 0, null: false
+    t.boolean "throttle_exempt", null: false
     t.integer "points_received", default: 0, null: false
     t.integer "points_sent", default: 0, null: false
     t.datetime "last_tip_received_at", precision: nil
@@ -142,12 +141,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
     t.string "slug", null: false
     t.string "avatar_url", null: false
     t.string "api_key", null: false
-    t.boolean "throttle_tips", null: false
     t.integer "max_points_per_tip", null: false
-    t.integer "action_hour", null: false
-    t.string "token_frequency", null: false
-    t.integer "token_quantity", null: false
-    t.integer "token_max", null: false
+    t.string "throttle_period", null: false
+    t.integer "throttle_quantity", null: false
     t.integer "member_count", null: false
     t.string "response_mode"
     t.string "log_channel_rid"
@@ -155,7 +151,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
     t.string "point_emoji", null: false
     t.boolean "show_channel", null: false
     t.integer "work_days_mask", null: false
-    t.string "token_day", null: false
     t.boolean "enable_levels", null: false
     t.string "level_curve", null: false
     t.integer "max_level", null: false
@@ -169,7 +164,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
     t.string "app_profile_rid"
     t.string "time_zone", default: "UTC", null: false
     t.string "response_theme"
-    t.boolean "notify_tokens", null: false
     t.string "platform"
     t.boolean "join_channels", default: false, null: false
     t.boolean "enable_cheers", default: true, null: false
@@ -188,7 +182,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
     t.integer "balance", default: 0, null: false
     t.boolean "enable_jabs", default: false
     t.boolean "deduct_jabs", default: false
-    t.string "jab_emoji", default: "arrow_down", null: false
+    t.string "jab_emoji", default: "thumbsdown", null: false
     t.datetime "onboarded_channels_at"
     t.datetime "onboarded_emoji_at"
     t.boolean "gratis_subscription", default: false, null: false
@@ -204,8 +198,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_053822) do
     t.datetime "uninstalled_at"
     t.string "uninstalled_by"
     t.datetime "weekly_report_notified_at"
-    t.datetime "next_tokens_at"
-    t.index ["action_hour"], name: "index_teams_on_action_hour"
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"
     t.index ["owner_profile_id"], name: "index_teams_on_owner_profile_id"

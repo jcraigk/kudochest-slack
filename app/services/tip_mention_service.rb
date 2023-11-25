@@ -8,7 +8,7 @@ class TipMentionService < Base::Service
   option :source
 
   def call
-    return respond_need_tokens if need_tokens?
+    return respond_throttle_exceeded if throttle_exceeded?
     return respond_note_required if note_missing?
     return respond_no_action if tips.none?
 
@@ -74,8 +74,8 @@ class TipMentionService < Base::Service
     @response = TipResponseService.call(tips:)
   end
 
-  def respond_need_tokens
-    ChatResponse.new(mode: :error, text: @need_tokens)
+  def respond_throttle_exceeded
+    ChatResponse.new(mode: :error, text: throttle_error)
   end
 
   def respond_note_required
@@ -196,20 +196,22 @@ class TipMentionService < Base::Service
     end
   end
 
-  def need_tokens?
-    return @need_tokens unless @need_tokens.nil?
-    @need_tokens = TokenLimitService.call(profile:, quantity: mention_point_sum + mention_jab_sum)
+  def throttle_exceeded?
+    team.throttled? && !profile.throttle_exempt && next_throttle_time > Time.current
   end
 
-  def mention_point_sum
-    entity_mentions.select { |m| m.quantity.positive? }
-                   .sum { |m| mention_quantity(m) }
+  def next_throttle_time
+    return @next_throttle_time unless @next_throttle_time.nil?
+    return Time.current unless team.throttled?
+    quantity = entity_mentions.sum { |m| mention_quantity(m).abs }
+    @next_throttle_time, = ThrottleService.call(profile:, quantity:).first
   end
 
-  def mention_jab_sum
-    entity_mentions.select { |m| m.quantity.negative? }
-                   .sum { |m| mention_quantity(m) }
-                   .abs
+  def throttle_error
+    phrase = distance_of_time_in_words(Time.current, next_throttle_time)
+    <<~TEXT.chomp
+      :#{App.error_emoji}: Sorry #{profile.link}, you must wait #{phrase} to give more #{App.points_term}.
+    TEXT
   end
 
   def mention_quantity(mention)

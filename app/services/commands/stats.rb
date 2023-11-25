@@ -20,34 +20,26 @@ class Commands::Stats < Commands::Base
     end
     ary << points_given_fragment
     ary << jabs_given_fragment if team.enable_jabs?
-    ary << token_fragment if team.throttle_tips? && requested_profile.rid == profile_rid
+    ary << throttle_fragment if team.throttled? && requested_profile.rid == profile_rid
     ary << streak_fragment if team.enable_streaks?
     ary.compact.join("\n")
   end
 
-  def token_fragment
-    return ':gift: *Tokens:* Unlimited' if requested_profile.infinite_tokens?
-    token_str = token_quantity == 1 ? 'token' : 'tokens'
-    <<~TEXT.chomp
-      :gift: *Tokens:* #{points_format(requested_profile.tokens)} (receiving #{token_quantity} #{token_str} in #{next_token_disbursal})
-    TEXT
-  end
-
-  def token_quantity
-    @token_quantity ||=
-      if requested_profile.tokens + team.token_quantity > team.token_max
-        team.token_max - requested_profile.tokens
-      else
-        team.token_quantity
-      end
+  def throttle_fragment
+    str = ':alarm_clock: *Throttle:*'
+    return "#{str} Exempt" if requested_profile.throttle_exempt?
+    next_available_time, available_quantity =
+      ThrottleService.call(profile: requested_profile, quantity: 0)
+    if next_available_time > Time.current
+      phrase = distance_of_time_in_words(Time.current, next_available_time)
+      "#{str} #{phrase} until next #{App.points_term} can be given"
+    else
+      "#{str} #{available_quantity} #{App.points_term} available to give"
+    end
   end
 
   def streak_fragment
     ":comet: *Giving Streak:* #{requested_profile.active_streak_sentence}"
-  end
-
-  def next_token_disbursal
-    distance_of_time_in_words(Time.current, team.next_tokens_at)
   end
 
   def stats_title
