@@ -9,7 +9,8 @@ class ThrottleService < Base::Service
   private
 
   def next_available_time
-    throttle_exceeded? ? earliest_given_tip.created_at + throttle_days : Time.current
+    return Time.current if earliest_given_tip.blank?
+    earliest_given_tip.created_at + throttle_days
   end
 
   def available_quantity

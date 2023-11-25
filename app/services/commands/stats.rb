@@ -30,11 +30,11 @@ class Commands::Stats < Commands::Base
     return "#{str} Exempt" if requested_profile.throttle_exempt?
     next_available_time, available_quantity =
       ThrottleService.call(profile: requested_profile, quantity: 0)
-    if next_available_time > Time.current
+    if available_quantity.positive?
+      "#{str} #{available_quantity} #{App.points_term} available to give"
+    else
       phrase = distance_of_time_in_words(Time.current, next_available_time)
       "#{str} #{phrase} until next #{App.points_term} can be given"
-    else
-      "#{str} #{available_quantity} #{App.points_term} available to give"
     end
   end
 

@@ -197,28 +197,32 @@ class TipMentionService < Base::Service
   end
 
   def throttle_exceeded?
-    team.throttled? && !profile.throttle_exempt && next_throttle_time > Time.current
+    return false unless team.throttled? && !profile.throttle_exempt
+    calculate_throttle_values
+    @available_quantity < quantity_sum
   end
 
-  def next_throttle_time
-    return @next_throttle_time unless @next_throttle_time.nil?
-    return Time.current unless team.throttled?
-    quantity = entity_mentions.sum { |m| mention_quantity(m).abs }
-    @next_throttle_time, = ThrottleService.call(profile:, quantity:).first
+  def calculate_throttle_values
+    @next_throttle_time, @available_quantity =
+      ThrottleService.call(profile:, quantity: quantity_sum)
   end
 
   def throttle_error
-    phrase = distance_of_time_in_words(Time.current, next_throttle_time)
-    <<~TEXT.chomp
-      :#{App.error_emoji}: Sorry #{profile.link}, you must wait #{phrase} to give more #{App.points_term}.
-    TEXT
+    phrase = distance_of_time_in_words(Time.current, @next_throttle_time)
+    str = ":#{App.error_emoji}: Sorry #{profile.link}, you must wait #{phrase} to give more "
+    str += "than #{@available_quantity} " if @available_quantity.positive?
+    str + "#{App.points_term}."
+  end
+
+  def quantity_sum
+    @quantity_sum ||= entity_mentions.sum { |m| mention_quantity(m).abs }
   end
 
   def mention_quantity(mention)
     quantity = mention.quantity
     num_profiles = mention.profiles.size
     if team.split_tip?
-      (quantity / num_profiles.to_f).floor
+      (quantity / num_profiles.to_f).floor.to_i
     else
       quantity * num_profiles
     end
