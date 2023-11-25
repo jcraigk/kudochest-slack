@@ -31,14 +31,14 @@ RSpec.describe Commands::Stats do
       <<~TEXT.chomp
         *Overall Stats for #{profile.dashboard_link}*
         :trophy: *Leaderboard Rank:* ##{rank}
-        :chart_with_upwards_trend: *Level:* 1
+        :crystal_ball: *Level:* 1
         :point_right: *Kudos Received:* 0
         :point_right: *Kudonts Received:* 0
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :alarm_clock: *Throttle:* 100 kudos available to give
-        :comet: *Giving Streak:* 0 days
+        :stopwatch: *Throttle:* 100 kudos available to give
+        :checkered_flag: *Giving Streak:* 0 days
       TEXT
     end
 
@@ -49,14 +49,14 @@ RSpec.describe Commands::Stats do
         <<~TEXT.chomp
           *Overall Stats for #{profile.dashboard_link}*
           :trophy: *Leaderboard Rank:* ##{rank}
-          :chart_with_upwards_trend: *Level:* 1
+          :crystal_ball: *Level:* 1
           :point_right: *Kudos Received:* 0
           :point_right: *Kudonts Received:* 0
           :scales: *Balance:* 0
           :point_left: *Kudos Given:* 0
           :point_left: *Kudonts Given:* 0
-          :alarm_clock: *Throttle:* Exempt
-          :comet: *Giving Streak:* 0 days
+          :stopwatch: *Throttle:* Exempt
+          :checkered_flag: *Giving Streak:* 0 days
         TEXT
       end
 
@@ -73,13 +73,13 @@ RSpec.describe Commands::Stats do
       <<~TEXT.chomp
         *Overall Stats for #{profile2.dashboard_link}*
         :trophy: *Leaderboard Rank:* ##{rank}
-        :chart_with_upwards_trend: *Level:* 1
+        :crystal_ball: *Level:* 1
         :point_right: *Kudos Received:* 0
         :point_right: *Kudonts Received:* 0
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :comet: *Giving Streak:* 0 days
+        :checkered_flag: *Giving Streak:* 0 days
       TEXT
     end
 
@@ -98,7 +98,7 @@ RSpec.describe Commands::Stats do
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :comet: *Giving Streak:* 0 days
+        :checkered_flag: *Giving Streak:* 0 days
       TEXT
     end
 
@@ -114,13 +114,13 @@ RSpec.describe Commands::Stats do
       <<~TEXT.chomp
         *Overall Stats for #{profile2.dashboard_link}*
         :trophy: *Leaderboard Rank:* ##{rank}
-        :chart_with_upwards_trend: *Level:* 1
+        :crystal_ball: *Level:* 1
         :point_right: *Kudos Received:* 0
         :point_right: *Kudonts Received:* 0
         :scales: *Balance:* 0
         :point_left: *Kudos Given:* 0
         :point_left: *Kudonts Given:* 0
-        :comet: *Giving Streak:* 0 days
+        :checkered_flag: *Giving Streak:* 0 days
       TEXT
     end
 
@@ -136,7 +136,7 @@ RSpec.describe Commands::Stats do
       <<~TEXT.chomp
         *Overall Stats for #{profile2.dashboard_link}*
         :trophy: *Leaderboard Rank:* ##{rank}
-        :chart_with_upwards_trend: *Level:* 1
+        :crystal_ball: *Level:* 1
         :point_right: *Kudos Received:* 0
         :point_right: *Kudonts Received:* 0
         :scales: *Balance:* 0

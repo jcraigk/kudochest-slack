@@ -26,7 +26,7 @@ class Commands::Stats < Commands::Base
   end
 
   def throttle_fragment
-    str = ':alarm_clock: *Throttle:*'
+    str = ':stopwatch: *Throttle:*'
     return "#{str} Exempt" if requested_profile.throttle_exempt?
     next_available_time, available_quantity =
       ThrottleService.call(profile: requested_profile, quantity: 0)
@@ -39,7 +39,7 @@ class Commands::Stats < Commands::Base
   end
 
   def streak_fragment
-    ":comet: *Giving Streak:* #{requested_profile.active_streak_sentence}"
+    ":checkered_flag: *Giving Streak:* #{requested_profile.active_streak_sentence}"
   end
 
   def stats_title
@@ -84,7 +84,7 @@ class Commands::Stats < Commands::Base
   end
 
   def level_fragment
-    ":chart_with_upwards_trend: *Level:* #{requested_profile.level}"
+    ":crystal_ball: *Level:* #{requested_profile.level}"
   end
 
   # If user specifies user(s) after keyword, show the first one's stats

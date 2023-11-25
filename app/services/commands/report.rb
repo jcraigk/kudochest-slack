@@ -87,7 +87,7 @@ class Commands::Report < Commands::Base
   end
 
   def team_events_str
-    ":chart_with_upwards_trend: *Leveling:* #{team_data.leveling_sentence}"
+    ":crystal_ball: *Leveling:* #{team_data.leveling_sentence}"
   end
 
   def loot_claim_str
@@ -138,7 +138,7 @@ class Commands::Report < Commands::Base
   end
 
   def profile_events_str
-    ":chart_with_upwards_trend: *Leveling:* #{profile_data.leveling_sentence}"
+    ":crystal_ball: *Leveling:* #{profile_data.leveling_sentence}"
   end
 
   def team_data
