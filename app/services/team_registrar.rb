@@ -50,7 +50,9 @@ class TeamRegistrar < Base::Service
       avatar_url:,
       api_key:,
       uninstalled_at: nil,
-      uninstalled_by: nil
+      uninstalled_by: nil,
+      onboarded_channels_at: nil,
+      onboarded_emoji_at: nil
     }
   end
 
