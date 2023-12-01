@@ -55,10 +55,9 @@ class OnboardingController < ApplicationController
   end
 
   def selected_channel_rids
-    channel_rids = []
     params.select { |k, v| k.start_with?('channel_') && v == '1' }
-          .each { |k, _v| channel_rids << k.split('_').last }
-    channel_rids
+          .keys
+          .map { |k| k.split('_').last }
   end
 
   def emoji_added?

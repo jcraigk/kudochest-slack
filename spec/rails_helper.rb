@@ -7,8 +7,6 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-require 'super_diff/rspec-rails'
-
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e

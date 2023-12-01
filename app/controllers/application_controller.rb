@@ -37,12 +37,10 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_oversized_team
-    return if request.path.in? \
-      [
-        dashboard_path, support_path, cookie_policy_path,
-        features_path, help_path, pricing_path,
-        privacy_path, terms_path
-      ]
+    return if request.path.in? [
+      dashboard_path, support_path, cookie_policy_path,
+      features_path, help_path, pricing_path, privacy_path, terms_path
+    ]
     redirect_to :dashboard if current_team&.oversized?
   end
 

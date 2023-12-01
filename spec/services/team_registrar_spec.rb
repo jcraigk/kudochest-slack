@@ -27,7 +27,9 @@ RSpec.describe TeamRegistrar, :freeze_time do
       api_key: team.api_key,
       avatar_url: 'url230',
       uninstalled_at: nil,
-      uninstalled_by: nil
+      uninstalled_by: nil,
+      onboarded_channels_at: nil,
+      onboarded_emoji_at: nil
     }
   end
 

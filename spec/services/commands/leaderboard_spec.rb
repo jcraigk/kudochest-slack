@@ -23,7 +23,7 @@ RSpec.describe Commands::Leaderboard, :freeze_time do
   end
 
   context 'when no tips have been given' do
-    let(:text) { 'No activity yet. The leaderboard updates periodically.' }
+    let(:text) { 'No activity yet. Go give some kudos in Slack!' }
 
     include_examples 'expected response'
   end
