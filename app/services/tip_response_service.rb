@@ -271,20 +271,21 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
   def points_clause(medium)
     tips_by_quantity.map do |quantity, quantity_tips|
       quantity_tips.group_by(&:topic_id).map do |topic_id, similar_tips|
-        str = compose_str(medium, quantity, topic_id, similar_tips)
-        str += ' each' if similar_tips.size > 1
-        str
+        tips_response_str(medium, quantity, topic_id, similar_tips)
       end
     end.flatten.to_sentence
   end
 
-  def compose_str(medium, quantity, topic_id, similar_tips)
+  def tips_response_str(medium, quantity, topic_id, similar_tips) # rubocop:disable Metrics/AbcSize
     recipient_sentence = profile_sentence(profile_refs_from(medium, similar_tips))
-    topic = team.topics.find { |t| t.id == topic_id }
+    topic = team.enable_topics? ? team.topics.find { |t| t.id == topic_id } : nil
     emoji = emoji_sequence(medium, quantity, topic)
-    topic_str = topic&.name ? "for _#{topic.name}_" : nil
-    "#{recipient_sentence} #{points_format(quantity, label: true, bold_jab: true)} " \
-    "#{emoji} #{topic_str}".squish
+    topic_str = "for _#{topic.name}_" if topic.present?
+    str = "#{recipient_sentence} #{points_format(quantity, label: true, bold_jab: true)} #{emoji}"
+          .squish
+    str += ' each' if similar_tips.size > 1
+    str += " #{topic_str}" if topic_str.present?
+    str
   end
 
   def profile_sentence(refs)

@@ -6,13 +6,15 @@ RSpec.describe TipResponseService do
 
   subject(:service) { described_class.call(tips:) }
 
-  let(:team) { build(:team, platform:, response_theme: 'basic') }
+  let(:team) { build(:team, response_theme:, enable_topics: true) }
+  let(:response_theme) { 'basic' }
   let(:from_profile) { create(:profile, team:) }
   let(:to_profile) { create(:profile, team:) }
   let(:quantity) { 1 }
   let(:note) { 'For being just super' }
   let(:channel) { build(:channel) }
   let(:tips) { [tip] }
+  let(:topic) { nil }
   let(:tip) do
     create(
       :tip,
@@ -21,7 +23,8 @@ RSpec.describe TipResponseService do
       quantity:,
       note:,
       from_channel_rid: channel.rid,
-      from_channel_name: channel.name
+      from_channel_name: channel.name,
+      topic:
     )
   end
   let(:lead_frag) { nil }
@@ -70,7 +73,6 @@ RSpec.describe TipResponseService do
   let(:recipients) { tips.map(&:to_profile) }
   let(:from_profile_webref_with_stat) { emojify(from_profile.webref_with_stat, size: 12) }
   let(:to_profile_webref_with_stat) { emojify(to_profile.webref_with_stat, size: 12) }
-  let(:platform) { :slack }
   let(:point_emoji) { emojify(team.point_emoj, size: 12) }
 
   shared_examples 'expected response' do
@@ -85,6 +87,7 @@ RSpec.describe TipResponseService do
 
   context 'with a single recipient' do
     context 'when response_theme is `basic`' do
+      let(:response_theme) { 'basic' }
       let(:main_frag) do
         <<~TEXT.chomp
           #{from_profile.link} gave #{to_profile.link} #{points_format(quantity, label: true)}
@@ -98,13 +101,12 @@ RSpec.describe TipResponseService do
         TEXT
       end
 
-      before { team.update(response_theme: 'basic') }
-
       include_examples 'expected response'
     end
   end
 
   context 'when response_theme is `quiet`' do
+    let(:response_theme) { 'quiet' }
     let(:main_frag) do
       <<~TEXT.chomp
         <#{App.base_url}/profiles/#{from_profile.slug}|#{from_profile.display_name}> gave <#{App.base_url}/profiles/#{to_profile.slug}|#{to_profile.display_name}> #{points_format(quantity, label: true)}
@@ -118,12 +120,11 @@ RSpec.describe TipResponseService do
       TEXT
     end
 
-    before { team.update(response_theme: 'quiet') }
-
     include_examples 'expected response'
   end
 
   context 'when response_theme is `quiet_stat`' do
+    let(:response_theme) { 'quiet_stat' }
     let(:main_frag) do
       <<~TEXT.chomp
         #{from_profile.dashboard_link_with_stat} gave #{to_profile.dashboard_link_with_stat} #{points_format(quantity, label: true)}
@@ -137,12 +138,11 @@ RSpec.describe TipResponseService do
       TEXT
     end
 
-    before { team.update(response_theme: 'quiet_stat') }
-
     include_examples 'expected response'
   end
 
   context 'when response_theme is `fancy`' do
+    let(:response_theme) { 'fancy' }
     let(:main_frag) do
       <<~TEXT.chomp
         #{from_profile.link_with_stat} gave #{to_profile.link_with_stat} #{points_format(quantity, label: true)} #{team.point_emoj * quantity}
@@ -155,8 +155,6 @@ RSpec.describe TipResponseService do
         #{web_ts} #{from_profile_webref_with_stat} gave #{to_profile_webref_with_stat} #{points_format(quantity, label: true)} #{point_emoji} in #{channel.webref}<br>Note: <i>#{note}</i>
       TEXT
     end
-
-    before { team.update(response_theme: 'fancy') }
 
     include_examples 'expected response'
   end
@@ -183,7 +181,7 @@ RSpec.describe TipResponseService do
     end
   end
 
-  context 'when recipient levels up' do
+  context 'when quantity is 5 and recipient levels up' do
     let(:quantity) { 5 }
     let(:main_frag) do
       <<~TEXT.chomp
@@ -225,7 +223,8 @@ RSpec.describe TipResponseService do
         quantity: 1,
         note:,
         from_channel_rid: channel.rid,
-        from_channel_name: channel.name
+        from_channel_name: channel.name,
+        topic:
       )
     end
     let(:tip3) do
@@ -236,7 +235,8 @@ RSpec.describe TipResponseService do
         quantity: 2,
         note:,
         from_channel_rid: channel.rid,
-        from_channel_name: channel.name
+        from_channel_name: channel.name,
+        topic:
       )
     end
     let(:main_frag) do
@@ -287,6 +287,9 @@ RSpec.describe TipResponseService do
       it 'includes channel snippet' do
         expect(service.chat_fragments[:lead]).to eq(lead_frag)
       end
+    end
+
+    xcontext 'when tip specifies a topic' do
     end
 
     xcontext 'with `@everyone`' do

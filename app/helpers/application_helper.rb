@@ -33,7 +33,7 @@ module ApplicationHelper
   end
 
   def back_button(path)
-    link_to(icon_and_text('arrow-left', t('controls.go_back')), path, class: 'button cancel')
+    link_to(icon_and_text('arrow-left', t('controls.go_back')), path, class: 'button cancel mr-2')
   end
 
   def icon_and_text(icon_key, text)
