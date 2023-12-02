@@ -76,7 +76,7 @@ class LeaderboardRefreshWorker
     team.profiles
         .active
         .where.not(last_timestamp_col => nil)
-        .order(value_col => :desc, last_timestamp_col => :desc)
+        .order(value_col => :desc, last_timestamp_col => :desc, display_name: :asc)
   end
 
   def last_timestamp_for(prof)

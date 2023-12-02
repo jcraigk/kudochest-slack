@@ -45,8 +45,14 @@ class Base::TeamSyncService < Base::Service
       end
 
     # Delete local profiles that were not found remotely
-    team.profiles.active.where.not(id: synced_profile_ids).find_each do |profile|
-      profile.update(deleted: true)
+    return if (profiles = team.profiles.active.where.not(id: synced_profile_ids)).blank?
+    profiles.update_all(deleted: true) # rubocop:disable Rails/SkipsModelValidations
+    refresh_leaderboards
+  end
+
+  def refresh_leaderboards
+    [true, false].product([true, false]) do |giving_board, jab_board|
+      LeaderboardRefreshWorker.perform_async(team.id, giving_board, jab_board)
     end
   end
 

@@ -1,5 +1,9 @@
 :max_retries: 5
 
+:queues:
+  - critical
+  - default
+
 :scheduler:
   :schedule:
     SubscriptionExpiryWorker:

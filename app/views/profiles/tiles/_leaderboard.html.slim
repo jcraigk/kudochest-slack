@@ -12,7 +12,7 @@
           = points_format(team.total_points, label: true)
     .content
       - if leaderboard.blank? || leaderboard.profiles.none?
-        p = t('teams.leaderboard_empty')
+        p = t('teams.leaderboard_empty', platform: team.platform.titleize)
       - else
         table.table.is-fullwidth.leaderboard
           thead
