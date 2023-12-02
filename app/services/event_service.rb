@@ -62,16 +62,7 @@ class EventService < Base::Service
   end
 
   def error_text(exception)
-    case exception.class.name
-    when 'ChatFeedbackError' then exception.message
-    when 'ActiveRecord::RecordNotUnique' then 'Duplicate request ignored'
-    when 'ActiveRecord::RecordInvalid' then validation_message(exception)
-    else I18n.t('slack.generic_error')
-    end
-  end
-
-  def validation_message(exception)
-    exception.message.gsub('Validation failed: ', '')
+    exception.instance_of?(ChatFeedbackError) ? exception.message : I18n.t('slack.generic_error')
   end
 
   def log_exception(exception)

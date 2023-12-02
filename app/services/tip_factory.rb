@@ -56,7 +56,7 @@ class TipFactory < Base::Service
   def tip_quantity
     num_profiles = to_profiles.size
     return quantity unless team.split_tip? && num_profiles > 1
-    (quantity / num_profiles.to_f).floor
+    [(quantity / num_profiles.to_f).floor, 1].max
   end
 
   def from_channel

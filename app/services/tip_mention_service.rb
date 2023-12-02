@@ -7,17 +7,34 @@ class TipMentionService < Base::Service
   option :profile
   option :source
 
+  attr_reader :tips
+
   def call
     return respond_throttle_exceeded if throttle_exceeded?
-    return respond_note_required if note_missing?
-    return respond_no_action if tips.none?
+    return respond_note_required if required_note_missing?
 
-    Tip.transaction { TipOutcomeService.call(tips:) }
+    @tips = []
+    Tip.transaction do
+      create_tips
+      update_stats
+    end
 
-    respond_success
+    tips.any? ? respond_success : respond_no_action
+  rescue StandardError => e
+    handle_error(e)
   end
 
   private
+
+  def handle_error(exception)
+    message = exception.message
+    case exception.class.name
+    when 'ActiveRecord::RecordNotUnique' then message = 'Duplicate request ignored'
+    when 'ActiveRecord::RecordInvalid' then message.gsub!('Validation failed: ', '')
+    end
+    message[0] = message[0].downcase
+    respond_error(message)
+  end
 
   def respond_success
     return ChatResponse.new(mode: :silent) unless profile.announce_tip_sent?
@@ -28,17 +45,27 @@ class TipMentionService < Base::Service
       image: response_image
   end
 
+  def respond_error(message)
+    ChatResponse.new \
+      mode: :error,
+      text: t('errors.generic_personalized', user: profile.link, message:)
+  end
+
   def respond_no_action
     ChatResponse.new \
       mode: :error,
       text: I18n.t('errors.no_tips', user: profile.display_name)
   end
 
-  def tips
-    @tips ||= uniq_entity_mentions.map do |mention|
+  def create_tips
+    @tips = uniq_entity_mentions.map do |mention|
       next if mention.profiles.none?
       create_tips_for(mention)
     end.flatten.compact
+  end
+
+  def update_stats
+    TipOutcomeService.call(tips:)
   end
 
   def create_tips_for(mention) # rubocop:disable Metrics/MethodLength
@@ -228,7 +255,7 @@ class TipMentionService < Base::Service
     end
   end
 
-  def note_missing?
+  def required_note_missing?
     team.tip_notes.required? && mentions.pluck(:note).compact_blank.none?
   end
 
