@@ -12,7 +12,12 @@
           = points_format(team.total_points, label: true)
     .content
       - if leaderboard.blank? || leaderboard.profiles.none?
-        p = t('teams.leaderboard_empty', platform: team.platform.titleize)
+        .video-container.video-leaderboard
+          p = t('teams.leaderboard_empty')
+          - if current_profile == current_team.owner
+            iframe src="https://www.youtube.com/embed/L6LKRaigG-c?si=C_OrwDv4ZtzmD4i7" title="Video: KudoChest Admin Guide - Install and Configure" frameborder="0" allowfullscreen="true"
+          - else
+            iframe src="https://www.youtube.com/embed/Woic79w8MS4?si=VB-nC_2egVxE0MsX" title="Video: KudoChest User Guide" frameborder="0" allowfullscreen="true"
       - else
         table.table.is-fullwidth.leaderboard
           thead
