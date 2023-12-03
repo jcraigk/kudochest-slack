@@ -119,31 +119,31 @@ module KudoChest
         ENV.fetch('STRIPE_SMALL_PRICE_RID', nil),
         'Small Team Plan',
         0..50,
-        19.99
+        14.99
       ),
       PlanStruct.new(
         ENV.fetch('STRIPE_MEDIUM_PRICE_RID', nil),
         'Medium Team Plan',
         51..150,
-        39.99
+        29.99
       ),
       PlanStruct.new(
         ENV.fetch('STRIPE_LARGE_PRICE_RID', nil),
         'Large Team Plan',
         151..300,
-        69.99
+        49.99
       ),
       PlanStruct.new(
         ENV.fetch('STRIPE_XL_PRICE_RID', nil),
         'XL Team Plan',
         301..500,
-        99.99
+        69.99
       ),
       PlanStruct.new(
         ENV.fetch('STRIPE_ENT_PRICE_RID', nil),
         'Enterprise Plan',
         501..config.max_team_size,
-        199.99
+        99.99
       )
     ]
 
