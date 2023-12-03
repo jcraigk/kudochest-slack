@@ -58,7 +58,7 @@ RSpec.describe TipMentionService, :freeze_time do
     let(:result) { ChatResponse.new(mode: :error, text:) }
 
     before do
-      team.update(throttle_period: 'day', throttle_quantity: 1)
+      team.update(throttled: true, throttle_period: 'day', throttle_quantity: 1)
       create(:tip, from_profile: profile)
     end
 

@@ -5,7 +5,7 @@ RSpec.describe Commands::Stats do
     described_class.call(team_rid: team.rid, profile_rid:, text: request_text)
   end
 
-  let(:team) { create(:team, throttle_period: 'week') }
+  let(:team) { create(:team, throttled: true, throttle_period: 'week') }
   let(:profile) { create(:profile, team:) }
   let(:profile_rid) { profile.rid }
   let(:response) { ChatResponse.new(mode: :public, text: response_text) }
@@ -107,7 +107,7 @@ RSpec.describe Commands::Stats do
     include_examples 'expected response'
   end
 
-  context 'when team.throttle_tips is false' do
+  context 'when team.throttled is false' do
     let(:profile2) { create(:profile, team:) }
     let(:request_text) { profile2.link }
     let(:response_text) do
@@ -124,7 +124,7 @@ RSpec.describe Commands::Stats do
       TEXT
     end
 
-    before { team.update(throttle_period: 'disabled') }
+    before { team.update(throttled: false) }
 
     include_examples 'expected response'
   end

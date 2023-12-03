@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_24_205004) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_03_052704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -198,6 +198,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_24_205004) do
     t.datetime "uninstalled_at"
     t.string "uninstalled_by"
     t.datetime "weekly_report_notified_at"
+    t.boolean "throttled", default: false, null: false
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"
     t.index ["owner_profile_id"], name: "index_teams_on_owner_profile_id"

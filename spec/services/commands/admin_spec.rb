@@ -7,7 +7,7 @@ RSpec.describe Commands::Admin do
 
   let(:profile) { create(:profile, team:) }
   let(:team) do
-    create(:team, :with_owner, throttle_period: 'week', enable_topics: true)
+    create(:team, :with_owner, throttled: true, throttle_period: 'week', enable_topics: true)
   end
   let(:response) { ChatResponse.new(mode: :private, text:) }
   let(:text) do

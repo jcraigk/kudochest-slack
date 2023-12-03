@@ -89,7 +89,7 @@ class TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit \
-      :throttle_tips, :throttle_period, :throttle_quantity, :hint_frequency,
+      :throttled, :throttle_period, :throttle_quantity, :hint_frequency,
       :hint_channel_rid, :max_points_per_tip, :tip_notes, :show_channel, :enable_levels,
       :level_curve, :enable_emoji, :max_level, :max_level_points,
       :response_mode, :response_theme, :log_channel_rid, :point_emoji, :jab_emoji, :ditto_emoji,

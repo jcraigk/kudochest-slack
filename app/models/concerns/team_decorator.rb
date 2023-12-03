@@ -67,13 +67,8 @@ module TeamDecorator
     ":#{ditto_emoji}:"
   end
 
-  def throttled?
-    throttle_period != 'disabled'
-  end
-
   def throttle_period_days
     {
-      'disabled' => 0,
       'day' => 1,
       'week' => 7,
       'month' => 30

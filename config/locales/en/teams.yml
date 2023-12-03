@@ -64,7 +64,9 @@ en:
     chat_responses: Responses
     stat_resets: Reset %{points_title}
     throttle: Throttle
-    throttle_period_tooltip: The timeframe during which users are limited to giving the number of kudos (or kudonts) specified below. If disabled, users may give each other unlimited kudos.
+    throttled: Enable Throttle
+    throttled_tooltip: Enable throttling to limit the amount of kudos users may give each other over time. Define the time period and quantity below.
+    throttle_period_tooltip: The timeframe during which users are limited to giving the number of kudos (or kudonts) specified below. Applies only when throttling is enabled.
     throttle_period: Throttle Period
     throttle_quantity_tooltip: The number of kudos (or kudonts) a user may give during the time period specified above.
     throttle_quantity: Throttle Quantity

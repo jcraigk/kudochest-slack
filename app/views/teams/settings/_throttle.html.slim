@@ -5,6 +5,16 @@
   .card-content
 
     .field.is-horizontal
+      .field-label.is-switch-label
+        = f.label :throttled, t('teams.throttled'), class: 'label'
+      .field-body
+        .field
+          .control
+            = f.check_box :throttled, class: 'switch is-rounded'
+            = f.label :throttled, '&nbsp;'.html_safe, class: 'label'
+            = tooltip_btn('teams.throttled_tooltip', 'nudge-up', points: App.points_term)
+
+    .field.is-horizontal
       .field-label.is-normal
         = f.label :throttle_period, t('teams.throttle_period'), class: 'label'
       .field-body
