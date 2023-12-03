@@ -34,18 +34,18 @@
         ' (level 3)
       - else
         span.profile_ref> @Mark
-        ' (#{points_format(231, label: true)}) gave
+        ' (231) gave
         span.profile_ref> @Lisa
-        ' (#{points_format(3,245, label: true)})
+        ' (1.2k)
       ' #{points_format(1, label: true)}
       | #{emojify(':' + current_team.point_emoji + ':', size: 20)}
       |!
-    p The Fancy theme mention recipients, displays user stats (level or #{App.points_term}), and includes emoji.
+    p The Fancy theme mention recipients and displays user stats (level or #{App.points_term}).
 
-  .theme-info data-name='gif_day' style='display: none;'
-    = image_tag "response_images/day.gif", alt: "Day Graphic", class: 'gif'
-    p The Graphical - Day theme produces an animated GIF response.
+  / .theme-info data-name='gif_day' style='display: none;'
+  /   = image_tag "response_images/day.gif", alt: "Day Graphic", class: 'gif'
+  /   p The Graphical - Day theme produces an animated GIF response.
 
-  .theme-info data-name='gif_night' style='display: none;'
-    = image_tag "response_images/night.gif", alt: "Night Graphic", class: 'gif'
-    p The Graphical - Night theme produces an animated GIF response.
+  / .theme-info data-name='gif_night' style='display: none;'
+  /   = image_tag "response_images/night.gif", alt: "Night Graphic", class: 'gif'
+  /   p The Graphical - Night theme produces an animated GIF response.

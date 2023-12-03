@@ -16,4 +16,10 @@
     .pricing.marketing-callout
       h2.subtitle.is-size-3
         i.fa.fa-users
-        = t('features.larger_team_html')
+        = t('features.larger_team')
+        br
+        br
+        = link_to \
+          icon_and_text('paper-plane', t('features.contact_us')),
+          support_path,
+          class: 'button is-primary is-large'

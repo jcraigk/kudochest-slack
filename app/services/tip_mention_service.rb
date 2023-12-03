@@ -16,7 +16,7 @@ class TipMentionService < Base::Service
     @tips = []
     Tip.transaction do
       create_tips
-      update_stats
+      TipOutcomeService.call(tips:)
     end
 
     tips.any? ? respond_success : respond_no_action
@@ -62,10 +62,6 @@ class TipMentionService < Base::Service
       next if mention.profiles.none?
       create_tips_for(mention)
     end.flatten.compact
-  end
-
-  def update_stats
-    TipOutcomeService.call(tips:)
   end
 
   def create_tips_for(mention) # rubocop:disable Metrics/MethodLength

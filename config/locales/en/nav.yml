@@ -8,6 +8,7 @@ en:
     claim_admin: Manage Claims
     contact: Contact
     cookies: Cookies
+    login: Login
     danger_zone: Danger Zone
     dashboard: Dashboard
     features: Features
@@ -29,5 +30,5 @@ en:
     preferences: Preferences
     sign_in_with_slack: Sign in with Slack
     add_to_slack: Add to Slack
-    install_the_app: To install KudoChest, tap the button below.
+    install_the_app: To install KudoChest, tap the button below
     sign_in_only: Already installed? Sign in to view your dashboard.

@@ -179,9 +179,13 @@ img.small-radius {
   border-radius: 3px;
 }
 #cta-hero {
-  background-color: #dbd76d;
-  border-radius: 20px;
+  background: rgba(240, 207, 40, .5);
+  border-radius: 4px;
   margin-bottom: 50px;
+
+  &.opaque {
+    background: rgba(240, 207, 40, .85);
+  }
 
   p {
     color: black;
@@ -206,7 +210,7 @@ img.small-radius {
   }
 }
 .marketing-callout {
-  border-radius: 20px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, .85);
   padding: 30px;
 
@@ -217,12 +221,12 @@ img.small-radius {
   li:hover {
     text-decoration: underline;
   }
-  i {
+  i:not(.btn-icon) {
     margin-right: 20px;
   }
 }
 .landscape-overlay {
-  border-radius: 20px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, .85);
   padding: 30px;
 }
@@ -331,7 +335,7 @@ img.small-radius {
   width: 100%;
 
   iframe {
-    border-radius: 20px;
+    border-radius: 10px;
     position: absolute;
     top: 0;
     left: 0;
@@ -341,4 +345,7 @@ img.small-radius {
 }
 .video-cta {
   margin-bottom: 150px !important;
+}
+.pricing {
+  min-height: 220px;
 }

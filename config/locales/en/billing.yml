@@ -25,6 +25,5 @@ en:
     waiting_for_confirm_title: Waiting for Payment Confirmation
     waiting_for_confirm: Please wait a moment while your payment is confirmed...
     team_oversized: Slack team too large
-    trial_expired: Trial expired
-    subscription_expired: Subscription expired
+    trial_expired: Trial Expired
     reinstall_first: You must reinstall the app in your Slack workspace before subscribing.

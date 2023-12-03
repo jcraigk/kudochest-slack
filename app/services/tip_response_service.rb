@@ -276,13 +276,12 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
     end.flatten.to_sentence
   end
 
-  def tips_response_str(medium, quantity, topic_id, similar_tips) # rubocop:disable Metrics/AbcSize
+  def tips_response_str(medium, quantity, topic_id, similar_tips)
     recipient_sentence = profile_sentence(profile_refs_from(medium, similar_tips))
     topic = team.enable_topics? ? team.topics.find { |t| t.id == topic_id } : nil
-    emoji = emoji_sequence(medium, quantity, topic)
+    # emoji = emoji_sequence(medium, quantity, topic)
     topic_str = "for _#{topic.name}_" if topic.present?
-    str = "#{recipient_sentence} #{points_format(quantity, label: true, bold_jab: true)} #{emoji}"
-          .squish
+    str = "#{recipient_sentence} #{points_format(quantity, label: true, bold_jab: true)}"
     str += ' each' if similar_tips.size > 1
     str += " #{topic_str}" if topic_str.present?
     str
@@ -293,11 +292,11 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
     refs.to_sentence
   end
 
-  def emoji_sequence(medium, quantity, topic)
-    return if medium == :image || !team.response_theme.fancy?
-    return ":#{topic.emoji}:" * quantity if topic&.emoji
-    team.point_emoj * quantity
-  end
+  # def emoji_sequence(medium, quantity, topic)
+  #   return if medium == :image || !(team.response_theme.fancy? || team.response_theme.quiet_stat?)
+  #   return ":#{topic.emoji}:" * quantity if topic&.emoji
+  #   team.point_emoj * quantity
+  # end
 
   def profile_refs_from(medium, quantity_tips)
     quantity_tips.map do |tip|

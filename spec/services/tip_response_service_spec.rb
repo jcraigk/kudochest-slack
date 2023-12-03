@@ -145,14 +145,14 @@ RSpec.describe TipResponseService do
     let(:response_theme) { 'fancy' }
     let(:main_frag) do
       <<~TEXT.chomp
-        #{from_profile.link_with_stat} gave #{to_profile.link_with_stat} #{points_format(quantity, label: true)} #{team.point_emoj * quantity}
+        #{from_profile.link_with_stat} gave #{to_profile.link_with_stat} #{points_format(quantity, label: true)}
       TEXT
     end
     let(:channel_frag) { "in #{channel.link}" }
     let(:image_channel_frag) { "in #{IMG_DELIM}#{CHAN_PREFIX}#{channel.name} #{IMG_DELIM}" }
     let(:web_response) do
       <<~TEXT.chomp
-        #{web_ts} #{from_profile_webref_with_stat} gave #{to_profile_webref_with_stat} #{points_format(quantity, label: true)} #{point_emoji} in #{channel.webref}<br>Note: <i>#{note}</i>
+        #{web_ts} #{from_profile_webref_with_stat} gave #{to_profile_webref_with_stat} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: <i>#{note}</i>
       TEXT
     end
 

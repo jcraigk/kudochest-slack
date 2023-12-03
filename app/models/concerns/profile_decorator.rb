@@ -11,15 +11,15 @@ module ProfileDecorator
   end
 
   def link_with_stat
-    team.enable_levels? ? link_with_level : link_with_points
+    team.enable_levels? ? link_with_level : link_with_points(label: false)
   end
 
   def link_with_level
     "#{link} (level #{level})"
   end
 
-  def link_with_points
-    "#{link} (#{points_format(total_points, label: true)})"
+  def link_with_points(label: true)
+    "#{link} (#{points_format(total_points, label:)})"
   end
 
   def dashboard_link

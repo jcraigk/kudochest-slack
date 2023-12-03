@@ -4,7 +4,7 @@ en:
     title: Shop
     balance_html: You have spent <strong>%{claimed}</strong> %{points} of your total earned <strong>%{accrued}</strong>, leaving <strong>%{remaining}</strong> to spend.
     balance_chat: You have spent *%{claimed}* %{points} of your total earned *%{accrued}*, leaving *%{remaining}* to spend.
-    claim_successful: Loot claim succcesful!
+    claim_successful: Loot claim successful!
     confirm_claim: Are you sure you want to claim this loot item?
     claim_item: Claim for %{amount} %{points}!
     requires_points: Requires %{amount} %{points}

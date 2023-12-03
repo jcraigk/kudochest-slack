@@ -1,19 +1,16 @@
 - content_for :meta_description, t('meta.login')
 
-= render 'layouts/cta_hero', display_link: true
 
 .columns.install-container
   .column.is-third
     .marketing-callout.has-text-centered
-      p.is-size-4.has-text-weight-bold = t('nav.install_the_app')
-      br
-
+      = render 'layouts/cta_hero', display_link: true
       = render 'shared/add_to_slack_button'
       br
       br
       br
 
-      p.is-size-4 = t('nav.sign_in_only')
+      p.is-size-5 = t('nav.sign_in_only')
       br
 
       = render 'shared/sign_in_with_slack_button'

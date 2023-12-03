@@ -1,10 +1,9 @@
 en:
   auth:
-    logged_out: Signed out
+    logged_out: You are now signed out
     login_fail: Sign in failed
     login_required: Please sign in to proceed
-    login: Login
-    logout: Logout
+    logout: Sign out
     not_authorized: You are not authorized to perform that action
     deleted: Sorry, that Slack profile has been deactivated
     install_error: Sorry, something went wrong with Slack integration

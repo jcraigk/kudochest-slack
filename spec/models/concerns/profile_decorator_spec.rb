@@ -27,7 +27,7 @@ RSpec.describe ProfileDecorator do
       before { team.enable_levels = false }
 
       it 'returns expected text' do
-        expect(profile.link_with_stat).to eq(profile.link_with_points)
+        expect(profile.link_with_stat).to eq(profile.link_with_points(label: false))
       end
     end
   end
