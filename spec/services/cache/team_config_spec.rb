@@ -22,9 +22,4 @@ RSpec.describe Cache::TeamConfig do
   it 'returns expected data' do
     expect(cache.call).to eq(expected)
   end
-
-  it 'deletes cache' do
-    cache.delete
-    expect(Rails.cache.fetch(cache_key)).to be_nil
-  end
 end

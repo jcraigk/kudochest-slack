@@ -6,10 +6,6 @@ class Cache::TeamConfig < Base::Service
     cached_data
   end
 
-  def delete
-    Rails.cache.delete(cache_key)
-  end
-
   private
 
   def cached_data
@@ -25,7 +21,7 @@ class Cache::TeamConfig < Base::Service
   end
 
   def cached_json
-    Rails.cache.fetch(cache_key) { json_data }
+    Rails.cache.fetch(cache_key, expires_in: Team::CONFIG_CACHE_TTL) { json_data }
   end
 
   def json_data

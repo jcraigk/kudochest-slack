@@ -76,20 +76,7 @@ RSpec.describe Topic do
   describe 'team update change' do
     let(:team) { topic.team }
 
-    before do
-      topic.save
-      allow(team).to receive(:bust_cache)
-    end
-
-    describe 'team cache busting' do
-      before do
-        topic.update(name: 'New name')
-      end
-
-      it 'busts team cache when creating a topic' do
-        expect(team).to have_received(:bust_cache)
-      end
-    end
+    before { topic.save }
 
     describe 'team.require_topic' do
       before do

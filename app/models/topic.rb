@@ -29,6 +29,5 @@ class Topic < ApplicationRecord
 
   def update_team
     team.update!(require_topic: false) if team.topics.active.count.zero?
-    team.bust_cache
   end
 end

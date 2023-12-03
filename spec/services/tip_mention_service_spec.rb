@@ -52,7 +52,7 @@ RSpec.describe TipMentionService, :freeze_time do
   context 'when sender has exceeded throttle limit' do
     let(:text) do
       <<~TEXT.squish
-        :#{App.error_emoji}: Sorry #{profile.link}, you must wait 1 day to give more #{App.points_term}.
+        :#{App.error_emoji}: Sorry #{profile.link}, you must wait 1 day to give more #{App.points_term}
       TEXT
     end
     let(:result) { ChatResponse.new(mode: :error, text:) }

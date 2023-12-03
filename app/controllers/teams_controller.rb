@@ -105,7 +105,7 @@ class TeamsController < ApplicationController
   end
 
   def update_success
-    flash[:notice] = t('teams.update_success')
+    flash[:notice] = t('teams.update_success', platform: current_team.platform.titleize)
     redirect_to app_settings_path
   end
 

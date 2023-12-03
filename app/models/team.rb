@@ -10,6 +10,7 @@ class Team < ApplicationRecord
     platform response_mode response_theme show_channel show_note time_zone
     tip_notes enable_topics require_topic topics rid
   ].freeze
+  CONFIG_CACHE_TTL = 5.minutes
 
   has_many :channels, dependent: :destroy
   has_many :profiles, dependent: :destroy
@@ -105,7 +106,6 @@ class Team < ApplicationRecord
   validates_with RequireTopicValidator
   validates_with WorkDaysValidator
 
-  before_update :bust_cache, if: -> { changes.keys.intersect?(CONFIG_ATTRS) }
   before_update :sync_topic_attrs
   after_update_commit :join_log_channel, if: :saved_change_to_log_channel_rid?
 
@@ -117,16 +117,6 @@ class Team < ApplicationRecord
   scope :never_subscribed, -> { where(stripe_expires_at: nil) }
   scope :gratis, -> { where(gratis_subscription: true) }
   scope :non_gratis, -> { where(gratis_subscription: false) }
-
-  def self.bust_cache
-    find_each do |team|
-      Cache::TeamConfig.new(team.platform, team.rid).delete
-    end
-  end
-
-  def bust_cache
-    Cache::TeamConfig.new(platform, rid).delete
-  end
 
   def work_days=(weekdays)
     self.work_days_mask = (weekdays & WEEKDAYS).sum { |d| 2**WEEKDAYS.index(d) }

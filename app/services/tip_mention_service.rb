@@ -28,9 +28,9 @@ class TipMentionService < Base::Service
 
   def handle_error(exception)
     message =
-      case exception.class
-      when ActiveRecord::RecordNotUnique then 'Duplicate request ignored'
-      when ActiveRecord::RecordInvalid then message.message.gsub('Validation failed: ', '')
+      case exception.class.name
+      when 'ActiveRecord::RecordNotUnique' then 'Duplicate request ignored'
+      when 'ActiveRecord::RecordInvalid' then exception.message.gsub('Validation failed: ', '')
       else 'Something went wrong. If the problem persists, please contact support.'
       end
     message[0] = message[0].downcase
@@ -233,9 +233,18 @@ class TipMentionService < Base::Service
 
   def throttle_error
     phrase = distance_of_time_in_words(Time.current, @next_throttle_time)
-    str = ":#{App.error_emoji}: Sorry #{profile.link}, you must wait #{phrase} to give more "
-    str += "than #{@available_quantity} " if @available_quantity.positive?
-    str + "#{App.points_term}."
+    ":#{App.error_emoji}: Sorry #{profile.link}, you must wait #{phrase} to " \
+      "give more #{throttle_fragment}"
+  end
+
+  def throttle_fragment
+    if @available_quantity == 1
+      "than a #{App.point_term}"
+    elsif @available_quantity > 1
+      "than #{@available_quantity} #{App.points_term}"
+    else
+      App.points_term
+    end
   end
 
   def quantity_sum

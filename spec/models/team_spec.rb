@@ -65,20 +65,6 @@ RSpec.describe Team do
       .is_less_than_or_equal_to(App.max_streak_reward)
   end
 
-  describe 'self.bust_cache' do
-    let(:mock_cache) { instance_spy(Cache::TeamConfig) }
-
-    before do
-      allow(Cache::TeamConfig).to receive(:new).with(team.platform, team.rid).and_return(mock_cache)
-      allow(mock_cache).to receive(:delete)
-      described_class.bust_cache
-    end
-
-    it 'calls Cache::TeamConfig.new' do
-      expect(mock_cache).to have_received(:delete)
-    end
-  end
-
   describe 'custom validators' do
     let(:validators) { described_class.validators.map(&:class) }
     let(:expected_validators) do
@@ -209,81 +195,6 @@ RSpec.describe Team do
 
     it 'provides work_days=' do
       expect(team.work_days).to eq(%w[sunday monday tuesday saturday])
-    end
-  end
-
-  describe '#bust_cache' do
-    let(:mock_cache) { instance_spy(Cache::TeamConfig) }
-
-    before do
-      allow(Cache::TeamConfig).to receive(:new).with(team.platform, team.rid).and_return(mock_cache)
-      allow(mock_cache).to receive(:delete)
-      team.bust_cache
-    end
-
-    it 'calls delete on Cache::TeamConfig instance' do
-      expect(mock_cache).to have_received(:delete)
-    end
-  end
-
-  describe 'Cache::TeamConfig cache busting' do
-    let(:config) { instance_spy(Cache::TeamConfig) }
-    let(:platform) { team.platform }
-
-    shared_examples 'cache busting' do
-      it 'calls Cache::TeamConfig.delete' do
-        expect(config).to have_received(:delete)
-      end
-    end
-
-    before do
-      allow(Cache::TeamConfig).to receive(:new).with(platform, team.rid).and_return(config)
-      allow(config).to receive(:delete)
-    end
-
-    describe 'cache busting on api_key update' do
-      before { team.update(api_key: 'new-key') }
-
-      include_examples 'cache busting'
-    end
-
-    describe 'cache busting on response_mode update' do
-      before { team.update(response_mode: 'direct') }
-
-      include_examples 'cache busting'
-    end
-
-    describe 'cache busting on log_channel_rid update' do
-      before do
-        allow(Slack::ChannelJoinService).to receive(:call)
-        team.update(log_channel_rid: 'C7KW9GV')
-      end
-
-      include_examples 'cache busting'
-    end
-
-    describe 'cache busting on re-install' do
-      before { team.update(api_key: 'abcdefg') }
-
-      include_examples 'cache busting'
-    end
-
-    describe 'cache busting on max_points_per_tip update' do
-      before { team.update(max_points_per_tip: 2) }
-
-      include_examples 'cache busting'
-    end
-
-    describe 'cache busting on tip_notes update' do
-      before { team.update(tip_notes: 'disabled') }
-
-      include_examples 'cache busting'
-    end
-
-    describe 'cache busting on app_profile_rid update' do
-      before { team.update(app_profile_rid: 'OTHER') }
-
-      include_examples 'cache busting'
     end
   end
 
