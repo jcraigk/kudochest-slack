@@ -41,7 +41,7 @@ class Team < ApplicationRecord
             default: 'optional'
   enumerize :throttle_period,
             in: %w[day week month],
-            default: 'day'
+            default: 'week'
   enumerize :hint_frequency,
             in: %w[never hourly daily weekly],
             default: 'never'
