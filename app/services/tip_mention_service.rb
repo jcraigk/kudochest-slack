@@ -27,13 +27,13 @@ class TipMentionService < Base::Service
   private
 
   def handle_error(exception)
-    message =
-      case exception.class.name
-      when 'ActiveRecord::RecordNotUnique' then 'Duplicate request ignored'
-      when 'ActiveRecord::RecordInvalid' then exception.message.gsub('Validation failed: ', '')
-      else 'Something went wrong. If the problem persists, please contact support.'
-      end
-    message[0] = message[0].downcase
+    klass = exception.class.name
+    raise exception unless klass.start_with?('ActiveRecord::')
+    message = exception.message
+    case klass
+    when 'ActiveRecord::RecordNotUnique' then message = 'Duplicate request ignored'
+    when 'ActiveRecord::RecordInvalid' then message.gsub!('Validation failed: ', '')
+    end
     respond_error(message)
   end
 

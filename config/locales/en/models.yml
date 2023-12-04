@@ -17,11 +17,11 @@ en:
         tip:
           attributes:
             base:
-              cannot_tip_bots: Sorry %{user}, you can't send %{points} to bots
-              cannot_accept_tips: Sorry %{user}, I can't accept %{points}, but I appreciate the thought!
-              cannot_tip_deleted: Sorry %{user}, you can't give %{points} to archived users
-              cannot_point_self: Sorry %{user}, you can't give %{points} to yourself, but nice try!
-              cannot_jab_self: Sorry %{user}, you can't give %{points} to yourself. Why the self loathing?
+              cannot_tip_bots: you can't send %{points} to bots
+              cannot_accept_tips: I can't accept %{points}, but I appreciate the thought!
+              cannot_tip_deleted: you can't give %{points} to archived users
+              cannot_point_self: you can't give %{points} to yourself, but nice try!
+              cannot_jab_self: you can't give %{points} to yourself. Why the self loathing?
         reward:
           attributes:
             quantity:
