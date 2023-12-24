@@ -40,7 +40,7 @@ class Tip < ApplicationRecord
 
   def delete_chat_response
     return if response_channel_rid.blank? || response_ts.blank?
-    send("delete_#{team.platform}_response")
+    send(:"delete_#{team.platform}_response")
   end
 
   def delete_slack_response

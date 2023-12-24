@@ -13,7 +13,7 @@ class LevelToPointsService < Base::Service
   end
 
   def compute_points
-    (send("#{level_curve}_progress") * max_level_points).ceil
+    (send(:"#{level_curve}_progress") * max_level_points).ceil
   end
 
   def linear_progress

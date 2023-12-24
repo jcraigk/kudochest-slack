@@ -74,7 +74,7 @@ class Slack::Modals::Preferences < Base::Service
 
   def initial_options
     OPTIONS.each_with_object([]) do |opt, opts|
-      next unless profile.send("#{opt}?")
+      next unless profile.send(:"#{opt}?")
       opts << checkbox_for(opt)
     end.compact
   end

@@ -148,7 +148,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
 
     if new_points
       value_col = profile.team.enable_jabs? ? :balance : :points_received
-      profile.send("#{value_col}=", new_points)
+      profile.send(:"#{value_col}=", new_points)
     end
     case medium
     when :slack then chat_profile_link(profile)

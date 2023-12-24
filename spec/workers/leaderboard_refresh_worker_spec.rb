@@ -186,7 +186,7 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
       display_name: profile.display_name,
       real_name: profile.real_name,
       points: profile.send(points_col),
-      last_timestamp: profile.send("last_tip_#{verb}_at").to_i,
+      last_timestamp: profile.send(:"last_tip_#{verb}_at").to_i,
       avatar_url: profile.avatar_url
   end
 end

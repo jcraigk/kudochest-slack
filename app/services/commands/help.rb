@@ -1,6 +1,6 @@
 class Commands::Help < Commands::Base
   def call
-    ChatResponse.new(mode: :private, text: send("#{team.platform}_text"))
+    ChatResponse.new(mode: :private, text: send(:"#{team.platform}_text"))
   end
 
   private
