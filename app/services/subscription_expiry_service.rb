@@ -54,7 +54,7 @@ class SubscriptionExpiryService < Base::Service
     Team.active
         .non_gratis
         .never_subscribed
-        .where(team_size_notified_at: nil)
+        .where(trial_expiry_notified_at: nil)
         .where \
           'DATE(trial_expires_at) BETWEEN ? AND ?',
           1.day.from_now.to_date,
