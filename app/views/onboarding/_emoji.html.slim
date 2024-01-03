@@ -5,27 +5,25 @@
       = t('onboarding.emoji_title')
 
   .card-content.has-text-centered
-    p.has-text-weight-bold.is-size-5 = t('onboarding.emoji_start')
+    / p.has-text-weight-bold.is-size-5 = t('onboarding.emoji_start')
+    / br
+
     br
+    button.download-button.button.is-link.is-light.is-large.mr-3 data-url='/static/emoji/kudos.png' data-filename='kudos.png'
+      | Save
+      b.ml-2 kudos
+      img.ml-2 src='/static/emoji/kudos.png' width='48' height='48' alt='Kudos emoji'
 
-    table.table.emoji-table
-      thead
-        tr
-          th.has-text-right = t('onboarding.emoji_name')
-          th = t('onboarding.emoji_image')
-      tbody
-        tr
-          td.emoji_name
-            | :kudos:
-          td.emoji_image
-            img src='/static/emoji/kudos.png' width='48' height='48' alt='Custom emoji icon'
-        tr
-          td.emoji_name
-            | :ditto_kudos:
-          td.emoji_image
-            img src='/static/emoji/ditto_kudos.png' width='48' height='48' alt='Custom emoji icon'
+    button.download-button.button.is-link.is-light.is-large data-url='/static/emoji/ditto_kudos.png' data-filename='ditto_kudos.png'
+      | Save
+      b.ml-2 ditto_kudos
+      img.ml-2 src='/static/emoji/ditto_kudos.png' width='48' height='48' alt='Kudos emoji'
 
-    p.is-size-5 = t('onboarding.emoji_explain_html', url: App.slack_custom_emoji_url)
+    br
+    br
+    br
+    p.is-size-5.has-text-weight-bold = t('onboarding.emoji_explain_html', url: App.slack_custom_emoji_url)
+    br
     br
 
     .columns
@@ -42,3 +40,17 @@
           onboarding_skip_emoji_path,
           class: 'button is-danger',
           method: :patch
+
+javascript:
+  document.querySelectorAll('.download-button').forEach(button => {
+    button.addEventListener('click', function() {
+      const url = this.getAttribute('data-url');
+      const filename = this.getAttribute('data-filename');
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  });

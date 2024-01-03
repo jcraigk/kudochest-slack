@@ -38,9 +38,9 @@ class TeamPolicy
     profile_owns_team?
   end
 
-  def join_specific_channels?
-    profile_owns_team?
-  end
+  # def join_specific_channels?
+  #   profile_owns_team?
+  # end
 
   def skip_join_channels?
     profile_owns_team?

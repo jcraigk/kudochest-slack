@@ -19,32 +19,29 @@
           class: 'button is-danger',
           method: :patch
 
-    hr
+    / hr
 
-    p.is-size-5 = t('onboarding.channels_select')
-    br
+    / p.is-size-5 = t('onboarding.channels_select')
+    / br
 
-    = form_with url: onboarding_join_specific_channels_path, method: :patch do |f|
-      = hidden_field_tag :onboarding, 'true'
+    / = form_with url: onboarding_join_specific_channels_path, method: :patch do |f|
+    /   = hidden_field_tag :onboarding, 'true'
+    /   - general_channel = current_team.channels.find_by(name: 'general')
+    /   - populated_channels = current_team.channels.order(initial_member_count: :desc).limit(10)
+    /   - ([general_channel] + populated_channels).uniq.first(10).each do |channel|
+    /     - id = "channel_#{channel.rid}"
+    /     .field.is-horizontal
+    /       .field-label.is-switch-label
+    /         = f.label id, "##{channel.name}", class: 'label'
+    /       .field-body
+    /         .field
+    /           .control
+    /             = f.check_box id, class: 'switch is-rounded', checked: true
+    /             = f.label id, '&nbsp;'.html_safe, class: 'label'
 
-      - general_channel = Channel.find_by(name: 'general')
-      - populated_channels = Channel.order(initial_member_count: :desc).limit(10)
-      - top_channels = ([general_channel] + populated_channels).uniq.first(10)
+      / br
+      / = submit_button(t('onboarding.join_specific_channels'))
 
-      - top_channels.each do |channel|
-        - id = "channel_#{channel.rid}"
-        .field.is-horizontal
-          .field-label.is-switch-label
-            = f.label id, "##{channel.name}", class: 'label'
-          .field-body
-            .field
-              .control
-                = f.check_box id, class: 'switch is-rounded', checked: true
-                = f.label id, '&nbsp;'.html_safe, class: 'label'
-
-      br
-      = submit_button(t('onboarding.join_specific_channels'))
-
-    br
+    / br
 
 

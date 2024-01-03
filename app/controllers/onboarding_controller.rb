@@ -8,12 +8,12 @@ class OnboardingController < ApplicationController
     redirect_to path, notice: t('onboarding.join_all_channels_requested')
   end
 
-  def join_specific_channels
-    authorize current_team
-    ChannelsJoinWorker.perform_async(current_team.id, selected_channel_rids)
-    channel_onboarding_complete if params[:onboarding]
-    redirect_to dashboard_path, notice: t('onboarding.join_channels_requested')
-  end
+  # def join_specific_channels
+  #   authorize current_team
+  #   ChannelsJoinWorker.perform_async(current_team.id, selected_channel_rids)
+  #   channel_onboarding_complete if params[:onboarding]
+  #   redirect_to dashboard_path, notice: t('onboarding.join_channels_requested')
+  # end
 
   def skip_join_channels
     authorize current_team
