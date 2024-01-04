@@ -15,7 +15,8 @@ RSpec.describe BonusCalculatorService, :freeze_time do
       include_imported_points:,
       style:,
       pot_size:,
-      dollar_per_point:
+      dollar_per_point:,
+      email: profile1.email
     }
   end
 
@@ -28,12 +29,12 @@ RSpec.describe BonusCalculatorService, :freeze_time do
     before do
       create(:tip, from_profile: profile1, to_profile: profile2, quantity: 5)
       create(:tip, from_profile: profile2, to_profile: profile1, quantity: 2)
-      allow(TeamOwnerMailer).to receive(:bonus_calculator).and_call_original
+      allow(AdminMailer).to receive(:bonus_calculator).and_call_original
       service
     end
 
-    it 'calls TeamOwnerMailer with expected args' do
-      expect(TeamOwnerMailer).to have_received(:bonus_calculator).with(team, csv_str)
+    it 'calls AdminMailer with expected args' do
+      expect(AdminMailer).to have_received(:bonus_calculator).with(team, csv_str)
     end
   end
 

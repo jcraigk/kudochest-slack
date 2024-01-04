@@ -19,9 +19,9 @@ class TeamsController < ApplicationController
 
   def export_data
     authorize current_team
-    DataExportWorker.perform_async(current_team.id)
+    DataExportWorker.perform_async(current_team.id, current_profile.email)
     redirect_to app_settings_path(section: :data),
-                notice: t('teams.export_data_requested', email: current_team.owner.email)
+                notice: t('teams.export_data_requested', email: current_profile.email)
   end
 
   def leaderboard_page

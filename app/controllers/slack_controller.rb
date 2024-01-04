@@ -16,7 +16,7 @@ class SlackController < ApplicationController
   def install_callback
     return login_failed unless state_match?
     notice = TeamRegistrar.call(**team_data) ? t('onboarding.welcome') : t('auth.already_installed')
-    login_profile(owner_profile_rid)
+    login_profile(installer_profile_rid)
     redirect_to dashboard_path, notice:
   rescue Slack::Web::Api::Errors::SlackError, ArgumentError
     redirect_after_error
@@ -68,7 +68,7 @@ class SlackController < ApplicationController
       rid: team_rid,
       name: oauth_data[:team][:name],
       avatar_url:,
-      owner_profile_rid:,
+      installer_profile_rid:,
       api_key:
     }
   end
@@ -90,7 +90,7 @@ class SlackController < ApplicationController
     data['https://slack.com/user_id']
   end
 
-  def owner_profile_rid
+  def installer_profile_rid
     oauth_data[:authed_user][:id]
   end
 

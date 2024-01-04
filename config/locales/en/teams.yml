@@ -97,7 +97,7 @@ en:
     response_mode_silent_html: When Silent, the bot will not respond when %{points} are given. It will still post to the Log Channel, if specified.
     reports: Reports
     weekly_report: Email Weekly Report
-    weekly_report_tooltip: Email a weekly digest of team activity to your address on file under Preferences.
+    weekly_report_tooltip: Email a weekly digest of team activity to team admins.
     topics: Topics
     enable_topics: Enable Topics
     enable_topics_tooltip: When enabled, users can specify a topic when giving %{points}. Topics can be company values or processes you want your team to adopt.

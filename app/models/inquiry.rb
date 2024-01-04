@@ -12,6 +12,6 @@ class Inquiry < ApplicationRecord
   private
 
   def send_admin_email
-    AdminMailer.inquiry_created(self).deliver_later
+    InquiryMailer.created(self).deliver_later
   end
 end

@@ -19,7 +19,7 @@ class WeeklyReportMailer < ApplicationMailer
   def team_report(team_data)
     @team = team_data.team
     @team_data = team_data
-    email = @team.owner.email
+    email = @team.admin_emails.first
     assign_unsub_token(email)
 
     mail to: email, subject: t('weekly_report.team_subject')

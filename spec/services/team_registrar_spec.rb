@@ -12,7 +12,7 @@ RSpec.describe TeamRegistrar, :freeze_time do
       rid:,
       name: team.name,
       api_key: team.api_key,
-      owner_profile_rid: profile.rid,
+      installer_profile_rid: profile.rid,
       avatar_url: 'url230'
     }
   end
@@ -52,7 +52,7 @@ RSpec.describe TeamRegistrar, :freeze_time do
       expect(Team).to have_received(:create!).with(team_attrs)
       expect(Slack::ChannelSyncService).to have_received(:call).with(team:)
       expect(Slack::TeamSyncService).to have_received(:call).with(team:, first_run: true)
-      expect(team.reload.owner).to eq(profile)
+      expect(profile.reload.admin?).to be(true)
     end
   end
 
@@ -78,7 +78,7 @@ RSpec.describe TeamRegistrar, :freeze_time do
 
       it 'updates existing team and calls sync workers' do
         expect(service).to be(true)
-        expect(team).to have_received(:update!).twice
+        expect(team).to have_received(:update!)
         expect(Slack::ChannelSyncService).to have_received(:call).with(team:)
         expect(Slack::TeamSyncService).to have_received(:call).with(team:, first_run: true)
       end

@@ -4,7 +4,7 @@ class TeamRegistrar < Base::Service
   option :name
   option :avatar_url
   option :api_key
-  option :owner_profile_rid
+  option :installer_profile_rid
 
   def call
     return false if existing_team&.active?
@@ -19,7 +19,7 @@ class TeamRegistrar < Base::Service
     team = create_or_update_team
     Slack::ChannelSyncService.call(team:)
     Slack::TeamSyncService.call(team:, first_run: true)
-    assign_owner(team)
+    Profile.find_by(rid: installer_profile_rid).update!(admin: true)
   end
 
   def create_or_update_team
@@ -29,10 +29,6 @@ class TeamRegistrar < Base::Service
 
   def existing_team
     @existing_team ||= Team.find_by(rid:)
-  end
-
-  def assign_owner(team)
-    team.update!(owner: Profile.find_by(rid: owner_profile_rid))
   end
 
   def new_attrs

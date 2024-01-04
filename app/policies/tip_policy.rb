@@ -1,16 +1,9 @@
-class TipPolicy
-  attr_reader :profile, :tip
-
-  def initialize(profile, tip)
-    @profile = profile
-    @tip = tip
-  end
-
+class TipPolicy < ApplicationPolicy
   def index?
-    profile.owned_team.present?
+    profile.admin?
   end
 
   def destroy?
-    tip.from_profile.team.owner == profile
+    record.team == profile.team && profile.admin?
   end
 end

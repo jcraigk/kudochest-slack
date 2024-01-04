@@ -19,7 +19,7 @@
                 topic_list_path,
                 class: 'navbar-item'
 
-    - if current_profile.owned_team.present?
+    - if current_profile.admin?
       .navbar-divider
       = link_to icon_and_text('cog', t('nav.app_settings')),
                 app_settings_path(section: 'responses'),

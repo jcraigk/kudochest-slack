@@ -7,7 +7,6 @@ class TipsController < ApplicationController
   def destroy
     @tip = Tip.find(params[:id])
     authorize @tip
-
     @tip.destroy
     redirect_to tips_path, notice: t('tips.destroyed')
   end

@@ -1,11 +1,12 @@
 @charset 'utf-8';
 
 @import 'bulma';
+@import 'vendor/bulma-switch.min';
 @import 'vendor/bulma-tooltip.min';
 @import 'vendor/select-pure';
-@import 'vendor/bulma-switch.min';
 @import 'vendor/select2';
 
+@import 'admin';
 @import 'dashboard';
 @import 'errors';
 @import 'features';
@@ -13,7 +14,6 @@
 @import 'navbar';
 @import 'platforms';
 @import 'shop';
-@import 'team_owner';
 @import 'topics';
 @import 'wallboard';
 

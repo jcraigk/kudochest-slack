@@ -6,12 +6,6 @@ RSpec.describe Team do
   it { is_expected.to be_a(ApplicationRecord) }
   it { is_expected.to be_a(Sluggi::Slugged) }
 
-  it do
-    expect(team)
-      .to belong_to(:owner)
-      .class_name('Profile').with_foreign_key(:owner_profile_id).inverse_of(:owned_team).optional
-  end
-
   it { is_expected.to have_many(:channels).dependent(:destroy) }
   it { is_expected.to have_many(:profiles).dependent(:destroy) }
   it { is_expected.to have_many(:subteams).dependent(:destroy) }

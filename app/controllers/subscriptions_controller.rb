@@ -22,7 +22,7 @@ class SubscriptionsController < ApplicationController
 
   def stripe_cancel
     authorize current_team
-    cancel_subscription_and_email_owner
+    cancel_subscription_and_email_admins
     redirect_to subscriptions_path, notice: t('billing.subscription_canceled')
   end
 
@@ -36,7 +36,7 @@ class SubscriptionsController < ApplicationController
     current_team.current_subscription?
   end
 
-  def cancel_subscription_and_email_owner
+  def cancel_subscription_and_email_admins
     cancel_current_subscription
     current_team.update!(stripe_canceled_at: Time.current)
     BillingMailer.subscription_canceled(team).deliver_later

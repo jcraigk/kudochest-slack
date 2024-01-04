@@ -13,7 +13,7 @@ RSpec.describe Inquiry do
     let(:mock_mailer) { instance_spy(ActionMailer::MessageDelivery) }
 
     before do
-      allow(AdminMailer).to receive(:inquiry_created).with(record).and_return(mock_mailer)
+      allow(InquiryMailer).to receive(:created).with(record).and_return(mock_mailer)
       allow(mock_mailer).to receive(:deliver_later)
       record.save
     end

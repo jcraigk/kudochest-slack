@@ -1,5 +1,8 @@
+require 'csv'
+
 class BonusCalculatorService < Base::Service
   option :team
+  option :email
   option :start_date
   option :end_date
   option :include_streak_points
@@ -12,7 +15,7 @@ class BonusCalculatorService < Base::Service
     @style = style.to_sym
     @profile_points = {}
 
-    TeamOwnerMailer.bonus_calculator(team, csv_str).deliver_later
+    AdminMailer.bonus_calculator(team, csv_str, email).deliver_later
   end
 
   private

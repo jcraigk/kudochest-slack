@@ -1,42 +1,31 @@
-class ClaimPolicy
-  attr_reader :profile, :claim
-
-  def initialize(profile, claim)
-    @profile = profile
-    @claim = claim
-  end
-
+class ClaimPolicy < ApplicationPolicy
   def index?
-    profile.owned_team.present?
+    profile.admin?
   end
 
   def show?
-    viewable?
+    team_admin?
   end
 
   def edit?
-    profile_owns_team?
+    team_admin?
   end
 
   def update?
-    profile_owns_team?
+    team_admin?
   end
 
   def destroy?
-    claim.fulfilled_at.blank? && mine_or_team_admin?
+    record.fulfilled_at.blank? && mine_or_team_admin?
   end
 
   private
 
   def mine_or_team_admin?
-    profile_owns_claim? || profile_owns_team?
+    record.profile == profile? || team_admin?
   end
 
-  def profile_owns_team?
-    claim.reward.team.owner == profile
-  end
-
-  def profile_owns_claim?
-    claim.profile == profile
+  def team_admin?
+    record.team == profile.team && profile.admin?
   end
 end

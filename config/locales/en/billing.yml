@@ -19,7 +19,7 @@ en:
     subscription_expired: Subscription Expired
     subscription_expired_chat: Your %{app} subscription has expired! Upgrade at %{url}
     trial_subscription: Trial Subscription
-    upgrade_contact_admin: Please contact your %{app} administrator (%{email}) and ask them to upgrade.
+    upgrade_contact_admin: Please contact your %{app} administrator and ask them to upgrade.
     upgrade_contact_us: Please contact us at %{email} to discuss subscription options for your team.
     upgrade_now: Upgrade Now
     waiting_for_confirm_title: Waiting for Payment Confirmation

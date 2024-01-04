@@ -12,14 +12,6 @@ RSpec.describe Profile do
   it { is_expected.to have_many(:tips_sent).dependent(:destroy) }
   it { is_expected.to have_many(:claims).dependent(:destroy) }
 
-  it 'optionally has one owned team' do
-    expect(profile).to(
-      have_one(:owned_team)
-        .class_name('Team').with_foreign_key(:owner_profile_id)
-        .inverse_of(:owner).dependent(:nullify).optional
-    )
-  end
-
   it { is_expected.to validate_uniqueness_of(:rid).scoped_to(:team_id) }
   it { is_expected.to validate_presence_of(:avatar_url) }
   it { is_expected.to validate_presence_of(:display_name) }
@@ -57,6 +49,18 @@ RSpec.describe Profile do
 
     it 'returns first profile from given team' do
       expect(described_class.find_with_team(profile.team.rid, profile.rid)).to eq(profile)
+    end
+  end
+
+  describe '#admin scope' do
+    before do
+      create(:profile)
+      create(:profile, admin: true)
+      create(:profile, admin: false)
+    end
+
+    it 'returns only admin profiles' do
+      expect(described_class.admin.size).to eq(1)
     end
   end
 

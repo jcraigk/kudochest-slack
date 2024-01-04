@@ -1,38 +1,31 @@
-class RewardPolicy
-  attr_reader :profile, :reward
-
-  def initialize(profile, reward)
-    @profile = profile
-    @reward = reward
-  end
-
+class RewardPolicy < ApplicationPolicy
   def index?
-    profile.owned_team.present?
+    profile.admin?
   end
 
   def new?
-    profile.owned_team.present?
+    profile.admin?
   end
 
   def create?
-    profile.owned_team.present?
+    profile.admin?
   end
 
   def edit?
-    profile_owns_team?
+    team_admin?
   end
 
   def update?
-    profile_owns_team?
+    team_admin?
   end
 
   def destroy?
-    profile_owns_team?
+    team_admin?
   end
 
   private
 
-  def profile_owns_team?
-    reward.team.owner == profile
+  def team_admin?
+    profile.team == record.team && profile.admin?
   end
 end

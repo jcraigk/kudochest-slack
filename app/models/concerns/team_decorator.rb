@@ -124,6 +124,10 @@ module TeamDecorator
     onboarded_channels? && onboarded_emoji?
   end
 
+  def admin_emails
+    profiles.admin.pluck(:email)
+  end
+
   private
 
   def levels_table_titles

@@ -13,7 +13,7 @@ class EmailsController < ApplicationController
   private
 
   def unsubscribe_from_all(profile)
-    profile.owned_team&.update!(weekly_report: false)
+    profile.team.update!(weekly_report: false) if profile.admin?
     profile.update!(weekly_report: false)
   end
 end

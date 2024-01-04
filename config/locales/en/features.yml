@@ -50,7 +50,7 @@ en:
       app_settings:
         title: Customization
         icon: cog
-        detail: KudoChest provides copious options so that each team can customize the experience to fit their culture. For example, some organizations prefer throttling kudos while others prefer unlimited. Some prefer inviting a bot to every channel to listen for "++" while others prefer a more private approach by using only the "/kudos" command. After logging in and installing KudoChest as a workspace owner, go to App Settings to view all options.
+        detail: KudoChest provides copious options so that each team can customize the experience to fit their culture. For example, some organizations prefer throttling kudos while others prefer unlimited. Some prefer inviting a bot to every channel to listen for "++" while others prefer a more private approach by using only the "/kudos" command. After logging in and installing KudoChest, go to App Settings to view options.
       moderation:
         title: Admin moderation
         icon: hammer-war

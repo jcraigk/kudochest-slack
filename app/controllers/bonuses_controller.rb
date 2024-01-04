@@ -1,9 +1,10 @@
 class BonusesController < ApplicationController
-  before_action :ensure_manager! # TODO: Replace with policy
-
-  def index; end
+  def index
+    authorize :bonus
+  end
 
   def create
+    authorize :bonus
     BonusCalculatorWorker.perform_async(worker_args.to_json)
     redirect_to \
       bonuses_path, notice: t('bonuses.calculation_requested', email: current_profile.email)
@@ -11,7 +12,7 @@ class BonusesController < ApplicationController
 
   private
 
-  def worker_args
+  def worker_args # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     {
       team_id: current_team.id,
       start_date: params[:start_date],
@@ -20,11 +21,8 @@ class BonusesController < ApplicationController
       include_imported_points: params[:include_imported_points],
       style: params[:style],
       pot_size: params[:pot_size],
-      dollar_per_point: params[:dollar_per_point]
+      dollar_per_point: params[:dollar_per_point],
+      email: current_profile.email
     }
-  end
-
-  def ensure_manager!
-    redirect_to dashboard_path if current_profile.owned_team.blank?
   end
 end

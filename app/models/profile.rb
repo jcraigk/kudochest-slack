@@ -18,11 +18,6 @@ class Profile < ApplicationRecord
   has_many :subteam_memberships # rubocop:disable Rails/HasManyOrHasOneDependent
   has_many :subteams, through: :subteam_memberships, dependent: :destroy
   has_many :claims, dependent: :destroy
-  has_one :owned_team,
-          class_name: 'Team',
-          foreign_key: :owner_profile_id,
-          inverse_of: :owner,
-          dependent: :nullify
 
   attribute :allow_dm,            :boolean, default: true
   attribute :bot_user,            :boolean, default: false
@@ -50,6 +45,7 @@ class Profile < ApplicationRecord
   scope :matching, lambda { |str|
     where('profiles.display_name ILIKE :str OR profiles.real_name ILIKE :str', str: "%#{str}%")
   }
+  scope :admin, -> { where(admin: true) }
 
   def self.find_with_team(team_rid, profile_rid)
     joins(:team)

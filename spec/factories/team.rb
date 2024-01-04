@@ -13,9 +13,9 @@ FactoryBot.define do
     enable_jabs { true }
     deduct_jabs { true }
 
-    trait :with_owner do
+    trait :with_admin do
       after(:build) do |team|
-        team.owner = build(:profile, team:) if team.owner.nil?
+        build(:profile, team:, admin: true)
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_03_052704) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_04_165451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_03_052704) do
     t.string "auth_token"
     t.datetime "last_login_at"
     t.string "theme", default: "light", null: false
+    t.boolean "superuser", default: false, null: false
     t.boolean "admin", default: false, null: false
     t.index ["auth_token"], name: "index_profiles_on_auth_token"
     t.index ["created_at"], name: "index_profiles_on_created_at"
@@ -135,7 +136,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_03_052704) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.integer "owner_profile_id"
     t.string "rid", null: false
     t.string "name", null: false
     t.string "slug", null: false
@@ -201,7 +201,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_03_052704) do
     t.boolean "throttled", default: false, null: false
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"
-    t.index ["owner_profile_id"], name: "index_teams_on_owner_profile_id"
     t.index ["rid"], name: "index_teams_on_rid", unique: true
     t.index ["slug"], name: "index_teams_on_slug", unique: true
     t.index ["stripe_customer_rid"], name: "index_teams_on_stripe_customer_rid"

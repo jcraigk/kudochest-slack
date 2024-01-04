@@ -3,17 +3,18 @@ require 'csv'
 class DataExportWorker
   include Sidekiq::Worker
 
-  attr_reader :team_id
+  attr_reader :team_id, :email
 
-  def perform(team_id)
+  def perform(team_id, email)
     @team_id = team_id
-    email_owner_with_csv_attachment
+    @email = email
+    send_email_with_csv_attachment
   end
 
   private
 
-  def email_owner_with_csv_attachment
-    TeamOwnerMailer.data_export(team, csv_str).deliver_later
+  def send_email_with_csv_attachment
+    AdminMailer.data_export(team, csv_str, email).deliver_later
   end
 
   def csv_str
