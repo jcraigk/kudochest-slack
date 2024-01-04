@@ -1,14 +1,14 @@
 en:
   profiles:
     add_new: Add a Profile
-    recent_activity: Recent Activity
+    tip_history: Activity History
     update_fail: 'Could not update profile settings: %{msg}'
     update_success: Successfully updated profile settings
     allow_dm: Allow Direct Messages
     allow_dm_tooltip: Sometimes the chatbot will send you direct notifications if your team admin has setup the system that way. To silence these messages, disable this option.
     weekly_report: Email Weekly Digest
     weekly_report_tooltip: Send a weekly activity report to the email shown below
-    no_recent_activity: You have not given or earned any %{points} recently.
+    no_tip_history: You have not given or earned any %{points} yet.
     app_home_opened: "Hi, we're glad you're here! *%{app}* is a team engagement tool that allows users to give each other %{points} that accrue over time. For more info, see %{url}"
     prefs_modal_title: Preferences
     prefs_modal_info: 'Update your preferences:'

@@ -73,7 +73,6 @@ class ApplicationController < ActionController::Base
   def fetch_recent_tips(profile)
     received_tips(profile)
       .or(sent_tips(profile))
-      .where('created_at >= ?', 100.days.ago)
       .includes(:to_profile, :from_profile, :topic)
       .order(created_at: :desc)
       .page(params[:page] || 1)

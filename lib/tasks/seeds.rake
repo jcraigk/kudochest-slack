@@ -41,7 +41,7 @@ namespace :seeds do
 
     print 'Randomizing temporal distribution of Tips...'
     tips.each do |tip|
-      tip.update_columns(created_at: Time.current - rand(1..1_728_000).seconds) # up to 20 days
+      tip.update_columns(created_at: rand(1..172_800_000).seconds.ago) # Up to 2000 days ago
     end
     profiles.each do |profile|
       last_tip_received_at = profile.tips_received.order(created_at: :desc).first.created_at

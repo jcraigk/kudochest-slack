@@ -1,10 +1,10 @@
 .card.recent-activity-tile
   header.card-header
-    p.card-header-title = t('profiles.recent_activity')
+    p.card-header-title = t('profiles.tip_history')
   .card-content
 
     - if tips.none?
-      = t('profiles.no_recent_activity', points: App.points_term)
+      = t('profiles.no_tip_history', points: App.points_term)
 
     - else
 
