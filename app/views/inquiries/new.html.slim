@@ -15,7 +15,7 @@
             .field
               .control
                 .select
-                  = f.select :subject, Inquiry.subject.options, class: 'select'
+                  = f.select :subject, Inquiry.subject.options, { selected: params[:subject] }, class: 'select'
 
         .field.is-horizontal
           .field-label
@@ -23,19 +23,29 @@
           .field-body
             .field
               .control
-                = f.text_area :body, class: 'input textarea', required: true
+                - if params[:subject] == 'demo'
+                  - value = "I would like to request a demo of #{App.app_name}. Please contact me to schedule a time."
+                = f.text_area :body, class: 'input textarea', required: true, value:
 
         .field.is-horizontal
           .field-label
-            = f.label :email, t('teams.email'), class: 'label'
+            = f.label :email, t('inquiries.email'), class: 'label'
           .field-body
             .field
               .control
                 = f.email_field :email, class: 'input'
 
+        .field.is-horizontal
+          .field-label
+            = f.label :phone, t('inquiries.phone'), class: 'label'
+          .field-body
+            .field
+              .control
+                = f.text_field :phone, class: 'input'
+
         br
         .field.is-horizontal
-          p = t('inquiries.email_help')
+          p = t('inquiries.contact_help')
 
         br
         = submit_button(t('controls.submit'))

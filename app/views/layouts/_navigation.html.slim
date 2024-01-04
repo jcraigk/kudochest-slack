@@ -15,7 +15,8 @@ nav#navbar.navbar aria-label='main navigation' role='navigation'
         = link_to t('nav.features'), features_path, class: 'navbar-item'
         = link_to t('nav.pricing'), pricing_path, class: 'navbar-item'
         = link_to t('nav.help'), help_path, class: 'navbar-item'
-        = link_to t('nav.privacy'), privacy_path, class: 'navbar-item'
+        = link_to t('nav.privacy'), privacy_path, class: 'navbar-item mr-5'
+        = link_to t('nav.request_demo'), new_inquiry_path(subject: 'demo'), class: 'button demo-button'
 
     .navbar-end
       - if current_profile

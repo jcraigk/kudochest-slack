@@ -349,3 +349,12 @@ img.small-radius {
 .pricing {
   min-height: 220px;
 }
+.demo-button {
+  margin-left: 6px;
+  margin-top: 6px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: $yellow;
+  border-color: $brown;
+  color: $brown !important;
+}

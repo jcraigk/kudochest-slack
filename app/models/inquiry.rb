@@ -2,7 +2,7 @@ class Inquiry < ApplicationRecord
   belongs_to :profile, optional: true
 
   enumerize :subject,
-            in: %w[general support bug feature],
+            in: %w[general support bug feature demo],
             default: 'general'
 
   validates :body, presence: true
