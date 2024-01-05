@@ -9,6 +9,7 @@ ENV APP_NAME=${APP_NAME} \
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
       build-essential \
+      curl \
       # libmagickwand-dev \ # TODO: Re-enable graphical responses
       libpq-dev \
       memcached \
