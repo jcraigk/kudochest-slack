@@ -2,7 +2,7 @@
   "scripts": {
     "dokku": {
       "predeploy": "if [ -n \"$RUN_MIGRATIONS\"]; then bundle exec rake db:migrate; fi",
-      "postdeploy": "if [ -n \"$SLACK_WEBHOOK_URL\" ]; then JSON_STRING=\"{\\\"text\\\":\\\"[$GIT_REV](https://github.com/jcraigk/biz-kudochest/commit/$GIT_REV) deployed\\\"}\"; curl -X POST -H 'Content-Type: application/json' --data \"$JSON_STRING\" $SLACK_WEBHOOK_URL; fi"
+      "postdeploy": "if [ -n \"$SLACK_WEBHOOK_URL\" ]; then JSON_STRING=\"{\\\"text\\\":\\\"[<$GIT_REV|https://github.com/jcraigk/biz-kudochest/commit/$GIT_REV>] deployed\\\"}\"; curl -X POST -H 'Content-Type: application/json' --data \"$JSON_STRING\" $SLACK_WEBHOOK_URL; fi"
     }
   }
 }

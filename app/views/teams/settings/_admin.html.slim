@@ -1,7 +1,7 @@
-.card data-section='reports' style='display: none;'
+.card data-section='admin' style='display: none;'
   header.card-header
     p.card-header-title
-      = t('teams.reports')
+      = t('teams.admin')
   .card-content
 
     .field.is-horizontal
@@ -13,3 +13,13 @@
             = f.check_box :weekly_report, class: 'switch is-rounded'
             = f.label :weekly_report, '&nbsp;'.html_safe, class: 'label'
             = tooltip_btn('teams.weekly_report_tooltip', 'nudge-up')
+
+    .field.is-horizontal
+      .field-label.is-normal
+        label.label for='profile-multi-select' = t('teams.admin_profiles')
+        = tooltip_btn('teams.admin_profiles_tooltip', 'nudge-up')
+      .field-body
+        .field
+          .control
+            #admin-multi-select
+            = hidden_field_tag :admin_profile_rids, @admin_profile_rids.join(':')

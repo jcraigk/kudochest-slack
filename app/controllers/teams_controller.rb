@@ -52,6 +52,7 @@ class TeamsController < ApplicationController
 
   def update_team_attrs
     update_exempt_profiles
+    update_admin_profiles
     current_team.update(platform_team_params) ? update_success : update_fail
   end
 
@@ -73,6 +74,18 @@ class TeamsController < ApplicationController
                 .update_all(throttle_exempt: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
+  def update_admin_profiles # rubocop:disable Metrics/AbcSize
+    profile_rids = (params[:admin_profile_rids].presence || '').split(':')
+    profile_rids << current_profile.rid # Always include current user
+    current_team.profiles
+                .where.not(rid: profile_rids)
+                .where(admin: true)
+                .update_all(admin: false) # rubocop:disable Rails/SkipsModelValidations
+    current_team.profiles
+                .where(rid: profile_rids, admin: false)
+                .update_all(admin: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
   def prepare_exempt_profile_options
     @team_profile_options = active_profiles.map do |profile|
       {
@@ -81,6 +94,7 @@ class TeamsController < ApplicationController
       }
     end
     @exempt_profile_rids = active_profiles.select(&:throttle_exempt?).map(&:rid)
+    @admin_profile_rids = active_profiles.select(&:admin?).map(&:rid)
   end
 
   def active_profiles

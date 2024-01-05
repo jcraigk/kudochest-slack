@@ -23,9 +23,6 @@
     .team-setting-link data-link='streaks'
       = icon_and_text('flag-checkered', t('teams.giving_streaks'))
 
-    .team-setting-link data-link='reports'
-      = icon_and_text('chart-pie-alt', t('teams.reports'))
-
     .team-setting-link data-link='leveling'
         = icon_and_text('signal-alt', t('teams.leveling'))
 
@@ -34,6 +31,9 @@
 
     .team-setting-link data-link='data'
       = icon_and_text('database', t('teams.data_title'))
+
+    .team-setting-link data-link='admin'
+      = icon_and_text('user-cog', t('teams.admin'))
 
     .team-setting-link data-link='danger_zone'
       = icon_and_text('exclamation-circle', t('teams.danger_zone', points_title: App.points_term.titleize))
@@ -49,10 +49,10 @@
       = render 'teams/settings/emoji', f:
       = render 'teams/settings/throttle', f:
       = render 'teams/settings/streaks', f:
-      = render 'teams/settings/reports', f:
       = render 'teams/settings/leveling', f:
       = render 'teams/settings/loot', f:
       = render 'teams/settings/data', f:
+      = render 'teams/settings/admin', f:
       = render 'teams/settings/danger_zone', f:
 
       .team_edit_footer
@@ -74,6 +74,18 @@ javascript:
     onChange: value => {
       this.dispatchEvent(event)
       $('#exempt_profile_rids').val(value.join(':'))
+    }
+  })
+  let select_pure2 = new SelectPure('#admin-multi-select', {
+    multiple: true,
+    placeholder: false,
+    autocomplete: true,
+    icon: 'fa fa-times',
+    options: #{{@team_profile_options.to_json}},
+    value: #{{@admin_profile_rids.to_json}},
+    onChange: value => {
+      this.dispatchEvent(event)
+      $('#admin_profile_rids').val(value.join(':'))
     }
   })
 

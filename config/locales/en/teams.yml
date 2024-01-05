@@ -95,9 +95,9 @@ en:
     response_mode_reply_html: As Reply mode posts a reply to the original message that invoked the %{points} action, creating a new thread if necessary. If invoked by slash command, a direct message is sent to the user.
     response_mode_direct_html: In Direct Message mode, responses are sent directly to individual givers and earners of %{points}.
     response_mode_silent_html: When Silent, the bot will not respond when %{points} are given. It will still post to the Log Channel, if specified.
-    reports: Reports
+    admin: Administration
     weekly_report: Email Weekly Report
-    weekly_report_tooltip: Email a weekly digest of team activity to team admins.
+    weekly_report_tooltip: Email a weekly digest of team activity to team administrators.
     topics: Topics
     enable_topics: Enable Topics
     enable_topics_tooltip: When enabled, users can specify a topic when giving %{points}. Topics can be company values or processes you want your team to adopt.
@@ -119,3 +119,5 @@ en:
     subscription_expired_html: Your subscription has expired, visit the <a href="/billing">billing page</a> to resubscribe.
     trial_expired_html: Your trial has expired, visit the <a href="/billing">billing page</a> to subscribe.
     recurring_subscription_html: Before you can uninstall the app, please cancel your active subscription on the <a href="/billing">billing page</a>.
+    admin_profiles: Administrators
+    admin_profiles_tooltip: Specify which users have access to administrate the app, including configuration, billing, and content management.
