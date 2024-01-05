@@ -80,17 +80,22 @@ class MentionParser < Base::Service
   #
   # Examples:
   # "@user ++" => 1
+  # "@user ++++++" => 3
   # "@user 3++2" => 3
   # "@user --4" => -4
   # "@user :point::point:" => 2
   # "@user :point::jab:" => 0 (rejected for non-unique emoji)
   # "@user :jab::jab::jab:" => -3
   def tip_quantity(match)
-    given = (match[:prefix_quantity].presence || match[:suffix_quantity].presence).to_f
+    given = basic_quantity(match)
     return emoji_match_quantity(match, given) if match[:inline_emoji].present?
     negative = match[:inline_text].in?(JAB_INLINES)
-    given, default = negative ? [0 - given, -1.0] : [given, 1.0]
+    given, default = negative ? [0 - given, -1] : [given, 1]
     given.zero? ? default : given
+  end
+
+  def basic_quantity(match)
+    (match[:prefix_quantity].presence || match[:suffix_quantity].presence)&.to_i || 1
   end
 
   def emoji_match_quantity(match, quantity)

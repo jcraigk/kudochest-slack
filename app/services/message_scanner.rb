@@ -39,8 +39,11 @@ class MessageScanner < Base::Service
     match[:inlines].presence
   end
 
+  # Override prefix_quantity with number of repeated inlines (++++ => 2)
+  # Assumes inlines are 2 chars long
   def prefix_quantity(match)
-    quantity_or_nil(match[:prefix_quantity])
+    inline_count = (inline_text(match).to_s.length / 2.0).floor
+    inline_count > 1 ? inline_count : quantity_or_nil(match[:prefix_quantity])
   end
 
   def suffix_quantity(match)
@@ -52,9 +55,7 @@ class MessageScanner < Base::Service
   end
 
   def quantity_or_nil(str)
-    return if str.blank?
-    str += '0' if str.end_with?('.')
-    BigDecimal(str)
+    str.presence&.to_i
   end
 
   def sanitized_emoji(match)

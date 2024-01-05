@@ -17,16 +17,31 @@ RSpec.describe MessageScanner do
     end
   end
 
+  context 'with repeated `++` groups' do
+    let(:text) { "<#{rid1}>++++++" }
+    let(:matches) do
+      [
+        {
+          rid: rid1,
+          inline_text: '++++++',
+          prefix_quantity: 3
+        }
+      ]
+    end
+
+    include_examples 'success'
+  end
+
   context 'with topic keywords and single trailing note' do
     let!(:topic1) { create(:topic, team:) }
     let!(:topic2) { create(:topic, team:) }
-    let(:text) { "<#{rid1}>++2.5 #{topic1.keyword} <#{rid2}> 3.-- #{topic2.keyword} #{note}" }
+    let(:text) { "<#{rid1}>++2 #{topic1.keyword} <#{rid2}> 3-- #{topic2.keyword} #{note}" }
     let(:matches) do
       [
         {
           rid: rid1,
           inline_text: '++',
-          suffix_quantity: 2.5,
+          suffix_quantity: 2,
           topic_keyword: topic1.keyword,
           note:
         },

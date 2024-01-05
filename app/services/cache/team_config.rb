@@ -77,8 +77,8 @@ class Cache::TeamConfig < Base::Service
   end
 
   def inlines
-    patterns = POINT_INLINES.map { |str| Regexp.escape(str) }
-    patterns << JAB_INLINES.map { |str| Regexp.escape(str) } if team.enable_jabs?
+    patterns = POINT_INLINES.map { |str| "(?:#{Regexp.escape(str)})+" }
+    patterns << JAB_INLINES.map { |str| "(?:#{Regexp.escape(str)})+" } if team.enable_jabs?
     "(?<inlines>#{patterns.join('|')})"
   end
 
