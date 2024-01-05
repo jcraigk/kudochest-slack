@@ -14,10 +14,7 @@ class Cache::TeamConfig < Base::Service
   end
 
   def coerce_value(attr, value)
-    case Team.columns_hash[attr.to_s]&.type
-    when :integer then value.to_i
-    when :decimal then BigDecimal(value.presence || '0')
-    else value; end
+    Team.columns_hash[attr.to_s]&.type == :integer ? value.to_i : value
   end
 
   def cached_json

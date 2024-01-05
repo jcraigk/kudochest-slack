@@ -36,7 +36,7 @@ class CsvImporter < Base::Service
   def create_tips
     text.split("\n").each do |line|
       display_name, quantity_str = line.split(',')
-      quantity = quantity_str.to_f.round(2)
+      quantity = quantity_str.to_i
       next unless quantity.positive?
       profile = team.profiles.find_by(display_name: display_name.tr('@', ''))
       next @tips << create_import_tip(profile, quantity) if profile.present?
