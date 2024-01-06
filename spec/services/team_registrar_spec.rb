@@ -28,6 +28,8 @@ RSpec.describe TeamRegistrar, :freeze_time do
       avatar_url: 'url230',
       uninstalled_at: nil,
       uninstalled_by: nil,
+      trial_expiry_notified_at: nil,
+      team_size_notified_at: nil,
       onboarded_channels_at: nil,
       onboarded_emoji_at: nil
     }
