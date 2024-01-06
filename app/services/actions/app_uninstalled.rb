@@ -1,6 +1,7 @@
 class Actions::AppUninstalled < Actions::Base
   def call
-    team.uninstall!('Uninstalled via Slack by workspace admin', call_slack: false)
+    return unless team.active? # If already uninstalled, do nothing
+    team.uninstall!(UNINSTALL_REASONS[:admin], call_slack: false)
     BillingMailer.app_uninstalled(team).deliver_later
   end
 

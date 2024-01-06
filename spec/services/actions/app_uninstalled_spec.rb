@@ -13,6 +13,6 @@ RSpec.describe Actions::AppUninstalled, :freeze_time do
 
   it 'marks the team uninstalled' do
     expect(team.reload.uninstalled_at).to eq(Time.current)
-    expect(team.reload.uninstalled_by).to eq('Uninstalled via Slack by workspace admin')
+    expect(team.reload.uninstalled_by).to eq(UNINSTALL_REASONS[:admin])
   end
 end

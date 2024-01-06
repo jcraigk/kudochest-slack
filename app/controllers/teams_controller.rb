@@ -44,7 +44,7 @@ class TeamsController < ApplicationController
         alert: t('teams.recurring_subscription_html')
     end
 
-    current_team.uninstall!('Uninstalled via web by workspace admin')
+    current_team.uninstall!(UNINSTALL_REASONS[:admin])
     redirect_to app_settings_path(section: 'danger_zone'), notice: t('teams.uninstalled')
   end
 

@@ -38,14 +38,14 @@ class SubscriptionExpiryService < Base::Service
 
   def uninstall_expired_trials
     Team.active.trial_expired.find_each do |team|
-      team.uninstall!('Trial expired')
+      team.uninstall!(UNINSTALL_REASONS[:trial_expired])
       BillingMailer.trial_expired(team).deliver_later
     end
   end
 
   def uninstall_expired_subscriptions
     recent_expired_subscribed_teams.find_each do |team|
-      team.uninstall!('Subscription expired')
+      team.uninstall!(UNINSTALL_REASONS[:subscription_expired])
       BillingMailer.subscription_expired(team).deliver_later
     end
   end

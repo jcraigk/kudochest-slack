@@ -232,3 +232,9 @@ GIFS = {
   '32' => %w[trophy],
   '48' => %w[cake cherries comet confetti fern fire flower star tree]
 }.freeze
+
+UNINSTALL_REASONS = {
+  trial_expired: 'Trial expired',
+  subscription_expired: 'Subscription expired',
+  admin: 'Uninstalled via web by admin'
+}.freeze
