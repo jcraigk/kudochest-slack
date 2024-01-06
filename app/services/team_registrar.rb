@@ -40,7 +40,7 @@ class TeamRegistrar < Base::Service
     }.merge(update_attrs)
   end
 
-  def update_attrs
+  def update_attrs # rubocop:disable Metrics/MethodLength
     {
       name:,
       avatar_url:,
