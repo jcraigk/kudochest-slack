@@ -32,6 +32,25 @@ RSpec.describe MessageScanner do
     include_examples 'success'
   end
 
+  context 'with repeated profile, repeated `++`, and notes' do
+    let(:text) { "<#{rid1}>++++ <#{rid1}>++" }
+    let(:matches) do
+      [
+        {
+          rid: rid1,
+          inline_text: '++++',
+          prefix_quantity: 2
+        },
+        {
+          rid: rid1,
+          inline_text: '++'
+        }
+      ]
+    end
+
+    include_examples 'success'
+  end
+
   context 'with topic keywords and single trailing note' do
     let!(:topic1) { create(:topic, team:) }
     let!(:topic2) { create(:topic, team:) }

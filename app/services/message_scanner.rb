@@ -11,10 +11,18 @@ class MessageScanner < Base::Service
 
   private
 
-  def scan_results
-    @scan_results ||= sanitized_text.scan(regex).map do |match|
-      regex.names.map(&:to_sym).zip(match).to_h
-    end || []
+  def scan_results # rubocop:disable Metrics/MethodLength
+    @scan_results ||= begin
+      matches = []
+      sanitized_text.scan(regex) do |match|
+        match_data = Regexp.last_match
+        match_hash = regex.names.map(&:to_sym).zip(match).to_h
+        match_hash[:starts_on] = match_data.begin(0)
+        match_hash[:ends_on] = match_data.end(0)
+        matches << match_hash
+      end
+      matches
+    end
   end
 
   def matches_on_text # rubocop:disable Metrics/MethodLength
@@ -67,18 +75,12 @@ class MessageScanner < Base::Service
   end
 
   # Note is all text between matches, defaulting to tail
-  def raw_note(idx)
-    tail = text.split(scan_results[idx][:match])[1]
-    return tail if (next_match = scan_results[idx + 1]&.dig(:match)).nil?
-    intermediate_note(tail, next_match) || tail_note
-  end
-
-  def intermediate_note(tail, next_match)
-    tail&.split(next_match)&.first&.strip.presence
-  end
-
-  def tail_note
-    @tail_note ||= text.split(scan_results[-1][:match])[1]&.strip
+  def raw_note(idx) # rubocop:disable Metrics/AbcSize
+    current_match = scan_results[idx]
+    next_match = scan_results[idx + 1]
+    ends_on = next_match ? next_match[:starts_on] : text.length
+    note_text = text[current_match[:ends_on]...ends_on].strip
+    note_text.empty? && next_match ? text[scan_results[-1][:ends_on]..].strip : note_text
   end
 
   def sanitized_text
