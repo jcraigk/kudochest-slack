@@ -41,7 +41,7 @@ RSpec.describe TipResponseService do
       #{IMG_DELIM}#{from_profile.display_name} #{IMG_DELIM} gave #{IMG_DELIM}#{to_profile.display_name} #{IMG_DELIM} #{points_format(quantity, label: true)}
     TEXT
   end
-  let(:note_frag) { "Note: _#{tip.note}_" }
+  let(:note_frag) { "Note: \"#{tip.note}\"" }
   let(:image_note_frag) { "Note: #{tip.note}" }
   let(:chat_fragments) do
     {
@@ -97,7 +97,7 @@ RSpec.describe TipResponseService do
       let(:image_channel_frag) { "in #{IMG_DELIM}#{CHAN_PREFIX}#{channel.name} #{IMG_DELIM}" }
       let(:web_response) do
         <<~TEXT.chomp
-          #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: <i>#{note}</i>
+          #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: "#{note}"
         TEXT
       end
 
@@ -116,7 +116,7 @@ RSpec.describe TipResponseService do
     let(:image_channel_frag) { "in #{IMG_DELIM}#{CHAN_PREFIX}#{channel.name} #{IMG_DELIM}" }
     let(:web_response) do
       <<~TEXT.chomp
-        #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: <i>#{note}</i>
+        #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: "#{note}"
       TEXT
     end
 
@@ -134,7 +134,7 @@ RSpec.describe TipResponseService do
     let(:image_channel_frag) { "in #{IMG_DELIM}#{CHAN_PREFIX}#{channel.name} #{IMG_DELIM}" }
     let(:web_response) do
       <<~TEXT.chomp
-        #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: <i>#{note}</i>
+        #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: "#{note}"
       TEXT
     end
 
@@ -152,7 +152,7 @@ RSpec.describe TipResponseService do
     let(:image_channel_frag) { "in #{IMG_DELIM}#{CHAN_PREFIX}#{channel.name} #{IMG_DELIM}" }
     let(:web_response) do
       <<~TEXT.chomp
-        #{web_ts} #{from_profile_webref_with_stat} gave #{to_profile_webref_with_stat} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: <i>#{note}</i>
+        #{web_ts} #{from_profile_webref_with_stat} gave #{to_profile_webref_with_stat} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: "#{note}"
       TEXT
     end
 
@@ -196,7 +196,7 @@ RSpec.describe TipResponseService do
     end
     let(:web_response) do
       <<~TEXT.chomp
-        #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: <i>#{note}</i><br>#{to_profile.webref} leveled up to #{to_profile.level}!
+        #{web_ts} #{from_profile.webref} gave #{to_profile.webref} #{points_format(quantity, label: true)} in #{channel.webref}<br>Note: "#{note}"<br>#{to_profile.webref} leveled up to #{to_profile.level}!
       TEXT
     end
 
@@ -253,7 +253,7 @@ RSpec.describe TipResponseService do
     end
     let(:web_response) do
       <<~TEXT.chomp
-        #{web_ts} #{from_profile.webref} gave #{to_profile3.webref} #{points_format(2, label: true)} and #{to_profile.webref} and #{to_profile2.webref} #{points_format(1, label: true)} each in #{channel.webref}<br>Note: <i>#{note}</i>
+        #{web_ts} #{from_profile.webref} gave #{to_profile3.webref} #{points_format(2, label: true)} and #{to_profile.webref} and #{to_profile2.webref} #{points_format(1, label: true)} each in #{channel.webref}<br>Note: "#{note}"
       TEXT
     end
 
@@ -337,7 +337,7 @@ RSpec.describe TipResponseService do
       end
       let(:web_response) do
         <<~TEXT.chomp
-          #{web_ts} #{from_profile.webref} gave #{to_profile3.webref} #{points_format(2, label: true)} and 2 users #{points_format(1, label: true)} each in #{channel.webref}<br>Note: <i>#{note}</i>
+          #{web_ts} #{from_profile.webref} gave #{to_profile3.webref} #{points_format(2, label: true)} and 2 users #{points_format(1, label: true)} each in #{channel.webref}<br>Note: "#{note}"
         TEXT
       end
 

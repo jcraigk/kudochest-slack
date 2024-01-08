@@ -327,11 +327,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
   end
 
   def formatted_note(medium, text)
-    case medium
-    when :image then text
-    when :slack then "_#{text}_"
-    when :web then "<i>#{text}</i>"
-    end
+    medium == :image ? text : "\"#{text}\""
   end
 
   ProfileLeveling = Struct.new(:profile, :new_points, :delta)
