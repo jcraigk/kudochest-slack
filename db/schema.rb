@@ -183,7 +183,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_04_212451) do
     t.integer "balance", default: 0, null: false
     t.boolean "enable_jabs", default: false
     t.boolean "deduct_jabs", default: false
-    t.string "jab_emoji", default: "thumbsdown", null: false
+    t.string "jab_emoji", default: "arrow_down", null: false
     t.datetime "onboarded_channels_at"
     t.datetime "onboarded_emoji_at"
     t.boolean "gratis_subscription", default: false, null: false
