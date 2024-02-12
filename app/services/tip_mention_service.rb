@@ -31,7 +31,7 @@ class TipMentionService < Base::Service
     raise exception unless klass.start_with?('ActiveRecord::')
     message = exception.message
     case klass
-    when 'ActiveRecord::RecordNotUnique' then message = 'Duplicate request ignored'
+    when 'ActiveRecord::RecordNotUnique' then return # message = 'Duplicate request ignored'
     when 'ActiveRecord::RecordInvalid' then message.gsub!('Validation failed: ', '')
     end
     respond_error(message)

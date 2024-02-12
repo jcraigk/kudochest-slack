@@ -10,4 +10,4 @@ en:
     generic_personalized: Sorry %{user}, %{message}
     bad_command: "Sorry, I don't understand \"%{text}\". Tell me `help` to see what you can do!"
     no_dm_support: "Sorry, I don't support direct messaging. Try typing `!%{cmd} help` in a guild channel where I'm installed or visit %{url}"
-    no_tips: Sorry %{user}, your request did not result in any actions
+    no_tips: Sorry %{user}, that didn't do anything
