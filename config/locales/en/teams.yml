@@ -101,8 +101,9 @@ en:
     topics: Topics
     enable_topics: Enable Topics
     enable_topics_tooltip: When enabled, users can specify a topic when giving %{points}. Topics can be company values or processes you want your team to adopt.
-    enable_emoji: Enable
-    enable_emoji_tooltip: When enabled, users can give %{points} by reacting with emoji (see below) or using emoji in place of "++" in a message.
+    enable_emoji: Enable Custom Emoji
+    enable_emoji_tooltip: When enabled, users can give %{points} by using the custom emoji specified below either as a reaction or in a chat message.
+    enable_thumbsup_tooltip: When enabled, users can give %{points} by using a Thumbs Up (+1) emoji either as a reaction or in a chat message.
     require_topic: Require Topic
     require_topic_tooltip: When enabled, users must specify a topic when giving %{points}. Topics can be company values or processes you want your team to adopt.
     hint_frequency: Usage Hint Frequency

@@ -67,7 +67,7 @@ class MessageScanner < Base::Service
   end
 
   def sanitized_emoji(match)
-    match[:emojis]&.gsub(/[^a-z_\-:]/, '')
+    match[:emojis]&.gsub(/[^a-z_:\-\+\d]/, '')
   end
 
   def note(idx)

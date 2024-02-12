@@ -5,6 +5,16 @@
 
     .field.is-horizontal
       .field-label.is-switch-label
+        = f.label :enable_thumbsup, "Enable Thumbs Up #{emojify(':+1:')}".html_safe, class: 'label'
+      .field-body
+        .field
+          .control
+            = f.check_box :enable_thumbsup, class: 'switch is-rounded'
+            = f.label :enable_thumbsup, '&nbsp;'.html_safe, class: 'label'
+            = tooltip_btn('teams.enable_thumbsup_tooltip', 'nudge-up', points: App.points_term)
+
+    .field.is-horizontal
+      .field-label.is-switch-label
         = f.label :enable_emoji, t('teams.enable_emoji'), class: 'label'
       .field-body
         .field

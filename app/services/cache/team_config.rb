@@ -85,12 +85,13 @@ class Cache::TeamConfig < Base::Service
     "(?<emojis>(?:(?:#{str})\\s*)+)"
   end
 
-  def emoji_patterns
-    return [] unless team.enable_emoji?
-    emojis = [team.point_emoji]
-    emojis << team.jab_emoji if team.enable_jabs?
-    emojis += team.topics.pluck(:emoji) if team.enable_topics?
-    emojis
+  def emoji_patterns # rubocop:disable Metrics/AbcSize
+    patterns = []
+    patterns << team.point_emoji if team.enable_emoji?
+    patterns << team.jab_emoji if team.enable_jabs?
+    patterns += team.topics.pluck(:emoji) if team.enable_topics?
+    patterns += ['\+1(::skin-tone-\d)?', 'thumbsup'] if team.enable_thumbsup?
+    patterns
   end
 
   def quantity_prefix

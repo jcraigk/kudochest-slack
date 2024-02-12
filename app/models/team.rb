@@ -43,6 +43,7 @@ class Team < ApplicationRecord
 
   attribute :enable_cheers,      :boolean, default: true
   attribute :enable_emoji,       :boolean, default: true
+  attribute :enable_thumbsup,    :boolean, default: true
   attribute :enable_levels,      :boolean, default: true
   attribute :enable_loot,        :boolean, default: false
   attribute :enable_streaks,     :boolean, default: true

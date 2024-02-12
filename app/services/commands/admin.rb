@@ -69,7 +69,8 @@ class Commands::Admin < Commands::Base
   end
 
   def point_emoji
-    "\n*#{App.points_term.titleize} emoji:* #{team.point_emoj}"
+    str = "\n*#{App.points_term.titleize} emoji:* "
+    str + (team.enable_thumbsup? ? ':+1:' : team.point_emoj)
   end
 
   def jab_emoji

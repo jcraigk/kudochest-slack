@@ -60,8 +60,8 @@ Rails.application.routes.draw do
     patch :join_all_channels
     # patch :join_specific_channels
     patch :skip_join_channels
-    patch :confirm_emoji_added
-    patch :skip_emoji
+    # patch :confirm_emoji_added
+    # patch :skip_emoji
   end
 
   # TODO: Should we have teams.new?
