@@ -32,6 +32,21 @@ RSpec.describe MessageScanner do
     include_examples 'success'
   end
 
+  context 'with `+3`' do
+    let(:text) { "<#{rid1}> +3" }
+    let(:matches) do
+      [
+        {
+          rid: rid1,
+          inline_text: '+',
+          suffix_quantity: 3
+        }
+      ]
+    end
+
+    include_examples 'success'
+  end
+
   context 'with repeated profile, repeated `++`, and notes' do
     let(:text) { "<#{rid1}>++++ <#{rid1}>++" }
     let(:matches) do

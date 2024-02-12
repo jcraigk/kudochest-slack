@@ -223,8 +223,8 @@ SUBTEAM_REGEX = {
 SLACK_DM_NAME = 'direct-message'.freeze
 SLACK_DM_PREFIX = 'mpdm-'.freeze
 SLACK_DM_PHRASE = 'a group chat'.freeze
-POINT_INLINES = %w[++ +=].freeze
-JAB_INLINES = %w[-- -=].freeze
+POINT_INLINES = %w[++ += +].freeze
+JAB_INLINES = %w[-- -= -].freeze
 
 IMG_DELIM = '<COLOR>'.freeze
 
