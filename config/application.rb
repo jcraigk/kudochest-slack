@@ -225,6 +225,7 @@ SLACK_DM_PREFIX = 'mpdm-'.freeze
 SLACK_DM_PHRASE = 'a group chat'.freeze
 POINT_INLINES = %w[++ += +].freeze
 JAB_INLINES = %w[-- -= -].freeze
+THUMBSUP_EMOJI_PATTERNS = ['\+1(::skin-tone-\d)?', 'thumbsup'].freeze
 
 IMG_DELIM = '<COLOR>'.freeze
 

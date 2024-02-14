@@ -90,7 +90,7 @@ class Cache::TeamConfig < Base::Service
     patterns << team.point_emoji if team.enable_emoji?
     patterns << team.jab_emoji if team.enable_jabs?
     patterns += team.topics.pluck(:emoji) if team.enable_topics?
-    patterns += ['\+1(::skin-tone-\d)?', 'thumbsup'] if team.enable_thumbsup?
+    patterns += THUMBSUP_EMOJI_PATTERNS if team.enable_thumbsup?
     patterns
   end
 

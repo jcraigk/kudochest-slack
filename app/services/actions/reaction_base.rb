@@ -9,14 +9,17 @@ class Actions::ReactionBase < Actions::Base
     @event_ts ||= "#{message_ts}-#{source}#{topic_suffix}-#{profile.id}"
   end
 
+  def thumbsup_regex
+    @thumbsup_regex ||= Regexp.new(THUMBSUP_EMOJI_PATTERNS.join('|'))
+  end
+
   def source
-    @source ||=
-      case emoji
-      when team.point_emoji then 'point_reaction'
-      when team.jab_emoji then 'jab_reaction'
-      when team.ditto_emoji then 'ditto_reaction'
-      else 'topic_reaction'
-      end
+    return 'point_reaction' if emoji == team.point_emoji || thumbsup_emoji?
+    case emoji
+    when team.jab_emoji then 'jab_reaction'
+    when team.ditto_emoji then 'ditto_reaction'
+    else 'topic_reaction'
+    end
   end
 
   def topic_suffix
@@ -29,11 +32,16 @@ class Actions::ReactionBase < Actions::Base
   end
 
   def process_emoji?
-    team&.enable_emoji? && relevant_emoji?
+    thumbsup_emoji? || standard_emoji? || topic_emoji?
   end
 
-  def relevant_emoji?
-    emoji.in?([team.point_emoji, team.jab_emoji, team.ditto_emoji]) || topic_emoji?
+  def standard_emoji?
+    team&.enable_emoji? &&
+      emoji.in?([team.point_emoji, team.jab_emoji, team.ditto_emoji])
+  end
+
+  def thumbsup_emoji?
+    team&.enable_thumbsup? && thumbsup_regex.match?(emoji)
   end
 
   def topic_emoji?

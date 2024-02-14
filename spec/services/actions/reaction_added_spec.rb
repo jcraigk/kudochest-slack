@@ -40,8 +40,7 @@ RSpec.describe Actions::ReactionAdded do
     end
   end
 
-  context 'when reaction is point emoji' do
-    let(:reaction) { team.point_emoji }
+  context 'when reaction is thumbsup or point emoji' do
     let(:args) do
       {
         profile: sender,
@@ -60,15 +59,34 @@ RSpec.describe Actions::ReactionAdded do
       }
     end
 
-    it 'calls TipMentionService' do
-      action
-      expect(TipMentionService).to have_received(:call).with(**args)
+    context 'with thumbsup' do
+      let(:reaction) { '+1::skin-tone-3' }
+
+      it 'calls TipMentionService' do
+        action
+        expect(TipMentionService).to have_received(:call).with(**args)
+      end
+
+      context 'when team.enable_thumbsup is false' do
+        before { team.update(enable_thumbsup: false) }
+
+        include_examples 'exits'
+      end
     end
 
-    context 'when team.enable_emoji is false' do
-      before { team.update(enable_emoji: false) }
+    context 'with point emoji' do
+      let(:reaction) { team.point_emoji }
 
-      include_examples 'exits'
+      it 'calls TipMentionService' do
+        action
+        expect(TipMentionService).to have_received(:call).with(**args)
+      end
+
+      context 'when team.enable_emoji is false' do
+        before { team.update(enable_emoji: false) }
+
+        include_examples 'exits'
+      end
     end
   end
 
