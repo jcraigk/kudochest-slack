@@ -67,14 +67,14 @@ class Commands::Help < Commands::Base
   def slack_giving_points
     str = slack_point_inlines
     str += slack_jab_inlines if team.enable_jabs?
-    str += slack_emojis if team.enable_emoji?
+    str += slack_emojis if team.enable_thumbsup? || team.enable_emoji?
     "#{str}\n  * _User ++_ Action (\"...\" menu on a user message)"
   end
 
   def slack_point_inlines
     "* Type `/#{App.base_command}` by itself for assistance " \
       '_(tip: use Tab key to navigate fields)_' \
-      "\n  * Type `#{PROF_PREFIX}[user]++`, `#{PROF_PREFIX}[group]++`, " \
+      "\n  * Type `#{PROF_PREFIX}user]++`, `#{PROF_PREFIX}[group]++`, " \
       "`#{CHAN_PREFIX}[channel]++`, `#{PROF_PREFIX}channel++`, `#{PROF_PREFIX}here++`, " \
       "or `#{PROF_PREFIX}everyone++` _(tip: append a number like `++2`)_"
   end
@@ -85,23 +85,25 @@ class Commands::Help < Commands::Base
       "or `#{PROF_PREFIX}everyone--` _(tip: append a number like `--2`)_"
   end
 
-  def slack_emojis
+  def slack_emojis # rubocop:disable Metrics/AbcSize
     str = slack_inline_point_emojis
     str += slack_inline_jab_emojis if team.enable_jabs?
-    reaction_emojis = [team.point_emoj]
+    reaction_emojis = []
+    reaction_emojis << (team.enable_thumbsup? ? ':+1:' : team.point_emoj)
     reaction_emojis << team.jab_emoj if team.enable_jabs?
     str += "\n  * React with #{reaction_emojis.join(' or ')} to give to the author of a message"
     str + "\n  * React to #{giving_terms} message with #{team.ditto_emoj} to duplicate it"
   end
 
   def slack_inline_point_emojis
-    "\n  * Type `#{PROF_PREFIX}[user]`#{team.point_emoj}, " \
-      "`#{PROF_PREFIX}[group]`#{team.point_emoj}, " \
-      "`#{CHAN_PREFIX}[channel]`#{team.point_emoj}, " \
-      "`#{PROF_PREFIX}channel`#{team.point_emoj}, " \
-      "`#{PROF_PREFIX}here`#{team.point_emoj}, or " \
-      "`#{PROF_PREFIX}everyone`#{team.point_emoj} _(tip: try " \
-      "#{team.point_emoj * 3})_"
+    emoji = team.enable_thumbsup? ? ':+1:' : team.point_emoj
+    "\n  * Type `#{PROF_PREFIX}[user]`#{emoji}, " \
+      "`#{PROF_PREFIX}[group]`#{emoji}, " \
+      "`#{CHAN_PREFIX}[channel]`#{emoji}, " \
+      "`#{PROF_PREFIX}channel`#{emoji}, " \
+      "`#{PROF_PREFIX}here`#{emoji}, or " \
+      "`#{PROF_PREFIX}everyone`#{emoji} _(tip: try " \
+      "#{emoji * 3})_"
   end
 
   def slack_inline_jab_emojis
