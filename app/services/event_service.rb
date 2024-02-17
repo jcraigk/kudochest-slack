@@ -46,6 +46,7 @@ class EventService < Base::Service
   end
 
   def post_error_message(exception)
+    Sentry.capture_exception(exception) if Rails.env.production?
     log_exception(exception) if Rails.env.development?
     post_chat_error(exception)
   end
@@ -62,10 +63,19 @@ class EventService < Base::Service
   end
 
   def error_text(exception)
+    return config_dialog_error if config_dialog_error.present?
     exception.instance_of?(ChatFeedbackError) ? exception.message : I18n.t('slack.generic_error')
   end
 
   def log_exception(exception)
     Rails.logger.info("#{exception.message}\n#{exception.backtrace.join("\n")}")
+  end
+
+  def config_dialog_error
+    # Preferences dialog must be opened by slash command (Slack requirement since 2022)
+    key = :preferences
+    command = params[:text]&.split&.last
+    return false unless command == key.to_s || command.in?(COMMAND_KEYWORDS[key].map(&:to_s))
+    t('errors.config_dialog', command:)
   end
 end

@@ -23,14 +23,8 @@ RSpec.describe EventService do
   end
 
   context 'when an exception occurs and channel_rid is present' do
-    let(:text) do
-      <<~TEXT.chomp
-        :#{App.error_emoji}: Sorry, something went wrong. If the problem persists, please contact support.
-      TEXT
-    end
-    let(:args) do
-      params.merge(mode: :error, text:)
-    end
+    let(:text) { ":#{App.error_emoji}: #{I18n.t('slack.generic_error')}" }
+    let(:args) { params.merge(mode: :error, text:) }
 
     before { allow(Actions::Message).to receive(:call).and_raise('whoopsy') }
 
