@@ -23,6 +23,7 @@ class TeamRegistrar < Base::Service
   end
 
   def create_or_update_team
+    return if Team.active.count >= App.max_teams
     return existing_team.tap { |team| team.update!(update_attrs) } if existing_team
     Team.create!(new_attrs)
   end

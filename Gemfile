@@ -24,8 +24,6 @@ gem "rails"
 gem "redis"
 # gem 'rmagick' # TODO: Re-enable graphical responses
 gem "sass-rails"
-gem "sentry-rails"
-gem "sentry-ruby"
 gem "sidekiq"
 gem "sidekiq-scheduler"
 gem "sidekiq-unique-jobs"

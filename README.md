@@ -4,19 +4,19 @@
 
 This is a **Ruby on Rails** application backed by **Postgres** and **Redis**. It integrates tightly with Slack, keeping teams and users synced server-side. This enables web-based user profiles and other UX enhancements not possible in standard bots.
 
-See the **[Wiki](https://github.com/jcraigk/kudochest/wiki)** for details. Note that some of the screenshots and specific features may be outdated.
+See the **[Wiki](https://github.com/jcraigk/kudochest-slack/wiki)** for details. Note that some of the screenshots and specific features may be outdated.
 
 
 # Installation
 
 To install KudoChest into your organization's Slack workspace, you must host the Rails components on a web server you control and configure the Slack App via the [Slack developer portal](https://api.slack.com/).
 
-See the [Installation Instructions](https://github.com/jcraigk/kudochest/wiki/Installation) for more detail. Note that some of the details may be outdated.
+See the [Installation Instructions](https://github.com/jcraigk/kudochest-slack/wiki/Installation) for more detail. Note that some of the details may be outdated.
 
 
 # Development
 
-For local development, start by reading the [Installation Instructions](https://github.com/jcraigk/kudochest/wiki/Installation), paying special attention to the [Environment Variables](https://github.com/jcraigk/kudochest/wiki/Installation#environment-variables) section. Note that you will only need certain portions of what is described there, depending on your specific area of development.
+For local development, start by reading the [Installation Instructions](https://github.com/jcraigk/kudochest-slack/wiki/Installation), paying special attention to the [Environment Variables](https://github.com/jcraigk/kudochest-slack/wiki/Installation#environment-variables) section. Note that you will only need certain portions of what is described there, depending on your specific area of development.
 
 ## Setup
 
@@ -29,9 +29,9 @@ If you're working on response images and running Sidekiq in Docker, you'll need 
 
 ## Run the App Components
 
-You may run all components in Docker with logging exposed using the command `make up` and then connect to the `kudochest_app` container and create the database.
+You may run all components in Docker with logging exposed using the command `make up` and then connect to the app container and create the database.
 
-Alternatively you can run services (PG and Redis) in Docker while running the Rails processes natively. This often eases debugging and development.
+Alternatively you can run services (PostgreSQL and Redis) in Docker while running the Rails processes natively. This often eases debugging and development.
 
 For running the Rails stack you'll need the following:
 * [Ruby](https://www.ruby-lang.org/en/)

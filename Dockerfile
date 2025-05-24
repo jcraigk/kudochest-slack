@@ -12,6 +12,7 @@ RUN apt-get update -qq && \
       curl \
       # libmagickwand-dev \ # TODO: Re-enable graphical responses
       libpq-dev \
+      libyaml-dev \
       memcached \
       postgresql-client \
     && apt-get clean \

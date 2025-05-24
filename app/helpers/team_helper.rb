@@ -147,4 +147,12 @@ module TeamHelper
   def all_response_options
     Team.response_mode.options
   end
+
+  def max_allowed_teams?
+    Team.active.count >= App.max_teams
+  end
+
+  def any_active_teams?
+    Team.active.exists?
+  end
 end

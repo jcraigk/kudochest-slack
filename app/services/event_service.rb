@@ -5,7 +5,6 @@ class EventService < Base::Service
     return post_success_message if respond_in_chat?
     delete_slack_ack_message if slack_fast_acked?
   rescue StandardError => e
-    Sentry.capture_exception(e) if reportable?(e)
     post_error_message(e)
   end
 
@@ -46,7 +45,6 @@ class EventService < Base::Service
   end
 
   def post_error_message(exception)
-    Sentry.capture_exception(exception) if Rails.env.production?
     log_exception(exception) if Rails.env.development?
     post_chat_error(exception)
   end

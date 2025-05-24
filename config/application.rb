@@ -26,10 +26,11 @@ module KudoChest
     config.from_email = ENV.fetch \
       "FROM_EMAIL",
       "#{config.app_name} <noreply@#{ENV.fetch('WEB_DOMAIN', 'localhost')}>"
+    config.max_teams = ENV.fetch("MAX_TEAMS", 1)
     config.point_term = ENV.fetch("POINT_TERM", "kudo")
     config.points_term = ENV.fetch("POINTS_TERM", "kudos")
-    config.jab_term = ENV.fetch("POINT_TERM", "kudont")
-    config.jabs_term = ENV.fetch("POINTS_TERM", "kudonts")
+    config.jab_term = ENV.fetch("JAB_TERM", "kudont")
+    config.jabs_term = ENV.fetch("JABS_TERM", "kudonts")
     config.point_singular_prefix = ENV.fetch("POINT_SINGULAR_PREFIX", "a")
     config.jab_singular_prefix = ENV.fetch("JAB_SINGULAR_PREFIX", "a")
     config.help_url = "https://github.com/jcraigk/kudochest-slack"
