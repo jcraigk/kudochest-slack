@@ -9,6 +9,7 @@ This is a **Ruby on Rails** application backed by **Postgres** and **Redis**. It
 See the **[Wiki](https://github.com/jcraigk/kudochest/wiki)** for details. Note that some of the screenshots and specific features may be outdated.
 &nbsp;
 &nbsp;
+&nbsp;
 
 
 # Installation
@@ -16,6 +17,7 @@ See the **[Wiki](https://github.com/jcraigk/kudochest/wiki)** for details. Note 
 To install KudoChest into your organization's Slack workspace, you must host the Rails components on a web server you control and configure the Slack App via the [Slack developer portal](https://api.slack.com/).
 
 See the [Installation Instructions](https://github.com/jcraigk/kudochest/wiki/Installation) for more detail. Note that some of the details may be outdated.
+&nbsp;
 &nbsp;
 &nbsp;
 
@@ -66,6 +68,7 @@ bundle exec sidekiq
 ```
 &nbsp;
 
+
 ## Testing
 
 To run specs in Docker:
@@ -96,7 +99,6 @@ All contributions are welcome via Issues and Pull Requests. If you notice someth
 * Code by [Justin Craig-Kuhn](https://github.com/jcraigk/)
 * Logo and background mural by Evan Mahnke (Discord `8-bit adventurer#3751` / `gallanthomeslice at yahoo`)
 * Animated GIFs and icons by Milton Monroe (Discord `carmelcamel#5829` / `milton dot p dot monroe at gmail`)
-&nbsp;
 &nbsp;
 
 
