@@ -32,7 +32,7 @@ en:
     confirm_uninstall: Are you sure you want to uninstall the app from your Slack workspace?
     enable_levels_tooltip: Leveling provides incremental acheivements for users to attain by breaking up the accrual of longterm %{points}. If levelinng is disabled, total %{points} will be shown in its place.
     enable: Enable
-    leaderboard_empty: No activity on the leaderboard. Watch the video below to get started.
+    leaderboard_empty: No activity on the leaderboard yet
     leaderboard_last_earned_tooltip: When the most recent %{points} was earned
     level_curve_tooltip: A user's level is determined by how much %{points} they have compared to the maximum level %{points} configuration. Having 0% = level 1 and having 100%+ = max level. The levels in between can be computed in different ways. Typical RPG games use an exponential scale to make later levels harder to progress through. You can choose a gentle or steep exponential curve in addition to a linear one.
     level_curve: Progression Curve
@@ -111,14 +111,7 @@ en:
     hint_channel_rid: Usage Hint Channel
     hint_channel_rid_tooltip: Select the channel that the bot will post usage hints in.
     hints: Usage Hints
-    oversized_title: Oversized Team
-    oversized_body: Sorry, your team has more members than we can handle at this time (%{count}). If you are close to that limit, please contact us.
     danger_zone: Danger Zone
     uninstalled: The app has been uninstalled from your workspace.
-    oversized_alert: Sorry, your team is too large for us to handle right now. Please contact us.
-    delinquent: Your account needs attention.
-    subscription_expired_html: Your subscription has expired, visit the <a href="/billing">billing page</a> to resubscribe.
-    trial_expired_html: Your trial has expired, visit the <a href="/billing">billing page</a> to subscribe.
-    recurring_subscription_html: Before you can uninstall the app, please cancel your active subscription on the <a href="/billing">billing page</a>.
     admin_profiles: Administrators
-    admin_profiles_tooltip: Specify which users have access to administrate the app, including configuration, billing, and content management.
+    admin_profiles_tooltip: Specify which users have access to administrate the app, including configuration and content management.

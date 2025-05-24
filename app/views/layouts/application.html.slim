@@ -8,9 +8,6 @@ html
     = render 'layouts/meta'
     = render 'layouts/asset_links'
     = render 'layouts/security'
-    - if Rails.env.production?
-      = render 'layouts/beam_analytics'
-      = render 'layouts/new_relic'
 
   body class=(@public_layout ? 'public' : nil)
     = render 'layouts/navigation'

@@ -10,12 +10,6 @@ class Base::TeamSyncService < Base::Service
 
   def sync_team_data
     sync_member_count
-
-    if team.oversized?
-      team.uninstall!("Team exceeds maximum size")
-      return BillingMailer.team_oversized(team).deliver_later
-    end
-
     sync_profiles
     sync_subteams
 

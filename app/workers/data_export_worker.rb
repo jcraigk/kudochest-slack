@@ -1,5 +1,3 @@
-require "csv"
-
 class DataExportWorker
   include Sidekiq::Worker
 

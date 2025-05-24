@@ -1,11 +1,21 @@
-![KudoChest Logo](https://github.com/jcraigk/biz-kudochest/blob/main/app/assets/images/logos/app-144.png)
+![KudoChest Logo](https://github.com/jcraigk/kudochest/blob/main/app/webpacker/images/logos/app-144.png)
+&nbsp;
+&nbsp;
+
+**KudoChest** is a team engagement tool for **Slack**. It allows users within a workspace to give each other points that accrue over time. A point represents a token of appreciation or recognition for a job well done. Users can view their profile, browse history, and access leaderboards on the web or within the chat client. App settings and moderation tools are provided via web UI.
+
+This is a **Ruby on Rails** application backed by **Postgres** and **Redis**. It integrates tightly with Slack, keeping teams and users synced server-side. This enables web-based user profiles and other UX enhancements not possible in standard bots.
+
+See the **[Wiki](https://github.com/jcraigk/kudochest/wiki)** for details. Note that some of the screenshots and specific features may be outdated.
 &nbsp;
 &nbsp;
 
 
-**KudoChest** is a team engagement tool for **Slack**. It allows users within a workspace to give each other tokens of gratitude, called kudos, that accrue over time. This boosts team morale and improves productivity. Users can view their profile, browse history, and access leaderboards on the web or within the chat client. App settings and moderation tools are provided via web UI.
+# Installation
 
-This is a **Ruby on Rails** application backed by **Postgres** and **Redis**. It integrates tightly with chat platforms, keeping teams and users synced server-side. This enables web-based user profiles and other UX enhancements not possible in standard bots.
+To install KudoChest into your organization's Slack workspace, you must host the Rails components on a web server you control and configure the Slack App via the [Slack developer portal](https://api.slack.com/).
+
+See the [Installation Instructions](https://github.com/jcraigk/kudochest/wiki/Installation) for more detail. Note that some of the details may be outdated.
 &nbsp;
 &nbsp;
 
@@ -20,7 +30,7 @@ For Slack and OAuth callbacks, a tunneling service such as [ngrok](https://ngrok
 
 You'll want to setup a dedicated workspace and App in Slack specifically for KudoChest development. Do not use your organization's production workspace or App to develop against.
 
-If you're working on response images and running Sidekiq in Docker, you'll need to configure a local storage location in `docker compose.yml` to map to `/storage` in the `sidekiq` container.
+If you're working on response images and running Sidekiq in Docker, you'll need to configure a local storage location in `docker-compose.yml` to map to `/storage` in the `sidekiq` container.
 &nbsp;
 &nbsp;
 
@@ -31,7 +41,10 @@ You may run all components in Docker with logging exposed using the command `mak
 
 Alternatively you can run services (PG and Redis) in Docker while running the Rails processes natively. This often eases debugging and development.
 
-For running the Rails stack you'll need Ruby (use [rvm](https://rvm.io/) or [asdf](https://asdf-vm.com/)).
+For running the Rails stack you'll need the following:
+* Ruby (use [mise](https://mise.jdx.dev/))
+* [NodeJS](https://nodejs.org/en/)
+* [Yarn](https://www.npmjs.com/package/yarn)
 
 ```bash
 # Install Ruby dependencies
@@ -41,6 +54,9 @@ bundle install
 make services
 bundle exec rails db:create
 bundle exec rails db:reset
+
+# Install javascript dependencies
+yarn install
 
 # Start web server (terminal 1)
 bundle exec rails s
@@ -70,77 +86,21 @@ To generate seed data for manual testing, first install your local instance of K
 ```
 bundle exec rails seeds:all
 ```
+&nbsp;
 
 
+# Contributors
 
-# NEW BOX SETUP
+All contributions are welcome via Issues and Pull Requests. If you notice something wrong in the Wiki, please feel free to fix it!
 
-1. Create droplet in SFO3 with `kudochest` and `web` tags
+* Code by [Justin Craig-Kuhn](https://github.com/jcraigk/)
+* Logo and background mural by Evan Mahnke (Discord `8-bit adventurer#3751` / `gallanthomeslice at yahoo`)
+* Animated GIFs and icons by Milton Monroe (Discord `carmelcamel#5829` / `milton dot p dot monroe at gmail`)
+&nbsp;
+&nbsp;
 
-2. Setup non-root login (skip this?)
-```
-ssh root@<kudochest-host>
-adduser <admin-user>
-usermod -aG sudo <admin-user>
-su - <admin-user>
-mkdir ~/.ssh
-chmod 700 ~/.ssh
-vim ~/.ssh/authorized_keys
-# => Paste result of local: `cat ~/.ssh/id_rsa.pub`
-chmod 600 ~/.ssh/authorized_keys
-exit
-sudo vim /etc/ssh/sshd_config
-# => Change PermitRootLogin to "no"
-sudo systemctl reload sshd
-exit
-ssh <admin-user>@<kudochest-host>
-```
 
-3. Install Dokku
-```
-wget -NP . https://dokku.com/install/v0.32.0/bootstrap.sh
-sudo DOKKU_TAG=v0.32.0 bash bootstrap.sh
-```
+# Copyright
 
-4. Configure Dokku
+This software is released under an [MIT-LICENSE](https://github.com/jcraigk/kudochest/blob/main/MIT-LICENSE).
 
-```
-# Add deploy key
-echo 'CONTENTS_OF_ID_RSA_PUB_FILE' | dokku ssh-keys:add admin
-
-# Create app
-dokku apps:create kudochest
-
-# Setup local storage
-sudo mkdir -p /var/lib/dokku/data/storage/kudochest/response_images/tmp
-sudo mkdir -p /var/lib/dokku/data/storage/kudochest/response_images/cache
-sudo chmod -R 777 /var/lib/dokku/data/storage/kudochest
-dokku storage:mount kudochest /var/lib/dokku/data/storage/kudochest:/storage
-
-# Domain
-dokku domains:set kudochest kudochest.com
-
-# Port forwarding
-dokku proxy:ports-set kudochest http:80:3000 https:443:3000
-dokku config:set kudochest <env vars>
-```
-
-4. SSL config (skip if LB terminates SSL)
-```
-sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
-dokku letsencrypt:set kudochest email kudochest@gmail.com
-dokku letsencrypt:enable kudochest
-```
-
-5. Download the cert/key? (This isn't necessary)
-```
-Your account credentials have been saved in your Let's Encrypt
-configuration directory at "/certs/accounts".
-You should make a secure backup of this folder now
-
-# Direct access via Dokku certs
-dokku certs:show kudochest crt
-dokku certs:show kudochest key
-```
-
-6. Add new IP to `WEB_BOXES` env var so `bin/deploy` uses it

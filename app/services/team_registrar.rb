@@ -35,28 +35,18 @@ class TeamRegistrar < Base::Service
     {
       platform:,
       rid:,
-      trial_expires_at: App.trial_period.from_now,
-      response_mode:
+      response_mode: :adaptive
     }.merge(update_attrs)
   end
 
-  def update_attrs # rubocop:disable Metrics/MethodLength
+  def update_attrs
     {
       name:,
       avatar_url:,
       api_key:,
       uninstalled_at: nil,
-      uninstalled_by: nil,
-      trial_expiry_notified_at: nil,
-      team_size_notified_at: nil,
       onboarded_channels_at: nil,
       onboarded_emoji_at: nil
     }
-  end
-
-  def response_mode
-    case platform
-    when :slack then :adaptive
-    end
   end
 end

@@ -11,12 +11,9 @@
       hr
 
       - if current_team.active?
-        - if current_team.recurring_subscription?
-          p = t('teams.recurring_subscription_html')
-        - else
-          p = t('teams.uninstall_now_info')
-          br
-          = uninstall_button(current_team)
+        p = t('teams.uninstall_now_info')
+        br
+        = uninstall_button(current_team)
       - else
         br
         = render 'shared/add_to_slack_button'

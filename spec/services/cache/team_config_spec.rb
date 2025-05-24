@@ -16,7 +16,7 @@ RSpec.describe Cache::TeamConfig do
     }
   end
   let(:topic_emojis) { topics.map { |topic| ":#{topic.emoji}:" } }
-  let(:regex) { { regex: "(?<match>(?:<(?<entity_rid>(?:@|\\#|!subteam\\^)[A-Z0-9]+)(?:\\|[^>]*)?>|)\\s{0,20}(?<prefix_quantity>\\d+\\.?\\d*)?\\s?(?:(?<inlines>(?:\\+\\+)+|(?:\\+=)+|(?:\\+)+|(?:\\-\\-)+|(?:\\-=)+|(?:\\-)+)|(?<emojis>(?:(?::#{App.default_point_emoji}:|:#{App.default_jab_emoji}:|:\\+1(::skin-tone-\\d)?:|:thumbsup:)\\s*)+))\\s?(?<suffix_quantity>\\d+\\.?\\d*)?\\s{0,20}(?<topic_keywords>#{(team.topics.map(&:keyword) + topic_emojis).join('|')})?)" } } # rubocop:disable Layout/LineLength
+  let(:regex) { { regex: "(?<match>(?:<(?<entity_rid>(?:@|\\#|!subteam\\^)[A-Z0-9]+)(?:\\|[^>]*)?>|)\\s{0,20}(?<prefix_quantity>\\d+\\.?\\d*)?\\s?(?:(?<inlines>(?:\\+\\+)+|(?:\\+=)+|(?:\\+)+|(?:\\-\\-)+|(?:\\-=)+|(?:\\-)+)|(?<emojis>(?:(?::star:|:arrow_down:)\\s*)+))\\s?(?<suffix_quantity>\\d+\\.?\\d*)?\\s{0,20}(?<topic_keywords>#{(team.topics.map(&:keyword) + topic_emojis).join('|')})?)" } } # rubocop:disable Layout/LineLength
   let(:expected) { team_attrs.merge(topic_attrs).merge(regex).deep_symbolize_keys }
 
   it 'returns expected data' do

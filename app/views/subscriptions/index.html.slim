@@ -1,7 +1,0 @@
-= content_for(:feedback_class) { 'width-750' }
-
-.card.width-750
-  header.card-header
-    p.card-header-title = icon_and_text('credit-card', t('billing.status_title'))
-  .card-content
-    = render 'subscription_status', suggested_plan: @suggested_plan

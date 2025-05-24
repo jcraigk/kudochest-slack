@@ -1,31 +1,23 @@
 en:
   nav:
     app_settings: App Settings
-    billing: Billing
     bonus_calculator: Bonus Calculator
     change_email: Change Email
     change_password: Change Password
     claim_admin: Manage Claims
     contact: Contact
-    cookies: Cookies
     login: Login
     danger_zone: Danger Zone
     dashboard: Dashboard
-    features: Features
     help: Help
-    request_demo: Request a Demo
-    support: Support
     manage_loot: Manage Loot
     manage_topics: Manage Topics
     points_admin: Manage %{points_title}
-    pricing: Pricing
-    privacy: Privacy
     slack_preferences: Slack Preferences
     reward_admin: Manage Shop
     search: Search
     shop: Shop
     team_wallboard: Wallboard
-    terms: Terms
     topics: Topics
     web_prefs: Web Preferences
     preferences: Preferences

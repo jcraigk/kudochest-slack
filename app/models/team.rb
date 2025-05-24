@@ -43,7 +43,7 @@ class Team < ApplicationRecord
 
   attribute :enable_cheers,      :boolean, default: true
   attribute :enable_emoji,       :boolean, default: true
-  attribute :enable_thumbsup,    :boolean, default: true
+  attribute :enable_thumbsup,    :boolean, default: false
   attribute :enable_levels,      :boolean, default: true
   attribute :enable_loot,        :boolean, default: false
   attribute :enable_streaks,     :boolean, default: true
@@ -106,13 +106,6 @@ class Team < ApplicationRecord
   after_update_commit :join_log_channel, if: :saved_change_to_log_channel_rid?
 
   scope :active, -> { where(uninstalled_at: nil) }
-  scope :trial_expired, lambda {
-    non_gratis.never_subscribed.where("trial_expires_at < ?", Time.current)
-  }
-  scope :subscribed_at_least_once, -> { where.not(stripe_expires_at: nil) }
-  scope :never_subscribed, -> { where(stripe_expires_at: nil) }
-  scope :gratis, -> { where(gratis_subscription: true) }
-  scope :non_gratis, -> { where(gratis_subscription: false) }
 
   def work_days=(weekdays)
     self.work_days_mask = (weekdays & WEEKDAYS).sum { |d| 2**WEEKDAYS.index(d) }
@@ -128,13 +121,11 @@ class Team < ApplicationRecord
     @app_profile ||= profiles.find_by(rid: app_profile_rid)
   end
 
-  def uninstall!(reason, call_slack: true)
-    if call_slack
-      slack_client.apps_uninstall \
-        client_id: App.slack_client_id,
-        client_secret: App.slack_client_secret
-    end
-    update!(uninstalled_at: Time.current, uninstalled_by: reason)
+  def uninstall!
+    slack_client.apps_uninstall \
+      client_id: App.slack_client_id,
+      client_secret: App.slack_client_secret
+    update!(uninstalled_at: Time.current)
   end
 
   private

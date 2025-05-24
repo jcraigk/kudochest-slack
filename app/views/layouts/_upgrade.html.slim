@@ -1,8 +1,0 @@
-.card
-  .card-content.big-warning
-    h1.title = t('billing.subscription_expired')
-    - if current_profile.admin?
-      = link_to t('billing.upgrade_now'), subscriptions_path, class: 'button'
-    - else
-      p = t('billing.upgrade_contact_admin', app: App.app_name)
-br

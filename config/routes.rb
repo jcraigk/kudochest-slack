@@ -11,20 +11,9 @@ Rails.application.routes.draw do
   root to: "sessions#new"
   delete :logout, to: "sessions#destroy", as: :logout
 
-  # Public
-  get :cookie_policy,  to: "public#cookie_policy"
-  get :features,       to: "public#features"
-  get :help,           to: "public#help"
-  get :pricing,        to: "public#pricing"
-  get :privacy,        to: "public#privacy"
-  get :support,        to: "inquiries#new"
-  get :contact,        to: "inquiries#new"
-  get :feedback,       to: "inquiries#new"
-  get :terms,          to: "public#terms"
-
   # Private
   get :dashboard, to: "dashboard#show", as: :dashboard
-  get :wallboard, to: "wallboard#show", as: :wallboard
+  # get :wallboard, to: "wallboard#show", as: :wallboard
 
   namespace :hooks do
     namespace :slack do
@@ -32,10 +21,6 @@ Rails.application.routes.draw do
       post :command, to: "commands#receiver"
       post :event, to: "events#receiver"
       post :options, to: "options#receiver"
-    end
-
-    namespace :stripe do
-      post :event, to: "events#receiver"
     end
   end
 
@@ -46,16 +31,6 @@ Rails.application.routes.draw do
     get :login_callback
   end
 
-  resources :subscriptions, only: %i[index], path: :billing do
-    collection do
-      post :stripe_checkout_start
-      get :stripe_checkout_success
-      get :stripe_checkout_cancel
-      patch :stripe_cancel
-      get :payment_confirmation
-    end
-  end
-
   namespace :onboarding do
     patch :join_all_channels
     # patch :join_specific_channels
@@ -64,7 +39,6 @@ Rails.application.routes.draw do
     # patch :skip_emoji
   end
 
-  # TODO: Should we have teams.new?
   resources :teams, only: %i[edit update] do
     collection do
       get :leaderboard_page
@@ -84,7 +58,6 @@ Rails.application.routes.draw do
   end
   get :preferences, to: "profiles#edit"
 
-  resources :inquiries, only: %i[new create]
   resources :tips, only: %i[index destroy]
   resources :rewards, except: %i[show]
   resources :topics, except: %i[show]

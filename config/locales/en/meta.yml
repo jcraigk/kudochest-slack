@@ -3,9 +3,3 @@ en:
     login: KudoChest is a team engagement tool for Slack
     forgot_password: Enter your email address to reset a forgotten password
     reset_password: Reset your password using the special link emailed to you
-    terms: Our Terms of Service explain legitimate uses of the service
-    privacy: The Privacy Policy covers privacy rights of users as they consume the service
-    pricing: Pricing Plans show monthly service charges based on customer chat platform and team size
-    help: The Help page provides useful video tutorials, documentation, and links to assist users
-    cookies: The Cookie Policy page explains the way the website uses cookies to store data
-    features: KudoChest is a team engagement tool for Slack that allows users to give each other points that accrue over time. Users can view their status in the chat client or on the web.

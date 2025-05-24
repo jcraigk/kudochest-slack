@@ -9,8 +9,6 @@
 @import 'admin';
 @import 'dashboard';
 @import 'errors';
-@import 'features';
-@import 'help';
 @import 'navbar';
 @import 'platforms';
 @import 'shop';
@@ -194,13 +192,6 @@ img.small-radius {
     text-decoration: underline;
   }
 }
-#subscription-status {
-  font-size: 1.5rem;
-
-  p {
-    margin-bottom: 10px;
-  }
-}
 #main {
   padding-top: 80px;
   min-height: 1100px;
@@ -293,24 +284,6 @@ img.small-radius {
   }
 }
 
-.legal-layout {
-  background-color: $light !important;
-
-  p, ul {
-    margin-bottom: 20px;
-  }
-  ul, ol {
-    margin-left: 40px !important;
-  }
-  ul {
-    list-style-type: circle;
-  }
-  .subtitle {
-    margin-top: 40px !important;
-  }
-}
-
-
 #onboarding {
   margin-bottom: 30px;
 
@@ -327,35 +300,4 @@ img.small-radius {
       text-align: left;
     }
   }
-}
-
-.video-container {
-  position: relative;
-  overflow: hidden;
-  padding-top: 56.25%; /* Aspect ratio 16:9 */
-  width: 100%;
-
-  iframe {
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
-.video-cta {
-  margin-bottom: 150px !important;
-}
-.pricing {
-  min-height: 220px;
-}
-.demo-button {
-  margin-left: 6px;
-  margin-top: 6px;
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: $yellow;
-  border-color: $brown;
-  color: $brown !important;
 }

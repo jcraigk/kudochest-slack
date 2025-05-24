@@ -1,7 +1,6 @@
 class Hooks::Slack::EventsController < Hooks::Slack::BaseController
   EVENT_KEYS = %w[
     app_home_opened
-    app_uninstalled
     channel_archive
     channel_created
     channel_deleted

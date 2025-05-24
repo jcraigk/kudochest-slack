@@ -8,7 +8,6 @@ FactoryBot.define do
     app_profile_rid { FactoryHelper.rid(platform, 'U') }
     max_level { App.default_max_level }
     max_level_points { App.default_max_level_points }
-    trial_expires_at { App.trial_period.from_now }
     time_zone { 'UTC' }
     enable_jabs { true }
     deduct_jabs { true }

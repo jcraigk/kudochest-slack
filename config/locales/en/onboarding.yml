@@ -2,7 +2,7 @@ en:
   onboarding:
     welcome: Welcome to KudoChest! The bot is now available in your workspace.
     channels_title: Join Public Channels
-    channels_start: Let's get started by adding the bot to public channels in Slack! You can skip this step for now and add the bot manually if you prefer.
+    channels_start: Let's get started by adding inviting bot to your public Slack channels! You can skip this step and invite the bot later if you prefer.
     channels_select: 'Alternatively you can select from these recommended channels:'
     join_specific_channels: Join Selected Channels
     skip_join_channels: Don't Join Any Channels

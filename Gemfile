@@ -4,8 +4,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.4.3"
 
 gem "aws-sdk-s3"
-gem "bulma-rails", "0.9.4" # TODO: v1 has breaking changes
+gem "bulma-rails", "0.9.4" # v1 has breaking changes
 gem "chartkick"
+gem "csv"
 gem "dry-initializer"
 gem "enumerize"
 gem "factory_bot_rails"
@@ -15,7 +16,6 @@ gem "importmap-rails"
 gem "jquery-rails"
 gem "jwt"
 gem "kaminari"
-gem "newrelic_rpm"
 gem "numbers_and_words"
 gem "pg"
 gem "puma"
@@ -33,7 +33,6 @@ gem "slack-ruby-client"
 gem "slim"
 gem "sluggi"
 gem "sprockets-rails", require: "sprockets/railtie"
-gem "stripe"
 
 group :development do
   gem "rubocop-capybara"

@@ -6,8 +6,5 @@
 
 :scheduler:
   :schedule:
-    SubscriptionExpiryWorker:
-      cron: '0 0 22 * * * America/Los_Angeles' # Nightly at 10pm Pacific
-
     WeeklyReport::RecurrentWorker:
       cron: '0 0 5 * * 1 America/Los_Angeles' # Every Monday at 5am Pacific

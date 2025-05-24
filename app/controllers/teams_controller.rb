@@ -37,14 +37,7 @@ class TeamsController < ApplicationController
 
   def uninstall
     authorize current_team
-
-    if current_team.recurring_subscription?
-      return redirect_to \
-        app_settings_path(section: "danger_zone"),
-        alert: t("teams.recurring_subscription_html")
-    end
-
-    current_team.uninstall!(UNINSTALL_REASONS[:admin])
+    current_team.uninstall!
     redirect_to app_settings_path(section: "danger_zone"), notice: t("teams.uninstalled")
   end
 

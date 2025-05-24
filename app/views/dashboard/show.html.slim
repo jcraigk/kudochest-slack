@@ -1,23 +1,6 @@
 = content_for(:feedback_class) { 'width-750' }
 
-// Display error if team is too large
-- if current_team&.oversized?
-  = render 'layouts/oversized'
-
-// If team size is acceptable
+- if current_profile.admin? && !current_team.onboarded?
+  = render 'onboarding/config', profile: current_profile
 - else
-
-  // Display upgrade screen for delinquent teams
-  - if current_team.delinquent?
-    = render 'layouts/upgrade'
-
-  // Onboarding for admins
-  - elsif current_profile.admin?
-    - if current_team.onboarded?
-      = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
-    - else
-      = render 'onboarding/config', profile: current_profile
-
-  // Dashboard for normal users
-  - else
-    = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard
+  = render 'profiles/tiles', profile: current_profile, tips: @tips, leaderboard: @leaderboard

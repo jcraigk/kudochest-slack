@@ -24,9 +24,6 @@
       = link_to icon_and_text('cog', t('nav.app_settings')),
                 app_settings_path(section: 'responses'),
                 class: 'navbar-item'
-      = link_to icon_and_text('credit-card', t('nav.billing')),
-            subscriptions_path,
-            class: 'navbar-item'
       = link_to icon_and_text('eye', t('nav.points_admin', points_title: App.points_term.titleize)),
                 tips_path,
                 class: 'navbar-item'
@@ -43,10 +40,6 @@
     .navbar-divider
     = link_to icon_and_text('user', t('nav.preferences')),
               preferences_path,
-              class: 'navbar-item'
-    = link_to icon_and_text('question-circle',
-              t('nav.support')),
-              support_url,
               class: 'navbar-item'
     = link_to icon_and_text('sign-out', t('auth.logout')),
               logout_path,

@@ -68,52 +68,6 @@ RSpec.describe TeamDecorator do
     end
   end
 
-  describe 'trial?' do
-    context 'when subscription is gratis' do
-      before { team.gratis_subscription = true }
-
-      it 'is false' do
-        expect(team.trial?).to be(false)
-      end
-    end
-
-    context 'when subscription is paid' do
-      before { team.stripe_expires_at = 1.month.from_now }
-
-      it 'is false' do
-        expect(team.trial?).to be(false)
-      end
-    end
-
-    context 'when trial is ongoing' do
-      before { team.trial_expires_at = 1.month.from_now }
-
-      it 'is true' do
-        expect(team.trial?).to be(true)
-      end
-    end
-  end
-
-  describe 'subscription_plan' do
-    context 'when stripe_subscription_rid is blank' do
-      before { team.stripe_subscription_rid = nil }
-
-      xit 'is nil', pending: 'This fails on TravisCI for some reason' do
-        expect(team.subscription_plan).to be_nil
-      end
-    end
-
-    context 'when stripe_subscription_rid is current' do
-      let(:plan) { App.subscription_plans.first }
-
-      before { team.stripe_price_rid = plan.price_rid }
-
-      it 'refers to the plan' do
-        expect(team.subscription_plan).to eq(plan)
-      end
-    end
-  end
-
   describe 'point_emoj' do
     it 'is the default tip emoji' do
       expect(team.point_emoj).to eq(":#{App.default_point_emoji}:")

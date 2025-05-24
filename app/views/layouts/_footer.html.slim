@@ -1,8 +1,11 @@
 footer.footer
   .content.has-text-centered
-    - unless current_profile
+    - if !current_profile
       = link_to t('nav.login'), root_path
-    = link_to t('nav.help'), help_path
-    = link_to t('nav.privacy'), privacy_path
-    = link_to t('nav.terms'), terms_path
-    = link_to t('nav.cookies'), cookie_policy_path
+      | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    = link_to t('nav.help'), App.help_url
+    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    br
+    br

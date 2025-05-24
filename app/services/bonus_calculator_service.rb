@@ -1,5 +1,3 @@
-require "csv"
-
 class BonusCalculatorService < Base::Service
   option :team
   option :email

@@ -60,6 +60,7 @@ RSpec.describe Actions::ReactionAdded do
     end
 
     context 'with thumbsup' do
+      let(:team) { create(:team, enable_thumbsup: true) }
       let(:reaction) { '+1::skin-tone-3' }
 
       it 'calls TipMentionService' do

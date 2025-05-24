@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_12_025344) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_24_192007) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
-  enable_extension "plpgsql"
 
   create_table "channels", force: :cascade do |t|
     t.bigint "team_id"
@@ -38,17 +38,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_025344) do
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_claims_on_created_at"
     t.index ["profile_id", "reward_id", "fulfillment_key"], name: "index_claims_on_profile_id_and_reward_id_and_fulfillment_key", unique: true
-  end
-
-  create_table "inquiries", force: :cascade do |t|
-    t.bigint "profile_id"
-    t.string "subject", null: false
-    t.text "body", null: false
-    t.text "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "phone"
-    t.index ["profile_id"], name: "index_inquiries_on_profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -186,18 +175,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_025344) do
     t.string "jab_emoji", default: "arrow_down", null: false
     t.datetime "onboarded_channels_at"
     t.datetime "onboarded_emoji_at"
-    t.boolean "gratis_subscription", default: false, null: false
-    t.datetime "trial_expires_at"
-    t.string "stripe_customer_rid"
-    t.string "stripe_price_rid"
-    t.string "stripe_subscription_rid"
-    t.datetime "stripe_expires_at"
-    t.datetime "stripe_canceled_at"
-    t.datetime "stripe_declined_at"
-    t.datetime "trial_expiry_notified_at"
-    t.datetime "team_size_notified_at"
     t.datetime "uninstalled_at"
-    t.string "uninstalled_by"
     t.datetime "weekly_report_notified_at"
     t.boolean "throttled", default: false, null: false
     t.boolean "enable_thumbsup", default: true, null: false
@@ -205,9 +183,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_025344) do
     t.index ["name"], name: "index_teams_on_name"
     t.index ["rid"], name: "index_teams_on_rid", unique: true
     t.index ["slug"], name: "index_teams_on_slug", unique: true
-    t.index ["stripe_customer_rid"], name: "index_teams_on_stripe_customer_rid"
-    t.index ["stripe_price_rid"], name: "index_teams_on_stripe_price_rid"
-    t.index ["stripe_subscription_rid"], name: "index_teams_on_stripe_subscription_rid"
     t.index ["weekly_report_notified_at"], name: "index_teams_on_weekly_report_notified_at"
   end
 
@@ -254,5 +229,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_025344) do
     t.index ["team_id", "name"], name: "index_topics_on_team_id_and_name", unique: true
     t.index ["team_id"], name: "index_topics_on_team_id"
   end
-
 end

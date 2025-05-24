@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'ostruct'
 
 RSpec.describe TipMentionService, :freeze_time do
   subject(:service) { described_class.call(**opts) }

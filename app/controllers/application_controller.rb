@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   before_action :require_login
-  before_action :redirect_oversized_team
 
   helper_method :current_profile, :current_team
 
@@ -34,14 +33,6 @@ class ApplicationController < ActionController::Base
     # profile.weekly_report = true if profile.last_login_at.nil? # Slack requires explicit opt-in
     profile.last_login_at = Time.current
     profile.save!
-  end
-
-  def redirect_oversized_team
-    return if request.path.in? [
-      dashboard_path, support_path, cookie_policy_path,
-      features_path, help_path, pricing_path, privacy_path, terms_path
-    ]
-    redirect_to :dashboard if current_team&.oversized?
   end
 
   def require_login

@@ -1,11 +1,10 @@
 - content_for :meta_description, t('meta.login')
 
-
 .columns.install-container
   .column.is-third
     .marketing-callout.has-text-centered
-      = render 'layouts/cta_hero', display_link: true
       = render 'shared/add_to_slack_button'
+      br
       br
       br
       br
@@ -14,12 +13,3 @@
       br
 
       = render 'shared/sign_in_with_slack_button'
-
-.video-container.video-cta
-  iframe src="https://www.youtube.com/embed/8w7NAzQMe0c?si=7ZnhrcWmpyp9DM9r" title="Video: Introducing KudoChest" frameborder="0" allowfullscreen="true"
-
-.has-text-centered
-  = link_to icon_and_text('eye', t('nav.request_demo')), new_inquiry_path(subject: 'demo'), class: 'button demo-button is-large'
-
-br
-br

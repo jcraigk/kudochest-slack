@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'ostruct'
 
 RSpec.describe ChatPermalinkWorker do
   subject(:perform) { described_class.new.perform(tip.id, channel.rid, message_ts) }
