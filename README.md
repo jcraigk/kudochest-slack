@@ -4,14 +4,16 @@
 
 This is a **Ruby on Rails** application backed by **Postgres** and **Redis**. It integrates tightly with Slack, keeping teams and users synced server-side. This enables web-based user profiles and other UX enhancements not possible in standard bots.
 
-See the **[Wiki](https://github.com/jcraigk/kudochest-slack/wiki)** for details. Note that some of the screenshots and specific features may be outdated.
+This is a fork of the deprecated [KudoChest for Slack and Discord](https://github.com/jcraigk/kudochest) project.
+
+See the **[Wiki](https://github.com/jcraigk/kudochest-slack/wiki)** for more information.
 
 
 # Installation
 
 To install KudoChest into your organization's Slack workspace, you must host the Rails components on a web server you control and configure the Slack App via the [Slack developer portal](https://api.slack.com/).
 
-See the [Installation Instructions](https://github.com/jcraigk/kudochest-slack/wiki/Installation) for more detail. Note that some of the details may be outdated.
+See the [Installation Instructions](https://github.com/jcraigk/kudochest-slack/wiki/Installation) for more detail.
 
 
 # Development
