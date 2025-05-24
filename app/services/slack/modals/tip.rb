@@ -16,7 +16,7 @@ class Slack::Modals::Tip < Base::Service
       title:,
       submit:,
       close:,
-      blocks: [quantity_select, rid_multiselect, topic_select, note_input].compact
+      blocks: [ quantity_select, rid_multiselect, topic_select, note_input ].compact
     }
   end
 
@@ -36,14 +36,14 @@ class Slack::Modals::Tip < Base::Service
   def close
     {
       type: :plain_text,
-      text: 'Cancel'
+      text: "Cancel"
     }
   end
 
   def submit
     {
       type: :plain_text,
-      text: 'Submit'
+      text: "Submit"
     }
   end
 
@@ -53,7 +53,7 @@ class Slack::Modals::Tip < Base::Service
       type: :input,
       label: {
         type: :plain_text,
-        text: 'Recipients'
+        text: "Recipients"
       },
       optional: false,
       element: {
@@ -61,7 +61,7 @@ class Slack::Modals::Tip < Base::Service
         action_id: :rids,
         placeholder: {
           type: :plain_text,
-          text: 'Users, groups, or channels'
+          text: "Users, groups, or channels"
         }
       }
     }
@@ -72,7 +72,7 @@ class Slack::Modals::Tip < Base::Service
       type: :input,
       label: {
         type: :plain_text,
-        text: 'Quantity'
+        text: "Quantity"
       },
       optional: false,
       element: {
@@ -81,9 +81,9 @@ class Slack::Modals::Tip < Base::Service
         initial_option: {
           text: {
             type: :plain_text,
-            text: '1'
+            text: "1"
           },
-          value: '1'
+          value: "1"
         },
         options: quantity_options.map do |quantity|
           {
@@ -112,14 +112,14 @@ class Slack::Modals::Tip < Base::Service
       type: :input,
       label: {
         type: :plain_text,
-        text: 'Topic'
+        text: "Topic"
       },
       element: {
         type: :static_select,
         action_id: :topic_id,
         placeholder: {
           type: :plain_text,
-          text: 'Select a topic'
+          text: "Select a topic"
         },
         options: topic_select_options
       }
@@ -130,9 +130,9 @@ class Slack::Modals::Tip < Base::Service
     {
       text: {
         type: :plain_text,
-        text: 'No topic'
+        text: "No topic"
       },
-      value: '0'
+      value: "0"
     }
   end
 
@@ -171,19 +171,19 @@ class Slack::Modals::Tip < Base::Service
   end
 
   def note_input
-    return if config[:tip_notes] == 'disabled'
+    return if config[:tip_notes] == "disabled"
 
     {
       type: :input,
       optional: true,
       label: {
         type: :plain_text,
-        text: 'Note'
+        text: "Note"
       },
       element: {
         type: :plain_text_input,
         action_id: :note,
-        min_length: config[:tip_notes] == 'required' ? 5 : 0,
+        min_length: config[:tip_notes] == "required" ? 5 : 0,
         max_length: App.max_note_length
       }
     }

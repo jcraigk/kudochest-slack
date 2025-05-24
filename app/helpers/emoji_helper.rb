@@ -9,7 +9,7 @@ module EmojiHelper
       return match unless emoji
       image_tag \
         emoji_image_url(emoji),
-        { alt: emoji_alias, class: 'emoji' }.merge(opts)
+        { alt: emoji_alias, class: "emoji" }.merge(opts)
     end.html_safe # rubocop:disable Rails/OutputSafety
   end
 

@@ -9,5 +9,5 @@ RSpec.describe Slack::ChannelMemberService do
     allow(slack_client).to receive(:conversations_members).and_return(channels_data)
   end
 
-  include_examples 'ChannelMemberService'
+  it_behaves_like 'ChannelMemberService'
 end

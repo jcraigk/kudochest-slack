@@ -17,7 +17,7 @@ RSpec.describe QuantityValidator do
 
     it 'is invalid' do
       validate
-      expect(tip.errors[:quantity]).to eq([error_text])
+      expect(tip.errors[:quantity]).to eq([ error_text ])
     end
   end
 
@@ -34,13 +34,13 @@ RSpec.describe QuantityValidator do
     context 'when quantity is positive' do
       let(:quantity) { 300 }
 
-      include_examples 'valid'
+      it_behaves_like 'valid'
     end
 
     context 'when quantity is 0' do
       let(:quantity) { 0 }
 
-      include_examples 'invalid'
+      it_behaves_like 'invalid'
     end
   end
 
@@ -50,19 +50,19 @@ RSpec.describe QuantityValidator do
     context 'when quantity is 0' do
       let(:quantity) { 0 }
 
-      include_examples 'invalid'
+      it_behaves_like 'invalid'
     end
 
     context 'when quantity is 1000' do
       let(:quantity) { 1_000 }
 
-      include_examples 'invalid'
+      it_behaves_like 'invalid'
     end
 
     context 'when quantity is 1' do
       let(:quantity) { 1 }
 
-      include_examples 'valid'
+      it_behaves_like 'valid'
     end
   end
 end

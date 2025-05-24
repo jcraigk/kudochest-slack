@@ -3,10 +3,10 @@ class Commands::Base < Base::Service
 
   option :team_rid
   option :profile_rid
-  option :text, default: proc { '' }
+  option :text, default: proc { "" }
 
   def call
-    'Override in child class'
+    "Override in child class"
   end
 
   protected

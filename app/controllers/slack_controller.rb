@@ -15,7 +15,7 @@ class SlackController < ApplicationController
 
   def install_callback
     return login_failed unless state_match?
-    notice = TeamRegistrar.call(**team_data) ? t('onboarding.welcome') : t('auth.already_installed')
+    notice = TeamRegistrar.call(**team_data) ? t("onboarding.welcome") : t("auth.already_installed")
     login_profile(installer_profile_rid)
     redirect_to dashboard_path, notice:
   rescue Slack::Web::Api::Errors::SlackError, ArgumentError
@@ -25,13 +25,13 @@ class SlackController < ApplicationController
   def login_callback
     return login_failed unless state_match?
     return redirect_to dashboard_path if login_profile(login_profile_rid)
-    login_failed(t('auth.not_installed'))
+    login_failed(t("auth.not_installed"))
   end
 
   private
 
   def login_failed(message = nil)
-    redirect_to root_path, alert: message || t('auth.login_fail')
+    redirect_to root_path, alert: message || t("auth.login_fail")
   end
 
   def init_state
@@ -87,7 +87,7 @@ class SlackController < ApplicationController
 
   def login_profile_rid
     data = JWT.decode(open_id_data[:id_token], nil, false).first
-    data['https://slack.com/user_id']
+    data["https://slack.com/user_id"]
   end
 
   def installer_profile_rid
@@ -95,6 +95,6 @@ class SlackController < ApplicationController
   end
 
   def redirect_after_error
-    redirect_to dashboard_path, alert: t('auth.install_error')
+    redirect_to dashboard_path, alert: t("auth.install_error")
   end
 end

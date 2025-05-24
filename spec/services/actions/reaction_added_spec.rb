@@ -70,7 +70,7 @@ RSpec.describe Actions::ReactionAdded do
       context 'when team.enable_thumbsup is false' do
         before { team.update(enable_thumbsup: false) }
 
-        include_examples 'exits'
+        it_behaves_like 'exits'
       end
     end
 
@@ -85,7 +85,7 @@ RSpec.describe Actions::ReactionAdded do
       context 'when team.enable_emoji is false' do
         before { team.update(enable_emoji: false) }
 
-        include_examples 'exits'
+        it_behaves_like 'exits'
       end
     end
   end
@@ -166,6 +166,6 @@ RSpec.describe Actions::ReactionAdded do
   context 'when reaction is not correct emoji' do
     let(:reaction) { 'invalid_emoji' }
 
-    include_examples 'exits'
+    it_behaves_like 'exits'
   end
 end

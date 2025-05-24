@@ -10,7 +10,7 @@ RSpec.describe Commands::Stats do
   let(:profile_rid) { profile.rid }
   let(:response) { ChatResponse.new(mode: :public, text: response_text) }
   let(:leaderboard_data) do
-    LeaderboardPage.new(Time.current, [LeaderboardProfile.new(rank:)])
+    LeaderboardPage.new(Time.current, [ LeaderboardProfile.new(rank:) ])
   end
   let(:rank) { 12 }
 
@@ -42,7 +42,7 @@ RSpec.describe Commands::Stats do
       TEXT
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
 
     context 'with throttle_exempt profiles' do
       let(:response_text) do
@@ -62,7 +62,7 @@ RSpec.describe Commands::Stats do
 
       before { profile.update(throttle_exempt: true) }
 
-      include_examples 'expected response'
+      it_behaves_like 'expected response'
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe Commands::Stats do
       TEXT
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when team.enable_levels is false' do
@@ -104,7 +104,7 @@ RSpec.describe Commands::Stats do
 
     before { team.update(enable_levels: false) }
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when team.throttled is false' do
@@ -126,7 +126,7 @@ RSpec.describe Commands::Stats do
 
     before { team.update(throttled: false) }
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when team.enable_streaks is false' do
@@ -147,6 +147,6 @@ RSpec.describe Commands::Stats do
 
     before { team.update(enable_streaks: false) }
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 end

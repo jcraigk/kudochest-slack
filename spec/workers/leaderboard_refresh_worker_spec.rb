@@ -78,7 +78,7 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
   end
   let(:mock_cache) { instance_spy(Cache::Leaderboard) }
   let(:team_points) { 61 }
-  let(:all_profiles) { [profile1, profile2, profile3, profile4, profile5] }
+  let(:all_profiles) { [ profile1, profile2, profile3, profile4, profile5 ] }
 
   before do
     allow(Cache::Leaderboard).to receive(:new).and_return(mock_cache)
@@ -106,7 +106,7 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
 
     context 'when `deduct_jabs` is false' do
       let(:deduct_jabs) { false }
@@ -120,7 +120,7 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
         ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
   end
 
@@ -136,7 +136,7 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when `jab_board` is true' do
@@ -150,7 +150,7 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when `giving_board` and `jab_board` are both true' do
@@ -164,7 +164,7 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   def profile_data(profile, rank, giving_board, jab_board, deduct_jabs) # rubocop:disable Metrics/MethodLength

@@ -2,16 +2,16 @@ class Profile < ApplicationRecord
   include ProfileDecorator
   include Sluggi::Slugged
 
-  enumerize :theme, in: %w[light dark], default: 'light'
+  enumerize :theme, in: %w[light dark], default: "light"
 
   belongs_to :team
   has_many :tips_received,
-           class_name: 'Tip',
+           class_name: "Tip",
            foreign_key: :to_profile_id,
            inverse_of: :to_profile,
            dependent: :destroy
   has_many :tips_sent,
-           class_name: 'Tip',
+           class_name: "Tip",
            foreign_key: :from_profile_id,
            inverse_of: :from_profile,
            dependent: :destroy
@@ -43,13 +43,13 @@ class Profile < ApplicationRecord
   default_scope { includes(:team) }
   scope :active, -> { where(bot_user: false, deleted: false) }
   scope :matching, lambda { |str|
-    where('profiles.display_name ILIKE :str OR profiles.real_name ILIKE :str', str: "%#{str}%")
+    where("profiles.display_name ILIKE :str OR profiles.real_name ILIKE :str", str: "%#{str}%")
   }
   scope :admin, -> { where(admin: true) }
 
   def self.find_with_team(team_rid, profile_rid)
     joins(:team)
-      .where('teams.rid' => team_rid)
+      .where("teams.rid" => team_rid)
       .find_by(rid: profile_rid)
   end
 
@@ -64,7 +64,7 @@ class Profile < ApplicationRecord
   private
 
   def slug_candidates
-    [base_slug, "#{base_slug}-#{SecureRandom.hex(3)}"]
+    [ base_slug, "#{base_slug}-#{SecureRandom.hex(3)}" ]
   end
 
   def slug_value_changed?

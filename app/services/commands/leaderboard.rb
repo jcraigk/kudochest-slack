@@ -1,6 +1,6 @@
 class Commands::Leaderboard < Commands::Base
   GIVING_WORDS = %w[giving giver givers gift gifts gifters sent benefactors bullies].freeze
-  JAB_WORDS = [App.jab_term, App.jabs_term] + %w[losers].freeze
+  JAB_WORDS = [ App.jab_term, App.jabs_term ] + %w[losers].freeze
 
   def call
     respond_success
@@ -13,7 +13,7 @@ class Commands::Leaderboard < Commands::Base
   end
 
   def result
-    team.response_theme.start_with?('gif_') ? image_response : text_response
+    team.response_theme.start_with?("gif_") ? image_response : text_response
   end
 
   def text_response
@@ -26,7 +26,7 @@ class Commands::Leaderboard < Commands::Base
 
   def response_image
     ResponseImageService.call \
-      type: 'leaderboard',
+      type: "leaderboard",
       config: team.config,
       profile_data:,
       title:
@@ -34,9 +34,9 @@ class Commands::Leaderboard < Commands::Base
 
   def base_text
     if profile_data.blank?
-      return I18n.t('teams.leaderboard_empty', platform: team.platform.titleize)
+      return I18n.t("teams.leaderboard_empty", platform: team.platform.titleize)
     end
-    [title, rows].join("\n")
+    [ title, rows ].join("\n")
   end
 
   def topic_suffix
@@ -76,7 +76,7 @@ class Commands::Leaderboard < Commands::Base
   end
 
   def title_verb
-    giving_board ? 'Givers' : 'Earners'
+    giving_board ? "Givers" : "Earners"
   end
 
   def count
@@ -84,14 +84,14 @@ class Commands::Leaderboard < Commands::Base
   end
 
   def requested_profile
-    profile if words.last == 'me'
+    profile if words.last == "me"
   end
 
   # `top kindness givers`
   # `top :fire:`
   def topic_id
     word = giving_board ? words[-1] : words.last
-    team.config[:topics].find { |t| word.in?([t[:keyword], ":#{t[:emoji]}:"]) }&.dig(:id)
+    team.config[:topics].find { |t| word.in?([ t[:keyword], ":#{t[:emoji]}:" ]) }&.dig(:id)
   end
 
   def giving_board

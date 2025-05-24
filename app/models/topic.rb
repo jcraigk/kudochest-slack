@@ -18,8 +18,8 @@ class Topic < ApplicationRecord
   scope :inactive, -> { where(active: false) }
   scope :search, lambda { |term|
     where \
-      'lower(topics.name) LIKE lower(:term) OR lower(topics.description) LIKE lower(:term) ' \
-      'OR lower(topics.emoji) LIKE lower(:term) OR lower(topics.keyword) LIKE lower(:term)',
+      "lower(topics.name) LIKE lower(:term) OR lower(topics.description) LIKE lower(:term) " \
+      "OR lower(topics.emoji) LIKE lower(:term) OR lower(topics.keyword) LIKE lower(:term)",
       term: "%#{sanitize_sql_like(term)}%"
   }
 

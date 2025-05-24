@@ -31,7 +31,7 @@ class StreakRewardService < Base::Service
       to_profile: profile,
       quantity: team.streak_reward,
       event_ts:,
-      source: 'streak'
+      source: "streak"
     true
   end
 

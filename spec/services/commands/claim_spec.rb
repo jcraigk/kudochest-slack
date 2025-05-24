@@ -19,7 +19,7 @@ RSpec.describe Commands::Claim do
     let(:enable_loot) { false }
     let(:expected) { ChatResponse.new(mode: :private, text: I18n.t('shop.disabled')) }
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when team.enable_loot? is true' do
@@ -33,7 +33,7 @@ RSpec.describe Commands::Claim do
           text: ":#{App.error_emoji}: #{I18n.t('shop.unrecognized_reward')}"
       end
 
-      include_examples 'expected response'
+      it_behaves_like 'expected response'
     end
 
     context 'with valid reward name' do
@@ -50,7 +50,7 @@ RSpec.describe Commands::Claim do
               RewardClaimService::ClaimResponse.new(nil, error)
         end
 
-        include_examples 'expected response'
+        it_behaves_like 'expected response'
       end
 
       context 'when RewardClaimService returns success' do
@@ -70,7 +70,7 @@ RSpec.describe Commands::Claim do
               RewardClaimService::ClaimResponse.new(claim, nil)
         end
 
-        include_examples 'expected response'
+        it_behaves_like 'expected response'
       end
     end
   end

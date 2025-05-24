@@ -35,7 +35,7 @@ class LeaderboardRefreshWorker
 
       profile_data(prof, rank, last_timestamp)
     end
-    profiles.compact.sort_by { |prof| [prof.rank, prof.display_name] }
+    profiles.compact.sort_by { |prof| [ prof.rank, prof.display_name ] }
   end
 
   def profile_data(prof, rank, timestamp) # rubocop:disable Metrics/MethodLength
@@ -65,7 +65,7 @@ class LeaderboardRefreshWorker
   end
 
   def verb
-    @verb ||= giving_board ? 'sent' : 'received'
+    @verb ||= giving_board ? "sent" : "received"
   end
 
   def last_timestamp_col

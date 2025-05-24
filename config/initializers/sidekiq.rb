@@ -1,7 +1,7 @@
 Sidekiq.default_job_options = { backtrace: true }
 
 redis_url = "redis://#{ENV.fetch('IN_DOCKER', false) ? 'redis' : 'localhost'}:6379/0"
-redis_config = { url: ENV.fetch('REDIS_URL', redis_url) }
+redis_config = { url: ENV.fetch("REDIS_URL", redis_url) }
 
 Sidekiq.configure_server do |config|
   config.redis = redis_config

@@ -17,8 +17,8 @@ class Reward < ApplicationRecord
   scope :inactive, -> { where(active: false) }
   scope :search, lambda { |term|
     where \
-      'lower(rewards.name) LIKE lower(:term) OR lower(rewards.description) LIKE lower(:term) ' \
-      'OR lower(rewards.fulfillment_keys) LIKE lower(:term)',
+      "lower(rewards.name) LIKE lower(:term) OR lower(rewards.description) LIKE lower(:term) " \
+      "OR lower(rewards.fulfillment_keys) LIKE lower(:term)",
       term: "%#{sanitize_sql_like(term)}%"
   }
 

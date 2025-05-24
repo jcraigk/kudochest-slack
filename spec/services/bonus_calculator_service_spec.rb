@@ -47,7 +47,7 @@ RSpec.describe BonusCalculatorService, :freeze_time do
       TEXT
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   xcontext 'when style is `points_value`' do
@@ -59,7 +59,7 @@ RSpec.describe BonusCalculatorService, :freeze_time do
       TEXT
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   xcontext 'when style is `salary_percent`' do
@@ -70,6 +70,6 @@ RSpec.describe BonusCalculatorService, :freeze_time do
       TEXT
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 end

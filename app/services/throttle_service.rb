@@ -3,7 +3,7 @@ class ThrottleService < Base::Service
   option :quantity
 
   def call
-    [next_available_time, available_quantity]
+    [ next_available_time, available_quantity ]
   end
 
   private
@@ -14,7 +14,7 @@ class ThrottleService < Base::Service
   end
 
   def available_quantity
-    [profile.team.throttle_quantity - recently_given_quantity, 0].max
+    [ profile.team.throttle_quantity - recently_given_quantity, 0 ].max
   end
 
   def throttle_exceeded?
@@ -23,13 +23,13 @@ class ThrottleService < Base::Service
 
   def recently_given_quantity
     Tip.where(from_profile: profile)
-       .where('created_at >= ?', throttle_days.ago)
-       .sum('ABS(quantity)')
+       .where("created_at >= ?", throttle_days.ago)
+       .sum("ABS(quantity)")
   end
 
   def earliest_given_tip
     Tip.where(from_profile: profile)
-       .where('created_at >= ?', throttle_days.ago)
+       .where("created_at >= ?", throttle_days.ago)
        .order(created_at: :asc)
        .first
   end

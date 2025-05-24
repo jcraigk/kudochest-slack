@@ -4,7 +4,7 @@ module FeaturesHelper
     icon_key = t("#{base}.icon")
     link_to(
       icon_and_text(icon_key, t("#{base}.title")),
-      '#',
+      "#",
       data: {
         detail: t("#{base}.detail"),
         icon: "fa-#{icon_key}"

@@ -7,7 +7,7 @@ class BonusesController < ApplicationController
     authorize :bonus
     BonusCalculatorWorker.perform_async(worker_args.to_json)
     redirect_to \
-      bonuses_path, notice: t('bonuses.calculation_requested', email: current_profile.email)
+      bonuses_path, notice: t("bonuses.calculation_requested", email: current_profile.email)
   end
 
   private

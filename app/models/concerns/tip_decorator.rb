@@ -6,8 +6,8 @@ module TipDecorator
   end
 
   def channel_webref
-    name = from_channel_name.presence || 'Private'
-    helpers.tag.span("#{CHAN_PREFIX}#{name}", class: 'chat-ref')
+    name = from_channel_name.presence || "Private"
+    helpers.tag.span("#{CHAN_PREFIX}#{name}", class: "chat-ref")
   end
 
   def jab?
@@ -15,6 +15,6 @@ module TipDecorator
   end
 
   def topic_name
-    topic&.name || 'None'
+    topic&.name || "None"
   end
 end

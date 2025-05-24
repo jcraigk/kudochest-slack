@@ -8,8 +8,8 @@ class Image::LeaderboardService < Base::ImageService
   ROW_HEIGHT = 26
 
   STRIPE_COLORS = {
-    day: '#e7e7e7',
-    night: '#363636'
+    day: "#e7e7e7",
+    night: "#363636"
   }.freeze
 
   private
@@ -52,7 +52,7 @@ class Image::LeaderboardService < Base::ImageService
     draw.gravity = Magick::NorthWestGravity
 
     color = body_colors.first
-    draw.annotate(comp, 0, 0, 50, 6, title.delete('*')) do
+    draw.annotate(comp, 0, 0, 50, 6, title.delete("*")) do
       self.fill = color
     end
 
@@ -124,7 +124,7 @@ class Image::LeaderboardService < Base::ImageService
       draw.pointsize = 13
       value = time_ago_in_words \
         Time.use_zone(config[:time_zone]) { Time.at(data.last_timestamp).utc }
-      value = (value == 'less than a minute' ? 'just now' : "#{value} ago")
+      value = (value == "less than a minute" ? "just now" : "#{value} ago")
       draw.annotate(comp, 0, 0, x + 15, y + 4, value) do
         self.fill = color1
       end

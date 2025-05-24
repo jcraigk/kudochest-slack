@@ -1,7 +1,7 @@
 class OnboardingMailer < ApplicationMailer
   def welcome(team)
     @team = team
-    mail to: team.admin_emails, subject: 'Welcome'
+    mail to: team.admin_emails, subject: "Welcome"
   end
 
   # TODO: Vary the content based on app usage

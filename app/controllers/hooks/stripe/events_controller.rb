@@ -6,16 +6,16 @@ class Hooks::Stripe::EventsController < Hooks::Stripe::BaseController
     # Rails.logger.info(event)
 
     case event.type
-    when 'invoice.payment_succeeded'
+    when "invoice.payment_succeeded"
       handle_auto_payment_succeeded
-    when 'invoice.payment_failed',
-         'invoice.payment_action_required'
+    when "invoice.payment_failed",
+         "invoice.payment_action_required"
       handle_auto_payment_failed
-    when 'checkout.session.completed'
+    when "checkout.session.completed"
       handle_checkout_succeeded
-    when 'checkout.session.failed',
-         'checkout.session.async_payment_failed',
-         'checkout.session.expired'
+    when "checkout.session.failed",
+         "checkout.session.async_payment_failed",
+         "checkout.session.expired"
       handle_checkout_failed
     end
 

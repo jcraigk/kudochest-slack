@@ -36,7 +36,7 @@ class Commands::Report < Commands::Base
 
   def report_title
     start_time = num_days.days.ago
-    format = start_time.strftime('%b') == Time.current.strftime('%b') ? '%-d' : '%b %-d'
+    format = start_time.strftime("%b") == Time.current.strftime("%b") ? "%-d" : "%b %-d"
     date_str = "#{start_time.strftime('%b %-d')} - #{Time.current.strftime(format)}"
     "*Report for #{entity_name} covering #{date_str}*"
   end
@@ -46,13 +46,13 @@ class Commands::Report < Commands::Base
   end
 
   def response_text
-    ary = [report_title]
+    ary = [ report_title ]
     ary += team_report? ? team_ary : profile_ary
     ary.flatten.join("\n")
   end
 
   def team_points_str
-    txt = team_data.points_given.positive? ? team_points_detail : 'None'
+    txt = team_data.points_given.positive? ? team_points_detail : "None"
     "#{team.point_emoj} *#{App.points_term.titleize}:* #{txt}"
   end
 
@@ -99,7 +99,7 @@ class Commands::Report < Commands::Base
       "#{team.point_emoj} #{App.points_term.titleize} Received",
       profile_data.points_received,
       profile_data.top_givers.map(&:profile),
-      'from'
+      "from"
   end
 
   def points_given_str
@@ -114,7 +114,7 @@ class Commands::Report < Commands::Base
       "#{team.jab_emoj} #{App.jabs_term.titleize} Received",
       profile_data.jabs_received,
       profile_data.jab_givers,
-      'from'
+      "from"
   end
 
   def jabs_given_str
@@ -124,7 +124,7 @@ class Commands::Report < Commands::Base
       profile_data.jab_recipients
   end
 
-  def profile_sentence(title, points, profs, word = 'to')
+  def profile_sentence(title, points, profs, word = "to")
     sentence = profs.map(&:dashboard_link).to_sentence
     num = profs.size
     suffix = num.zero? ? nil : (num < 5 ? "(#{sentence})" : "including #{sentence}")
@@ -133,7 +133,7 @@ class Commands::Report < Commands::Base
       if points.positive?
         "#{points_format(points)} #{word} #{pluralize(num, 'user')} #{suffix}".strip
       else
-        'None'
+        "None"
       end
   end
 
@@ -156,7 +156,7 @@ class Commands::Report < Commands::Base
   end
 
   def me
-    profile_rid if words.first == 'me'
+    profile_rid if words.first == "me"
   end
 
   def requested_profile

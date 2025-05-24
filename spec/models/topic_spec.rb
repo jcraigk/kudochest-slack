@@ -23,20 +23,20 @@ RSpec.describe Topic do
       end
 
       it 'is invalid' do
-        expect(topic.errors[:keyword]).to eq(['must be in snake_case format'])
+        expect(topic.errors[:keyword]).to eq([ 'must be in snake_case format' ])
       end
     end
 
     context 'when starting with non-letter' do
       let(:keyword) { '1234' }
 
-      include_examples 'invalid'
+      it_behaves_like 'invalid'
     end
 
     context 'when containing invalid chars' do
       let(:keyword) { 'a9YaP' }
 
-      include_examples 'invalid'
+      it_behaves_like 'invalid'
     end
   end
 
@@ -45,8 +45,8 @@ RSpec.describe Topic do
     let(:topic2) { create(:topic, active: true) }
     let(:topic3) { create(:topic, active: false) }
     let(:topic4) { create(:topic, active: false) }
-    let(:active_topics) { [topic1, topic2] }
-    let(:inactive_topics) { [topic3, topic4] }
+    let(:active_topics) { [ topic1, topic2 ] }
+    let(:inactive_topics) { [ topic3, topic4 ] }
 
     describe '#active' do
       it 'returns only active topics' do

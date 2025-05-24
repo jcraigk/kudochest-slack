@@ -24,7 +24,7 @@ RSpec.describe ChannelsJoinWorker do
   end
 
   context 'with channel_rids' do
-    let(:channel_rids) { [channels.first.rid, channels.third.rid] }
+    let(:channel_rids) { [ channels.first.rid, channels.third.rid ] }
 
     it 'calls service with expected args (joins specific channels)' do
       channel_rids.each do |rid|

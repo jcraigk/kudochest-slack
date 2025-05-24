@@ -25,8 +25,8 @@ class SubscriptionExpiryService < Base::Service
     Team.active
         .non_gratis
         .where(stripe_price_rid: plan.price_rid)
-        .where('team_size_notified_at IS NULL OR team_size_notified_at < ?', 4.weeks.ago)
-        .where.not('member_count BETWEEN ? AND ?', plan.range.begin, plan.range.end)
+        .where("team_size_notified_at IS NULL OR team_size_notified_at < ?", 4.weeks.ago)
+        .where.not("member_count BETWEEN ? AND ?", plan.range.begin, plan.range.end)
   end
 
   def warn_trials_expiring_soon
@@ -56,7 +56,7 @@ class SubscriptionExpiryService < Base::Service
         .never_subscribed
         .where(trial_expiry_notified_at: nil)
         .where \
-          'DATE(trial_expires_at) BETWEEN ? AND ?',
+          "DATE(trial_expires_at) BETWEEN ? AND ?",
           1.day.from_now.to_date,
           WARNING_PERIOD.from_now.to_date
   end
@@ -65,6 +65,6 @@ class SubscriptionExpiryService < Base::Service
     Team.active
         .non_gratis
         .subscribed_at_least_once
-        .where('DATE(stripe_expires_at) < ?', App.subscription_grace_period.ago.to_date)
+        .where("DATE(stripe_expires_at) < ?", App.subscription_grace_period.ago.to_date)
   end
 end

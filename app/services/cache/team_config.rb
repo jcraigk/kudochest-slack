@@ -31,7 +31,7 @@ class Cache::TeamConfig < Base::Service
 
   def topic_data
     team.topics.active.order(name: :asc).map do |topic|
-      topic.attributes.slice('id', 'name', 'keyword', 'emoji').symbolize_keys
+      topic.attributes.slice("id", "name", "keyword", "emoji").symbolize_keys
     end
   end
 
@@ -48,7 +48,7 @@ class Cache::TeamConfig < Base::Service
   end
 
   def mention # rubocop:disable Metrics/MethodLength
-    <<~TEXT.gsub(/\s+/, '')
+    <<~TEXT.gsub(/\s+/, "")
       (?:
         <
           (?<entity_rid>
@@ -81,7 +81,7 @@ class Cache::TeamConfig < Base::Service
 
   def emojis
     patterns = emoji_patterns.map { |str| ":#{str}:" }
-    str = patterns.join('|').presence || 'no-emoji'
+    str = patterns.join("|").presence || "no-emoji"
     "(?<emojis>(?:(?:#{str})\\s*)+)"
   end
 
@@ -108,7 +108,7 @@ class Cache::TeamConfig < Base::Service
 
   def group_keyword_pattern
     {
-      slack: '<!(?<group_keyword>everyone|channel|here)>'
+      slack: "<!(?<group_keyword>everyone|channel|here)>"
     }
   end
 

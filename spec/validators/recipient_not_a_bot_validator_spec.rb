@@ -24,7 +24,7 @@ RSpec.describe RecipientNotABotValidator do
 
     it 'is invalid with generic message' do
       validate
-      expect(tip.errors[:base]).to eq([expected])
+      expect(tip.errors[:base]).to eq([ expected ])
     end
 
     context 'when to_profile is the app bot' do
@@ -34,7 +34,7 @@ RSpec.describe RecipientNotABotValidator do
 
       it 'is invalid with self referential message' do
         validate
-        expect(tip.errors[:base]).to eq([expected])
+        expect(tip.errors[:base]).to eq([ expected ])
       end
     end
   end

@@ -24,6 +24,6 @@ class Commands::Topics < Commands::Base
   end
 
   def topics_disabled
-    'Topics are currently disabled'
+    "Topics are currently disabled"
   end
 end

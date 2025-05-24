@@ -18,7 +18,7 @@ class Actions::AppHomeOpened < Actions::Base
 
   def text
     I18n.t \
-      'profiles.app_home_opened',
+      "profiles.app_home_opened",
       app: App.app_name,
       url: App.help_url,
       points: App.points_term

@@ -22,12 +22,12 @@ RSpec.describe Slack::SlackApi do
       described_class.client(team_rid:)
     end
 
-    include_examples 'calls Slack client'
+    it_behaves_like 'calls Slack client'
   end
 
   context 'when api_key is provided' do
     before { described_class.client(api_key:) }
 
-    include_examples 'calls Slack client'
+    it_behaves_like 'calls Slack client'
   end
 end

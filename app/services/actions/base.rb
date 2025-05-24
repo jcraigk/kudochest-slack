@@ -2,7 +2,7 @@ class Actions::Base < Base::Service
   param :params
 
   def call
-    'Override in child class'
+    "Override in child class"
   end
 
   protected

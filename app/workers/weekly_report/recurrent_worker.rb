@@ -13,8 +13,8 @@ class WeeklyReport::RecurrentWorker
   def run_team_report_workers
     Team.active
         .where(weekly_report: true)
-        .where('created_at < ?', 1.week.ago)
-        .where('weekly_report_notified_at IS NULL OR weekly_report_notified_at < ?', COOLDOWN.ago)
+        .where("created_at < ?", 1.week.ago)
+        .where("weekly_report_notified_at IS NULL OR weekly_report_notified_at < ?", COOLDOWN.ago)
         .find_each do |team|
       WeeklyReport::TeamWorker.perform_async(team.id)
     end
@@ -30,11 +30,11 @@ class WeeklyReport::RecurrentWorker
     Profile
       .active
       .joins(:team)
-      .where('team.created_at < ?', 1.week.ago)
+      .where("team.created_at < ?", 1.week.ago)
       .where(team: { uninstalled_at: nil })
       .where(weekly_report: true)
       .where \
-        'profiles.weekly_report_notified_at IS NULL OR profiles.weekly_report_notified_at < ?',
+        "profiles.weekly_report_notified_at IS NULL OR profiles.weekly_report_notified_at < ?",
         6.days.ago
   end
 end

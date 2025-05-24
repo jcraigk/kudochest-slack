@@ -10,15 +10,15 @@ class Actions::ReactionBase < Actions::Base
   end
 
   def thumbsup_regex
-    @thumbsup_regex ||= Regexp.new(THUMBSUP_EMOJI_PATTERNS.join('|'))
+    @thumbsup_regex ||= Regexp.new(THUMBSUP_EMOJI_PATTERNS.join("|"))
   end
 
   def source
-    return 'point_reaction' if emoji == team.point_emoji || thumbsup_emoji?
+    return "point_reaction" if emoji == team.point_emoji || thumbsup_emoji?
     case emoji
-    when team.jab_emoji then 'jab_reaction'
-    when team.ditto_emoji then 'ditto_reaction'
-    else 'topic_reaction'
+    when team.jab_emoji then "jab_reaction"
+    when team.ditto_emoji then "ditto_reaction"
+    else "topic_reaction"
     end
   end
 
@@ -37,7 +37,7 @@ class Actions::ReactionBase < Actions::Base
 
   def standard_emoji?
     team&.enable_emoji? &&
-      emoji.in?([team.point_emoji, team.jab_emoji, team.ditto_emoji])
+      emoji.in?([ team.point_emoji, team.jab_emoji, team.ditto_emoji ])
   end
 
   def thumbsup_emoji?
@@ -51,7 +51,7 @@ class Actions::ReactionBase < Actions::Base
   def emoji
     @emoji ||=
       case team.platform
-      when 'slack' then params[:event][:reaction]
+      when "slack" then params[:event][:reaction]
       end
   end
 end

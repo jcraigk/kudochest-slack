@@ -36,7 +36,7 @@ module ProfileDecorator
   end
 
   def webref
-    helpers.tag.span(display_name, class: 'chat-ref')
+    helpers.tag.span(display_name, class: "chat-ref")
   end
 
   def webref_with_stat
@@ -58,7 +58,7 @@ module ProfileDecorator
   end
 
   def next_level_points_sentence
-    return 'max level' if max_level?
+    return "max level" if max_level?
     "#{points_format(points_remaining_until_next_level, label: true)} until level #{level + 1}"
   end
 
@@ -80,7 +80,7 @@ module ProfileDecorator
   end
 
   def next_level
-    [level + 1, team.max_level].min
+    [ level + 1, team.max_level ].min
   end
 
   def max_level?
@@ -92,7 +92,7 @@ module ProfileDecorator
   end
 
   def active_streak_sentence
-    str = helpers.pluralize(active_streak, 'day')
+    str = helpers.pluralize(active_streak, "day")
     return str if active_streak.zero?
     str + ", next target #{next_streak_date.strftime('%b %-d')} (#{next_streak_date_distance})"
   end
@@ -108,8 +108,8 @@ module ProfileDecorator
   def next_streak_date_distance
     Time.use_zone(team.time_zone) do
       case next_streak_date
-      when today then 'today'
-      when tomorrow then 'tomorrow'
+      when today then "today"
+      when tomorrow then "tomorrow"
       else "on #{next_streak_date.strftime('%A')}"
       end
     end
@@ -145,7 +145,7 @@ module ProfileDecorator
   end
 
   def working_day?(date)
-    date.strftime('%A').downcase.in?(team.work_days)
+    date.strftime("%A").downcase.in?(team.work_days)
   end
 
   def today

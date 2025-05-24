@@ -9,7 +9,7 @@ class Claim < ApplicationRecord
   scope :fulfilled, -> { where.not(fulfilled_at: nil) }
   scope :pending, -> { where(fulfilled_at: nil) }
   scope :search, lambda { |term|
-    where('lower(claims.fulfillment_key) LIKE lower(?)', "%#{sanitize_sql_like(term)}%")
+    where("lower(claims.fulfillment_key) LIKE lower(?)", "%#{sanitize_sql_like(term)}%")
   }
 
   after_create_commit :after_create

@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
 
   def index
     authorize current_team
-    flash[:notice] = t('billing.checkout_success') if params[:success] == 'true'
+    flash[:notice] = t("billing.checkout_success") if params[:success] == "true"
   end
 
   def stripe_checkout_start
@@ -13,17 +13,17 @@ class SubscriptionsController < ApplicationController
   end
 
   def stripe_checkout_success
-    redirect_to subscriptions_path, notice: t('billing.checkout_success') if payment_success?
+    redirect_to subscriptions_path, notice: t("billing.checkout_success") if payment_success?
   end
 
   def stripe_checkout_cancel
-    redirect_to subscriptions_path, notice: t('billing.checkout_aborted')
+    redirect_to subscriptions_path, notice: t("billing.checkout_aborted")
   end
 
   def stripe_cancel
     authorize current_team
     cancel_subscription_and_email_admins
-    redirect_to subscriptions_path, notice: t('billing.subscription_canceled')
+    redirect_to subscriptions_path, notice: t("billing.subscription_canceled")
   end
 
   def payment_confirmation
@@ -45,7 +45,7 @@ class SubscriptionsController < ApplicationController
   def cancel_current_subscription
     Stripe::Subscription.cancel(current_team.stripe_subscription_rid)
   rescue Stripe::InvalidRequestError => e
-    msg = e.message.include?('No such subscription') ? 'Invalid subscription' : e.message
+    msg = e.message.include?("No such subscription") ? "Invalid subscription" : e.message
     flash[:alert] = msg
   end
 
@@ -64,10 +64,10 @@ class SubscriptionsController < ApplicationController
     @stripe_session_id = Stripe::Checkout::Session.create(
       customer: current_team.stripe_customer_rid,
       payment_method_types: %w[card],
-      line_items: [{ price: @suggested_plan.price_rid, quantity: 1 }],
+      line_items: [ { price: @suggested_plan.price_rid, quantity: 1 } ],
       success_url: stripe_checkout_success_subscriptions_url,
       cancel_url: stripe_checkout_cancel_subscriptions_url,
-      mode: 'subscription'
+      mode: "subscription"
     ).id
   end
 

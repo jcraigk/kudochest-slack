@@ -12,7 +12,7 @@ class Base::TeamSyncService < Base::Service
     sync_member_count
 
     if team.oversized?
-      team.uninstall!('Team exceeds maximum size')
+      team.uninstall!("Team exceeds maximum size")
       return BillingMailer.team_oversized(team).deliver_later
     end
 
@@ -51,7 +51,7 @@ class Base::TeamSyncService < Base::Service
   end
 
   def refresh_leaderboards
-    [true, false].product([true, false]) do |giving_board, jab_board|
+    [ true, false ].product([ true, false ]) do |giving_board, jab_board|
       LeaderboardRefreshWorker.perform_async(team.id, giving_board, jab_board)
     end
   end

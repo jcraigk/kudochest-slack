@@ -46,19 +46,19 @@ describe Hooks::Slack::BaseController do
     describe 'when message is based on a bot message' do
       let(:params) { { message: { subtype: 'bot_message' } } }
 
-      include_examples 'ignores irrelevant messages'
+      it_behaves_like 'ignores irrelevant messages'
     end
 
     describe 'when event has a subtype' do
       let(:params) { { event: { subtype: 'anything' } } }
 
-      include_examples 'ignores irrelevant messages'
+      it_behaves_like 'ignores irrelevant messages'
     end
 
     describe 'when event has a bot_id' do
       let(:params) { { event: { bot_id: 'anything' } } }
 
-      include_examples 'ignores irrelevant messages'
+      it_behaves_like 'ignores irrelevant messages'
     end
   end
 end

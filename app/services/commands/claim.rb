@@ -11,7 +11,7 @@ class Commands::Claim < Commands::Base
   private
 
   def respond_disabled
-    ChatResponse.new(mode: :private, text: t('shop.disabled'))
+    ChatResponse.new(mode: :private, text: t("shop.disabled"))
   end
 
   def result
@@ -32,26 +32,26 @@ class Commands::Claim < Commands::Base
   end
 
   def base_text
-    [claimed_fragment, fulfillment_fragment].join("\n")
+    [ claimed_fragment, fulfillment_fragment ].join("\n")
   end
 
   def claimed_fragment
     t \
-      'shop.claimed_for_points',
+      "shop.claimed_for_points",
       reward: reward.name,
       quantity: claim.price,
       points: App.points_term
   end
 
   def fulfillment_fragment
-    return t('shop.fulfillment_pending') unless claim.fulfillment_key?
-    t('shop.fulfillment_key_with_val', value: claim.fulfillment_key)
+    return t("shop.fulfillment_pending") unless claim.fulfillment_key?
+    t("shop.fulfillment_key_with_val", value: claim.fulfillment_key)
   end
 
   def reward
     @reward =
       Reward.where(team: profile.team, active: true)
-            .where('lower(name) = ?', text.downcase)
+            .where("lower(name) = ?", text.downcase)
             .first
   end
 end

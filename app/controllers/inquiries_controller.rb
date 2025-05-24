@@ -10,9 +10,9 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.new(permitted_params.merge(profile: current_profile))
 
     if @inquiry.save
-      redirect_to new_inquiry_path, notice: t('inquiries.submit_thanks')
+      redirect_to new_inquiry_path, notice: t("inquiries.submit_thanks")
     else
-      flash[:alert] = t('errors.generic', message: @inquiry.errors.full_messages.to_sentence)
+      flash[:alert] = t("errors.generic", message: @inquiry.errors.full_messages.to_sentence)
       render :new
     end
   end

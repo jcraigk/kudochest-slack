@@ -9,7 +9,7 @@ RSpec.describe TipMentionService, :freeze_time do
   let(:channel) { create(:channel, team:) }
   let(:profile) { create(:profile, team:) }
   let(:to_profile) { create(:profile, team:) }
-  let(:mentions) { [Mention.new(rid: "#{PROF_PREFIX}#{to_profile.rid}", quantity: 1)] }
+  let(:mentions) { [ Mention.new(rid: "#{PROF_PREFIX}#{to_profile.rid}", quantity: 1) ] }
   let(:note) { 'A note!' }
   let(:ts) { Time.current.to_f.to_s }
   let(:timestamp) { Time.current }
@@ -46,7 +46,7 @@ RSpec.describe TipMentionService, :freeze_time do
       profile.update(announce_tip_sent: false)
     end
 
-    include_examples 'expected result'
+    it_behaves_like 'expected result'
   end
 
   context 'when sender has exceeded throttle limit' do
@@ -62,7 +62,7 @@ RSpec.describe TipMentionService, :freeze_time do
       create(:tip, from_profile: profile)
     end
 
-    include_examples 'expected result'
+    it_behaves_like 'expected result'
   end
 
   context 'when required note is missing' do
@@ -74,7 +74,7 @@ RSpec.describe TipMentionService, :freeze_time do
       team.tip_notes = 'required'
     end
 
-    include_examples 'expected result'
+    it_behaves_like 'expected result'
   end
 
   context 'when no mentions are provided' do
@@ -83,18 +83,18 @@ RSpec.describe TipMentionService, :freeze_time do
       ChatResponse.new(mode: :error, text: I18n.t('errors.no_tips', user: profile.display_name))
     end
 
-    include_examples 'expected result'
+    it_behaves_like 'expected result'
   end
 
   xcontext 'when `@everyone` is mentioned' do
-    let(:mentions) { ['everyone'] }
+    let(:mentions) { [ 'everyone' ] }
 
     xit 'overrides other mentions' do
     end
   end
 
   xcontext 'when `@here` is mentioned' do
-    let(:mentions) { ['here'] }
+    let(:mentions) { [ 'here' ] }
 
     xit 'overrides other mentions' do
     end
@@ -121,9 +121,9 @@ RSpec.describe TipMentionService, :freeze_time do
     let(:tip_response) { 'A mock tip response' }
     let(:mention_entities) do
       [
-        EntityMention.new(entity: to_profile, profiles: [to_profile]),
-        EntityMention.new(entity: subteam, profiles: [subteam_profile, other_profile]),
-        EntityMention.new(entity: channel, profiles: [channel_profile])
+        EntityMention.new(entity: to_profile, profiles: [ to_profile ]),
+        EntityMention.new(entity: subteam, profiles: [ subteam_profile, other_profile ]),
+        EntityMention.new(entity: channel, profiles: [ channel_profile ])
       ]
     end
     let(:subteam) { create(:subteam, team:) }
@@ -146,11 +146,11 @@ RSpec.describe TipMentionService, :freeze_time do
     let(:other_profile) { create(:profile, team:) }
 
     before do
-      subteam.profiles << [subteam_profile, to_profile, other_profile]
+      subteam.profiles << [ subteam_profile, to_profile, other_profile ]
       allow(TipFactory).to receive(:call)
       allow(TipResponseService).to receive(:call).and_return(tip_response)
       allow(Slack::ChannelMemberService)
-        .to receive(:call).and_return([channel_profile, other_profile])
+        .to receive(:call).and_return([ channel_profile, other_profile ])
       service
     end
 

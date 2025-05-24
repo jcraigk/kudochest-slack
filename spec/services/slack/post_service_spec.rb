@@ -67,7 +67,7 @@ RSpec.describe Slack::PostService do
     let(:mode) { :hint }
     let(:arguments) do
       {
-        blocks: [{ text: { text: chat_response, type: :mrkdwn }, type: :section }],
+        blocks: [ { text: { text: chat_response, type: :mrkdwn }, type: :section } ],
         channel: channel.rid,
         text: web_response,
         thread_ts:,
@@ -220,7 +220,7 @@ RSpec.describe Slack::PostService do
       let(:arguments) do
         {
           text: chat_response,
-          blocks: [text_block],
+          blocks: [ text_block ],
           channel: channel.rid,
           thread_ts:,
           unfurl_links: false,
@@ -236,11 +236,11 @@ RSpec.describe Slack::PostService do
 
     context 'when response_mode is `reply`' do
       let(:response_mode) { :reply }
-      let(:replies_data) { { messages: [{ thread_ts: }] } }
+      let(:replies_data) { { messages: [ { thread_ts: } ] } }
       let(:arguments) do
         {
           text: chat_response,
-          blocks: [text_block],
+          blocks: [ text_block ],
           channel: channel.rid,
           thread_ts:,
           unfurl_links: false,
@@ -277,7 +277,7 @@ RSpec.describe Slack::PostService do
         tips.each do |tip|
           expect(slack_client).to have_received(:chat_postMessage).with \
             text: chat_response,
-            blocks: [text_block],
+            blocks: [ text_block ],
             channel: tip.to_profile.rid,
             as_user: true,
             unfurl_links: false,

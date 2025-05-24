@@ -29,7 +29,7 @@ RSpec.describe MessageScanner do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'with `+3`' do
@@ -44,7 +44,7 @@ RSpec.describe MessageScanner do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'with repeated profile, repeated `++`, and notes' do
@@ -63,7 +63,7 @@ RSpec.describe MessageScanner do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'with topic keywords and single trailing note' do
@@ -89,7 +89,7 @@ RSpec.describe MessageScanner do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'with inline emoji and personalized notes' do
@@ -112,6 +112,6 @@ RSpec.describe MessageScanner do
       ]
     end
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 end

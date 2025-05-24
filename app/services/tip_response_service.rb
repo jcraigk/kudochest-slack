@@ -7,7 +7,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
   RELEVANT_SOURCES = %w[
     modal inline point_reaction jab_reaction ditto_reaction topic_reaction reply
   ].freeze
-  ANON_WORD = 'someone'.freeze
+  ANON_WORD = "someone".freeze
 
   option :tips
 
@@ -67,7 +67,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
     [
       profile_ref(medium, from_profile),
       points_fragment(medium)
-    ].compact.join(' ')
+    ].compact.join(" ")
   end
 
   def lead_fragment(medium)
@@ -191,7 +191,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
 
   def leveling_fragment(medium)
     return unless team.enable_levels? && levelings.any?
-    [levelup_fragment(medium), leveldown_fragment(medium)].compact_blank.join(' and ')
+    [ levelup_fragment(medium), leveldown_fragment(medium) ].compact_blank.join(" and ")
   end
 
   def levelup_fragment(medium)
@@ -243,7 +243,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
   end
 
   def levelings
-    @levelings ||= (recipient_levelings + [sender_leveling]).compact
+    @levelings ||= (recipient_levelings + [ sender_leveling ]).compact
   end
 
   def select_positive_tips(prof_tips)
@@ -282,7 +282,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
     # emoji = emoji_sequence(medium, quantity, topic)
     topic_str = "for _#{topic.name}_" if topic.present?
     str = "#{recipient_sentence} #{points_format(quantity, label: true, bold_jab: true)}"
-    str += ' each' if similar_tips.size > 1
+    str += " each" if similar_tips.size > 1
     str += " #{topic_str}" if topic_str.present?
     str
   end

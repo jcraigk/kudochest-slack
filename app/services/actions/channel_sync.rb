@@ -10,7 +10,7 @@ class Actions::ChannelSync < Actions::Base
   end
 
   def new_channel_rid
-    return unless params.dig(:event_params, :event, :type) == 'channel_created'
+    return unless params.dig(:event_params, :event, :type) == "channel_created"
     params.dig(:event_params, :event, :channel, :id)
   end
 end

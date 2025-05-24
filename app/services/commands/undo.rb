@@ -2,7 +2,7 @@ class Commands::Undo < Commands::Base
   attr_reader :text
 
   def call
-    return respond_failure(I18n.t('tips.nothing_to_undo')) if tips.none?
+    return respond_failure(I18n.t("tips.nothing_to_undo")) if tips.none?
 
     destroy_tips
     respond
@@ -34,7 +34,7 @@ class Commands::Undo < Commands::Base
   def points_clause
     noticible_tips_by_quantity.map do |quantity, quant_tips|
       str = "#{points_format(quantity, label: true)} from #{frag_sentence(quant_tips)}"
-      str += ' each' if quant_tips.size.between?(2, App.max_response_mentions)
+      str += " each" if quant_tips.size.between?(2, App.max_response_mentions)
       str
     end.to_sentence
   end
@@ -45,6 +45,6 @@ class Commands::Undo < Commands::Base
   end
 
   def noticible_tips_by_quantity
-    tips.reject { |t| t.source == 'streak' }.group_by(&:quantity).sort.reverse
+    tips.reject { |t| t.source == "streak" }.group_by(&:quantity).sort.reverse
   end
 end

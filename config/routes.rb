@@ -1,41 +1,41 @@
-require 'sidekiq/web'
-require 'sidekiq-scheduler/web'
-require 'sidekiq_unique_jobs/web'
+require "sidekiq/web"
+require "sidekiq-scheduler/web"
+require "sidekiq_unique_jobs/web"
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
+  mount Sidekiq::Web => "/sidekiq", constraints: AdminConstraint.new
 
-  get 'healthz', to: 'ops#healthz'
+  get "healthz", to: "ops#healthz"
 
   # Web sessions
-  root to: 'sessions#new'
-  delete :logout, to: 'sessions#destroy', as: :logout
+  root to: "sessions#new"
+  delete :logout, to: "sessions#destroy", as: :logout
 
   # Public
-  get :cookie_policy,  to: 'public#cookie_policy'
-  get :features,       to: 'public#features'
-  get :help,           to: 'public#help'
-  get :pricing,        to: 'public#pricing'
-  get :privacy,        to: 'public#privacy'
-  get :support,        to: 'inquiries#new'
-  get :contact,        to: 'inquiries#new'
-  get :feedback,       to: 'inquiries#new'
-  get :terms,          to: 'public#terms'
+  get :cookie_policy,  to: "public#cookie_policy"
+  get :features,       to: "public#features"
+  get :help,           to: "public#help"
+  get :pricing,        to: "public#pricing"
+  get :privacy,        to: "public#privacy"
+  get :support,        to: "inquiries#new"
+  get :contact,        to: "inquiries#new"
+  get :feedback,       to: "inquiries#new"
+  get :terms,          to: "public#terms"
 
   # Private
-  get :dashboard, to: 'dashboard#show', as: :dashboard
-  get :wallboard, to: 'wallboard#show', as: :wallboard
+  get :dashboard, to: "dashboard#show", as: :dashboard
+  get :wallboard, to: "wallboard#show", as: :wallboard
 
   namespace :hooks do
     namespace :slack do
-      post :action, to: 'actions#receiver'
-      post :command, to: 'commands#receiver'
-      post :event, to: 'events#receiver'
-      post :options, to: 'options#receiver'
+      post :action, to: "actions#receiver"
+      post :command, to: "commands#receiver"
+      post :event, to: "events#receiver"
+      post :options, to: "options#receiver"
     end
 
     namespace :stripe do
-      post :event, to: 'events#receiver'
+      post :event, to: "events#receiver"
     end
   end
 
@@ -75,14 +75,14 @@ Rails.application.routes.draw do
       patch :export_data
     end
   end
-  get :app_settings, to: 'teams#edit'
+  get :app_settings, to: "teams#edit"
 
   resources :profiles, only: %i[show edit update] do
     collection do
       get :random_showcase
     end
   end
-  get :preferences, to: 'profiles#edit'
+  get :preferences, to: "profiles#edit"
 
   resources :inquiries, only: %i[new create]
   resources :tips, only: %i[index destroy]
@@ -91,13 +91,13 @@ Rails.application.routes.draw do
   resources :bonuses, only: %i[index create]
   resources :claims, except: %i[new create]
 
-  get  :shop,         to: 'rewards#shop'
-  get  :topic_list,   to: 'topics#list'
-  post :claim_reward, to: 'rewards#claim'
-  get  :my_claims,    to: 'claims#my_claims'
-  get  :unsubscribe,  to: 'emails#unsubscribe'
+  get  :shop,         to: "rewards#shop"
+  get  :topic_list,   to: "topics#list"
+  post :claim_reward, to: "rewards#claim"
+  get  :my_claims,    to: "claims#my_claims"
+  get  :unsubscribe,  to: "emails#unsubscribe"
 
-  match '/404', to: 'errors#not_found', via: :all
-  match '/403', to: 'errors#forbidden', via: :all
-  match '/500', to: 'errors#internal_server_error', via: :all
+  match "/404", to: "errors#not_found", via: :all
+  match "/403", to: "errors#forbidden", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
 end

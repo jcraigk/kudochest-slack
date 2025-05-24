@@ -29,7 +29,7 @@ class Commands::Admin < Commands::Base
   end
 
   def footer_text
-    str = ''
+    str = ""
     str += "*Log channel:* #{channel_link(team.log_channel_rid)}\n" if team.log_channel_rid.present?
     str + "*Admin(s):* #{admin_links}"
   end
@@ -70,11 +70,11 @@ class Commands::Admin < Commands::Base
 
   def point_emoji
     str = "\n*#{App.points_term.titleize} emoji:* "
-    str + (team.enable_thumbsup? ? ':+1:' : team.point_emoj)
+    str + (team.enable_thumbsup? ? ":+1:" : team.point_emoj)
   end
 
   def jab_emoji
-    return '' unless team.enable_jabs?
+    return "" unless team.enable_jabs?
     "\n*#{App.jab_term.titleize} emoji:* #{team.jab_emoj}"
   end
 
@@ -102,7 +102,7 @@ class Commands::Admin < Commands::Base
       if team.throttled?
         "#{team.throttle_quantity} #{App.points_term} per #{team.throttle_period}"
       else
-        'Disabled'
+        "Disabled"
       end
     "*Throttle:* #{str}"
   end
@@ -118,15 +118,15 @@ class Commands::Admin < Commands::Base
   end
 
   def boolean_str(val)
-    val ? 'Yes' : 'No'
+    val ? "Yes" : "No"
   end
 
   def work_days
-    team.work_days.map(&:titleize).join(', ')
+    team.work_days.map(&:titleize).join(", ")
   end
 
   def admin_links
-    team.profiles.admin.order(display_name: :asc).map(&:link).join(', ')
+    team.profiles.admin.order(display_name: :asc).map(&:link).join(", ")
   end
 
   def long_time_zone

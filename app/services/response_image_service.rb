@@ -6,7 +6,7 @@ class ResponseImageService < Base::Service
   option :fragments,    default: proc { {} }
   option :tips,         default: proc { [] }
   option :profile_data, default: proc { [] }
-  option :title,        default: proc { '' }
+  option :title,        default: proc { "" }
 
   def call
     if config[:platform].to_sym == :slack
@@ -21,7 +21,7 @@ class ResponseImageService < Base::Service
 
   def store_image
     Aws::S3::Client.new.put_object \
-      bucket: ENV.fetch('RESPONSE_IMAGE_AWS_BUCKET', nil),
+      bucket: ENV.fetch("RESPONSE_IMAGE_AWS_BUCKET", nil),
       key:,
       body: File.read(image_file)
     File.delete(image_file)

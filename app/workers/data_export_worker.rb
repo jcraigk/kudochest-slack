@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class DataExportWorker
   include Sidekiq::Worker
@@ -19,7 +19,7 @@ class DataExportWorker
 
   def csv_str
     CSV.generate do |csv|
-      csv << ['ID', 'Name', App.points_term.titleize]
+      csv << [ "ID", "Name", App.points_term.titleize ]
       team.profiles.active.order(display_name: :asc).each do |profile|
         csv << csv_row(profile)
       end

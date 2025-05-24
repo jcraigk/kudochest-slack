@@ -8,7 +8,7 @@ class TipsController < ApplicationController
     @tip = Tip.find(params[:id])
     authorize @tip
     @tip.destroy
-    redirect_to tips_path, notice: t('tips.destroyed')
+    redirect_to tips_path, notice: t("tips.destroyed")
   end
 
   private

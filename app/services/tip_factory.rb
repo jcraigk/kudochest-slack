@@ -1,6 +1,6 @@
 class TipFactory < Base::Service
   option :event_ts
-  option :message_ts, default: -> {}
+  option :message_ts, default: -> { }
   option :from_channel_name
   option :from_channel_rid
   option :from_profile
@@ -56,7 +56,7 @@ class TipFactory < Base::Service
   def tip_quantity
     num_profiles = to_profiles.size
     return quantity unless team.split_tip? && num_profiles > 1
-    [(quantity / num_profiles.to_f).floor, 1].max
+    [ (quantity / num_profiles.to_f).floor, 1 ].max
   end
 
   def from_channel
@@ -74,8 +74,8 @@ class TipFactory < Base::Service
 
   def keyword_entity_attrs
     case to_entity
-    when 'everyone' then { to_everyone: true }
-    when 'here' then here_attrs
+    when "everyone" then { to_everyone: true }
+    when "here" then here_attrs
     end
   end
 
@@ -89,8 +89,8 @@ class TipFactory < Base::Service
 
   def group_entity_attrs
     case to_entity.class.name
-    when 'Subteam' then subteam_attrs
-    when 'Channel' then named_channel_attrs
+    when "Subteam" then subteam_attrs
+    when "Channel" then named_channel_attrs
     else {}
     end
   end
@@ -110,7 +110,7 @@ class TipFactory < Base::Service
   end
 
   def truncated_note
-    return '' if team.tip_notes.disabled?
+    return "" if team.tip_notes.disabled?
     truncate(note, length: App.max_note_length, escape: false)
   end
 

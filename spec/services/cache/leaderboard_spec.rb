@@ -37,7 +37,7 @@ RSpec.describe Cache::Leaderboard do
     let(:style) { 'points' }
     let(:action) { 'received' }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'with options for "points sent"' do
@@ -46,7 +46,7 @@ RSpec.describe Cache::Leaderboard do
     let(:style) { 'points' }
     let(:action) { 'sent' }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'with options for "jabs received"' do
@@ -55,7 +55,7 @@ RSpec.describe Cache::Leaderboard do
     let(:style) { 'jabs' }
     let(:action) { 'received' }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'with options for "jabs sent"' do
@@ -64,6 +64,6 @@ RSpec.describe Cache::Leaderboard do
     let(:style) { 'jabs' }
     let(:action) { 'sent' }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 end

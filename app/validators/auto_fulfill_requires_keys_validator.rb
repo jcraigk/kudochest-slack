@@ -7,6 +7,6 @@ class AutoFulfillRequiresKeysValidator < ActiveModel::Validator
   private
 
   def auto_fulfill?(record)
-    record.auto_fulfill == true || record.auto_fulfill == '1'
+    record.auto_fulfill == true || record.auto_fulfill == "1"
   end
 end

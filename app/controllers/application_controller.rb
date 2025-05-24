@@ -45,10 +45,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    return redirect_to root_path, alert: t('auth.login_required') unless current_profile
+    return redirect_to root_path, alert: t("auth.login_required") unless current_profile
     return unless current_profile.deleted?
     logout
-    redirect_to root_path, alert: t('auth.deleted')
+    redirect_to root_path, alert: t("auth.deleted")
   end
 
   def pundit_user
@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_authorized
-    flash[:alert] = t('auth.not_authorized')
+    flash[:alert] = t("auth.not_authorized")
     redirect_to(request.referer || dashboard_path)
   end
 

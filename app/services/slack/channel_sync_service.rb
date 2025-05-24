@@ -24,7 +24,7 @@ class Slack::ChannelSyncService < Base::ChannelSyncService
 
   def page_of_remote_channels(cursor)
     team.slack_client.conversations_list \
-      types: 'public_channel',
+      types: "public_channel",
       exclude_archived: true,
       cursor:
   end

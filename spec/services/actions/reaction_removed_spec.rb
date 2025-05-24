@@ -44,7 +44,7 @@ RSpec.describe Actions::ReactionRemoved do
       let(:platform) { :slack }
       let(:params) { curated_params.merge(slack_params) }
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
   end
 
@@ -60,7 +60,7 @@ RSpec.describe Actions::ReactionRemoved do
       let(:platform) { :slack }
       let(:params) { curated_params.merge(slack_params) }
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
   end
 end

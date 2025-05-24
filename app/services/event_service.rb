@@ -18,13 +18,13 @@ class EventService < Base::Service
   end
 
   def slack_fast_acked?
-    params[:platform] == 'slack' &&
+    params[:platform] == "slack" &&
       params[:replace_channel_rid].present? &&
       params[:replace_ts].present?
   end
 
   def responder
-    @responder ||= ConstService.call(params[:platform], 'PostService')
+    @responder ||= ConstService.call(params[:platform], "PostService")
   end
 
   def post_success_message
@@ -64,7 +64,7 @@ class EventService < Base::Service
 
   def error_text(exception)
     return config_dialog_error if config_dialog_error.present?
-    exception.instance_of?(ChatFeedbackError) ? exception.message : I18n.t('slack.generic_error')
+    exception.instance_of?(ChatFeedbackError) ? exception.message : I18n.t("slack.generic_error")
   end
 
   def log_exception(exception)
@@ -76,6 +76,6 @@ class EventService < Base::Service
     key = :preferences
     command = params[:text]&.split&.last
     return false unless command == key.to_s || command.in?(COMMAND_KEYWORDS[key].map(&:to_s))
-    t('errors.config_dialog', command:)
+    t("errors.config_dialog", command:)
   end
 end

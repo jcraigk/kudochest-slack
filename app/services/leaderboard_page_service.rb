@@ -1,14 +1,14 @@
 class LeaderboardPageService < Base::Service
-  option :team, default: proc {}
-  option :profile, default: proc {}
+  option :team, default: proc { }
+  option :profile, default: proc { }
   option :count, default: proc { App.default_leaderboard_size }
-  option :offset, default: proc {}
+  option :offset, default: proc { }
   option :giving_board, default: proc { false }
   option :jab_board, default: proc { false }
 
   def call
     @team ||= profile.team
-    @count = 1_000 if count == 'all'
+    @count = 1_000 if count == "all"
 
     return if leaderboard_cache.blank?
 
@@ -35,7 +35,7 @@ class LeaderboardPageService < Base::Service
 
   def contextual_start_idx
     return 0 if count >= leaderboard_cache.profiles.size
-    [0, profile_idx - (count / 2.0).floor].max
+    [ 0, profile_idx - (count / 2.0).floor ].max
   end
 
   def profile_idx

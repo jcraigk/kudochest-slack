@@ -5,7 +5,7 @@ RSpec.describe TipOutcomeService, :freeze_time do
 
   let(:team) { create(:team, throttle_period: 'day') }
   let(:from_profile) { create(:profile, team:) }
-  let(:tips) { [tip1, tip2, tip3, tip4] }
+  let(:tips) { [ tip1, tip2, tip3, tip4 ] }
   let(:tip1) { create(:tip, from_profile:, to_profile: recipient1, quantity: 2) }
   let(:tip2) { create(:tip, from_profile:, to_profile: recipient1, quantity: -5) }
   let(:tip3) { create(:tip, from_profile:, to_profile: recipient2, quantity: 1) }

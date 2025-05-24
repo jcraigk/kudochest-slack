@@ -3,7 +3,7 @@ class WeeklyReportMailer < ApplicationMailer
   helper PointsHelper
   helper MailHelper
 
-  layout 'email'
+  layout "email"
 
   def profile_report(profile_data, team_data)
     @profile = profile_data.profile
@@ -13,7 +13,7 @@ class WeeklyReportMailer < ApplicationMailer
     email = @profile.email
     assign_unsub_token(email)
 
-    mail to: email, subject: t('weekly_report.profile_subject')
+    mail to: email, subject: t("weekly_report.profile_subject")
   end
 
   def team_report(team_data)
@@ -22,7 +22,7 @@ class WeeklyReportMailer < ApplicationMailer
     email = @team.admin_emails.first
     assign_unsub_token(email)
 
-    mail to: email, subject: t('weekly_report.team_subject')
+    mail to: email, subject: t("weekly_report.team_subject")
   end
 
   private

@@ -3,6 +3,6 @@ class OpsController < ApplicationController
   skip_before_action :require_login
 
   def healthz
-    render plain: 'OK'
+    render plain: "OK"
   end
 end

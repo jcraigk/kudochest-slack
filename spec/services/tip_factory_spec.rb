@@ -65,15 +65,15 @@ RSpec.describe TipFactory do
 
   context 'when entity is a profile' do
     let(:to_entity) { build(:profile, team:) }
-    let(:to_profiles) { [to_entity] }
+    let(:to_profiles) { [ to_entity ] }
 
-    include_examples 'tip creation'
+    it_behaves_like 'tip creation'
 
     context 'when team.split_tip is true' do
       let(:split_tip) { true }
       let(:quantity) { to_profiles.size }
 
-      include_examples 'tip creation'
+      it_behaves_like 'tip creation'
     end
 
     context 'when team.tip_notes are disabled' do
@@ -81,7 +81,7 @@ RSpec.describe TipFactory do
 
       before { team.tip_notes = 'disabled' }
 
-      include_examples 'tip creation'
+      it_behaves_like 'tip creation'
     end
   end
 
@@ -95,7 +95,7 @@ RSpec.describe TipFactory do
       }
     end
 
-    include_examples 'tip creation'
+    it_behaves_like 'tip creation'
   end
 
   context 'when entity is `here`' do
@@ -109,7 +109,7 @@ RSpec.describe TipFactory do
       }
     end
 
-    include_examples 'tip creation'
+    it_behaves_like 'tip creation'
   end
 
   context 'when entity is a subteam' do
@@ -122,7 +122,7 @@ RSpec.describe TipFactory do
       }
     end
 
-    include_examples 'tip creation'
+    it_behaves_like 'tip creation'
   end
 
   context 'when entity is `everyone`' do

@@ -69,9 +69,9 @@ module TeamDecorator
 
   def throttle_period_days
     {
-      'day' => 1,
-      'week' => 7,
-      'month' => 30
+      "day" => 1,
+      "week" => 7,
+      "month" => 30
     }[throttle_period]
   end
 
@@ -82,7 +82,7 @@ module TeamDecorator
               .sort_by(&:display_name)
               .map(&:link)
 
-    return 'None' if profile_links.empty?
+    return "None" if profile_links.empty?
     profile_links.to_sentence
   end
 
@@ -92,7 +92,7 @@ module TeamDecorator
 
   def workspace_noun
     case platform
-    when 'slack' then 'workspace'
+    when "slack" then "workspace"
     end
   end
 
@@ -109,7 +109,7 @@ module TeamDecorator
   end
 
   def emojis
-    slack_client.emoji_list['emoji'].keys
+    slack_client.emoji_list["emoji"].keys
   end
 
   def onboarded_channels?

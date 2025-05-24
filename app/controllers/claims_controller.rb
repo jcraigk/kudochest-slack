@@ -20,7 +20,7 @@ class ClaimsController < ApplicationController
 
     @claim.update!(claim_params)
 
-    flash[:notice] = t('claims.updated')
+    flash[:notice] = t("claims.updated")
     redirect_to edit_claim_path(@claim)
   end
 
@@ -29,7 +29,7 @@ class ClaimsController < ApplicationController
     authorize @claim
 
     @claim.destroy
-    redirect_to claims_path, notice: t('claims.destroyed')
+    redirect_to claims_path, notice: t("claims.destroyed")
   end
 
   def my_claims
@@ -63,19 +63,19 @@ class ClaimsController < ApplicationController
 
   def apply_reward_filter
     reward_id = params[:reward_id]
-    return if reward_id.blank? || reward_id == 'all'
+    return if reward_id.blank? || reward_id == "all"
     @claims = @claims.where(reward_id:)
   end
 
   def apply_fulfillment_filter
     fulfillment = params[:fulfillment]
-    return if fulfillment.blank? || fulfillment == 'all'
-    @claims = (fulfillment == 'fulfilled' ? @claims.fulfilled : @claims.pending)
+    return if fulfillment.blank? || fulfillment == "all"
+    @claims = (fulfillment == "fulfilled" ? @claims.fulfilled : @claims.pending)
   end
 
   def claim_params
     params.require(:claim).permit(:fulfilled_at, :fulfillment_key).tap do |attrs|
-      attrs[:fulfilled_at] = (attrs[:fulfilled_at] == '1' ? Time.current : nil)
+      attrs[:fulfilled_at] = (attrs[:fulfilled_at] == "1" ? Time.current : nil)
     end
   end
 end

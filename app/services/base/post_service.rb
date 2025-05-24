@@ -1,15 +1,15 @@
 class Base::PostService < Base::Service
   option :mode
   option :config
-  option :action,           default: proc {}
-  option :channel_rid,      default: proc {}
-  option :event_ts,         default: proc {}
+  option :action,           default: proc { }
+  option :channel_rid,      default: proc { }
+  option :event_ts,         default: proc { }
   option :is_bot_dm,        default: proc { false }
-  option :message_ts,       default: proc {}
-  option :profile_rid,      default: proc {}
-  option :response,         default: proc {}
-  option :text,             default: proc {}
-  option :image,            default: proc {}
+  option :message_ts,       default: proc { }
+  option :profile_rid,      default: proc { }
+  option :response,         default: proc { }
+  option :text,             default: proc { }
+  option :image,            default: proc { }
   option :tips,             default: proc { [] }
 
   attr_reader :log_channel_rid, :response_mode
@@ -88,12 +88,12 @@ class Base::PostService < Base::Service
   end
 
   def fragment_composition(is_inline)
-    [primary_text(is_inline), cheer_text].compact_blank.join("\n")
+    [ primary_text(is_inline), cheer_text ].compact_blank.join("\n")
   end
 
   def cheer_text
     return unless config[:enable_cheers]
-    [chat_fragments[:leveling], chat_fragments[:streak]].compact_blank.join("\n")
+    [ chat_fragments[:leveling], chat_fragments[:streak] ].compact_blank.join("\n")
   end
 
   def primary_text(is_inline) # rubocop:disable Metrics/AbcSize

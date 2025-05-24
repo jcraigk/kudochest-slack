@@ -56,36 +56,36 @@ RSpec.describe LeaderboardPageService do
 
   context 'when count is given, truncates the list' do
     let(:args) { { team:, count: 3 } }
-    let(:expected_ids) { [1, 2, 3] }
+    let(:expected_ids) { [ 1, 2, 3 ] }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when profile and count are given, contextual page is returned' do
     let(:args) { { team:, profile: profiles.third, count: 3 } }
-    let(:expected_ids) { [2, 3, 4] }
+    let(:expected_ids) { [ 2, 3, 4 ] }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when `giving_board` is true' do
     let(:args) { { team:, giving_board: true } }
-    let(:expected_ids) { [3, 4, 5] }
+    let(:expected_ids) { [ 3, 4, 5 ] }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when `jab_board` is true' do
     let(:args) { { team:, jab_board: true } }
-    let(:expected_ids) { [4, 3, 5] }
+    let(:expected_ids) { [ 4, 3, 5 ] }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when offset is given (paging)' do
     let(:args) { { team:, count: 3, offset: 1 } }
-    let(:expected_ids) { [2, 3, 4] }
+    let(:expected_ids) { [ 2, 3, 4 ] }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 end

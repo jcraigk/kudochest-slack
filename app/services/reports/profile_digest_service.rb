@@ -71,7 +71,7 @@ class Reports::ProfileDigestService < Reports::BaseDigestService
     @tips_received ||=
       Tip.select(:quantity, :source, :from_profile_id)
          .where(to_profile: profile)
-         .where('tips.created_at > ?', timeframe)
+         .where("tips.created_at > ?", timeframe)
          .order(quantity: :desc)
          .all
   end
@@ -80,7 +80,7 @@ class Reports::ProfileDigestService < Reports::BaseDigestService
     @tips_given ||=
       Tip.select(:quantity, :to_profile_id)
          .where(from_profile: profile)
-         .where('tips.created_at > ?', timeframe)
+         .where("tips.created_at > ?", timeframe)
          .order(quantity: :desc)
          .all
   end
@@ -107,7 +107,7 @@ class Reports::ProfileDigestService < Reports::BaseDigestService
 
   def points_from_streak
     return unless team.enable_streaks?
-    tips_received.select { |tip| tip.source == 'streak' }.sum(&:quantity)
+    tips_received.select { |tip| tip.source == "streak" }.sum(&:quantity)
   end
 
   def leveling_sentence

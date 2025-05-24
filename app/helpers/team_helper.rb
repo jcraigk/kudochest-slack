@@ -3,65 +3,65 @@ module TeamHelper
   def reset_team_stats_button(team)
     link_to \
       icon_and_text(
-        'exclamation-circle',
-        t('teams.reset_stats_now', points_title: App.points_term.titleize)
+        "exclamation-circle",
+        t("teams.reset_stats_now", points_title: App.points_term.titleize)
       ),
       reset_stats_team_path(team),
-      class: 'button is-danger',
+      class: "button is-danger",
       method: :patch,
       data: {
-        confirm: t('teams.confirm_reset_stats', points: App.points_term)
+        confirm: t("teams.confirm_reset_stats", points: App.points_term)
       }
   end
 
   def uninstall_button(team)
     link_to \
-      icon_and_text('exclamation-circle', t('teams.uninstall_now')),
+      icon_and_text("exclamation-circle", t("teams.uninstall_now")),
       uninstall_team_path(team),
-      class: 'button is-danger',
+      class: "button is-danger",
       method: :patch,
       data: {
-        confirm: t('teams.confirm_uninstall')
+        confirm: t("teams.confirm_uninstall")
       }
   end
 
   def active_claim_button(reward)
     link_to \
       icon_and_text(
-        'sparkles',
+        "sparkles",
         t(
-          'shop.claim_item',
+          "shop.claim_item",
           amount: number_with_delimiter(reward.price),
           points: App.points_term
         )
       ),
       claim_reward_path(id: reward.id),
       method: :post,
-      class: 'button is-primary is-large',
-      data: { confirm: t('shop.confirm_claim') }
+      class: "button is-primary is-large",
+      data: { confirm: t("shop.confirm_claim") }
   end
 
   def inactive_claim_button(reward)
     link_to \
       icon_and_text(
-        'do-not-enter',
+        "do-not-enter",
         t(
-          'shop.requires_points',
+          "shop.requires_points",
           amount: number_with_delimiter(reward.price),
           points: App.points_term
         )
       ),
-      '#',
-      class: 'button is-large btn-claim-disabled',
+      "#",
+      class: "button is-large btn-claim-disabled",
       disabled: true
   end
   # rubocop:enable Metrics/MethodLength
 
   def export_data_button(team)
     link_to \
-      icon_and_text('cloud-download', t('teams.export_data')),
+      icon_and_text("cloud-download", t("teams.export_data")),
       export_data_team_path(team),
-      class: 'button',
+      class: "button",
       method: :patch
   end
 
@@ -74,10 +74,10 @@ module TeamHelper
     select_tag \
       column,
       options_for_select(
-        team.profiles.active.map { |p| [p.display_name, p.id] },
+        team.profiles.active.map { |p| [ p.display_name, p.id ] },
         value
       ),
-      class: 'input select2 autosubmit',
+      class: "input select2 autosubmit",
       include_blank: "(#{blank_label})"
   end
 
@@ -85,10 +85,10 @@ module TeamHelper
     select_tag \
       :topic_id,
       options_for_select(
-        team.topics.active.map { |t| [t.name, t.id] },
+        team.topics.active.map { |t| [ t.name, t.id ] },
         value
       ),
-      class: 'input select2 autosubmit',
+      class: "input select2 autosubmit",
       include_blank: "(#{blank_label})"
   end
 
@@ -96,51 +96,51 @@ module TeamHelper
     select_tag \
       :status,
       options_for_select(
-        [['All Status', 'all'], %w[Active active], %w[Inactive inactive]],
+        [ [ "All Status", "all" ], %w[Active active], %w[Inactive inactive] ],
         params[:status]
       ),
-      class: 'input autosubmit'
+      class: "input autosubmit"
   end
 
   def fulfillment_select
     select_tag \
       :fulfillment,
       options_for_select(
-        [['All Status', 'all'], %w[Fulfilled fulfilled], %w[Pending pending]],
+        [ [ "All Status", "all" ], %w[Fulfilled fulfilled], %w[Pending pending] ],
         params[:fulfillment]
       ),
-      class: 'input autosubmit'
+      class: "input autosubmit"
   end
 
   def reward_select(team)
     select_tag \
       :reward_id,
       options_for_select(reward_options(team), params[:reward_id]),
-      class: 'input autosubmit'
+      class: "input autosubmit"
   end
 
   def reward_options(team)
-    [['All Loot Items', 'all']] +
+    [ [ "All Loot Items", "all" ] ] +
       Reward.where(team:)
             .order(name: :asc)
-            .map { |reward| [reward.name, reward.id] }
+            .map { |reward| [ reward.name, reward.id ] }
   end
 
   def search_input(placeholder)
-    text_field_tag(:search, params[:search], class: 'input', placeholder:)
+    text_field_tag(:search, params[:search], class: "input", placeholder:)
   end
 
   def team_avatar_image(team, size: 80)
     image_tag \
       team.avatar_url,
-      alt: 'Team avatar image',
+      alt: "Team avatar image",
       size:,
       class: "team-avatar platform-#{team.platform}"
   end
 
   def response_mode_options(team)
     case team.platform
-    when 'slack' then all_response_options
+    when "slack" then all_response_options
     end
   end
 

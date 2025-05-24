@@ -7,7 +7,7 @@ class Base::ImageService < Base::Service
     slack: 5
   }.freeze
 
-  BASE_PATH = 'lib/response_images'.freeze
+  BASE_PATH = "lib/response_images".freeze
   DEBUG_FILE = "#{BASE_PATH}/debug.gif".freeze
 
   TMP_PATH = "#{STORAGE_PATH}/response_images/tmp".freeze
@@ -15,8 +15,8 @@ class Base::ImageService < Base::Service
   DEFAULT_AVATAR = "#{BASE_PATH}/avatars/default-avatar-36.png".freeze
 
   BG_COLOR = {
-    day: '#f5f5f5',
-    night: '#1b1d21'
+    day: "#f5f5f5",
+    night: "#1b1d21"
   }.freeze
   BODY_COLORS = {
     day: %w[black #1c9bd1],
@@ -63,7 +63,7 @@ class Base::ImageService < Base::Service
   end
 
   def theme
-    @theme ||= config[:response_theme].delete_prefix('gif_').to_sym
+    @theme ||= config[:response_theme].delete_prefix("gif_").to_sym
   end
 
   def body_colors
@@ -90,8 +90,8 @@ class Base::ImageService < Base::Service
       thumb = img.resize(width, height)
 
       # Create a transparency mask for border radius
-      mask = Magick::Image.new(width, height) { |m| m.background_color = 'transparent' }
-      Magick::Draw.new.stroke('none').stroke_width(0).fill('white')
+      mask = Magick::Image.new(width, height) { |m| m.background_color = "transparent" }
+      Magick::Draw.new.stroke("none").stroke_width(0).fill("white")
                   .roundrectangle(0, 0, width, height, radius, radius).draw(mask)
 
       thumb.composite(mask, 0, 0, Magick::CopyAlphaCompositeOp)
@@ -104,7 +104,7 @@ class Base::ImageService < Base::Service
 
   def small_avatar_url(platform, url)
     case platform.to_sym
-    when :slack then url.gsub(/_\d+\.png\z/, '_48.png')
+    when :slack then url.gsub(/_\d+\.png\z/, "_48.png")
     end
   end
 

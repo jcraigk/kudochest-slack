@@ -2,7 +2,7 @@ class TipMentionService < Base::Service
   option :channel_name
   option :channel_rid
   option :event_ts
-  option :message_ts, default: -> {}
+  option :message_ts, default: -> { }
   option :mentions
   option :profile
   option :source
@@ -28,11 +28,11 @@ class TipMentionService < Base::Service
 
   def handle_error(exception)
     klass = exception.class.name
-    raise exception unless klass.start_with?('ActiveRecord::')
+    raise exception unless klass.start_with?("ActiveRecord::")
     message = exception.message
     case klass
-    when 'ActiveRecord::RecordNotUnique' then return # message = 'Duplicate request ignored'
-    when 'ActiveRecord::RecordInvalid' then message.gsub!('Validation failed: ', '')
+    when "ActiveRecord::RecordNotUnique" then return # message = 'Duplicate request ignored'
+    when "ActiveRecord::RecordInvalid" then message.gsub!("Validation failed: ", "")
     end
     respond_error(message)
   end
@@ -49,13 +49,13 @@ class TipMentionService < Base::Service
   def respond_error(message)
     ChatResponse.new \
       mode: :error,
-      text: t('errors.generic_personalized', user: profile.link, message:)
+      text: t("errors.generic_personalized", user: profile.link, message:)
   end
 
   def respond_no_action
     ChatResponse.new \
       mode: :error,
-      text: I18n.t('errors.no_tips', user: profile.display_name)
+      text: I18n.t("errors.no_tips", user: profile.display_name)
   end
 
   def create_tips
@@ -86,9 +86,9 @@ class TipMentionService < Base::Service
   end
 
   def response_image
-    return unless team.response_theme.start_with?('gif') && tips.any?
+    return unless team.response_theme.start_with?("gif") && tips.any?
     ResponseImageService.call \
-      type: 'tip',
+      type: "tip",
       config: team.config,
       fragments: response.image_fragments,
       tips:
@@ -103,7 +103,7 @@ class TipMentionService < Base::Service
   end
 
   def respond_note_required
-    ChatResponse.new(mode: :error, text: I18n.t('tips.note_required'))
+    ChatResponse.new(mode: :error, text: I18n.t("tips.note_required"))
   end
 
   def fetch_entity(rid)
@@ -125,17 +125,17 @@ class TipMentionService < Base::Service
   end
 
   def subteam_entity(rid)
-    raw_rid = rid.gsub(SUBTEAM_PREFIX[:slack], '')
+    raw_rid = rid.gsub(SUBTEAM_PREFIX[:slack], "")
     Subteam.find_with_team(team.rid, raw_rid)
   end
 
   def profiles_for_entity(entity)
-    return team.profiles.active.where.not(rid: profile.rid) if entity == 'everyone'
-    return channel_profiles(channel_rid, here: true) if entity == 'here'
+    return team.profiles.active.where.not(rid: profile.rid) if entity == "everyone"
+    return channel_profiles(channel_rid, here: true) if entity == "here"
     case entity.class.name
-    when 'Profile' then [entity]
-    when 'Subteam' then subteam_profiles(entity)
-    when 'Channel' then channel_profiles(entity.rid)
+    when "Profile" then [ entity ]
+    when "Subteam" then subteam_profiles(entity)
+    when "Channel" then channel_profiles(entity.rid)
     end
   end
 
@@ -152,8 +152,8 @@ class TipMentionService < Base::Service
   end
 
   def uniq_entity_mentions
-    return [everyone_mention] if everyone_mention.present?
-    return [here_mention] if here_mention.present?
+    return [ everyone_mention ] if everyone_mention.present?
+    return [ here_mention ] if here_mention.present?
 
     # Ensure each profile is mentioned only once, preferring
     # Direct mention, then subteam, then channel
@@ -165,15 +165,15 @@ class TipMentionService < Base::Service
   end
 
   def everyone_mention
-    @everyone_mention ||= entity_mentions.find { |m| m.entity == 'everyone' }
+    @everyone_mention ||= entity_mentions.find { |m| m.entity == "everyone" }
   end
 
   def here_mention
-    @here_mention ||= entity_mentions.find { |m| m.entity == 'here' }
+    @here_mention ||= entity_mentions.find { |m| m.entity == "here" }
   end
 
   def channel_mention
-    @channel_mention ||= entity_mentions.find { |m| m.entity == 'channel' }
+    @channel_mention ||= entity_mentions.find { |m| m.entity == "channel" }
   end
 
   def sanitized_channel_mentions

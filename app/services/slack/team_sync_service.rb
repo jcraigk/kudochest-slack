@@ -47,7 +47,7 @@ class Slack::TeamSyncService < Base::TeamSyncService
   end
 
   def bot?(member)
-    member[:is_bot] || member[:is_app_user] || member[:id] == 'USLACKBOT'
+    member[:is_bot] || member[:is_app_user] || member[:id] == "USLACKBOT"
   end
 
   def restricted?(member)

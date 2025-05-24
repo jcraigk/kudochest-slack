@@ -20,12 +20,12 @@ class RewardClaimService < Base::Service
 
   def valid_claim?
     @error = insufficient_points_msg unless sufficient_points?
-    @error = t('shop.insufficient_quantity') unless reward.remaining.positive?
+    @error = t("shop.insufficient_quantity") unless reward.remaining.positive?
     @error.blank?
   end
 
   def insufficient_points_msg
-    t('shop.insufficient_points', reward: reward.name, points: App.points_term)
+    t("shop.insufficient_points", reward: reward.name, points: App.points_term)
   end
 
   def sufficient_points?

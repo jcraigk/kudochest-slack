@@ -14,14 +14,14 @@ class TeamsController < ApplicationController
   def reset_stats
     authorize current_team
     TeamResetWorker.perform_async(current_team.id)
-    redirect_to app_settings_path(section: 'danger_zone'), notice: t('teams.reset_requested')
+    redirect_to app_settings_path(section: "danger_zone"), notice: t("teams.reset_requested")
   end
 
   def export_data
     authorize current_team
     DataExportWorker.perform_async(current_team.id, current_profile.email)
     redirect_to app_settings_path(section: :data),
-                notice: t('teams.export_data_requested', email: current_profile.email)
+                notice: t("teams.export_data_requested", email: current_profile.email)
   end
 
   def leaderboard_page
@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
       offset: params[:offset].to_i,
       count: params[:count].to_i
     return if @leaderboard.profiles.blank?
-    render partial: 'profiles/tiles/leaderboard_rows',
+    render partial: "profiles/tiles/leaderboard_rows",
            locals: { leaderboard: @leaderboard, profile: current_profile }
   end
 
@@ -40,12 +40,12 @@ class TeamsController < ApplicationController
 
     if current_team.recurring_subscription?
       return redirect_to \
-        app_settings_path(section: 'danger_zone'),
-        alert: t('teams.recurring_subscription_html')
+        app_settings_path(section: "danger_zone"),
+        alert: t("teams.recurring_subscription_html")
     end
 
     current_team.uninstall!(UNINSTALL_REASONS[:admin])
-    redirect_to app_settings_path(section: 'danger_zone'), notice: t('teams.uninstalled')
+    redirect_to app_settings_path(section: "danger_zone"), notice: t("teams.uninstalled")
   end
 
   private
@@ -64,7 +64,7 @@ class TeamsController < ApplicationController
   end
 
   def update_exempt_profiles
-    profile_rids = (params[:exempt_profile_rids].presence || '').split(':')
+    profile_rids = (params[:exempt_profile_rids].presence || "").split(":")
     current_team.profiles
                 .where.not(rid: profile_rids)
                 .where(throttle_exempt: true)
@@ -75,7 +75,7 @@ class TeamsController < ApplicationController
   end
 
   def update_admin_profiles # rubocop:disable Metrics/AbcSize
-    profile_rids = (params[:admin_profile_rids].presence || '').split(':')
+    profile_rids = (params[:admin_profile_rids].presence || "").split(":")
     profile_rids << current_profile.rid # Always include current user
     current_team.profiles
                 .where.not(rid: profile_rids)
@@ -114,18 +114,18 @@ class TeamsController < ApplicationController
 
   def platform_team_params
     case current_team.platform
-    when 'slack' then team_params
+    when "slack" then team_params
     end
   end
 
   def update_success
-    flash[:notice] = t('teams.update_success', platform: current_team.platform.titleize)
+    flash[:notice] = t("teams.update_success", platform: current_team.platform.titleize)
     redirect_to app_settings_path
   end
 
   def update_fail
     prepare_exempt_profile_options
-    flash.now[:alert] = t('teams.update_fail', msg: current_team.errors.full_messages.to_sentence)
+    flash.now[:alert] = t("teams.update_fail", msg: current_team.errors.full_messages.to_sentence)
     render :edit
   end
 

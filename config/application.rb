@@ -1,47 +1,46 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails'
-require 'action_cable/engine'
-require 'action_controller/railtie'
-require 'action_mailer/railtie'
-require 'action_view/railtie'
-require 'active_record/railtie'
+require "rails"
+require "action_cable/engine"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "active_record/railtie"
 
 Bundler.require(*Rails.groups)
 
 module KudoChest
   class Application < Rails::Application
-    config.load_defaults 7.1
-    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml')]
+    config.load_defaults 8.0
+    config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.yml")]
     config.exceptions_app = routes
     config.hosts.clear
-    config.action_cable.allowed_request_origins = [%r{ http://* }, %r{https://*}]
+    config.action_cable.allowed_request_origins = [ %r{ http://* }, %r{https://*} ]
     config.action_cable.worker_pool_size = 4
     config.active_job.queue_adapter = :sidekiq
 
     # Basic
-    config.company_name = 'Eight Three, LLC'
-    config.app_name = 'KudoChest'
-    config.bot_name = 'KudoChest'
-    config.base_url = ENV.fetch('BASE_URL', "https://#{ENV.fetch('WEB_DOMAIN', 'localhost')}")
+    config.app_name = "KudoChest"
+    config.bot_name = "KudoChest"
+    config.base_url = ENV.fetch("BASE_URL", "https://#{ENV.fetch('WEB_DOMAIN', 'localhost')}")
     config.from_email = ENV.fetch \
-      'FROM_EMAIL',
+      "FROM_EMAIL",
       "#{config.app_name} <noreply@#{ENV.fetch('WEB_DOMAIN', 'localhost')}>"
-    config.contact_email = 'kudochest@gmail.com'
-    config.admin_email = 'kudochest@gmail.com'
-    config.point_term = ENV.fetch('POINT_TERM', 'kudo')
-    config.points_term = ENV.fetch('POINTS_TERM', 'kudos')
-    config.jab_term = ENV.fetch('POINT_TERM', 'kudont')
-    config.jabs_term = ENV.fetch('POINTS_TERM', 'kudonts')
-    config.point_singular_prefix = ENV.fetch('POINT_SINGULAR_PREFIX', 'a')
-    config.jab_singular_prefix = ENV.fetch('JAB_SINGULAR_PREFIX', 'a')
-    config.help_url = 'https://kudochest.com/help'
-    config.privacy_url = 'https://kudochest.com/privacy'
-    config.asset_host = ENV.fetch('ASSET_HOST', nil)
+    config.contact_email = "kudochest@gmail.com"
+    config.admin_email = "kudochest@gmail.com"
+    config.point_term = ENV.fetch("POINT_TERM", "kudo")
+    config.points_term = ENV.fetch("POINTS_TERM", "kudos")
+    config.jab_term = ENV.fetch("POINT_TERM", "kudont")
+    config.jabs_term = ENV.fetch("POINTS_TERM", "kudonts")
+    config.point_singular_prefix = ENV.fetch("POINT_SINGULAR_PREFIX", "a")
+    config.jab_singular_prefix = ENV.fetch("JAB_SINGULAR_PREFIX", "a")
+    config.help_url = "https://kudochest.com/help"
+    config.privacy_url = "https://kudochest.com/privacy"
+    config.asset_host = ENV.fetch("ASSET_HOST", nil)
 
     # Slack
-    config.slack_app_id = ENV.fetch('SLACK_APP_ID', nil)
-    config.slack_signing_secret = ENV.fetch('SLACK_SIGNING_SECRET', nil)
+    config.slack_app_id = ENV.fetch("SLACK_APP_ID", nil)
+    config.slack_signing_secret = ENV.fetch("SLACK_SIGNING_SECRET", nil)
     config.slack_oauth_scopes = %w[
       channels:history
       channels:join
@@ -63,24 +62,24 @@ module KudoChest
       users:read.email
       users.profile:read
     ]
-    config.base_command = ENV.fetch('BASE_COMMAND', 'kudos')
-    config.default_point_emoji = 'star'
-    config.default_jab_emoji = 'arrow_down'
-    config.default_ditto_emoji = 'heavy_plus_sign'
-    config.slack_client_id = ENV.fetch('SLACK_CLIENT_ID', nil)
-    config.slack_client_secret = ENV.fetch('SLACK_CLIENT_SECRET', nil)
-    config.slack_custom_emoji_url = 'https://slack.com/help/articles/206870177-Add-custom-emoji'
+    config.base_command = ENV.fetch("BASE_COMMAND", "kudos")
+    config.default_point_emoji = "star"
+    config.default_jab_emoji = "arrow_down"
+    config.default_ditto_emoji = "heavy_plus_sign"
+    config.slack_client_id = ENV.fetch("SLACK_CLIENT_ID", nil)
+    config.slack_client_secret = ENV.fetch("SLACK_CLIENT_SECRET", nil)
+    config.slack_custom_emoji_url = "https://slack.com/help/articles/206870177-Add-custom-emoji"
 
     # Email
     config.action_mailer.default_url_options = { host: config.base_url }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
       authentication: :plain,
-      address: ENV.fetch('SMTP_ADDRESS', nil),
+      address: ENV.fetch("SMTP_ADDRESS", nil),
       port: 587,
-      domain: ENV.fetch('SMTP_DOMAIN', nil),
-      user_name: ENV.fetch('SMTP_USERNAME', nil),
-      password: ENV.fetch('SMTP_PASSWORD', nil)
+      domain: ENV.fetch("SMTP_DOMAIN", nil),
+      user_name: ENV.fetch("SMTP_USERNAME", nil),
+      password: ENV.fetch("SMTP_PASSWORD", nil)
     }
 
     # Features
@@ -89,10 +88,10 @@ module KudoChest
     config.max_points_per_tip = 10
     config.default_max_level = 20
     config.default_max_level_points = 1_000
-    config.error_emoji = 'grimacing'
+    config.error_emoji = "grimacing"
     config.default_throttle_quantity = 100
     config.max_throttle_quantity = 10_000
-    config.default_team_time_zone = 'Pacific Time (US & Canada)'
+    config.default_team_time_zone = "Pacific Time (US & Canada)"
     config.default_streak_duration = 5
     config.min_streak_duration = 3
     config.max_streak_duration = 100
@@ -106,8 +105,8 @@ module KudoChest
     config.steep_level_coefficient = 2.1
     config.default_tip_history_days = 14
     config.max_note_length = 255
-    config.give_color = '#460878'
-    config.receive_color = '#247808'
+    config.give_color = "#460878"
+    config.receive_color = "#247808"
 
     # Subscription Plans
     config.trial_period = 42.days
@@ -116,41 +115,41 @@ module KudoChest
     PlanStruct = Struct.new(:price_rid, :name, :range, :price)
     config.subscription_plans = [
       PlanStruct.new(
-        ENV.fetch('STRIPE_SMALL_PRICE_RID', nil),
-        'Small Team Plan',
+        ENV.fetch("STRIPE_SMALL_PRICE_RID", nil),
+        "Small Team Plan",
         0..50,
         50
       ),
       PlanStruct.new(
-        ENV.fetch('STRIPE_MEDIUM_PRICE_RID', nil),
-        'Medium Team Plan',
+        ENV.fetch("STRIPE_MEDIUM_PRICE_RID", nil),
+        "Medium Team Plan",
         51..150,
         100
       ),
       PlanStruct.new(
-        ENV.fetch('STRIPE_LARGE_PRICE_RID', nil),
-        'Large Team Plan',
+        ENV.fetch("STRIPE_LARGE_PRICE_RID", nil),
+        "Large Team Plan",
         151..300,
         150
       ),
       PlanStruct.new(
-        ENV.fetch('STRIPE_XL_PRICE_RID', nil),
-        'XL Team Plan',
+        ENV.fetch("STRIPE_XL_PRICE_RID", nil),
+        "XL Team Plan",
         301..500,
         200
       ),
       PlanStruct.new(
-        ENV.fetch('STRIPE_ENT_PRICE_RID', nil),
-        'Enterprise Plan',
+        ENV.fetch("STRIPE_ENT_PRICE_RID", nil),
+        "Enterprise Plan",
         501..config.max_team_size,
         250
       )
     ]
 
     # Stripe
-    config.stripe_signing_secret = ENV.fetch('STRIPE_SIGNING_SECRET', nil)
-    config.stripe_webhook_secret = ENV.fetch('STRIPE_WEBHOOK_SECRET', nil)
-    config.stripe_publishable_key = ENV.fetch('STRIPE_PUBLISHABLE_KEY', nil)
+    config.stripe_signing_secret = ENV.fetch("STRIPE_SIGNING_SECRET", nil)
+    config.stripe_webhook_secret = ENV.fetch("STRIPE_WEBHOOK_SECRET", nil)
+    config.stripe_publishable_key = ENV.fetch("STRIPE_PUBLISHABLE_KEY", nil)
   end
 end
 
@@ -173,11 +172,11 @@ LeaderboardPage = Struct.new(:updated_at, :profiles)
 # App constants, will rarely change
 STORAGE_PATH =
   if Rails.env.test?
-    Rails.root.join('tmp/storage')
-  elsif ENV.fetch('IN_DOCKER', false)
-    '/storage'
+    Rails.root.join("tmp/storage")
+  elsif ENV.fetch("IN_DOCKER", false)
+    "/storage"
   else
-    ENV.fetch('STORAGE_PATH', '/')
+    ENV.fetch("STORAGE_PATH", "/")
   end
 
 COMMAND_KEYWORDS = {
@@ -196,19 +195,19 @@ COMMAND_KEYWORDS = {
 }.freeze
 PRIVATE_KEYWORDS = %w[admin help claim].freeze
 
-CHAN_PREFIX = '#'.freeze
-PROF_PREFIX = '@'.freeze
+CHAN_PREFIX = "#".freeze
+PROF_PREFIX = "@".freeze
 LEGACY_SLACK_SUFFIX_PATTERN = '\|[^>]*'.freeze
 
 RID_CHARS = {
-  slack: '[A-Z0-9]'
+  slack: "[A-Z0-9]"
 }.with_indifferent_access.freeze
 
 PROFILE_PREFIX = {
-  slack: '@'
+  slack: "@"
 }.with_indifferent_access.freeze
 SUBTEAM_PREFIX = {
-  slack: '!subteam^'
+  slack: "!subteam^"
 }.with_indifferent_access.freeze
 PROFILE_REGEX = {
   slack: /<@([A-Z0-9]+)(\|([^>]+))?>/
@@ -220,22 +219,22 @@ SUBTEAM_REGEX = {
   slack: /<!subteam\^([^>]+)>/
 }.freeze
 
-SLACK_DM_NAME = 'direct-message'.freeze
-SLACK_DM_PREFIX = 'mpdm-'.freeze
-SLACK_DM_PHRASE = 'a group chat'.freeze
+SLACK_DM_NAME = "direct-message".freeze
+SLACK_DM_PREFIX = "mpdm-".freeze
+SLACK_DM_PHRASE = "a group chat".freeze
 POINT_INLINES = %w[++ += +].freeze
 JAB_INLINES = %w[-- -= -].freeze
-THUMBSUP_EMOJI_PATTERNS = ['\+1(::skin-tone-\d)?', 'thumbsup'].freeze
+THUMBSUP_EMOJI_PATTERNS = [ '\+1(::skin-tone-\d)?', "thumbsup" ].freeze
 
-IMG_DELIM = '<COLOR>'.freeze
+IMG_DELIM = "<COLOR>".freeze
 
 GIFS = {
-  '32' => %w[trophy],
-  '48' => %w[cake cherries comet confetti fern fire flower star tree]
+  "32" => %w[trophy],
+  "48" => %w[cake cherries comet confetti fern fire flower star tree]
 }.freeze
 
 UNINSTALL_REASONS = {
-  trial_expired: 'Trial expired',
-  subscription_expired: 'Subscription expired',
-  admin: 'Uninstalled via web by admin'
+  trial_expired: "Trial expired",
+  subscription_expired: "Subscription expired",
+  admin: "Uninstalled via web by admin"
 }.freeze

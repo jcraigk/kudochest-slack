@@ -63,13 +63,13 @@ RSpec.describe Actions::Message do
     context 'when text does not contain punctuation or bot mention' do
       let(:text) { 'hello world' }
 
-      include_examples 'silence'
+      it_behaves_like 'silence'
     end
 
     context 'when text is bot mention only' do
       let(:text) { bot_mention }
 
-      include_examples 'silence'
+      it_behaves_like 'silence'
     end
 
     context 'when text starts with bot mention and contains other text' do
@@ -93,19 +93,19 @@ RSpec.describe Actions::Message do
     context 'when text includes `++` with user mention' do
       let(:text) { "hello <#{user_mention}> ++ #{note}" }
       let(:matches) do
-        [{ rid: user_mention, inline: '++', note: }]
+        [ { rid: user_mention, inline: '++', note: } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when text includes `++2` with user mention' do
       let(:text) { "hello <#{user_mention}> ++2 #{note}" }
       let(:matches) do
-        [{ rid: user_mention, inline: '++', suffix_quantity: 2, note: }]
+        [ { rid: user_mention, inline: '++', suffix_quantity: 2, note: } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     xcontext 'when text include `@everyone++`' do
@@ -114,37 +114,37 @@ RSpec.describe Actions::Message do
     context 'when text includes `+=` with valid user' do
       let(:text) { "hello <#{user_mention}> += #{note}" }
       let(:matches) do
-        [{ rid: user_mention, inline: '+=', note: }]
+        [ { rid: user_mention, inline: '+=', note: } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when text includes single valid inline emoji with valid user' do
       let(:text) { "hello <#{user_mention}> #{team.point_emoj} #{note}" }
       let(:matches) do
-        [{ rid: user_mention, inline_emoji: team.point_emoj, note: }]
+        [ { rid: user_mention, inline_emoji: team.point_emoj, note: } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when text includes single valid inline emoji with int suffix' do
       let(:text) { "hello <#{user_mention}> #{team.point_emoj} 2 #{note}" }
       let(:matches) do
-        [{ rid: user_mention, inline_emoji: team.point_emoj, suffix_quantity: 2, note: }]
+        [ { rid: user_mention, inline_emoji: team.point_emoj, suffix_quantity: 2, note: } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when text includes single valid inline emoji with int prefix' do
       let(:text) { "hello <#{user_mention}> 2 #{team.point_emoj} #{note}" }
       let(:matches) do
-        [{ rid: user_mention, prefix_quantity: 2, inline_emoji: team.point_emoj, note: }]
+        [ { rid: user_mention, prefix_quantity: 2, inline_emoji: team.point_emoj, note: } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when text includes multiple valid inline emoji with int suffix' do
@@ -154,15 +154,15 @@ RSpec.describe Actions::Message do
         TEXT
       end
       let(:matches) do
-        [{
+        [ {
           rid: user_mention,
           inline_emoji: "#{team.point_emoj} #{team.point_emoj} #{team.point_emoj}",
           suffix_quantity: 2,
           note:
-        }]
+        } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when text includes multiple mixed inline emoji with valid user' do
@@ -170,14 +170,14 @@ RSpec.describe Actions::Message do
         "hello <#{user_mention}> #{team.point_emoj} :invalid_emoji:#{team.point_emoj} #{note}"
       end
       let(:matches) do
-        [{
+        [ {
           rid: user_mention,
           inline_emoji: "#{team.point_emoj} :invalid_emoji:#{team.point_emoj}",
           note:
-        }]
+        } ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when text includes `++` with mixture of entities, spacing, and quantities' do
@@ -206,7 +206,7 @@ RSpec.describe Actions::Message do
         ]
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
   end
 
@@ -216,7 +216,7 @@ RSpec.describe Actions::Message do
       "<#{SUBTEAM_PREFIX[platform]}#{subteam.rid}|#{PROF_PREFIX}#{subteam.handle}>"
     end
 
-    include_examples 'platform parity'
+    it_behaves_like 'platform parity'
 
     context 'when command is issued with no keyword' do
       let(:origin) { 'command' }

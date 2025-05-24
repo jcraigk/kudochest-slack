@@ -58,7 +58,7 @@ RSpec.describe TipHistogramService do
       ]
     end
 
-    include_examples 'expected result'
+    it_behaves_like 'expected result'
   end
 
   context 'when points have been given and earned' do
@@ -99,6 +99,6 @@ RSpec.describe TipHistogramService do
       create(:tip, created_at: Time.zone.local(2019, 11, 5), to_profile: profile)
     end
 
-    include_examples 'expected result'
+    it_behaves_like 'expected result'
   end
 end

@@ -3,7 +3,7 @@ class Inquiry < ApplicationRecord
 
   enumerize :subject,
             in: %w[general support bug feature demo],
-            default: 'general'
+            default: "general"
 
   validates :body, presence: true
 

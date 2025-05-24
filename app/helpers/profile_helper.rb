@@ -4,8 +4,8 @@ module ProfileHelper
   ].freeze
 
   def level_progress_bar_footer(profile)
-    tag.span(class: 'progress-footer') do
-      break 'Maximum level' if profile.max_level?
+    tag.span(class: "progress-footer") do
+      break "Maximum level" if profile.max_level?
       <<~TEXT.chomp
         Earn #{points_format(profile.points_remaining_until_next_level, label: true)} to level up
       TEXT
@@ -25,7 +25,7 @@ module ProfileHelper
 
   def level_progress_bar(profile)
     tag.progress \
-      class: 'progress profile-level-progress',
+      class: "progress profile-level-progress",
       value: percent_of_current_level(profile),
       max: 100,
       title: profile.next_level_points_sentence
@@ -33,9 +33,9 @@ module ProfileHelper
 
   def profile_web_link(profile, team = nil)
     team ||= profile.team
-    tag.span(class: 'profile-link') do
+    tag.span(class: "profile-link") do
       css = "avatar platform-#{team.platform}"
-      h = image_tag(profile.avatar_url, size: 20, alt: 'Avatar image', class: css)
+      h = image_tag(profile.avatar_url, size: 20, alt: "Avatar image", class: css)
       h += link_to(profile.display_name, profile_path(profile.slug))
       h + " (#{profile.real_name})" if profile.display_name != profile.real_name
       h
@@ -45,7 +45,7 @@ module ProfileHelper
   def tip_direction_with_icon(tip, profile)
     dir, word = tip.from_profile == profile ? %w[right Given] : %w[left Earned]
     tag.span(class: "points-direction-#{dir}") do
-      tag.i(class: "fas fa-arrow-#{dir}") + ' ' + word # rubocop:disable Style/StringConcatenation
+      tag.i(class: "fas fa-arrow-#{dir}") + " " + word # rubocop:disable Style/StringConcatenation
     end
   end
 
@@ -59,7 +59,7 @@ module ProfileHelper
 
   def level_as_pixel_digits(lvl)
     lvl.to_s.chars.map do |digit|
-      image_tag "levels/digits/#{digit}.png", class: 'digit', alt: "Level #{lvl}"
+      image_tag "levels/digits/#{digit}.png", class: "digit", alt: "Level #{lvl}"
     end.join.html_safe # rubocop:disable Rails/OutputSafety
   end
 
@@ -75,7 +75,7 @@ module ProfileHelper
   def avatar_image(profile, size: 150)
     image_tag \
       profile.avatar_url,
-      alt: 'Profile avatar image',
+      alt: "Profile avatar image",
       size:,
       class: "platform-#{profile.team.platform}"
   end

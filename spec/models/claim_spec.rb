@@ -15,8 +15,8 @@ RSpec.describe Claim do
     let!(:pending_claim) { create(:claim) }
 
     it 'returns expected records' do
-      expect(described_class.fulfilled).to eq([fulfilled_claim])
-      expect(described_class.pending).to eq([pending_claim])
+      expect(described_class.fulfilled).to eq([ fulfilled_claim ])
+      expect(described_class.pending).to eq([ pending_claim ])
     end
   end
 

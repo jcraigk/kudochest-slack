@@ -20,7 +20,7 @@ For Slack and OAuth callbacks, a tunneling service such as [ngrok](https://ngrok
 
 You'll want to setup a dedicated workspace and App in Slack specifically for KudoChest development. Do not use your organization's production workspace or App to develop against.
 
-If you're working on response images and running Sidekiq in Docker, you'll need to configure a local storage location in `docker-compose.yml` to map to `/storage` in the `sidekiq` container.
+If you're working on response images and running Sidekiq in Docker, you'll need to configure a local storage location in `docker compose.yml` to map to `/storage` in the `sidekiq` container.
 &nbsp;
 &nbsp;
 

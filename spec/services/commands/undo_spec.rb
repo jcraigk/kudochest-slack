@@ -16,7 +16,7 @@ RSpec.describe Commands::Undo, :freeze_time do
     let(:text) { ":#{App.error_emoji}: Nothing to undo" }
     let(:response) { ChatResponse.new(mode: :error, text:) }
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when an older undoable tip exists' do
@@ -31,7 +31,7 @@ RSpec.describe Commands::Undo, :freeze_time do
       )
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when a recent undoable tip exists' do
@@ -48,7 +48,7 @@ RSpec.describe Commands::Undo, :freeze_time do
       )
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'with a multi-recipient and streak reward situation' do
@@ -91,7 +91,7 @@ RSpec.describe Commands::Undo, :freeze_time do
       )
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
 
     xit 'if many recipients, mentions "4 users" instead of "a, b, and c"' do
     end

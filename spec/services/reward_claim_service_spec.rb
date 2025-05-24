@@ -25,7 +25,7 @@ RSpec.describe RewardClaimService, :freeze_time do
 
     before { profile.update(points_received: reward.price - 1) }
 
-    include_examples 'error'
+    it_behaves_like 'error'
   end
 
   context 'when reward has insufficient quantity' do
@@ -34,13 +34,13 @@ RSpec.describe RewardClaimService, :freeze_time do
     context 'with auto_fulfill' do
       before { reward.update(auto_fulfill: true, fulfillment_keys: nil) }
 
-      include_examples 'error'
+      it_behaves_like 'error'
     end
 
     context 'without auto_fulfill' do
       before { reward.update(quantity: 0) }
 
-      include_examples 'error'
+      it_behaves_like 'error'
     end
   end
 

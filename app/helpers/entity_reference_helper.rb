@@ -8,10 +8,10 @@ module EntityReferenceHelper
   end
 
   def channel_webref(name)
-    helpers.tag.span("#{CHAN_PREFIX}#{name}", class: 'chat-ref')
+    helpers.tag.span("#{CHAN_PREFIX}#{name}", class: "chat-ref")
   end
 
   def subteam_webref(name)
-    helpers.tag.span(name, class: 'chat-ref')
+    helpers.tag.span(name, class: "chat-ref")
   end
 end

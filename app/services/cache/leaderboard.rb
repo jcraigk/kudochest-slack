@@ -35,10 +35,10 @@ class Cache::Leaderboard < Base::Service
   end
 
   def action
-    giving_board ? 'sent' : 'received'
+    giving_board ? "sent" : "received"
   end
 
   def style
-    jab_board ? 'jabs' : 'points'
+    jab_board ? "jabs" : "points"
   end
 end

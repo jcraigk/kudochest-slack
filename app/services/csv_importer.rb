@@ -19,7 +19,7 @@ class CsvImporter < Base::Service
   attr_reader :tips, :invalid_names
 
   def result_sentence
-    [update_fragment, invalid_fragment].compact.join(', ')
+    [ update_fragment, invalid_fragment ].compact.join(", ")
   end
 
   def update_fragment
@@ -35,10 +35,10 @@ class CsvImporter < Base::Service
 
   def create_tips
     text.split("\n").each do |line|
-      display_name, quantity_str = line.split(',')
+      display_name, quantity_str = line.split(",")
       quantity = quantity_str.to_i
       next unless quantity.positive?
-      profile = team.profiles.find_by(display_name: display_name.tr('@', ''))
+      profile = team.profiles.find_by(display_name: display_name.tr("@", ""))
       next @tips << create_import_tip(profile, quantity) if profile.present?
       @invalid_names << display_name
     end
@@ -54,7 +54,7 @@ class CsvImporter < Base::Service
       from_profile: team.app_profile,
       to_profile: profile,
       quantity:,
-      source: 'import',
+      source: "import",
       event_ts: Time.current.to_f.to_s
     ).tap do |tip|
       tip.save(validate: false)

@@ -1,18 +1,18 @@
 namespace :seeds do
   include FactoryBot::Syntax::Methods
 
-  desc 'Generate seeds for testing'
+  desc "Generate seeds for testing"
   task all: :environment do
-    Rake::Task['seeds:topics'].execute
-    Rake::Task['seeds:tips'].execute
-    Rake::Task['seeds:loot'].execute
+    Rake::Task["seeds:topics"].execute
+    Rake::Task["seeds:tips"].execute
+    Rake::Task["seeds:loot"].execute
   end
 
-  desc 'Generate Tips and related data for testing'
+  desc "Generate Tips and related data for testing"
   task tips: :environment do
     tips = []
     team = Team.first
-    print 'Generating Tips...'
+    print "Generating Tips..."
     profiles = team.profiles.active
     profiles.each do |profile|
       profile_tips = []
@@ -23,23 +23,23 @@ namespace :seeds do
         profile_tips += TipFactory.call \
           topic_id:,
           from_profile: profile,
-          to_entity: 'Profile',
-          to_profiles: [(profiles - [profile]).sample],
+          to_entity: "Profile",
+          to_profiles: [ (profiles - [ profile ]).sample ],
           from_channel_rid: channel.rid,
           from_channel_name: channel.name,
           quantity:,
           note: Faker::Lorem.sentence(word_count: rand(4..8)),
           event_ts: Time.current.to_f.to_s,
           channel_rid: channel.rid,
-          source: 'seed',
+          source: "seed",
           timestamp: Time.current
       end
       TipOutcomeService.call(tips: profile_tips)
       tips += profile_tips
     end
-    puts 'done'
+    puts "done"
 
-    print 'Randomizing temporal distribution of Tips...'
+    print "Randomizing temporal distribution of Tips..."
     tips.each do |tip|
       tip.update_columns(created_at: rand(1..172_800_000).seconds.ago) # Up to 2000 days ago
     end
@@ -48,25 +48,25 @@ namespace :seeds do
       profile.update(last_tip_received_at:)
     end
 
-    puts 'done'
+    puts "done"
   end
 
-  desc 'Generate Topics for testing'
+  desc "Generate Topics for testing"
   task topics: :environment do
-    print 'Generating topics'
+    print "Generating topics"
     team = Team.first
     rand(5..30).times do
       create(:topic, team:)
     end
   end
 
-  desc 'Generate Loot for testing'
+  desc "Generate Loot for testing"
   task loot: :environment do
-    prices = [50, 100, 200, 250, 500, 1_000, 1_200]
+    prices = [ 50, 100, 200, 250, 500, 1_000, 1_200 ]
     team = Team.first
     profile1 = team.profiles.active.first
     profile2 = team.profiles.active.second
-    print 'Generating rewards'
+    print "Generating rewards"
     40.times do |n|
       auto_fulfill = rand(3).to_i == 1
       fulfillment_keys = Array.new(5) { Faker::Crypto.md5 }
@@ -80,7 +80,7 @@ namespace :seeds do
         quantity:,
         fulfillment_keys: auto_fulfill ? fulfillment_keys.join("\n") : nil,
         active: rand(3).to_i != 1
-      next if rand(3).to_i.positive? || ENV.fetch('SKIP_CLAIMS', nil).present?
+      next if rand(3).to_i.positive? || ENV.fetch("SKIP_CLAIMS", nil).present?
       fulfilled = auto_fulfill ? true : rand(2).to_i.even?
       max_claims = auto_fulfill ? fulfillment_keys.size : quantity
       num_claims = rand(2).to_i.even? ? max_claims : rand(max_claims).to_i
@@ -93,6 +93,6 @@ namespace :seeds do
       end
     end
 
-    puts 'done'
+    puts "done"
   end
 end

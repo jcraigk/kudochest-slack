@@ -23,37 +23,37 @@ class Slack::Modals::Preferences < Base::Service
       title:,
       submit:,
       close:,
-      blocks: [checkboxes]
+      blocks: [ checkboxes ]
     }
   end
 
   def title
     {
       type: :plain_text,
-      text: t('profiles.prefs_modal_title')
+      text: t("profiles.prefs_modal_title")
     }
   end
 
   def close
     {
       type: :plain_text,
-      text: 'Cancel'
+      text: "Cancel"
     }
   end
 
   def submit
     {
       type: :plain_text,
-      text: 'Submit'
+      text: "Submit"
     }
   end
 
   def checkboxes
     {
-      type: 'section',
+      type: "section",
       text: prefs_text,
       accessory: {
-        type: 'checkboxes',
+        type: "checkboxes",
         action_id: :prefs,
         initial_options:,
         options: prefs_options
@@ -67,8 +67,8 @@ class Slack::Modals::Preferences < Base::Service
 
   def prefs_text
     {
-      type: 'plain_text',
-      text: t('profiles.prefs_modal_info')
+      type: "plain_text",
+      text: t("profiles.prefs_modal_info")
     }
   end
 

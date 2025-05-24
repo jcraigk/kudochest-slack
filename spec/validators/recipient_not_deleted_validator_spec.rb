@@ -23,7 +23,7 @@ RSpec.describe RecipientNotDeletedValidator do
 
     it 'is invalid' do
       validate
-      expect(tip.errors[:base]).to eq([expected])
+      expect(tip.errors[:base]).to eq([ expected ])
     end
   end
 end

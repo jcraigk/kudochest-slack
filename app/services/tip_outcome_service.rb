@@ -28,7 +28,7 @@ class TipOutcomeService < Base::Service
 
   # Lock profiles in consistent order to reduce deadlocks
   def lock_records_for_transaction
-    [team, from_profile, *to_profiles].sort_by(&:id).each(&:lock!)
+    [ team, from_profile, *to_profiles ].sort_by(&:id).each(&:lock!)
   end
 
   def to_profiles
@@ -99,6 +99,6 @@ class TipOutcomeService < Base::Service
   end
 
   def operator
-    @operator ||= destroy ? '-' : '+'
+    @operator ||= destroy ? "-" : "+"
   end
 end

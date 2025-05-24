@@ -8,9 +8,9 @@ RSpec.describe CsvImporter do
   let(:profile2) { create(:profile, team:) }
   let(:csv_text) do
     [
-      [profile1.display_name, 100].join(','),
-      [profile2.display_name, 250].join(','),
-      ['@invalid_name', 38].join(',')
+      [ profile1.display_name, 100 ].join(','),
+      [ profile2.display_name, 250 ].join(','),
+      [ '@invalid_name', 38 ].join(',')
     ].join("\n")
   end
   let(:response_text) do

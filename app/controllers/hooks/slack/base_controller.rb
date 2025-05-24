@@ -24,7 +24,7 @@ class Hooks::Slack::BaseController < Hooks::BaseController
   end
 
   def prefs_submission?
-    json_payload.dig(:view, :callback_id) == 'submit_prefs_modal'
+    json_payload.dig(:view, :callback_id) == "submit_prefs_modal"
   end
 
   def private_command?
@@ -52,7 +52,7 @@ class Hooks::Slack::BaseController < Hooks::BaseController
 
   def fast_ack_data
     {
-      platform: 'slack',
+      platform: "slack",
       replace_channel_rid: fast_ack&.dig(:channel),
       replace_ts: fast_ack&.dig(:ts)
     }
@@ -67,9 +67,9 @@ class Hooks::Slack::BaseController < Hooks::BaseController
 
   def ignore_irrelevant_messages!
     return if
-      params.dig(:message, :subtype) != 'bot_message' &&
+      params.dig(:message, :subtype) != "bot_message" &&
       params.dig(:event, :bot_id).blank? &&
-      (subtype.blank? || subtype == 'file_share')
+      (subtype.blank? || subtype == "file_share")
     head :ok
   end
 
@@ -82,20 +82,20 @@ class Hooks::Slack::BaseController < Hooks::BaseController
   def verify_slack_request!
     return if Rails.env.test?
 
-    timestamp = request.headers['HTTP_X_SLACK_REQUEST_TIMESTAMP']
+    timestamp = request.headers["HTTP_X_SLACK_REQUEST_TIMESTAMP"]
     return head(:unauthorized) if Time.now.to_i - timestamp.to_i > 300 # 5 minutes
-    slack_signature = request.headers['HTTP_X_SLACK_SIGNATURE']
+    slack_signature = request.headers["HTTP_X_SLACK_SIGNATURE"]
     head(:unauthorized) unless expected_signature(timestamp) == slack_signature
   end
 
   def expected_signature(timestamp)
     sig_basestring = "v0:#{timestamp}:#{request.raw_post}"
-    str = OpenSSL::HMAC.hexdigest('sha256', App.slack_signing_secret, sig_basestring)
+    str = OpenSSL::HMAC.hexdigest("sha256", App.slack_signing_secret, sig_basestring)
     "v0=#{str}"
   end
 
   def text
-    @text ||= params.dig(:event, :text) || ''
+    @text ||= params.dig(:event, :text) || ""
   end
 
   # Naming this `config` messes with Rails logger :shrug:

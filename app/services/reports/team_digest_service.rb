@@ -82,7 +82,7 @@ class Reports::TeamDigestService < Reports::BaseDigestService
     @tips ||=
       Tip.select(:quantity, :source, :from_profile_id, :to_profile_id)
          .where(to_profile_id: profiles.map(&:id))
-         .where('tips.created_at > ?', timeframe)
+         .where("tips.created_at > ?", timeframe)
          .order(quantity: :desc)
          .all
   end
@@ -96,16 +96,16 @@ class Reports::TeamDigestService < Reports::BaseDigestService
   end
 
   def points_from_streak
-    tips.select { |tip| tip.source == 'streak' }.sum(&:quantity)
+    tips.select { |tip| tip.source == "streak" }.sum(&:quantity)
   end
 
   def leveling_sentence
     return unless team.enable_levels?
-    return 'None' if num_levelups.zero? && num_leveldowns.zero?
+    return "None" if num_levelups.zero? && num_leveldowns.zero?
     parts = []
     parts << num_levelups_sentence if num_levelups.positive?
     parts << num_leveldowns_sentence if num_leveldowns.positive?
-    parts.join(' and ')
+    parts.join(" and ")
   end
 
   def num_levelups_sentence
@@ -142,8 +142,8 @@ class Reports::TeamDigestService < Reports::BaseDigestService
 
   def loot_claims_sentence
     return unless team.enable_loot?
-    claims = Claim.where('created_at > ?', timeframe)
-    return 'None' if claims.empty?
+    claims = Claim.where("created_at > ?", timeframe)
+    return "None" if claims.empty?
     num_pending = claims.count(&:pending?)
     "#{pluralize(claims.size, 'new claim')} (#{num_pending} pending fulfillment)"
   end

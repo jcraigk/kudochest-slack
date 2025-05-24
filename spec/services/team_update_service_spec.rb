@@ -4,7 +4,7 @@ RSpec.describe TeamUpdateService do
   subject(:service) { described_class.call(team:, name:, avatar_url:) }
 
   let(:profile) { create(:profile, display_name: 'Andy') }
-  let(:team) { create(:team, profiles: [profile]) }
+  let(:team) { create(:team, profiles: [ profile ]) }
   let(:name) { 'Awesome Team' }
   let(:avatar_url) { 'https://example.com/avatar.png' }
 

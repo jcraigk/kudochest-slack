@@ -18,7 +18,7 @@ RSpec.describe NoteSanitizer do
     let(:text) { 'hey &lt; &gt; &amp; *' }
     let(:result) { 'hey < > &' }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when Slack' do
@@ -27,7 +27,7 @@ RSpec.describe NoteSanitizer do
       let(:text) { "hey <#{CHAN_PREFIX}#{channel.rid}|#{given_name}>" }
       let(:result) { "hey #{CHAN_PREFIX}#{given_name}" }
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when profile display_name name is given after pipe char, extacts directly' do
@@ -35,7 +35,7 @@ RSpec.describe NoteSanitizer do
       let(:text) { "hey <#{PROF_PREFIX}#{profile.rid}|#{given_name}>" }
       let(:result) { "hey #{PROF_PREFIX}#{given_name}" }
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when url given, extacts' do
@@ -43,7 +43,7 @@ RSpec.describe NoteSanitizer do
       let(:text) { "hey <https://www.google.com|#{link_name}>" }
       let(:result) { "hey #{link_name}" }
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
 
     context 'when no names given after pipe char' do
@@ -58,7 +58,7 @@ RSpec.describe NoteSanitizer do
         TEXT
       end
 
-      include_examples 'success'
+      it_behaves_like 'success'
     end
   end
 end

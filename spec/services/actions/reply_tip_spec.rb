@@ -24,7 +24,7 @@ RSpec.describe Actions::ReplyTip do
   let(:expected_args) do
     {
       profile: sender,
-      mentions: [Mention.new(rid: "#{PROF_PREFIX}#{recipient.rid}", quantity: 1)],
+      mentions: [ Mention.new(rid: "#{PROF_PREFIX}#{recipient.rid}", quantity: 1) ],
       source: 'reply',
       event_ts: ts,
       channel_rid: channel.rid,

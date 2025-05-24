@@ -17,7 +17,7 @@ RSpec.describe Actions::SubmitPrefsModal do
         blocks: [
           {
             accessory: {
-              options: [{ value: 'allow_dm' }]
+              options: [ { value: 'allow_dm' } ]
             }
           }
         ],
@@ -25,7 +25,7 @@ RSpec.describe Actions::SubmitPrefsModal do
           values: {
             JyY1m: {
               prefs: {
-                selected_options: [{ value: 'allow_dm' }]
+                selected_options: [ { value: 'allow_dm' } ]
               }
             }
           }

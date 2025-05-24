@@ -8,11 +8,11 @@ class Hooks::Slack::CommandsController < Hooks::Slack::BaseController
 
   def data # rubocop:disable Metrics/MethodLength
     {
-      action: 'message',
+      action: "message",
       channel_name: params[:channel_name],
       channel_rid: params[:channel_id],
       event_ts: Time.current.to_f.to_s,
-      origin: 'command',
+      origin: "command",
       profile_rid: params[:user_id],
       config: team_config,
       team_rid: params[:team_id],

@@ -26,21 +26,21 @@ RSpec.describe Commands::Report do
     let(:text) { '' }
     let(:expected_title) { "*Report for #{team.name} covering Nov 1 - 8*" }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when timeframe given, scopes to that timeframe' do
     let(:text) { '100' }
     let(:expected_title) { "*Report for #{team.name} covering Jul 31 - Nov 8*" }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when `me` is given, provides profile report' do
     let(:text) { 'me' }
     let(:expected_title) { "*Report for #{profile.dashboard_link} covering Nov 1 - 8*" }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'when a profile is given, provides profile report' do
@@ -48,6 +48,6 @@ RSpec.describe Commands::Report do
     let(:text) { profile2.link }
     let(:expected_title) { "*Report for #{profile2.dashboard_link} covering Nov 1 - 8*" }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 end

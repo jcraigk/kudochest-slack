@@ -84,7 +84,7 @@ class Image::TipService < Base::ImageService
       draw.pointsize = 16
       draw.gravity = Magick::NorthEastGravity
       color = BODY_COLORS[theme].first
-      draw.annotate(comp, 0, 0, 45, 24, 'from') do |m|
+      draw.annotate(comp, 0, 0, 45, 24, "from") do |m|
         m.fill = color
       end
     end
@@ -159,7 +159,7 @@ class Image::TipService < Base::ImageService
   def raw_body_text
     @raw_body_text ||=
       main_fragments.compact
-                    .map { |frag| frag.gsub(IMG_DELIM, '').gsub(/\s+/, ' ').gsub(' ,', ',') }
+                    .map { |frag| frag.gsub(IMG_DELIM, "").gsub(/\s+/, " ").gsub(" ,", ",") }
                     .join("\n")
   end
 
@@ -171,7 +171,7 @@ class Image::TipService < Base::ImageService
 
   def add_cheer_hr(comp)
     draw = Magick::Draw.new
-    draw.stroke('gray')
+    draw.stroke("gray")
     draw.stroke_width(1)
     draw.line(BODY_PAD, MAIN_HEIGHT + 25, WIDTH - BODY_PAD, MAIN_HEIGHT + 25)
     draw.draw(comp)
@@ -200,7 +200,7 @@ class Image::TipService < Base::ImageService
 
   def add_animated_gif(comp) # rubocop:disable Metrics/AbcSize
     gif_sequence = random_gif(48)
-    force_loop = gif_sequence.first.filename.split('/')[-2].in?(GIF_NO_REST)
+    force_loop = gif_sequence.first.filename.split("/")[-2].in?(GIF_NO_REST)
     comp.delay = GIF_SPEED
 
     Magick::ImageList.new.tap do |ilist|
@@ -242,16 +242,16 @@ class Image::TipService < Base::ImageService
     draw.gravity = Magick::NorthWestGravity
     x = avatar_stack_right + 44
     y = 3
-    prefix, color = first_tip.jab? ? ['-', '#d43808'] : ['+', '#f0cf28']
+    prefix, color = first_tip.jab? ? [ "-", "#d43808" ] : [ "+", "#f0cf28" ]
     text = "#{prefix}#{points_format(first_tip.quantity.abs)}"
-    draw.annotate(comp, 0, 0, x, y, text) { |m| m.fill = '#3b1b20' }
+    draw.annotate(comp, 0, 0, x, y, text) { |m| m.fill = "#3b1b20" }
     draw.annotate(comp, 0, 0, x - 2, y - 2, text) { |m| m.fill = color }
 
     comp
   end
 
   def num_avatars
-    @num_avatars ||= [recipient_profiles.size, MAX_PROFILES].min
+    @num_avatars ||= [ recipient_profiles.size, MAX_PROFILES ].min
   end
 
   def avatar_stack_right

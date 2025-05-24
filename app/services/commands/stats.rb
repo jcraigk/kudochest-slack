@@ -10,7 +10,7 @@ class Commands::Stats < Commands::Base
   end
 
   def base_text # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-    ary = [stats_title]
+    ary = [ stats_title ]
     ary << rank_fragment
     ary << level_fragment if team.enable_levels?
     ary << points_received_fragment
@@ -26,7 +26,7 @@ class Commands::Stats < Commands::Base
   end
 
   def throttle_fragment
-    str = ':stopwatch: *Throttle:*'
+    str = ":stopwatch: *Throttle:*"
     return "#{str} Exempt" if requested_profile.throttle_exempt?
     next_available_time, available_quantity =
       ThrottleService.call(profile: requested_profile, quantity: 0)

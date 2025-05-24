@@ -31,8 +31,8 @@ RSpec.describe Reward do
     let!(:inactive_reward) { create(:reward, active: false) }
 
     it 'returns expected records' do
-      expect(described_class.active).to eq([active_reward])
-      expect(described_class.inactive).to eq([inactive_reward])
+      expect(described_class.active).to eq([ active_reward ])
+      expect(described_class.inactive).to eq([ inactive_reward ])
     end
   end
 

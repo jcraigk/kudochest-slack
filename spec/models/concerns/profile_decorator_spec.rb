@@ -208,35 +208,35 @@ RSpec.describe ProfileDecorator do
         let(:result) { 0 }
         let(:streak_date) { nil }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       context 'when streak_date is today' do
         let(:result) { 2 }
         let(:streak_date) { Time.zone.local(2019, 11, 11, 21, 1, 1).to_date }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       context 'when streak_date is previous working day' do
         let(:result) { 2 }
         let(:streak_date) { Time.zone.local(2019, 11, 8, 21, 1, 1).to_date }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       context 'when streak_date is in the distant past' do
         let(:result) { 0 }
         let(:streak_date) { Time.zone.local(2019, 10, 1, 21, 1, 1).to_date }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       context 'when streak_date is tomorrow' do
         let(:result) { 2 }
         let(:streak_date) { Time.zone.local(2019, 11, 12, 21, 1, 1).to_date }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       xcontext 'when today is next streak date' do
@@ -253,28 +253,28 @@ RSpec.describe ProfileDecorator do
         let(:result) { 0 }
         let(:streak_date) { nil }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       context 'when streak_date is today' do
         let(:result) { 2 }
         let(:streak_date) { Time.zone.local(2019, 11, 10, 21, 1, 1).to_date }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       context 'when streak_date is in the distant past' do
         let(:result) { 0 }
         let(:streak_date) { Time.zone.local(2019, 10, 1, 21, 1, 1).to_date }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
 
       context 'when streak_date is tomorrow' do
         let(:result) { 2 }
         let(:streak_date) { Time.zone.local(2019, 11, 11, 21, 1, 1).to_date }
 
-        include_examples 'expected result'
+        it_behaves_like 'expected result'
       end
     end
   end

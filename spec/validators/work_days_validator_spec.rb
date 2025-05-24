@@ -16,7 +16,7 @@ RSpec.describe WorkDaysValidator do
     it 'is invalid' do
       validate
       expect(team.errors[:work_days]).to eq \
-        [I18n.t('activerecord.errors.models.team.attributes.work_days.at_least_one')]
+        [ I18n.t('activerecord.errors.models.team.attributes.work_days.at_least_one') ]
     end
   end
 end

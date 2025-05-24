@@ -1,9 +1,9 @@
 class Slack::PostService < Base::PostService
   option :team_rid
-  option :replace_channel_rid,  default: proc {}
-  option :replace_ts,           default: proc {}
-  option :thread_ts,            default: proc {}
-  option :trigger_id,           default: proc {}
+  option :replace_channel_rid,  default: proc { }
+  option :replace_ts,           default: proc { }
+  option :thread_ts,            default: proc { }
+  option :trigger_id,           default: proc { }
 
   private
 
@@ -80,7 +80,7 @@ class Slack::PostService < Base::PostService
   end
 
   def os_notification
-    return 'A random usage hint' if mode == :hint
+    return "A random usage hint" if mode == :hint
     return alt_text if image.present?
     NoteSanitizer.call(platform: :slack, team_rid:, text: compose_response(false))
   end
@@ -109,7 +109,7 @@ class Slack::PostService < Base::PostService
     {
       blocks: [
         {
-          type: 'image',
+          type: "image",
           image_url: image,
           alt_text:
         }
@@ -155,7 +155,7 @@ class Slack::PostService < Base::PostService
 
   def fast_ack_text
     return unless mode == :fast_ack
-    word = sender.announce_tip_sent? ? "#{sender.display_name}'s" : 'a'
+    word = sender.announce_tip_sent? ? "#{sender.display_name}'s" : "a"
     "_Working on #{word} request..._"
   end
 

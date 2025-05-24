@@ -54,7 +54,7 @@ class HintService < Base::Service
   end
 
   def logo_image_path
-    image_path('logos/app-reverse-144.png')
+    image_path("logos/app-reverse-144.png")
   end
 
   def responder

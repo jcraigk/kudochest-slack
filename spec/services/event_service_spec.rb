@@ -28,7 +28,7 @@ RSpec.describe EventService do
 
     before { allow(Actions::Message).to receive(:call).and_raise('whoopsy') }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 
   context 'without exception' do
@@ -37,6 +37,6 @@ RSpec.describe EventService do
 
     before { allow(Actions::Message).to receive(:call).and_return(result) }
 
-    include_examples 'success'
+    it_behaves_like 'success'
   end
 end

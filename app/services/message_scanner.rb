@@ -67,7 +67,7 @@ class MessageScanner < Base::Service
   end
 
   def sanitized_emoji(match)
-    match[:emojis]&.gsub(/[^a-z_:\-\+\d]/, '')
+    match[:emojis]&.gsub(/[^a-z_:\-\+\d]/, "")
   end
 
   def note(idx)
@@ -84,6 +84,6 @@ class MessageScanner < Base::Service
   end
 
   def sanitized_text
-    text&.strip&.tr("\u00A0", ' ') || '' # `\u00A0` is unicode space (from Slack)
+    text&.strip&.tr("\u00A0", " ") || "" # `\u00A0` is unicode space (from Slack)
   end
 end

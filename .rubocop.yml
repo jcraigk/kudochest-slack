@@ -1,7 +1,13 @@
-require:
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+plugins:
+  - rubocop-capybara
+  - rubocop-factory_bot
   - rubocop-performance
-  - rubocop-rails
+  - rubocop-rake
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   Exclude:
@@ -10,7 +16,7 @@ AllCops:
     - node_modules/**/*
     - vendor/**/*
   NewCops: enable
-  TargetRubyVersion: 3.2.2
+  TargetRubyVersion: 3.4.3
 FactoryBot/ConsistentParenthesesStyle:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:

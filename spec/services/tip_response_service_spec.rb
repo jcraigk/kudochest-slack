@@ -13,7 +13,7 @@ RSpec.describe TipResponseService do
   let(:quantity) { 1 }
   let(:note) { 'For being just super' }
   let(:channel) { build(:channel) }
-  let(:tips) { [tip] }
+  let(:tips) { [ tip ] }
   let(:topic) { nil }
   let(:tip) do
     create(
@@ -101,7 +101,7 @@ RSpec.describe TipResponseService do
         TEXT
       end
 
-      include_examples 'expected response'
+      it_behaves_like 'expected response'
     end
   end
 
@@ -120,7 +120,7 @@ RSpec.describe TipResponseService do
       TEXT
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when response_theme is `quiet_stat`' do
@@ -138,7 +138,7 @@ RSpec.describe TipResponseService do
       TEXT
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when response_theme is `fancy`' do
@@ -156,7 +156,7 @@ RSpec.describe TipResponseService do
       TEXT
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when a streak is rewarded' do
@@ -202,10 +202,10 @@ RSpec.describe TipResponseService do
 
     before do
       to_profile.update(balance: 10)
-      TipOutcomeService.call(tips: [tip])
+      TipOutcomeService.call(tips: [ tip ])
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   xcontext 'when sender levels up' do
@@ -214,7 +214,7 @@ RSpec.describe TipResponseService do
   context 'with multiple recipients' do
     let(:to_profile2) { create(:profile, team:) }
     let(:to_profile3) { create(:profile, team:) }
-    let(:tips) { [tip, tip2, tip3] }
+    let(:tips) { [ tip, tip2, tip3 ] }
     let(:tip2) do
       create(
         :tip,
@@ -257,7 +257,7 @@ RSpec.describe TipResponseService do
       TEXT
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
 
     context 'when at least one tip was given to a channel' do
       let(:tip3) do
@@ -343,7 +343,7 @@ RSpec.describe TipResponseService do
 
       before { allow(App).to receive(:max_response_mentions).and_return(1) }
 
-      include_examples 'expected response'
+      it_behaves_like 'expected response'
     end
   end
 end

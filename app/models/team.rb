@@ -22,24 +22,24 @@ class Team < ApplicationRecord
             in: %w[slack]
   enumerize :level_curve,
             in: %w[gentle steep linear],
-            default: 'gentle'
+            default: "gentle"
   enumerize :response_mode,
             in: %w[adaptive convo reply direct silent],
-            default: 'adaptive'
+            default: "adaptive"
   # TODO: Re-enable graphical responses
   # Disabled themes: %w[gif_day gif_night]
   enumerize :response_theme,
             in: %w[basic fancy quiet quiet_stat],
-            default: 'quiet_stat'
+            default: "quiet_stat"
   enumerize :tip_notes,
             in: %w[optional required disabled],
-            default: 'optional'
+            default: "optional"
   enumerize :throttle_period,
             in: %w[day week month],
-            default: 'week'
+            default: "week"
   enumerize :hint_frequency,
             in: %w[never hourly daily weekly],
-            default: 'never'
+            default: "never"
 
   attribute :enable_cheers,      :boolean, default: true
   attribute :enable_emoji,       :boolean, default: true
@@ -107,7 +107,7 @@ class Team < ApplicationRecord
 
   scope :active, -> { where(uninstalled_at: nil) }
   scope :trial_expired, lambda {
-    non_gratis.never_subscribed.where('trial_expires_at < ?', Time.current)
+    non_gratis.never_subscribed.where("trial_expires_at < ?", Time.current)
   }
   scope :subscribed_at_least_once, -> { where.not(stripe_expires_at: nil) }
   scope :never_subscribed, -> { where(stripe_expires_at: nil) }
@@ -140,7 +140,7 @@ class Team < ApplicationRecord
   private
 
   def slug_candidates
-    [name, "#{name}-#{SecureRandom.hex(3)}"]
+    [ name, "#{name}-#{SecureRandom.hex(3)}" ]
   end
 
   def slug_value_changed?

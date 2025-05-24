@@ -43,7 +43,7 @@ class Actions::Message < Actions::Base
   end
 
   def slash_command_without_keyword?
-    origin == 'command' && keyword.blank?
+    origin == "command" && keyword.blank?
   end
 
   def open_tip_modal
@@ -91,7 +91,7 @@ class Actions::Message < Actions::Base
   end
 
   def opts_str
-    words[1..].join(' ')
+    words[1..].join(" ")
   end
 
   def bot_mention_prefix?
@@ -99,7 +99,7 @@ class Actions::Message < Actions::Base
   end
 
   def user_text
-    @user_text ||= text.gsub(/\A#{app_profile_ref}\s*/, '')
+    @user_text ||= text.gsub(/\A#{app_profile_ref}\s*/, "")
   end
 
   def app_profile_ref

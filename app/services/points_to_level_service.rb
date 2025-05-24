@@ -9,7 +9,7 @@ class PointsToLevelService < Base::Service
   private
 
   def points_to_level
-    points.positive? ? [compute_level, team.max_level].min : 1
+    points.positive? ? [ compute_level, team.max_level ].min : 1
   end
 
   def compute_level

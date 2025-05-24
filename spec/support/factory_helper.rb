@@ -6,7 +6,7 @@ module FactoryHelper
   end
 
   def self.slack_rid(first_char)
-    chars = [('A'..'Z'), (0..9)].map(&:to_a).flatten
+    chars = [ ('A'..'Z'), (0..9) ].map(&:to_a).flatten
     rid = (0...8).map { chars[rand(chars.length)] }.join
     first_char + rid
   end

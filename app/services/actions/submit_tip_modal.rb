@@ -10,14 +10,14 @@ class Actions::SubmitTipModal < Actions::Base
     TipMentionService.call \
       profile:,
       mentions:,
-      source: 'modal',
+      source: "modal",
       event_ts:,
       channel_rid: params[:channel_rid],
       channel_name: params[:channel_name]
   end
 
   def event_ts
-    params[:trigger_id].split('.').take(2).join('.')
+    params[:trigger_id].split(".").take(2).join(".")
   end
 
   def mentions
@@ -34,11 +34,11 @@ class Actions::SubmitTipModal < Actions::Base
   end
 
   def prefix(val)
-    return if val == 'channel'
+    return if val == "channel"
     case val.first
-    when 'U' then PROF_PREFIX
-    when 'C' then CHAN_PREFIX
-    when 'S' then SUBTEAM_PREFIX[:slack]
+    when "U" then PROF_PREFIX
+    when "C" then CHAN_PREFIX
+    when "S" then SUBTEAM_PREFIX[:slack]
     end
   end
 

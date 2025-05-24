@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class BonusCalculatorService < Base::Service
   option :team
@@ -28,16 +28,16 @@ class BonusCalculatorService < Base::Service
   end
 
   def header_row
-    ary = ['ID', 'Name', App.points_term.titleize]
-    ary << 'Share of Total' unless style == :points_value
-    ary << 'Bonus'
+    ary = [ "ID", "Name", App.points_term.titleize ]
+    ary << "Share of Total" unless style == :points_value
+    ary << "Bonus"
   end
 
   def csv_row(profile)
     points = profile_points(profile)
     share = share_of(points)
     bonus = style_bonus(points, share)
-    ary = [profile.rid, profile.display_name, points]
+    ary = [ profile.rid, profile.display_name, points ]
     ary << share_display(share) unless style == :points_value
     ary << bonus_display(bonus)
   end
@@ -48,14 +48,14 @@ class BonusCalculatorService < Base::Service
 
   def bonus_display(bonus)
     return if bonus.blank?
-    format('$%<bonus>.2f', bonus:)
+    format("$%<bonus>.2f", bonus:)
   end
 
   def style_bonus(points, share)
     case style
     when :split_pot then (pot_size * share).round(2)
     when :points_value then (dollar_per_point * points).round(2)
-    else ''
+    else ""
     end
   end
 
@@ -84,7 +84,7 @@ class BonusCalculatorService < Base::Service
   def tip_relation(profile)
     Tip.where(to_profile: profile)
        .where \
-         'created_at >= ? AND created_at <= ?',
+         "created_at >= ? AND created_at <= ?",
          Time.use_zone(team.time_zone) { "#{start_date} 00:00" }.to_time.utc,
          Time.use_zone(team.time_zone) { "#{end_date} 23:59" }.to_time.utc
   end

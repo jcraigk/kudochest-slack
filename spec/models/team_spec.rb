@@ -104,7 +104,7 @@ RSpec.describe Team do
     before { create(:team, uninstalled_at: Time.current) }
 
     it 'returns only active teams' do
-      expect(described_class.active).to eq([active_team])
+      expect(described_class.active).to eq([ active_team ])
     end
   end
 
@@ -114,7 +114,7 @@ RSpec.describe Team do
     before { create(:team, trial_expires_at: 120.days.from_now) }
 
     it 'returns only expired teams' do
-      expect(described_class.trial_expired).to eq([expired_team])
+      expect(described_class.trial_expired).to eq([ expired_team ])
     end
   end
 
@@ -124,7 +124,7 @@ RSpec.describe Team do
     before { create(:team, stripe_expires_at: nil) }
 
     it 'returns only teams that have subscribed at least once' do
-      expect(described_class.subscribed_at_least_once).to eq([subscribed_team])
+      expect(described_class.subscribed_at_least_once).to eq([ subscribed_team ])
     end
   end
 
@@ -134,7 +134,7 @@ RSpec.describe Team do
     before { create(:team, stripe_expires_at: Time.current) }
 
     it 'returns only not teams that have never subscribed' do
-      expect(described_class.never_subscribed).to eq([never_subscribed_team])
+      expect(described_class.never_subscribed).to eq([ never_subscribed_team ])
     end
   end
 
@@ -144,7 +144,7 @@ RSpec.describe Team do
     before { create(:team, gratis_subscription: false) }
 
     it 'returns only gratis teams' do
-      expect(described_class.gratis).to eq([gratis_team])
+      expect(described_class.gratis).to eq([ gratis_team ])
     end
   end
 
@@ -154,7 +154,7 @@ RSpec.describe Team do
     before { create(:team, gratis_subscription: true) }
 
     it 'returns only non-gratis teams' do
-      expect(described_class.non_gratis).to eq([non_gratis_team])
+      expect(described_class.non_gratis).to eq([ non_gratis_team ])
     end
   end
 

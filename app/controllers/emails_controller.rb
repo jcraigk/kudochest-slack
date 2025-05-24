@@ -7,7 +7,7 @@ class EmailsController < ApplicationController
     profile = Profile.find_by!(email:)
     unsubscribe_from_all(profile)
     path = current_profile ? dashboard_path : root_path
-    redirect_to path, notice: t('profiles.unsubscribed_html', email:)
+    redirect_to path, notice: t("profiles.unsubscribed_html", email:)
   end
 
   private

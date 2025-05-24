@@ -11,7 +11,7 @@ RSpec.describe Commands::Leaderboard, :freeze_time do
   let(:profile2) { create(:profile, team:) }
   let(:profile3) { create(:profile, team:) }
   let(:profile4) { create(:profile, team:) }
-  let(:profiles) { [profile1, profile2, profile3, profile4] }
+  let(:profiles) { [ profile1, profile2, profile3, profile4 ] }
   let(:text) { '' }
 
   shared_examples 'expected response' do
@@ -25,7 +25,7 @@ RSpec.describe Commands::Leaderboard, :freeze_time do
   context 'when no tips have been given' do
     let(:text) { I18n.t('teams.leaderboard_empty', platform: team.platform.titleize) }
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   context 'when some tips have been given' do
@@ -64,7 +64,7 @@ RSpec.describe Commands::Leaderboard, :freeze_time do
       ).and_return(mock_result)
     end
 
-    include_examples 'expected response'
+    it_behaves_like 'expected response'
   end
 
   xcontext 'with integer and `me` given after keyword' do

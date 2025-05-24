@@ -19,7 +19,7 @@ class TopicsController < ApplicationController
 
     @topic = Topic.new(topic_params)
     if @topic.save
-      redirect_to topics_path, notice: t('topics.created')
+      redirect_to topics_path, notice: t("topics.created")
     else
       render :new
     end
@@ -30,7 +30,7 @@ class TopicsController < ApplicationController
     authorize @topic
 
     if @topic.update(topic_params)
-      redirect_to edit_topic_path(@topic), notice: t('topics.updated')
+      redirect_to edit_topic_path(@topic), notice: t("topics.updated")
     else
       render :edit
     end
@@ -41,9 +41,9 @@ class TopicsController < ApplicationController
     authorize @topic
 
     if @topic.tips.count.positive?
-      flash[:alert] = t('topics.cannot_destroy_claimed')
+      flash[:alert] = t("topics.cannot_destroy_claimed")
     else
-      flash[:notice] = t('topics.destroyed')
+      flash[:notice] = t("topics.destroyed")
       @topic.destroy
     end
 
@@ -54,7 +54,7 @@ class TopicsController < ApplicationController
     if current_profile.team.enable_topics?
       @topics = Topic.active.where(team: current_team).order(name: :asc)
     else
-      redirect_to_dasboard(alert: t('topics.disabled'))
+      redirect_to_dasboard(alert: t("topics.disabled"))
     end
   end
 
@@ -76,8 +76,8 @@ class TopicsController < ApplicationController
 
   def apply_status_filter
     status = params[:status]
-    return if status.blank? || status == 'all'
-    @topics = (status == 'active' ? @topics.active : @topics.inactive)
+    return if status.blank? || status == "all"
+    @topics = (status == "active" ? @topics.active : @topics.inactive)
   end
 
   def apply_search

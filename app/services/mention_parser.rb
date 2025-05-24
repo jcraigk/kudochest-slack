@@ -16,7 +16,7 @@ class MentionParser < Base::Service
     TipMentionService.call \
       profile:,
       mentions:,
-      source: 'inline',
+      source: "inline",
       event_ts:,
       channel_rid:,
       channel_name:
@@ -37,7 +37,7 @@ class MentionParser < Base::Service
   def stacked_mentions
     processed_mentions.group_by(&:rid).map do |rid, mentions_by_rid|
       mentions_by_rid.group_by(&:topic_id).map do |topic_id, mentions|
-        note = mentions.pluck(:note).join(' ').presence
+        note = mentions.pluck(:note).join(" ").presence
         Mention.new(rid:, topic_id:, quantity: mentions.sum(&:quantity), note:)
       end
     end.flatten
@@ -62,7 +62,7 @@ class MentionParser < Base::Service
   # `<@UFOO> :fire: :star: :up:` => `fire` topic is used (first in sequence)
   def topic_id_from_emoji(match)
     return if match[:inline_emoji].blank?
-    first_emoji = match[:inline_emoji].split(':').compact_blank.first
+    first_emoji = match[:inline_emoji].split(":").compact_blank.first
     topics.find { |topic| first_emoji == topic.emoji }&.id
   end
 
@@ -90,7 +90,7 @@ class MentionParser < Base::Service
     given = basic_quantity(match)
     return emoji_match_quantity(match, given) if match[:inline_emoji].present?
     negative = match[:inline_text].in?(JAB_INLINES)
-    given, default = negative ? [0 - given, -1] : [given, 1]
+    given, default = negative ? [ 0 - given, -1 ] : [ given, 1 ]
     given.zero? ? default : given
   end
 
@@ -99,7 +99,7 @@ class MentionParser < Base::Service
   end
 
   def emoji_match_quantity(match, quantity)
-    emojis = match[:inline_emoji].split(':').compact_blank
+    emojis = match[:inline_emoji].split(":").compact_blank
     # Do not allow different emojis - only multiple instances of same emoji
     return 0 unless team.enable_emoji? && emojis.uniq.size == 1
     emoji_quant = emojis_quantity(emojis, quantity)

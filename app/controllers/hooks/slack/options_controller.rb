@@ -17,21 +17,21 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
   end
 
   def everyone_keyword_option
-    [generic_option("#{PROF_PREFIX}everyone", 'everyone')]
+    [ generic_option("#{PROF_PREFIX}everyone", "everyone") ]
   end
 
   def here_keyword_option
-    [generic_option("#{PROF_PREFIX}here", 'here')]
+    [ generic_option("#{PROF_PREFIX}here", "here") ]
   end
 
   def channel_keyword_option
-    [generic_option("#{PROF_PREFIX}channel", 'channel')]
+    [ generic_option("#{PROF_PREFIX}channel", "channel") ]
   end
 
   def profile_options
     Profile.joins(:team)
-           .where('teams.rid' => team_rid)
-           .where.not('profiles.rid' => profile_rid)
+           .where("teams.rid" => team_rid)
+           .where.not("profiles.rid" => profile_rid)
            .matching(user_input)
            .distinct
            .map do |profile|
@@ -41,7 +41,7 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
 
   def channel_name_options
     Channel.joins(:team)
-           .where('teams.rid' => team_rid)
+           .where("teams.rid" => team_rid)
            .matching(user_input)
            .distinct
            .map do |channel|
@@ -51,7 +51,7 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
 
   def subteam_options
     Subteam.joins(:team)
-           .where('teams.rid' => team_rid)
+           .where("teams.rid" => team_rid)
            .matching(user_input)
            .distinct
            .map do |subteam|
@@ -70,7 +70,7 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
   end
 
   def user_input
-    payload[:value].gsub(/[^0-9a-z\s]/i, '')
+    payload[:value].gsub(/[^0-9a-z\s]/i, "")
   end
 
   def profile_rid
