@@ -34,9 +34,11 @@ You may run all components in Docker with logging exposed using the command `mak
 Alternatively you can run services (PG and Redis) in Docker while running the Rails processes natively. This often eases debugging and development.
 
 For running the Rails stack you'll need the following:
-* Ruby (use [mise](https://mise.jdx.dev/))
+* [Ruby](https://www.ruby-lang.org/en/)
 * [NodeJS](https://nodejs.org/en/)
 * [Yarn](https://www.npmjs.com/package/yarn)
+
+I recommend [mise](https://mise.jdx.dev/) for language version management.
 
 ```bash
 # Install Ruby dependencies
