@@ -11,6 +11,9 @@ clean :
 	docker image prune
 	docker volume prune
 
+dev:
+	foreman start -f Procfile.dev
+
 cleanforce:
 	docker compose down -v
 	docker image prune -af

@@ -21,7 +21,7 @@ services:
     volumes:
       - /tmp:/storage
   pg:
-    image: postgres:15.0-alpine
+    image: postgres:latest
     ports:
       - 5432:5432
     volumes:
@@ -30,7 +30,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
   redis:
-    image: redis:7.0.7-alpine
+    image: redis:latest
     ports:
       - 6379:6379
     volumes:

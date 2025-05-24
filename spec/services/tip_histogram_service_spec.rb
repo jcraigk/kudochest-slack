@@ -26,7 +26,7 @@ RSpec.describe TipHistogramService do
   end
 
   xcontext 'when profile theme is dark' do
-    it 'colors labels white' do
+    xit 'colors labels white' do
     end
   end
 

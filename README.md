@@ -40,6 +40,8 @@ For running the Rails stack you'll need the following:
 
 I recommend [mise](https://mise.jdx.dev/) for language version management.
 
+Install dependencies:
+
 ```bash
 # Install Ruby dependencies
 bundle install
@@ -51,13 +53,19 @@ bundle exec rails db:reset
 
 # Install javascript dependencies
 yarn install
+```
 
+Start the server and worker:
+
+```
 # Start web server (terminal 1)
 bundle exec rails s
 
 # Start Sidekiq (terminal 2)
 bundle exec sidekiq
 ```
+
+Alternatively, you can use `make dev` to run both processes in the same terminal.
 
 
 ## Testing

@@ -200,17 +200,17 @@ RSpec.describe Slack::PostService do
 
     xcontext 'when response_mode is `adaptive`' do
       context 'when tip_source is `inline` or `modal`' do
-        it 'responds as `convo`' do
+        xit 'responds as `convo`' do
         end
       end
 
       context 'when tip_source is `reaction` or `reply`' do
-        it 'responds as `reply`' do
+        xit 'responds as `reply`' do
         end
       end
 
       context 'when is_bot_dm is `true`' do # could even nest inside `reply`
-        it 'responds as dm' do
+        xit 'responds as dm' do
         end
       end
     end
@@ -314,14 +314,14 @@ RSpec.describe Slack::PostService do
       context 'when channel_rid != log_channel_rid' do
         let(:arguments) { { channel: channel.rid, text: chat_response } }
 
-        it 'calls Slack::Web::Client#chat_postMessage a second time' do
+        xit 'calls Slack::Web::Client#chat_postMessage a second time' do
         end
       end
 
       context 'when channel_rid == log_channel_rid' do
         let(:arguments) { { channel: log_channel_rid, text: chat_response } }
 
-        it 'does not call Slack::Web::Client#chat_postMessage a second time' do
+        xit 'does not call Slack::Web::Client#chat_postMessage a second time' do
         end
       end
     end

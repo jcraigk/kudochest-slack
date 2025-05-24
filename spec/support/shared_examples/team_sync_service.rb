@@ -53,7 +53,7 @@ RSpec.shared_examples 'TeamSyncService', :freeze_time do
   end
 
   xcontext 'when a user has an active authentication' do
-    it 'auto associates the profiles to the user' do
+    xit 'auto associates the profiles to the user' do
     end
   end
 end

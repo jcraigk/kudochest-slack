@@ -17,48 +17,10 @@ AllCops:
     - vendor/**/*
   NewCops: enable
   TargetRubyVersion: 3.4.3
-FactoryBot/ConsistentParenthesesStyle:
-  Enabled: false
-Layout/EmptyLineAfterGuardClause:
-  Enabled: false
-Layout/EmptyLineAfterMagicComment:
-  Enabled: false
-Layout/LineLength:
-  Max: 100
-Lint/EmptyBlock:
-  Exclude:
-    - spec/**/*
-Metrics/BlockLength:
-  Exclude:
-    - config/**/*
-    - lib/tasks/*
-    - spec/**/*
-Metrics/ClassLength:
-  Max: 250
-Metrics/ModuleLength:
-  Max: 250
-Naming/VariableNumber:
-  Enabled: false
-Rails/EnvironmentVariableAccess:
-  Enabled: false
-Rails/HttpPositionalArguments: # https://github.com/rubocop-hq/rubocop/issues/7264
-  Exclude:
-    - spec/controllers/**/*
-Rails/I18nLocaleTexts:
-  Enabled: false
 RSpec/PendingWithoutReason:
   Enabled: false
-Rails/SkipsModelValidations:
-  Exclude:
-    - lib/tasks/**/*
-RSpec/DescribeClass:
-  Exclude:
-    - spec/features/**/*
 RSpec/EmptyExampleGroup:
   Enabled: false
-RSpec/ExampleLength:
-  Exclude:
-    - spec/features/**/*
 RSpec/IndexedLet:
   Enabled: false
 RSpec/MultipleExpectations:
@@ -69,23 +31,3 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 RSpec/NestedGroups:
   Max: 4
-RSpec/NoExpectationExample: # Bug with custom matchers
-  Enabled: false
-Style/AsciiComments:
-  Enabled: false
-Style/ClassAndModuleChildren:
-  Enabled: false
-Style/Documentation:
-  Enabled: false
-Style/DoubleNegation:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  EnforcedStyle: never
-Style/OpenStructUse:
-  Exclude:
-    - spec/**/*
-Style/OptionalBooleanParameter:
-  Exclude:
-    - app/workers/**/*
-Style/NestedTernaryOperator:
-  Enabled: false
