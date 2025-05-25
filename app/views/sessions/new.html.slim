@@ -6,7 +6,7 @@
 
       - if !max_allowed_teams?
         - if !any_active_teams?
-          p.is-size-5 = t('nav.install_first')
+          p.is-size-5 = t('nav.install_first_html')
           br
         = render 'shared/add_to_slack_button'
 

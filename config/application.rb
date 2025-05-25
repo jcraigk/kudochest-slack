@@ -75,7 +75,6 @@ module KudoChest
       authentication: :plain,
       address: ENV.fetch("SMTP_ADDRESS", nil),
       port: 587,
-      domain: ENV.fetch("SMTP_DOMAIN", nil),
       user_name: ENV.fetch("SMTP_USERNAME", nil),
       password: ENV.fetch("SMTP_PASSWORD", nil)
     }
