@@ -74,7 +74,7 @@ class Commands::Help < Commands::Base
   def slack_point_inlines
     "* Type `/#{App.base_command}` by itself for assistance " \
       "_(tip: use Tab key to navigate fields)_" \
-      "\n  * Type `#{PROF_PREFIX}user]++`, `#{PROF_PREFIX}[group]++`, " \
+      "\n  * Type `#{PROF_PREFIX}[user]++`, `#{PROF_PREFIX}[group]++`, " \
       "`#{CHAN_PREFIX}[channel]++`, `#{PROF_PREFIX}channel++`, `#{PROF_PREFIX}here++`, " \
       "or `#{PROF_PREFIX}everyone++` _(tip: append a number like `++2`)_"
   end
@@ -92,7 +92,7 @@ class Commands::Help < Commands::Base
     reaction_emojis << (team.enable_thumbsup? ? ":+1:" : team.point_emoj)
     reaction_emojis << team.jab_emoj if team.enable_jabs?
     str += "\n  * React with #{reaction_emojis.join(' or ')} to give to the author of a message"
-    str + "\n  * React to #{giving_terms} message with #{team.ditto_emoj} to duplicate it"
+    str + "\n  * React to #{giving_terms} message with #{team.ditto_emoj} to support it"
   end
 
   def slack_inline_point_emojis
