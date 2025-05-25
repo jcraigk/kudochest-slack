@@ -12,7 +12,7 @@ class HintService < Base::Service
   private
 
   def post_random_hint
-    responder.call \
+    Slack::PostService.call \
       team_rid: team.rid,
       config: team.config,
       mode: :hint,
@@ -55,10 +55,6 @@ class HintService < Base::Service
 
   def logo_image_path
     image_path("logos/app-reverse-144.png")
-  end
-
-  def responder
-    @responder ||= "#{team.platform.titleize}::PostService".constantize
   end
 
   def hints

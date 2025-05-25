@@ -10,7 +10,6 @@
 @import 'dashboard';
 @import 'errors';
 @import 'navbar';
-@import 'platforms';
 @import 'shop';
 @import 'topics';
 @import 'wallboard';
@@ -109,7 +108,9 @@ form {
     margin-right: 10px;
   }
 }
-
+.slack-badge {
+  border-radius: 5px !important;
+}
 .is-secondary {
   background-color: $grey-mid;
   color: $white-ter;

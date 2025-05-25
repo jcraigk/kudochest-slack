@@ -12,7 +12,6 @@ RSpec.describe Team do
   it { is_expected.to have_many(:topics).dependent(:destroy) }
   it { is_expected.to have_many(:rewards).dependent(:destroy) }
 
-  it { is_expected.to validate_presence_of(:platform) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:rid) }
   it { is_expected.to validate_uniqueness_of(:rid) }
@@ -151,7 +150,7 @@ RSpec.describe Team do
 
     before do
       allow(Slack::ChannelJoinService).to receive(:call)
-      team.update(platform: :slack, log_channel_rid: channel.rid)
+      team.update(log_channel_rid: channel.rid)
     end
 
     it 'calls Slack::ChannelJoinService' do

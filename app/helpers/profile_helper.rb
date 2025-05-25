@@ -34,7 +34,7 @@ module ProfileHelper
   def profile_web_link(profile, team = nil)
     team ||= profile.team
     tag.span(class: "profile-link") do
-      css = "avatar platform-#{team.platform}"
+      css = "avatar"
       h = image_tag(profile.avatar_url, size: 20, alt: "Avatar image", class: css)
       h += link_to(profile.display_name, profile_path(profile.slug))
       h + " (#{profile.real_name})" if profile.display_name != profile.real_name
@@ -77,6 +77,6 @@ module ProfileHelper
       profile.avatar_url,
       alt: "Profile avatar image",
       size:,
-      class: "platform-#{profile.team.platform}"
+      class: "slack-badge"
   end
 end

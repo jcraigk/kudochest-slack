@@ -3,17 +3,15 @@ require 'rails_helper'
 RSpec.describe Actions::Message do
   subject(:action) { described_class.call(**params) }
 
-  let(:team) { build(:team, platform:) }
+  let(:team) { build(:team) }
   let(:sender) { create(:profile, team:) }
   let(:profile) { create(:profile, team:) }
   let(:channel) { create(:channel, team:) }
   let(:subteam) { create(:subteam, team:) }
   let(:ts) { Time.current.to_f.to_s }
   let(:note) { 'for being awesome' }
-  let(:platform) { :slack }
   let(:params) do
     {
-      platform:,
       team_rid: team.rid,
       config: {
         app_profile_rid: team.app_profile_rid
@@ -39,8 +37,8 @@ RSpec.describe Actions::Message do
   end
   let(:matches) { [] }
   let(:origin) { 'channel' }
-  let(:bot_mention) { "<#{PROFILE_PREFIX[platform]}#{team.app_profile_rid}>" }
-  let(:user_mention) { "#{PROFILE_PREFIX[platform]}#{profile.rid}" }
+  let(:bot_mention) { "<#{PROFILE_PREFIX}#{team.app_profile_rid}>" }
+  let(:user_mention) { "#{PROFILE_PREFIX}#{profile.rid}" }
 
   before do
     allow(MentionParser).to receive(:call)
@@ -59,7 +57,7 @@ RSpec.describe Actions::Message do
     end
   end
 
-  shared_examples 'platform parity' do
+  shared_examples 'workspace behavior' do
     context 'when text does not contain punctuation or bot mention' do
       let(:text) { 'hello world' }
 
@@ -189,11 +187,11 @@ RSpec.describe Actions::Message do
       let(:matches) do
         [
           {
-            rid: "#{PROFILE_PREFIX[platform]}#{profile.rid}",
+            rid: "#{PROFILE_PREFIX}#{profile.rid}",
             inline: '++'
           },
           {
-            rid: "#{SUBTEAM_PREFIX[platform]}#{subteam.rid}",
+            rid: "#{SUBTEAM_PREFIX}#{subteam.rid}",
             prefix_quantity: 2,
             inline: '+=',
             suffix_quantity: 5
@@ -211,12 +209,11 @@ RSpec.describe Actions::Message do
   end
 
   context 'when Slack' do
-    let(:platform) { :slack }
     let(:subteam_mention) do
-      "<#{SUBTEAM_PREFIX[platform]}#{subteam.rid}|#{PROF_PREFIX}#{subteam.handle}>"
+      "<#{SUBTEAM_PREFIX}#{subteam.rid}|#{PROF_PREFIX}#{subteam.handle}>"
     end
 
-    it_behaves_like 'platform parity'
+    it_behaves_like 'workspace behavior'
 
     context 'when command is issued with no keyword' do
       let(:origin) { 'command' }

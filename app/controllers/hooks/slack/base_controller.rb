@@ -52,7 +52,6 @@ class Hooks::Slack::BaseController < Hooks::BaseController
 
   def fast_ack_data
     {
-      platform: "slack",
       replace_channel_rid: fast_ack&.dig(:channel),
       replace_ts: fast_ack&.dig(:ts)
     }
@@ -100,7 +99,7 @@ class Hooks::Slack::BaseController < Hooks::BaseController
 
   # Naming this `config` messes with Rails logger :shrug:
   def team_config
-    @team_config ||= Cache::TeamConfig.call(:slack, team_rid)
+    @team_config ||= Cache::TeamConfig.call(team_rid)
   end
 
   def team_rid

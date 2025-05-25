@@ -135,13 +135,7 @@ module TeamHelper
       team.avatar_url,
       alt: "Team avatar image",
       size:,
-      class: "team-avatar platform-#{team.platform}"
-  end
-
-  def response_mode_options(team)
-    case team.platform
-    when "slack" then all_response_options
-    end
+      class: "team-avatar"
   end
 
   def all_response_options

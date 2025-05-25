@@ -109,7 +109,7 @@ RSpec.describe TipMentionService, :freeze_time do
       [
         Mention.new(rid: "#{PROF_PREFIX}#{to_profile.rid}", quantity: 1, topic_id: nil),
         Mention.new(rid: "#{CHAN_PREFIX}#{channel.rid}", quantity: 1, topic_id: nil),
-        Mention.new(rid: "#{SUBTEAM_PREFIX[:slack]}#{subteam.rid}", quantity: 1, topic_id: nil)
+        Mention.new(rid: "#{SUBTEAM_PREFIX}#{subteam.rid}", quantity: 1, topic_id: nil)
       ]
     end
     let(:result) do

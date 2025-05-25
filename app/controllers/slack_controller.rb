@@ -64,7 +64,6 @@ class SlackController < ApplicationController
 
   def team_data
     {
-      platform: :slack,
       rid: team_rid,
       name: oauth_data[:team][:name],
       avatar_url:,

@@ -1,9 +1,27 @@
 class Commands::Help < Commands::Base
   def call
-    ChatResponse.new(mode: :private, text: send(:"#{team.platform}_text"))
+    ChatResponse.new(mode: :private, text:)
   end
 
   private
+
+  def text
+    <<~TEXT.chomp
+      *#{giving_title}:*
+        #{slack_giving_points}
+
+      *Issuing commands:*
+        * Type `/#{App.base_command} [keyword]` anywhere
+        * Type `#{team.app_profile.link} [keyword]` where bot is present
+        * Send direct message to #{team.app_profile.link}
+
+      *Command keywords:*
+        #{keyword_list}
+        #{shop_keywords}
+
+      #{footer}
+    TEXT
+  end
 
   def shop_keywords
     return unless team.enable_loot?
@@ -40,24 +58,6 @@ class Commands::Help < Commands::Base
     str = App.point_term
     str += "/#{App.jab_term}" if team.enable_jabs?
     str
-  end
-
-  def slack_text
-    <<~TEXT.chomp
-      *#{giving_title}:*
-        #{slack_giving_points}
-
-      *Issuing commands:*
-        * Type `/#{App.base_command} [keyword]` anywhere
-        * Type `#{team.app_profile.link} [keyword]` where bot is present
-        * Send direct message to #{team.app_profile.link}
-
-      *Command keywords:*
-        #{keyword_list}
-        #{shop_keywords}
-
-      #{footer}
-    TEXT
   end
 
   def footer

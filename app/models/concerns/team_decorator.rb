@@ -58,18 +58,8 @@ module TeamDecorator
     (1..max_level).index_with { |level| LevelToPointsService.call(team: self, level:) }
   end
 
-  def workspace_noun
-    case platform
-    when "slack" then "workspace"
-    end
-  end
-
-  def plat
-    platform.to_s.titleize
-  end
-
   def config
-    Cache::TeamConfig.call(platform, rid)
+    Cache::TeamConfig.call(rid)
   end
 
   def total_points

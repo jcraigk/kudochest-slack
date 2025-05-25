@@ -49,7 +49,7 @@ RSpec.describe NoteSanitizer do
     context 'when no names given after pipe char' do
       let(:text) do
         <<~TEXT
-          hey <#{SUBTEAM_PREFIX[:slack]}#{subteam.rid}> yep <#{CHAN_PREFIX}#{channel.rid}> and <#{PROF_PREFIX}#{profile.rid}> with <http://google.com|google.com>
+          hey <#{SUBTEAM_PREFIX}#{subteam.rid}> yep <#{CHAN_PREFIX}#{channel.rid}> and <#{PROF_PREFIX}#{profile.rid}> with <http://google.com|google.com>
         TEXT
       end
       let(:result) do

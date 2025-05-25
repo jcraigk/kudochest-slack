@@ -58,16 +58,6 @@ RSpec.describe TeamDecorator do
     end
   end
 
-  describe 'workspace_noun' do
-    context 'when slack' do
-      before { team.platform = :slack }
-
-      it 'is `workspace`' do
-        expect(team.workspace_noun).to eq('workspace')
-      end
-    end
-  end
-
   describe 'point_emoj' do
     it 'is the default tip emoji' do
       expect(team.point_emoj).to eq(":#{App.default_point_emoji}:")

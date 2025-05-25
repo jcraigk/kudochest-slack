@@ -3,6 +3,6 @@ FactoryBot.define do
     team
 
     sequence(:name) { |n| "channel-#{n}" }
-    rid { FactoryHelper.rid(team.platform, 'C') }
+    rid { FactoryHelper.rid("C") }
   end
 end

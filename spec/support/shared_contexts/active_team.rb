@@ -6,7 +6,6 @@ RSpec.shared_context 'with active team' do
       {
         active: true,
         app_profile_rid: team.app_profile_rid,
-        platform: 'slack',
         regex: '\+\+'
       }
     )

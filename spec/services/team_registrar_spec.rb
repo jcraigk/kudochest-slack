@@ -8,7 +8,6 @@ RSpec.describe TeamRegistrar, :freeze_time do
   let(:rid) { team.rid }
   let(:opts) do
     {
-      platform: :slack,
       rid:,
       name: team.name,
       api_key: team.api_key,
@@ -19,7 +18,6 @@ RSpec.describe TeamRegistrar, :freeze_time do
   let(:slack_client) { instance_spy(Slack::Web::Client) }
   let(:team_attrs) do
     {
-      platform: :slack,
       response_mode: :adaptive,
       rid:,
       name: team.name,

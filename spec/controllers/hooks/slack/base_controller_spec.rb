@@ -21,7 +21,7 @@ describe Hooks::Slack::BaseController do
       }
     end
     let(:result) { ChatResponse.new(mode: :foo, text: 'bar') }
-    let(:config) { { platform: team.platform, active: true, topics: [] } }
+    let(:config) { { active: true, topics: [] } }
 
     before do
       allow(EventWorker).to receive(:perform_async)

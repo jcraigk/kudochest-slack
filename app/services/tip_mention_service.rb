@@ -109,7 +109,7 @@ class TipMentionService < Base::Service
   def fetch_entity(rid)
     if rid.in?(%w[everyone here]) then rid
     elsif rid.in?(%w[channel]) then channel_entity(channel_rid.delete(CHAN_PREFIX))
-    elsif rid.start_with?(*SUBTEAM_PREFIX.values) then subteam_entity(rid)
+    elsif rid.start_with?(SUBTEAM_PREFIX) then subteam_entity(rid)
     elsif rid.start_with?(PROF_PREFIX) then profile_entity(rid)
     elsif rid.start_with?(CHAN_PREFIX) then channel_entity(rid)
     end
@@ -121,11 +121,11 @@ class TipMentionService < Base::Service
   end
 
   def profile_entity(rid)
-    Profile.find_with_team(team.rid, rid.delete(PROFILE_PREFIX[:slack]))
+    Profile.find_with_team(team.rid, rid.delete(PROFILE_PREFIX))
   end
 
   def subteam_entity(rid)
-    raw_rid = rid.gsub(SUBTEAM_PREFIX[:slack], "")
+    raw_rid = rid.gsub(SUBTEAM_PREFIX, "")
     Subteam.find_with_team(team.rid, raw_rid)
   end
 
@@ -140,7 +140,7 @@ class TipMentionService < Base::Service
   end
 
   def channel_profiles(channel_rid, here: false)
-    "#{team.plat}::ChannelMemberService".constantize.call(
+    Slack::ChannelMemberService.call(
       team:,
       channel_rid:,
       here:

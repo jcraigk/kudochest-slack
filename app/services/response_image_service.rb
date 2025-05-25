@@ -9,12 +9,8 @@ class ResponseImageService < Base::Service
   option :title,        default: proc { "" }
 
   def call
-    if config[:platform].to_sym == :slack
-      store_image
-      image_url
-    else
-      image_file
-    end
+    store_image
+    image_url
   end
 
   private

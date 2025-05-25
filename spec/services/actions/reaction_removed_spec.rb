@@ -3,19 +3,15 @@ require 'rails_helper'
 RSpec.describe Actions::ReactionRemoved do
   subject(:action) { described_class.call(**params) }
 
-  let(:team) { create(:team, platform:) }
+  let(:team) { create(:team) }
   let(:sender) { create(:profile, team:) }
   let(:recipient) { create(:profile, team:) }
   let(:ts) { Time.current.to_f }
-  let(:curated_params) do
+  let(:params) do
     {
       message_ts: ts,
       profile_rid: sender.rid,
-      team_rid: team.rid
-    }
-  end
-  let(:slack_params) do
-    {
+      team_rid: team.rid,
       event: {
         item: {
           ts:
@@ -40,12 +36,7 @@ RSpec.describe Actions::ReactionRemoved do
       create(:tip, event_ts:, from_profile: sender)
     end
 
-    context 'when slack' do
-      let(:platform) { :slack }
-      let(:params) { curated_params.merge(slack_params) }
-
-      it_behaves_like 'success'
-    end
+    it_behaves_like 'success'
   end
 
   context 'when ditto emoji' do
@@ -56,11 +47,6 @@ RSpec.describe Actions::ReactionRemoved do
       create(:tip, event_ts:, from_profile: sender)
     end
 
-    context 'when slack' do
-      let(:platform) { :slack }
-      let(:params) { curated_params.merge(slack_params) }
-
-      it_behaves_like 'success'
-    end
+    it_behaves_like 'success'
   end
 end

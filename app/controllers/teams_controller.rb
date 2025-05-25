@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
   def update_team_attrs
     update_exempt_profiles
     update_admin_profiles
-    current_team.update(platform_team_params) ? update_success : update_fail
+    current_team.update(team_params) ? update_success : update_fail
   end
 
   def handle_import
@@ -105,14 +105,8 @@ class TeamsController < ApplicationController
       :enable_jabs, :deduct_jabs, :enable_topics, :require_topic, :show_note, work_days: []
   end
 
-  def platform_team_params
-    case current_team.platform
-    when "slack" then team_params
-    end
-  end
-
   def update_success
-    flash[:notice] = t("teams.update_success", platform: current_team.platform.titleize)
+    flash[:notice] = t("teams.update_success")
     redirect_to app_settings_path
   end
 

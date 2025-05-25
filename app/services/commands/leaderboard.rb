@@ -34,7 +34,7 @@ class Commands::Leaderboard < Commands::Base
 
   def base_text
     if profile_data.blank?
-      return I18n.t("teams.leaderboard_empty", platform: team.platform.titleize)
+      return I18n.t("teams.leaderboard_empty")
     end
     [ title, rows ].join("\n")
   end

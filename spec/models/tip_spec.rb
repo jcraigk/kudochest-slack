@@ -102,7 +102,7 @@ RSpec.describe Tip do
     end
   end
 
-  describe 'delete_slack_response after destroy' do
+  describe 'deletes Slack response after destroy' do
     subject(:tip) { create(:tip, response_channel_rid: channel.rid, response_ts: ts) }
 
     let(:ts) { Time.current.to_f.to_s }

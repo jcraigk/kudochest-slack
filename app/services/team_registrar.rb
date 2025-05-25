@@ -1,5 +1,4 @@
 class TeamRegistrar < Base::Service
-  option :platform
   option :rid
   option :name
   option :avatar_url
@@ -34,7 +33,6 @@ class TeamRegistrar < Base::Service
 
   def new_attrs
     {
-      platform:,
       rid:,
       response_mode: :adaptive
     }.merge(update_attrs)

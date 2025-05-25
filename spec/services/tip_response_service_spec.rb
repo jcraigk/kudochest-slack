@@ -314,7 +314,7 @@ RSpec.describe TipResponseService do
         )
       end
       let(:chat_snippet) do
-        "Everyone in <#{SUBTEAM_PREFIX[:slack]}#{subteam.rid}> has received *kudonts*"
+        "Everyone in <#{SUBTEAM_PREFIX}#{subteam.rid}> has received *kudonts*"
       end
 
       it 'includes subteam lead snippet' do

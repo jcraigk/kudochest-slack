@@ -1,5 +1,4 @@
 class Cache::TeamConfig < Base::Service
-  param :platform
   param :rid
 
   def call
@@ -36,11 +35,11 @@ class Cache::TeamConfig < Base::Service
   end
 
   def team
-    @team ||= Team.includes(:topics).find_by!(platform:, rid:)
+    @team ||= Team.includes(:topics).find_by!(rid:)
   end
 
   def cache_key
-    "config/#{platform}/#{rid}"
+    "config/#{rid}"
   end
 
   def regex
@@ -53,18 +52,18 @@ class Cache::TeamConfig < Base::Service
         <
           (?<entity_rid>
             (?:
-              #{Regexp.escape(PROFILE_PREFIX[platform])}
+              #{Regexp.escape(PROFILE_PREFIX)}
               |
               #{Regexp.escape(CHAN_PREFIX)}
               |
-              #{Regexp.escape(SUBTEAM_PREFIX[platform])}
+              #{Regexp.escape(SUBTEAM_PREFIX)}
             )
-            #{RID_CHARS[platform]}+
+            #{RID_CHARS}+
           )
           (?:#{LEGACY_SLACK_SUFFIX_PATTERN})?
         >
         |
-        #{group_keyword_pattern[platform]}
+        #{group_keyword_pattern}
       )
     TEXT
   end
@@ -107,9 +106,7 @@ class Cache::TeamConfig < Base::Service
   end
 
   def group_keyword_pattern
-    {
-      slack: "<!(?<group_keyword>everyone|channel|here)>"
-    }
+    "<!(?<group_keyword>everyone|channel|here)>"
   end
 
   def topic_keywords

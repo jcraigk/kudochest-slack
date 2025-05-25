@@ -5,7 +5,6 @@ RSpec.describe EventService do
 
   let(:params) do
     {
-      platform: 'slack',
       action: 'message',
       channel_rid: 'C012345'
     }

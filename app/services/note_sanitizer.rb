@@ -9,10 +9,6 @@ class NoteSanitizer < Base::Service
 
   private
 
-  def platform
-    :slack
-  end
-
   def sanitized_text
     replace_channel_mentions
     replace_subteam_mentions
@@ -25,7 +21,7 @@ class NoteSanitizer < Base::Service
 
   # <!subteam^RID> => "@subteam-handle"
   def replace_subteam_mentions
-    @text = text.gsub(SUBTEAM_REGEX[platform]) do
+    @text = text.gsub(SUBTEAM_REGEX) do
       subteam_reference(Regexp.last_match[1])
     end
   end
@@ -33,7 +29,7 @@ class NoteSanitizer < Base::Service
   # <@UA89HL> => "@user-display-name"
   # <@UA89HL|user-display-name> => "@user-display-name"
   def replace_user_mentions
-    @text = text.gsub(PROFILE_REGEX[platform]) do
+    @text = text.gsub(PROFILE_REGEX) do
       if Regexp.last_match[3].present?
         "#{PROF_PREFIX}#{Regexp.last_match[3]}"
       else
@@ -45,7 +41,7 @@ class NoteSanitizer < Base::Service
   # <#C024BE7LR> => "#channel-name"
   # <#C024BE7LR|channel-name> => "#channel-name"
   def replace_channel_mentions
-    @text = text.gsub(CHANNEL_REGEX[platform]) do
+    @text = text.gsub(CHANNEL_REGEX) do
       if Regexp.last_match[3].present?
         "#{CHAN_PREFIX}#{Regexp.last_match[3]}"
       else

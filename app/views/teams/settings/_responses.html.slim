@@ -20,7 +20,7 @@
       .field-body
         .field
           .control
-            .select = f.select :response_mode, response_mode_options(current_team)
+            .select = f.select :response_mode, all_response_options
             = tooltip_btn('teams.response_mode_tooltip', nil, points: App.points_term)
           = render 'teams/settings/response_mode_info'
           br

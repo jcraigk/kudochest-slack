@@ -3,9 +3,7 @@ class Base::ImageService < Base::Service
 
   option :config
 
-  RADII = {
-    slack: 5
-  }.freeze
+  RADII = 5.freeze
 
   BASE_PATH = "lib/response_images".freeze
   DEBUG_FILE = "#{BASE_PATH}/debug.gif".freeze
@@ -99,13 +97,11 @@ class Base::ImageService < Base::Service
   end
 
   def small_profile_avatar_url(profile)
-    small_avatar_url(profile.team.platform, profile.avatar_url)
+    small_avatar_url(profile.avatar_url)
   end
 
-  def small_avatar_url(platform, url)
-    case platform.to_sym
-    when :slack then url.gsub(/_\d+\.png\z/, "_48.png")
-    end
+  def small_avatar_url(url)
+    url.gsub(/_\d+\.png\z/, "_48.png")
   end
 
   def avatar_image(url, size = PROFILE_SIZE)
@@ -114,14 +110,14 @@ class Base::ImageService < Base::Service
     resize_and_round \
       avatar_image,
       "#{size}x#{size}",
-      RADII[config[:platform].to_sym]
+      RADII
   end
 
   def blank_avatar
     resize_and_round \
       Magick::ImageList.new(DEFAULT_AVATAR).first,
       "#{PROFILE_SIZE}x#{PROFILE_SIZE}",
-      RADII[config[:platform].to_sym]
+      RADII
   end
 
   def file_from_url(url)

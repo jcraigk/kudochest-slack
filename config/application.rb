@@ -147,41 +147,27 @@ COMMAND_KEYWORDS = {
   topics: %w[],
   undo: %w[revoke]
 }.freeze
-PRIVATE_KEYWORDS = %w[admin help claim].freeze
 
+PRIVATE_KEYWORDS = %w[admin help claim].freeze
 CHAN_PREFIX = "#".freeze
 PROF_PREFIX = "@".freeze
 LEGACY_SLACK_SUFFIX_PATTERN = '\|[^>]*'.freeze
-
-RID_CHARS = {
-  slack: "[A-Z0-9]"
-}.with_indifferent_access.freeze
-
-PROFILE_PREFIX = {
-  slack: "@"
-}.with_indifferent_access.freeze
-SUBTEAM_PREFIX = {
-  slack: "!subteam^"
-}.with_indifferent_access.freeze
-PROFILE_REGEX = {
-  slack: /<@([A-Z0-9]+)(\|([^>]+))?>/
-}.with_indifferent_access.freeze
-CHANNEL_REGEX = {
-  slack: /<#([A-Z0-9]+)(\|([^>]+))?>/
-}.freeze
-SUBTEAM_REGEX = {
-  slack: /<!subteam\^([^>]+)>/
-}.freeze
+RID_CHARS = "[A-Z0-9]"
+PROFILE_PREFIX = "@"
+SUBTEAM_PREFIX = "!subteam^"
+PROFILE_REGEX = /<@([A-Z0-9]+)(\|([^>]+))?>/
+CHANNEL_REGEX = /<#([A-Z0-9]+)(\|([^>]+))?>/
+SUBTEAM_REGEX = /<!subteam\^([^>]+)>/
 
 SLACK_DM_NAME = "direct-message".freeze
 SLACK_DM_PREFIX = "mpdm-".freeze
 SLACK_DM_PHRASE = "a group chat".freeze
+
 POINT_INLINES = %w[++ += +].freeze
 JAB_INLINES = %w[-- -= -].freeze
 THUMBSUP_EMOJI_PATTERNS = [ '\+1(::skin-tone-\d)?', "thumbsup" ].freeze
 
 IMG_DELIM = "<COLOR>".freeze
-
 GIFS = {
   "32" => %w[trophy],
   "48" => %w[cake cherries comet confetti fern fire flower star tree]

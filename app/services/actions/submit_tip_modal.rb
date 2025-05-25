@@ -38,7 +38,7 @@ class Actions::SubmitTipModal < Actions::Base
     case val.first
     when "U" then PROF_PREFIX
     when "C" then CHAN_PREFIX
-    when "S" then SUBTEAM_PREFIX[:slack]
+    when "S" then SUBTEAM_PREFIX
     end
   end
 

@@ -19,7 +19,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
 
   def build_response
     TipResponse.new \
-      chat_fragments: build_fragments(team.platform.to_sym),
+      chat_fragments: build_fragments(:slack),
       image_fragments: build_fragments(:image),
       web: web_sentence
   end
@@ -137,7 +137,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
 
   def subteam_ref(medium, rid, handle)
     case medium
-    when :slack then "<#{SUBTEAM_PREFIX[medium]}#{rid}>"
+    when :slack then "<#{SUBTEAM_PREFIX}#{rid}>"
     when :image then "#{IMG_DELIM}#{CHAN_PREFIX}#{handle} #{IMG_DELIM}" # TODO: test this
     when :web then subteam_webref(handle)
     end

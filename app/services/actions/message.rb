@@ -1,6 +1,6 @@
 class Actions::Message < Actions::Base
   attr_reader :team_rid, :config, :profile_rid, :channel_rid, :text,
-              :origin, :event_ts, :platform, :matches
+              :origin, :event_ts, :matches
 
   def call # rubocop:disable Metrics/AbcSize
     @config = params[:config]
@@ -10,7 +10,6 @@ class Actions::Message < Actions::Base
     @profile_rid = params[:profile_rid]
     @team_rid = params[:team_rid]
     @text = params[:text]
-    @platform = params[:platform].to_sym
     @matches = params[:matches]
 
     process_message
@@ -34,7 +33,6 @@ class Actions::Message < Actions::Base
   end
 
   def fetch_channel_name
-    return unless platform == :slack
     Slack::ChannelNameService.call(team:, channel_rid:).presence
   end
 
@@ -103,7 +101,7 @@ class Actions::Message < Actions::Base
   end
 
   def app_profile_ref
-    @app_profile_ref ||= "<#{PROFILE_PREFIX[platform]}#{config[:app_profile_rid]}>"
+    @app_profile_ref ||= "<#{PROFILE_PREFIX}#{config[:app_profile_rid]}>"
   end
 
   def respond_bad_input(message = nil)

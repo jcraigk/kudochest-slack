@@ -23,16 +23,11 @@ module ProfileDecorator
   end
 
   def dashboard_link
-    case team.platform.to_sym
-    when :slack then "<#{web_url}|#{display_name}>"
-    end
+    "<#{web_url}|#{display_name}>"
   end
 
   def dashboard_link_with_stat
-    case team.platform.to_sym
-    when :slack then "<#{web_url}|#{display_name} (#{points_format(total_points, humanize: true)})>"
-    when :web then web_profile_link
-    end
+    "<#{web_url}|#{display_name} (#{points_format(total_points, humanize: true)})>"
   end
 
   def webref

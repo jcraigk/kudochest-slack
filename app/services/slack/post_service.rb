@@ -82,7 +82,7 @@ class Slack::PostService < Base::PostService
   def os_notification
     return "A random usage hint" if mode == :hint
     return alt_text if image.present?
-    NoteSanitizer.call(platform: :slack, team_rid:, text: compose_response(false))
+    NoteSanitizer.call(team_rid:, text: compose_response(false))
   end
 
   def response_params(is_inline)

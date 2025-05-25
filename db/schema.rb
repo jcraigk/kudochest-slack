@@ -154,7 +154,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_192007) do
     t.string "app_profile_rid"
     t.string "time_zone", default: "UTC", null: false
     t.string "response_theme"
-    t.string "platform"
     t.boolean "join_channels", default: false, null: false
     t.boolean "enable_cheers", default: true, null: false
     t.boolean "enable_loot", default: true, null: false

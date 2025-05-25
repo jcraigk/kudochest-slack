@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Cache::TeamConfig do
-  subject(:cache) { described_class.new(team.platform, team.rid) }
+  subject(:cache) { described_class.new(team.rid) }
 
   let(:channel_rid) { build(:channel).rid }
   let(:team) { create(:team, log_channel_rid: channel_rid) }
-  let(:cache_key) { "config/#{team.platform}/#{team.rid}" }
+  let(:cache_key) { "config/#{team.rid}" }
   let!(:topics) { create_list(:topic, 2, team:) }
   let(:team_attrs) { team.attributes.slice(*Team::CONFIG_ATTRS) }
   let(:topic_attrs) do
@@ -16,7 +16,7 @@ RSpec.describe Cache::TeamConfig do
     }
   end
   let(:topic_emojis) { topics.map { |topic| ":#{topic.emoji}:" } }
-  let(:regex) { { regex: "(?<match>(?:<(?<entity_rid>(?:@|\\#|!subteam\\^)[A-Z0-9]+)(?:\\|[^>]*)?>|)\\s{0,20}(?<prefix_quantity>\\d+\\.?\\d*)?\\s?(?:(?<inlines>(?:\\+\\+)+|(?:\\+=)+|(?:\\+)+|(?:\\-\\-)+|(?:\\-=)+|(?:\\-)+)|(?<emojis>(?:(?::star:|:arrow_down:)\\s*)+))\\s?(?<suffix_quantity>\\d+\\.?\\d*)?\\s{0,20}(?<topic_keywords>#{(team.topics.map(&:keyword) + topic_emojis).join('|')})?)" } } # rubocop:disable Layout/LineLength
+  let(:regex) { { regex: "(?<match>(?:<(?<entity_rid>(?:@|\\#|!subteam\\^)[A-Z0-9]+)(?:\\|[^>]*)?>|<!(?<group_keyword>everyone|channel|here)>)\\s{0,20}(?<prefix_quantity>\\d+\\.?\\d*)?\\s?(?:(?<inlines>(?:\\+\\+)+|(?:\\+=)+|(?:\\+)+|(?:\\-\\-)+|(?:\\-=)+|(?:\\-)+)|(?<emojis>(?:(?::star:|:arrow_down:)\\s*)+))\\s?(?<suffix_quantity>\\d+\\.?\\d*)?\\s{0,20}(?<topic_keywords>#{(team.topics.map(&:keyword) + topic_emojis).join('|')})?)" } } # rubocop:disable Layout/LineLength
   let(:expected) { team_attrs.merge(topic_attrs).merge(regex).deep_symbolize_keys }
 
   it 'returns expected data' do

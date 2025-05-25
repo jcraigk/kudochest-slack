@@ -71,7 +71,7 @@ en:
     throttle_quantity_tooltip: The number of kudos (or kudonts) a user may give during the time period specified above.
     throttle_quantity: Throttle Quantity
     update_fail: 'Could not update app settings: %{msg}'
-    update_success: Settings updated! It may take a few minutes for changes to take effect in %{platform}.
+    update_success: Settings updated! It may take a few minutes for changes to take effect in Slack.
     work_days: Work Days
     work_days_tooltip: Specify the standard work days for your team. This determines how giving streaks are awarded.
     point_emoji_html: 'Here are a few custom emoji icons you can <a href="%{url}">use in Slack</a>:'

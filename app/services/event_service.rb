@@ -17,13 +17,11 @@ class EventService < Base::Service
   end
 
   def slack_fast_acked?
-    params[:platform] == "slack" &&
-      params[:replace_channel_rid].present? &&
-      params[:replace_ts].present?
+    params[:replace_channel_rid].present? && params[:replace_ts].present?
   end
 
   def responder
-    @responder ||= ConstService.call(params[:platform], "PostService")
+    @responder ||= Slack::ConstService.call("PostService")
   end
 
   def post_success_message

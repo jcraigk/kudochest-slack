@@ -49,9 +49,6 @@ class Actions::ReactionBase < Actions::Base
   end
 
   def emoji
-    @emoji ||=
-      case team.platform
-      when "slack" then params[:event][:reaction]
-      end
+    @emoji ||= params[:event][:reaction]
   end
 end

@@ -23,7 +23,7 @@ RSpec.describe Commands::Leaderboard, :freeze_time do
   end
 
   context 'when no tips have been given' do
-    let(:text) { I18n.t('teams.leaderboard_empty', platform: team.platform.titleize) }
+    let(:text) { I18n.t('teams.leaderboard_empty') }
 
     it_behaves_like 'expected response'
   end

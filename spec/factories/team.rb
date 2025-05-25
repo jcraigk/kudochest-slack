@@ -1,11 +1,10 @@
 FactoryBot.define do
   factory :team do
-    platform { 'slack' }
     sequence(:name) { |n| "Team #{n}" }
-    rid { FactoryHelper.rid(platform, 'T') }
+    rid { FactoryHelper.rid("T") }
     avatar_url { Faker::Internet.url }
     api_key { SecureRandom.hex }
-    app_profile_rid { FactoryHelper.rid(platform, 'U') }
+    app_profile_rid { FactoryHelper.rid("U") }
     max_level { App.default_max_level }
     max_level_points { App.default_max_level_points }
     time_zone { 'UTC' }

@@ -125,7 +125,7 @@
   height: 100%;
 
   .team-avatar {
-    border-radius: $radius;
+    border-radius: 5px;
   }
 }
 .points-direction-right {
@@ -149,7 +149,7 @@
   position: relative;
   top: 4px;
   margin-right: 5px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 table.leaderboard {
   th {

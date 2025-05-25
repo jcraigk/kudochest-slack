@@ -1,5 +1,6 @@
 class RemoveUnusedTeamFields < ActiveRecord::Migration[7.1]
   def change
+    remove_column :teams, :platform, :string
     remove_column :teams, :uninstalled_by, :string
     remove_column :teams, :gratis_subscription, :boolean
     remove_column :teams, :trial_expires_at, :datetime

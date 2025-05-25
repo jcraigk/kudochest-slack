@@ -5,7 +5,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Subteam #{n}" }
     sequence(:handle) { |n| "subteam-#{n}" }
     sequence(:description) { |n| "Subteam description #{n}" }
-    rid { FactoryHelper.rid(team.platform, 'S') }
+    rid { FactoryHelper.rid("S") }
 
     trait :with_profiles do
       after(:create) do |this|

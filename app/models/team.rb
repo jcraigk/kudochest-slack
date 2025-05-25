@@ -7,7 +7,7 @@ class Team < ApplicationRecord
     api_key app_profile_rid avatar_url enable_cheers
     point_emoji jab_emoji ditto_emoji enable_emoji enable_jabs
     log_channel_rid hint_channel_rid max_points_per_tip
-    platform response_mode response_theme show_channel show_note time_zone
+    response_mode response_theme show_channel show_note time_zone
     tip_notes enable_topics require_topic topics rid
   ].freeze
   CONFIG_CACHE_TTL = 5.minutes
@@ -18,8 +18,6 @@ class Team < ApplicationRecord
   has_many :topics, dependent: :destroy
   has_many :rewards, dependent: :destroy
 
-  enumerize :platform,
-            in: %w[slack]
   enumerize :level_curve,
             in: %w[gentle steep linear],
             default: "gentle"
@@ -69,7 +67,6 @@ class Team < ApplicationRecord
   attribute :member_count,       :integer, default: 0
   attribute :max_points_per_tip, :integer, default: 5
 
-  validates :platform, presence: true
   validates :api_key, uniqueness: true
   validates :name, presence: true
   validates :rid, presence: true, uniqueness: true
