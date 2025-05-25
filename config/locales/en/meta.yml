@@ -1,5 +1,3 @@
 en:
   meta:
     login: KudoChest is a team engagement tool for Slack
-    forgot_password: Enter your email address to reset a forgotten password
-    reset_password: Reset your password using the special link emailed to you

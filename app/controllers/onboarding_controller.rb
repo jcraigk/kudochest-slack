@@ -23,22 +23,22 @@ class OnboardingController < ApplicationController
       notice: t("onboarding.join_channels_skipped", url: app_settings_path)
   end
 
-  # def confirm_emoji_added
-  #   authorize current_team
-  #   if emoji_added?
-  #     current_team.update!(point_emoji: 'kudos', ditto_emoji: 'ditto_kudos')
-  #     emoji_onboarding_complete
-  #     emoji_added_success
-  #   else
-  #     emoji_added_fail
-  #   end
-  # end
+  def confirm_emoji_added
+    authorize current_team
+    if emoji_added?
+      current_team.update!(point_emoji: "kudos", ditto_emoji: "ditto_kudos")
+      emoji_onboarding_complete
+      emoji_added_success
+    else
+      emoji_added_fail
+    end
+  end
 
-  # def skip_emoji
-  #   authorize current_team
-  #   emoji_onboarding_complete
-  #   redirect_to dashboard_path, notice: t('onboarding.emoji_skipped', url: app_settings_path)
-  # end
+  def skip_emoji
+    authorize current_team
+    emoji_onboarding_complete
+    redirect_to dashboard_path, notice: t("onboarding.emoji_skipped", url: app_settings_path)
+  end
 
   private
 

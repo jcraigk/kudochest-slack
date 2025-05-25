@@ -97,7 +97,6 @@ module KudoChest
     config.channel_cache_ttl = 5.minutes
     config.default_leaderboard_size = 5
     config.modal_cache_ttl = 600 # seconds
-    config.password_length = 5
     config.gentle_level_coefficient = 1.5
     config.steep_level_coefficient = 2.1
     config.default_tip_history_days = 14

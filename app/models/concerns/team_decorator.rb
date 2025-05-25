@@ -79,7 +79,7 @@ module TeamDecorator
   end
 
   def onboarded?
-    onboarded_channels? # && onboarded_emoji?
+    onboarded_channels? && onboarded_emoji?
   end
 
   def admin_emails

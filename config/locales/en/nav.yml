@@ -2,8 +2,6 @@ en:
   nav:
     app_settings: App Settings
     bonus_calculator: Bonus Calculator
-    change_email: Change Email
-    change_password: Change Password
     claim_admin: Manage Claims
     contact: Contact
     login: Login
@@ -23,7 +21,6 @@ en:
     preferences: Preferences
     sign_in_with_slack: Sign in with Slack
     add_to_slack: Add to Slack
-    install_the_app: To install KudoChest, tap the button below
     sign_in_single_html: Welcome to <b>KudoChest for %{team}</b><br>Sign in to view your dashboard.
     sign_in_only: Welcome to KudoChest! Sign in to view your dashboard.
     sign_in_with_install: Already installed? Sign in to view your dashboard.
