@@ -109,6 +109,6 @@ class Actions::Message < Actions::Base
   end
 
   def bad_input_text
-    ":#{App.error_emoji}: #{I18n.t('errors.bad_command', text: user_text)}"
+    ":#{App.error_emoji}: #{I18n.t('errors.bad_command', text: truncate(user_text, length: 50))}"
   end
 end
