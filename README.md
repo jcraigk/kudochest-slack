@@ -9,6 +9,13 @@ This is a fork of the deprecated [KudoChest for Slack and Discord](https://githu
 See the **[Wiki](https://github.com/jcraigk/kudochest-slack/wiki)** for more information.
 
 
+# Intro Video
+
+Watch the video below to get a feel for the basic features of the app.
+
+[![Intro to KudoChest Video](https://img.youtube.com/vi/JHcYOSONdRg/0.jpg)](https://www.youtube.com/watch?v=JHcYOSONdRg)
+
+
 # Installation
 
 To install KudoChest into your organization's Slack workspace, you must host the Rails components on a web server you control and configure the Slack App via the [Slack API website](https://api.slack.com/).

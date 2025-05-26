@@ -61,7 +61,7 @@ class Commands::Help < Commands::Base
   end
 
   def footer
-    ":question: <#{App.help_url}|More help>"
+    ":globe_with_meridians: <#{App.base_url}|Web portal>   :question: <#{App.help_url}|More help> "
   end
 
   def slack_giving_points
