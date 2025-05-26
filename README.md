@@ -4,7 +4,7 @@
 
 This is a **Ruby on Rails** application backed by **Postgres** and **Redis**. It integrates tightly with Slack, keeping teams and users synced server-side. This enables web-based user profiles and other UX enhancements not possible in standard bots.
 
-This is a fork of the deprecated [KudoChest for Slack and Discord](https://github.com/jcraigk/kudochest) project.
+This is a continuation of [KudoChest for Slack and Discord](https://github.com/jcraigk/kudochest), which is deprecated.
 
 See the **[Wiki](https://github.com/jcraigk/kudochest-slack/wiki)** for more information.
 
