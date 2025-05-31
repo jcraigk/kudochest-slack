@@ -68,7 +68,7 @@ class Commands::Help < Commands::Base
     str = slack_point_inlines
     str += slack_jab_inlines if team.enable_jabs?
     str += slack_emojis if team.enable_thumbsup? || team.enable_emoji?
-    "#{str}\n  * _User ++_ Action (\"...\" menu on a user message)"
+    str
   end
 
   def slack_point_inlines

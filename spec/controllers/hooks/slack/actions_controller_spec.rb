@@ -14,7 +14,7 @@ describe Hooks::Slack::ActionsController do
   let(:params) do
     {
       payload: {
-        callback_id: 'reply_tip',
+        callback_id: 'submit_tip_modal',
         team: {
           id: team.rid
         },

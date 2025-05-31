@@ -189,7 +189,7 @@ class Slack::PostService < Base::PostService
     return response_mode unless response_mode == :adaptive
     case action
     when :message, :submit_tip_modal then :convo
-    when :reaction_added, :reply_tip then :reply
+    when :reaction_added then :reply
     else :convo # rubocop:disable Lint/DuplicateBranch
     end
   end

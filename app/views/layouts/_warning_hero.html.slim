@@ -6,5 +6,5 @@
       - if current_team&.inactive?
 
         p.title = t('teams.uninstalled')
-        p.subtitle = "#{current_team.uninstalled_by} on #{current_team.uninstalled_at.strftime('%B %d, %Y')}."
+        p.subtitle = "Uninstalled on #{current_team.uninstalled_at.strftime('%B %d, %Y')}."
         = render 'shared/add_to_slack_button'
