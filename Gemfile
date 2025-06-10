@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.4.3"
+ruby "3.4.4"
 
 gem "aws-sdk-s3"
 gem "bulma-rails", "0.9.4" # v1 has breaking changes
