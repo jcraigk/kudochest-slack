@@ -92,7 +92,7 @@ class Slack::Modals::Preferences < Base::Service
   def text_for(opt)
     t(
       "profiles.prefs_modal_#{opt}",
-      bot: App.bot_name,
+      app: App.app_name,
       points: App.points_term,
       email: profile.email
     )

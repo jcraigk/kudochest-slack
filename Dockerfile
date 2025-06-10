@@ -1,6 +1,6 @@
 FROM ruby:3.4.3-slim
 
-ARG APP_NAME=biz-kudochest
+ARG APP_NAME=kudochest-slack
 
 ENV APP_NAME=${APP_NAME} \
     INSTALL_PATH=/${APP_NAME} \
