@@ -1,6 +1,6 @@
 en:
   onboarding:
-    welcome: Welcome to KudoChest! The bot is now available in your workspace.
+    welcome: "Welcome to %{app}! The bot is now available in your workspace."
     channels_title: Join Public Channels
     channels_start: Let's get started by adding inviting bot to your public Slack channels! You can skip this step and invite the bot later if you prefer.
     channels_select: 'Alternatively you can select from these recommended channels:'
@@ -9,14 +9,14 @@ en:
     join_all_channels: Join All Public Channels
     join_all_channels_requested: Awesome! The bot is now being added to all public channels!
     join_channels_requested: Awesome! The bot is now being added to the specified channels!
-    join_channels_skipped: Okay, the bot will not be automatically added to any channels. You can change this in <a href="%{url}" target="_blank">App Settings</a> at any time.
+    join_channels_skipped: "Okay, the bot will not be automatically added to any channels. You can change this in <a href=\"%{url}\" target=\"_blank\">App Settings</a> at any time."
     emoji_title: Setup Custom Emoji
-    emoji_start: KudoChest works best with custom emoji!
+    emoji_start: "%{app} works best with custom emoji!"
     emoji_explain_html: 'Save the images above, <a href="%{url}" target="_blank">add them to Slack as custom emoji</a>, and confirm below.'
     emoji_name: Emoji Name
     emoji_image: Image
-    emoji_skipped: Got it! You can change your emoji from <a href="%{url}">App Settings</a> at any time.
-    emoji_added_success: Yay! You've setup your custom emoji! See <a href="%{url}">App Settings</a> for more options.
-    emoji_added_fail: Hmm, your custom emoji aren't setup yet. See <a href="%{url}" target="_blank">this Slack help article</a> for assistance.
+    emoji_skipped: "Got it! You can change your emoji from <a href=\"%{url}\">App Settings</a> at any time."
+    emoji_added_success: "Yay! You've setup your custom emoji! See <a href=\"%{url}\">App Settings</a> for more options."
+    emoji_added_fail: "Hmm, your custom emoji aren't setup yet. See <a href=\"%{url}\" target=\"_blank\">this Slack help article</a> for assistance."
     emoji_added_button: I've Added the Emoji
     emoji_skip_button: No Thanks

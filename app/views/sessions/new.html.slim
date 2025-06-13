@@ -1,4 +1,4 @@
-- content_for :meta_description, t('meta.login')
+- content_for :meta_description, t('meta.login', app: App.app_name)
 
 .columns.install-container
   .column.is-third
@@ -6,16 +6,16 @@
 
       - if !max_allowed_teams?
         - if !any_active_teams?
-          p.is-size-5 = t('nav.install_first_html')
+          p.is-size-5 = t('nav.install_first_html', app: App.app_name)
           br
         = render 'shared/add_to_slack_button'
 
       - if any_active_teams?
         - if max_allowed_teams?
           - if App.max_teams == 1
-            p.is-size-5 = t('nav.sign_in_single_html', team: Team.active.first.name)
+            p.is-size-5 = t('nav.sign_in_single_html', team: Team.active.first.name, app: App.app_name)
           - else
-            p.is-size-5 = t('nav.sign_in_only')
+            p.is-size-5 = t('nav.sign_in_only', app: App.app_name)
         - else
           br
           br

@@ -21,7 +21,7 @@ en:
     preferences: Preferences
     sign_in_with_slack: Sign in with Slack
     add_to_slack: Add to Slack
-    sign_in_single_html: Welcome to <b>KudoChest for %{team}</b><br>Sign in to view your dashboard
-    sign_in_only: Welcome to KudoChest! Sign in to view your dashboard.
+    sign_in_single_html: Welcome to <b>%{app} for %{team}</b><br>Sign in to view your dashboard
+    sign_in_only: Welcome to %{app}! Sign in to view your dashboard.
     sign_in_with_install: Already installed? Sign in to view your dashboard.
-    install_first_html: <b>Welcome to KudoChest!</b><br>Use the button below to install the app into your Slack workspace.<br>If you don't have sufficient access, please reach out to an administrator.
+    install_first_html: <b>Welcome to %{app}!</b><br>Use the button below to install the app into your Slack workspace.<br>If you don't have sufficient access, please reach out to an administrator.
