@@ -1,10 +1,6 @@
 FROM ruby:3.4.4-slim
 
-ARG APP_NAME=kudochest-slack
-
-ENV APP_NAME=${APP_NAME} \
-    INSTALL_PATH=/${APP_NAME} \
-    IN_DOCKER=true
+ENV IN_DOCKER=true
 
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
@@ -23,7 +19,7 @@ RUN apt-get update -qq && \
 # RUN mkdir -p /storage/response_images/cache
 # RUN mkdir -p /storage/response_images/tmp
 
-WORKDIR $INSTALL_PATH
+WORKDIR kudochest
 
 COPY . .
 

@@ -34,7 +34,7 @@ class Base::PostService < Base::Service
   def post_to_all_modalities
     post_response
     attach_tips_to_response
-    broadcast_via_websocket
+    # broadcast_via_websocket
     post_log_message
   end
 
@@ -51,10 +51,10 @@ class Base::PostService < Base::Service
     tips.present? && log_channel_rid.present? && log_channel_rid != channel_rid
   end
 
-  def broadcast_via_websocket
-    return if tips.blank?
-    ResponseChannel.broadcast_to(sender.team, response.web)
-  end
+  # def broadcast_via_websocket
+  #   return if tips.blank?
+  #   ResponseChannel.broadcast_to(sender.team, response.web)
+  # end
 
   def sender
     @sender ||=

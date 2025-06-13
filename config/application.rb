@@ -20,7 +20,7 @@ module KudoChest
     config.active_job.queue_adapter = :sidekiq
 
     # Basic
-    config.app_name = ENV.fetch("CUSTOM_APP_NAME", "KudoChest")
+    config.app_name = ENV.fetch("APP_NAME", "KudoChest")
     config.base_url = ENV.fetch("BASE_URL", "https://#{ENV.fetch('WEB_DOMAIN', 'localhost')}")
     config.from_email = ENV.fetch \
       "FROM_EMAIL",
