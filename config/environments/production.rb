@@ -43,7 +43,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: config.base_url }
 
-  config.action_controller.asset_host = ENV.fetch("ASSET_HOST", "localhost")
-
   config.active_record.dump_schema_after_migration = false
 end

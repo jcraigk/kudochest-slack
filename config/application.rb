@@ -33,7 +33,7 @@ module KudoChest
     config.point_singular_prefix = ENV.fetch("POINT_SINGULAR_PREFIX", "a")
     config.jab_singular_prefix = ENV.fetch("JAB_SINGULAR_PREFIX", "a")
     config.help_url = "https://github.com/jcraigk/kudochest-slack"
-    config.asset_host = ENV.fetch("ASSET_HOST", nil)
+    config.asset_host = config.base_url
 
     # Slack
     config.slack_app_id = ENV.fetch("SLACK_APP_ID", nil)

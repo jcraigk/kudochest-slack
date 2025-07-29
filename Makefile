@@ -12,7 +12,7 @@ clean :
 	docker volume prune
 
 dev: services
-	foreman start -f Procfile.dev
+	overmind start -f Procfile.dev
 
 cleanforce:
 	docker compose down -v

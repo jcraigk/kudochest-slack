@@ -154,7 +154,7 @@ RSpec.describe TipMentionService, :freeze_time do
       service
     end
 
-      it 'creates tips for unique profiles, favoring direct, then subteam, then channel' do
+      it 'creates tips for unique profiles, favoring direct, then subteam, then channel' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       expect(Tip.count).to eq(4)
 
       tip_recipients = Tip.pluck(:to_profile_id)

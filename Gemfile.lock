@@ -157,8 +157,6 @@ GEM
     faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
     ffi (1.17.2-arm64-darwin)
-    foreman (0.90.0)
-      thor (~> 1.4)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -239,6 +237,7 @@ GEM
     numbers_and_words (1.0.2)
       i18n (<= 2)
     ostruct (0.6.3)
+    overmind (2.5.1-arm64-darwin)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -474,7 +473,6 @@ DEPENDENCIES
   enumerize
   factory_bot_rails
   faker
-  foreman
   gemoji
   groupdate
   importmap-rails
@@ -482,6 +480,7 @@ DEPENDENCIES
   jwt
   kaminari
   numbers_and_words
+  overmind
   pg
   puma
   pundit
