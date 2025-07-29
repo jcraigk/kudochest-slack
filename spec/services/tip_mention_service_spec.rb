@@ -148,21 +148,27 @@ RSpec.describe TipMentionService, :freeze_time do
 
     before do
       subteam.profiles << [ subteam_profile, to_profile, other_profile ]
-      allow(TipFactory).to receive(:call)
       allow(TipResponseService).to receive(:call).and_return(tip_response)
       allow(Slack::ChannelMemberService)
         .to receive(:call).and_return([ channel_profile, other_profile ])
       service
     end
 
-    it 'calls TipFactory for each unique profile, favoring direct, then subteam, then channel' do # rubocop:disable RSpec/ExampleLength
-      mention_entities.each do |m|
-        args = base_tip_attrs.merge \
-          to_entity: m.entity.reload,
-          to_profiles: m.profiles.map(&:reload),
-          note: m.note
-        expect(TipFactory).to have_received(:call).with(**args)
-      end
+      it 'creates tips for unique profiles, favoring direct, then subteam, then channel' do
+      expect(Tip.count).to eq(4)
+
+      tip_recipients = Tip.pluck(:to_profile_id)
+      expect(tip_recipients).to contain_exactly(
+        to_profile.id,        # Direct mention
+        subteam_profile.id,   # From subteam
+        other_profile.id,     # From subteam (not deduplicated from channel)
+        channel_profile.id    # From channel
+      )
+
+      expect(Tip.find_by(to_profile: to_profile).to_subteam_rid).to be_nil
+      expect(Tip.find_by(to_profile: subteam_profile).to_subteam_rid).to eq(subteam.rid)
+      expect(Tip.find_by(to_profile: other_profile).to_subteam_rid).to eq(subteam.rid)
+      expect(Tip.find_by(to_profile: channel_profile).to_channel_rid).to eq(channel.rid)
     end
   end
 end
