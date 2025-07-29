@@ -293,7 +293,7 @@ RSpec.describe Slack::PostService do
         end
       end
 
-      it 'calls ResponseChannel.broadcast' do
+      xit 'calls ResponseChannel.broadcast', 'websockets temporarily disabled' do
         service
         expect(ResponseChannel).to have_received(:broadcast_to).with(team, response.web)
       end

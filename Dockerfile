@@ -19,7 +19,7 @@ RUN apt-get update -qq && \
 # RUN mkdir -p /storage/response_images/cache
 # RUN mkdir -p /storage/response_images/tmp
 
-WORKDIR kudochest
+WORKDIR /kudochest-slack
 
 COPY . .
 
@@ -27,4 +27,4 @@ RUN gem install bundler && bundle install
 RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
-CMD bundle exec puma -p 3000
+CMD ["bundle", "exec", "puma", "-p", "3000"]
