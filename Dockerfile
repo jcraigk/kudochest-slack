@@ -2,6 +2,8 @@ FROM ruby:3.4.5-slim
 
 ENV IN_DOCKER=true
 
+LABEL org.opencontainers.image.source="https://github.com/jcraigk/kudochest-slack"
+
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
       build-essential \
