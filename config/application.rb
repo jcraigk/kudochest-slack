@@ -21,10 +21,8 @@ module KudoChest
 
     # Basic
     config.app_name = ENV.fetch("APP_NAME", "KudoChest")
-    config.base_url = ENV.fetch("BASE_URL", "https://#{ENV.fetch('WEB_DOMAIN', 'localhost')}")
-    config.from_email = ENV.fetch \
-      "FROM_EMAIL",
-      "#{config.app_name} <noreply@#{ENV.fetch('WEB_DOMAIN', 'localhost')}>"
+    config.base_url = ENV.fetch("BASE_URL", "localhost")
+    config.from_email = ENV.fetch("FROM_EMAIL", "noreply@localhost")
     config.max_teams = ENV.fetch("MAX_TEAMS", 1)
     config.point_term = ENV.fetch("POINT_TERM", "kudo")
     config.points_term = ENV.fetch("POINTS_TERM", "kudos")
@@ -33,7 +31,7 @@ module KudoChest
     config.point_singular_prefix = ENV.fetch("POINT_SINGULAR_PREFIX", "a")
     config.jab_singular_prefix = ENV.fetch("JAB_SINGULAR_PREFIX", "a")
     config.help_url = "https://github.com/jcraigk/kudochest-slack"
-    config.asset_host = config.base_url
+    config.asset_host = ENV["ASSET_HOST"] if ENV["ASSET_HOST"].present?
 
     # Slack
     config.slack_app_id = ENV.fetch("SLACK_APP_ID", nil)
