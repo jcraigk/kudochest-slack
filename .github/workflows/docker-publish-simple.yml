@@ -1,0 +1,49 @@
+name: Simple Docker Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: jcraigk/kudochest-slack
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to ghcr.io
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build --platform linux/amd64 -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+          
+      - name: Push Docker image
+        if: github.event_name != 'pull_request'
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          
+          # Also tag with branch name or tag
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG=${GITHUB_REF#refs/tags/}
+            docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$TAG
+            docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$TAG
+          elif [[ "${{ github.ref }}" == refs/heads/* ]]; then
+            BRANCH=${GITHUB_REF#refs/heads/}
+            docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$BRANCH
+            docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$BRANCH
+          fi
