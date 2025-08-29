@@ -11,8 +11,8 @@ RSpec.describe Slack::Modals::Tip do
       max_points_per_tip: 5,
       tip_notes: 'optional',
       topics: [],
-      default_inline_point_quantity: team.default_inline_point_quantity,
-      default_reaction_point_quantity: team.default_reaction_point_quantity
+      default_inline_quantity: team.default_inline_quantity,
+      default_reaction_quantity: team.default_reaction_quantity
     }
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Slack::Modals::Tip do
 
   describe 'quantity select initial value' do
     context 'with default inline point quantity of 1' do
-      let(:team) { create(:team, default_inline_point_quantity: 1) }
+      let(:team) { create(:team, default_inline_quantity: 1) }
 
       it 'sets initial option to 1' do
         quantity_block = modal[:blocks].find { |b| b.dig(:element, :action_id) == :quantity }
@@ -32,7 +32,7 @@ RSpec.describe Slack::Modals::Tip do
     end
 
     context 'with custom default inline point quantity' do
-      let(:team) { create(:team, default_inline_point_quantity: 3, max_points_per_tip: 5) }
+      let(:team) { create(:team, default_inline_quantity: 3, max_points_per_tip: 5) }
       let(:config) { super().merge(max_points_per_tip: 5) }
 
       it 'sets initial option to team default' do
@@ -52,7 +52,7 @@ RSpec.describe Slack::Modals::Tip do
     end
 
     context 'with jabs enabled' do
-      let(:team) { create(:team, default_inline_point_quantity: 2, enable_jabs: true, max_points_per_tip: 5) }
+      let(:team) { create(:team, default_inline_quantity: 2, enable_jabs: true, max_points_per_tip: 5) }
       let(:config) { super().merge(enable_jabs: true, max_points_per_tip: 5) }
 
       it 'includes negative and positive quantities' do

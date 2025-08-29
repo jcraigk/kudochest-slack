@@ -19,26 +19,26 @@
 
     .field.is-horizontal
       .field-label.is-normal
-        = f.label :default_inline_point_quantity, t('teams.default_inline_point_quantity'), class: 'label'
+        = f.label :default_inline_quantity, t('teams.default_inline_quantity'), class: 'label'
       .field-body
         .field
           .control
-            .select = f.select :default_inline_point_quantity, (1..current_team.max_points_per_tip).to_a, class: 'input'
+            .select = f.select :default_inline_quantity, (1..current_team.max_points_per_tip).to_a, class: 'input'
             = tooltip_btn \
-                'teams.default_inline_point_quantity_tooltip',
+                'teams.default_inline_quantity_tooltip',
                 nil,
                 points: App.points_term,
                 jabs: App.jabs_term
 
     .field.is-horizontal
       .field-label.is-normal
-        = f.label :default_reaction_point_quantity, t('teams.default_reaction_point_quantity'), class: 'label'
+        = f.label :default_reaction_quantity, t('teams.default_reaction_quantity'), class: 'label'
       .field-body
         .field
           .control
-            .select = f.select :default_reaction_point_quantity, (1..current_team.max_points_per_tip).to_a, class: 'input'
+            .select = f.select :default_reaction_quantity, (1..current_team.max_points_per_tip).to_a, class: 'input'
             = tooltip_btn \
-                'teams.default_reaction_point_quantity_tooltip',
+                'teams.default_reaction_quantity_tooltip',
                 nil,
                 points: App.points_term,
                 jabs: App.jabs_term

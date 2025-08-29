@@ -103,7 +103,7 @@ class TeamsController < ApplicationController
       :enable_streaks, :streak_duration, :streak_reward, :time_zone, :weekly_report,
       :split_tip, :join_channels, :enable_cheers, :enable_loot,
       :enable_jabs, :deduct_jabs, :enable_topics, :require_topic, :show_note,
-      :default_inline_point_quantity, :default_reaction_point_quantity, work_days: []
+      :default_inline_quantity, :default_reaction_quantity, work_days: []
   end
 
   def update_success

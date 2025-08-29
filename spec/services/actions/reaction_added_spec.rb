@@ -171,7 +171,7 @@ RSpec.describe Actions::ReactionAdded do
   end
 
   context 'with custom default reaction point quantity' do
-    let(:team) { create(:team, default_reaction_point_quantity: 5, enable_emoji: true) }
+    let(:team) { create(:team, default_reaction_quantity: 5, enable_emoji: true) }
     let(:reaction) { team.point_emoji }
 
     context 'when using point reaction' do
@@ -200,7 +200,7 @@ RSpec.describe Actions::ReactionAdded do
     end
 
     context 'when using jab reaction' do
-      let(:team) { create(:team, default_reaction_point_quantity: 3, enable_jabs: true, jab_emoji: 'thumbsdown') }
+      let(:team) { create(:team, default_reaction_quantity: 3, enable_jabs: true, jab_emoji: 'thumbsdown') }
       let(:reaction) { 'thumbsdown' }
       let(:args) do
         {

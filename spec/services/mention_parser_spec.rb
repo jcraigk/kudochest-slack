@@ -77,7 +77,7 @@ RSpec.describe MentionParser do
   end
 
   context 'with default inline point quantities' do
-    let(:team) { create(:team, default_inline_point_quantity: 3) }
+    let(:team) { create(:team, default_inline_quantity: 3) }
 
     context 'when using ++ without explicit quantity' do
       let(:matches) do
@@ -156,7 +156,7 @@ RSpec.describe MentionParser do
     end
 
     context 'with single emoji and no explicit quantity' do
-      let(:team) { create(:team, default_inline_point_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
+      let(:team) { create(:team, default_inline_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
       let(:matches) do
         [
           {
@@ -181,7 +181,7 @@ RSpec.describe MentionParser do
     end
 
     context 'with multiple emoji instances' do
-      let(:team) { create(:team, default_inline_point_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
+      let(:team) { create(:team, default_inline_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
       let(:matches) do
         [
           {
@@ -206,7 +206,7 @@ RSpec.describe MentionParser do
     end
 
     context 'with emoji and explicit quantity' do
-      let(:team) { create(:team, default_inline_point_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
+      let(:team) { create(:team, default_inline_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
       let(:matches) do
         [
           {

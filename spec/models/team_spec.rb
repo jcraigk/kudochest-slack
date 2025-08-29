@@ -58,28 +58,28 @@ RSpec.describe Team do
       .is_less_than_or_equal_to(App.max_streak_reward)
   end
 
-  it { is_expected.to validate_numericality_of(:default_inline_point_quantity).is_greater_than_or_equal_to(1) }
+  it { is_expected.to validate_numericality_of(:default_inline_quantity).is_greater_than_or_equal_to(1) }
 
-  it 'validates default_inline_point_quantity against team max_points_per_tip' do
+  it 'validates default_inline_quantity against team max_points_per_tip' do # rubocop:disable RSpec/ExampleLength
     team.max_points_per_tip = 10
-    team.default_inline_point_quantity = 10
+    team.default_inline_quantity = 10
     expect(team).to be_valid
 
-    team.default_inline_point_quantity = 11
+    team.default_inline_quantity = 11
     expect(team).not_to be_valid
-    expect(team.errors[:default_inline_point_quantity]).to include("must be less than or equal to 10")
+    expect(team.errors[:default_inline_quantity]).to include("must be less than or equal to 10")
   end
 
-  it { is_expected.to validate_numericality_of(:default_reaction_point_quantity).is_greater_than_or_equal_to(1) }
+  it { is_expected.to validate_numericality_of(:default_reaction_quantity).is_greater_than_or_equal_to(1) }
 
-  it 'validates default_reaction_point_quantity against team max_points_per_tip' do
+  it 'validates default_reaction_quantity against team max_points_per_tip' do # rubocop:disable RSpec/ExampleLength
     team.max_points_per_tip = 10
-    team.default_reaction_point_quantity = 10
+    team.default_reaction_quantity = 10
     expect(team).to be_valid
 
-    team.default_reaction_point_quantity = 11
+    team.default_reaction_quantity = 11
     expect(team).not_to be_valid
-    expect(team.errors[:default_reaction_point_quantity]).to include("must be less than or equal to 10")
+    expect(team.errors[:default_reaction_quantity]).to include("must be less than or equal to 10")
   end
 
   describe 'custom validators' do

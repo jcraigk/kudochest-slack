@@ -20,6 +20,7 @@ cleanforce:
 	docker volume prune -f
 
 services :
+	brew services stop postgresql
 	docker compose up -d pg redis
 
 spec :

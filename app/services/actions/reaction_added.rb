@@ -60,7 +60,7 @@ class Actions::ReactionAdded < Actions::ReactionBase
   end
 
   def reaction_quantity
-    default_quantity = team.default_reaction_point_quantity
+    default_quantity = team.default_reaction_quantity
     source == "jab_reaction" ? (0 - default_quantity) : default_quantity
   end
 

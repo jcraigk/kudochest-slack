@@ -79,7 +79,7 @@ class MentionParser < Base::Service
   # Generate a quantity given a mention match
   #
   # Examples:
-  # "@user ++" => team.default_inline_point_quantity (or 1 if not set)
+  # "@user ++" => team.default_inline_quantity (or 1 if not set)
   # "@user ++++++" => 3
   # "@user 3++2" => 3
   # "@user --4" => -4
@@ -93,7 +93,7 @@ class MentionParser < Base::Service
 
     # Use team's default quantities if no explicit quantity is specified
     if given.zero?
-      default_inline_quantity = team.default_inline_point_quantity
+      default_inline_quantity = team.default_inline_quantity
       return negative ? (0 - default_inline_quantity) : default_inline_quantity
     end
 
@@ -118,7 +118,7 @@ class MentionParser < Base::Service
     return quantity if !quantity.zero?
 
     # If single emoji with no explicit quantity, use team default
-    return team.default_inline_point_quantity if emojis.size == 1
+    return team.default_inline_quantity if emojis.size == 1
 
     # Otherwise, use the count of emoji instances
     emojis.size

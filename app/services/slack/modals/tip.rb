@@ -99,7 +99,7 @@ class Slack::Modals::Tip < Base::Service
   end
 
   def default_quantity
-    config[:default_inline_point_quantity] || 1
+    config[:default_inline_quantity] || 1
   end
 
   def topic_select
