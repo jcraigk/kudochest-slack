@@ -1,0 +1,28 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "3c23ba3a136e61628bdb25878005e58ee1174647f66626f7845e4ef11a4ccff1",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `constantize` called on parameter value",
+      "file": "app/services/event_service.rb",
+      "line": 38,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "\"Actions::#{params[:action].titleize.tr(\" \", \"\")}\".constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EventService",
+        "method": "action_service"
+      },
+      "user_input": "params[:action].titleize.tr(\" \", \"\")",
+      "confidence": "High",
+      "cwe_id": [
+        470
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.1.0"
+}
