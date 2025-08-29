@@ -77,29 +77,29 @@ module KudoChest
     }
 
     # Features
-    config.max_response_mentions = 3
-    config.undo_cutoff = 1.minute
-    config.max_points_per_tip = 10
-    config.default_max_level = 20
-    config.default_max_level_points = 1_000
-    config.error_emoji = "grimacing"
-    config.default_throttle_quantity = 100
-    config.max_throttle_quantity = 10_000
-    config.default_team_time_zone = "Pacific Time (US & Canada)"
-    config.default_streak_duration = 5
-    config.min_streak_duration = 3
-    config.max_streak_duration = 100
-    config.default_streak_reward = 1
-    config.max_streak_reward = 5
-    config.channel_cache_ttl = 5.minutes
-    config.default_leaderboard_size = 5
-    config.modal_cache_ttl = 600 # seconds
-    config.gentle_level_coefficient = 1.5
-    config.steep_level_coefficient = 2.1
-    config.default_tip_history_days = 14
-    config.max_note_length = 255
-    config.give_color = "#460878"
-    config.receive_color = "#247808"
+    config.max_response_mentions = ENV.fetch("MAX_RESPONSE_MENTIONS", 3).to_i
+    config.undo_cutoff = ENV.fetch("UNDO_CUTOFF_SECONDS", 60).to_i.seconds
+    config.max_points_per_tip = ENV.fetch("MAX_POINTS_PER_TIP", 10).to_i
+    config.default_max_level = ENV.fetch("DEFAULT_MAX_LEVEL", 20).to_i
+    config.default_max_level_points = ENV.fetch("DEFAULT_MAX_LEVEL_POINTS", 1_000).to_i
+    config.error_emoji = ENV.fetch("ERROR_EMOJI", "grimacing")
+    config.default_throttle_quantity = ENV.fetch("DEFAULT_THROTTLE_QUANTITY", 100).to_i
+    config.max_throttle_quantity = ENV.fetch("MAX_THROTTLE_QUANTITY", 10_000).to_i
+    config.default_team_time_zone = ENV.fetch("DEFAULT_TEAM_TIME_ZONE", "Pacific Time (US & Canada)")
+    config.default_streak_duration = ENV.fetch("DEFAULT_STREAK_DURATION", 5).to_i
+    config.min_streak_duration = ENV.fetch("MIN_STREAK_DURATION", 3).to_i
+    config.max_streak_duration = ENV.fetch("MAX_STREAK_DURATION", 100).to_i
+    config.default_streak_reward = ENV.fetch("DEFAULT_STREAK_REWARD", 1).to_i
+    config.max_streak_reward = ENV.fetch("MAX_STREAK_REWARD", 5).to_i
+    config.channel_cache_ttl = ENV.fetch("CHANNEL_CACHE_TTL_MINUTES", 5).to_i.minutes
+    config.default_leaderboard_size = ENV.fetch("DEFAULT_LEADERBOARD_SIZE", 5).to_i
+    config.modal_cache_ttl = ENV.fetch("MODAL_CACHE_TTL_SECONDS", 600).to_i
+    config.gentle_level_coefficient = ENV.fetch("GENTLE_LEVEL_COEFFICIENT", 1.5).to_f
+    config.steep_level_coefficient = ENV.fetch("STEEP_LEVEL_COEFFICIENT", 2.1).to_f
+    config.default_tip_history_days = ENV.fetch("DEFAULT_TIP_HISTORY_DAYS", 14).to_i
+    config.max_note_length = ENV.fetch("MAX_NOTE_LENGTH", 255).to_i
+    config.give_color = ENV.fetch("GIVE_COLOR", "#460878")
+    config.receive_color = ENV.fetch("RECEIVE_COLOR", "#247808")
   end
 end
 
