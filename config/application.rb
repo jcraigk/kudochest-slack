@@ -96,7 +96,7 @@ module KudoChest
     config.modal_cache_ttl = ENV.fetch("MODAL_CACHE_TTL_SECONDS", 600).to_i
     config.gentle_level_coefficient = ENV.fetch("GENTLE_LEVEL_COEFFICIENT", 1.5).to_f
     config.steep_level_coefficient = ENV.fetch("STEEP_LEVEL_COEFFICIENT", 2.1).to_f
-    config.default_tip_history_days = ENV.fetch("DEFAULT_TIP_HISTORY_DAYS", 14).to_i
+    config.tip_history_days = ENV.fetch("TIP_HISTORY_DAYS", 14).to_i
     config.max_note_length = ENV.fetch("MAX_NOTE_LENGTH", 255).to_i
     config.give_color = ENV.fetch("GIVE_COLOR", "#460878")
     config.receive_color = ENV.fetch("RECEIVE_COLOR", "#247808")

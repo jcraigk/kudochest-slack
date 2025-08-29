@@ -5,7 +5,7 @@ class TipHistogramService < Base::Service
   option :limit, default: proc { }
 
   def call
-    @limit ||= App.default_tip_history_days
+    @limit ||= App.tip_history_days
 
     [ points_given, points_received ]
   end
