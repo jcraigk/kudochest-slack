@@ -16,6 +16,6 @@ class Actions::ReplyTip < Actions::Base
   end
 
   def mentions
-    [ Mention.new(rid: "#{PROF_PREFIX}#{params[:message_profile_rid]}", quantity: 1) ]
+    [ Mention.new(rid: "#{App.prof_prefix}#{params[:message_profile_rid]}", quantity: 1) ]
   end
 end

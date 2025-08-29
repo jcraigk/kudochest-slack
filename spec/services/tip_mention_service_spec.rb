@@ -10,7 +10,7 @@ RSpec.describe TipMentionService, :freeze_time do
   let(:channel) { create(:channel, team:) }
   let(:profile) { create(:profile, team:) }
   let(:to_profile) { create(:profile, team:) }
-  let(:mentions) { [ Mention.new(rid: "#{PROF_PREFIX}#{to_profile.rid}", quantity: 1) ] }
+  let(:mentions) { [ Mention.new(rid: "#{App.prof_prefix}#{to_profile.rid}", quantity: 1) ] }
   let(:note) { 'A note!' }
   let(:ts) { Time.current.to_f.to_s }
   let(:timestamp) { Time.current }
@@ -107,9 +107,9 @@ RSpec.describe TipMentionService, :freeze_time do
   context 'when mixture of valid mentions are provided' do
     let(:mentions) do
       [
-        Mention.new(rid: "#{PROF_PREFIX}#{to_profile.rid}", quantity: 1, topic_id: nil),
-        Mention.new(rid: "#{CHAN_PREFIX}#{channel.rid}", quantity: 1, topic_id: nil),
-        Mention.new(rid: "#{SUBTEAM_PREFIX}#{subteam.rid}", quantity: 1, topic_id: nil)
+        Mention.new(rid: "#{App.prof_prefix}#{to_profile.rid}", quantity: 1, topic_id: nil),
+        Mention.new(rid: "#{App.chan_prefix}#{channel.rid}", quantity: 1, topic_id: nil),
+        Mention.new(rid: "#{App.subteam_prefix}#{subteam.rid}", quantity: 1, topic_id: nil)
       ]
     end
     let(:result) do

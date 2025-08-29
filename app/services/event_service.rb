@@ -86,7 +86,7 @@ class EventService < Base::Service
     # Preferences dialog must be opened by slash command (Slack requirement since 2022)
     key = :preferences
     command = params[:text]&.split&.last
-    return false unless command == key.to_s || command.in?(COMMAND_KEYWORDS[key].map(&:to_s))
+    return false unless command == key.to_s || command.in?(App.command_keywords[key].map(&:to_s))
     t("errors.config_dialog", command:)
   end
 end

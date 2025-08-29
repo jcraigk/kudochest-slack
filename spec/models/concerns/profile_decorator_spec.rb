@@ -6,7 +6,7 @@ RSpec.describe ProfileDecorator do
   # TODO: Rename this to "mention"
   describe '#link' do
     it 'returns expected text' do
-      expect(profile.link).to eq("<#{PROF_PREFIX}#{profile.rid}>")
+      expect(profile.link).to eq("<#{App.prof_prefix}#{profile.rid}>")
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe ProfileDecorator do
   describe '#link_with_level' do
     subject(:profile) { build(:profile) }
 
-    let(:expected_text) { "<#{PROF_PREFIX}#{profile.rid}> (level 1)" }
+    let(:expected_text) { "<#{App.prof_prefix}#{profile.rid}> (level 1)" }
 
     it 'returns expected text' do
       expect(profile.link_with_level).to eq(expected_text)

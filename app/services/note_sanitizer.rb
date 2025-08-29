@@ -21,7 +21,7 @@ class NoteSanitizer < Base::Service
 
   # <!subteam^RID> => "@subteam-handle"
   def replace_subteam_mentions
-    @text = text.gsub(SUBTEAM_REGEX) do
+    @text = text.gsub(App.subteam_regex) do
       subteam_reference(Regexp.last_match[1])
     end
   end
@@ -29,9 +29,9 @@ class NoteSanitizer < Base::Service
   # <@UA89HL> => "@user-display-name"
   # <@UA89HL|user-display-name> => "@user-display-name"
   def replace_user_mentions
-    @text = text.gsub(PROFILE_REGEX) do
+    @text = text.gsub(App.profile_regex) do
       if Regexp.last_match[3].present?
-        "#{PROF_PREFIX}#{Regexp.last_match[3]}"
+        "#{App.prof_prefix}#{Regexp.last_match[3]}"
       else
         profile_reference(Regexp.last_match[1])
       end
@@ -41,9 +41,9 @@ class NoteSanitizer < Base::Service
   # <#C024BE7LR> => "#channel-name"
   # <#C024BE7LR|channel-name> => "#channel-name"
   def replace_channel_mentions
-    @text = text.gsub(CHANNEL_REGEX) do
+    @text = text.gsub(App.channel_regex) do
       if Regexp.last_match[3].present?
-        "#{CHAN_PREFIX}#{Regexp.last_match[3]}"
+        "#{App.chan_prefix}#{Regexp.last_match[3]}"
       else
         channel_reference(Regexp.last_match[1])
       end
@@ -66,16 +66,16 @@ class NoteSanitizer < Base::Service
 
   def profile_reference(rid)
     return unless (profile = Profile.find_by(rid:))
-    "#{PROF_PREFIX}#{profile.display_name}"
+    "#{App.prof_prefix}#{profile.display_name}"
   end
 
   def subteam_reference(rid)
     return unless (subteam = Subteam.find_by(rid:))
-    "#{PROF_PREFIX}#{subteam.handle}"
+    "#{App.prof_prefix}#{subteam.handle}"
   end
 
   def channel_reference(rid)
     return unless (channel = Channel.find_by(rid:))
-    "#{CHAN_PREFIX}#{channel.name}"
+    "#{App.chan_prefix}#{channel.name}"
   end
 end

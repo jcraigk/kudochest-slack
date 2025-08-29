@@ -17,15 +17,15 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
   end
 
   def everyone_keyword_option
-    [ generic_option("#{PROF_PREFIX}everyone", "everyone") ]
+    [ generic_option("#{App.prof_prefix}everyone", "everyone") ]
   end
 
   def here_keyword_option
-    [ generic_option("#{PROF_PREFIX}here", "here") ]
+    [ generic_option("#{App.prof_prefix}here", "here") ]
   end
 
   def channel_keyword_option
-    [ generic_option("#{PROF_PREFIX}channel", "channel") ]
+    [ generic_option("#{App.prof_prefix}channel", "channel") ]
   end
 
   def profile_options
@@ -35,7 +35,7 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
            .matching(user_input)
            .distinct
            .map do |profile|
-      generic_option("#{PROF_PREFIX}#{profile.display_name} (#{profile.real_name})", profile.rid)
+      generic_option("#{App.prof_prefix}#{profile.display_name} (#{profile.real_name})", profile.rid)
     end
   end
 
@@ -45,7 +45,7 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
            .matching(user_input)
            .distinct
            .map do |channel|
-      generic_option("#{CHAN_PREFIX} #{channel.name}", channel.rid)
+      generic_option("#{App.chan_prefix} #{channel.name}", channel.rid)
     end
   end
 
@@ -55,7 +55,7 @@ class Hooks::Slack::OptionsController < Hooks::Slack::BaseController
            .matching(user_input)
            .distinct
            .map do |subteam|
-      generic_option("#{PROF_PREFIX}#{subteam.handle} (#{subteam.name})", subteam.rid)
+      generic_option("#{App.prof_prefix}#{subteam.handle} (#{subteam.name})", subteam.rid)
     end
   end
 

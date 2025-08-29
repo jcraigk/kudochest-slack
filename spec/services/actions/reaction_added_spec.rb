@@ -46,7 +46,7 @@ RSpec.describe Actions::ReactionAdded do
         profile: sender,
         mentions: [
           Mention.new(
-            rid: "#{PROF_PREFIX}#{recipient.rid}",
+            rid: "#{App.prof_prefix}#{recipient.rid}",
             quantity: 1,
             topic_id: nil
           )
@@ -99,12 +99,12 @@ RSpec.describe Actions::ReactionAdded do
         profile: sender,
         mentions: [
           Mention.new(
-            rid: "#{PROF_PREFIX}#{recipient.rid}",
+            rid: "#{App.prof_prefix}#{recipient.rid}",
             quantity:,
             topic_id: nil
           ),
           Mention.new(
-            rid: "#{PROF_PREFIX}#{recipient2.rid}",
+            rid: "#{App.prof_prefix}#{recipient2.rid}",
             quantity:,
             topic_id: nil
           )

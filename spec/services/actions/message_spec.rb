@@ -37,8 +37,8 @@ RSpec.describe Actions::Message do
   end
   let(:matches) { [] }
   let(:origin) { 'channel' }
-  let(:bot_mention) { "<#{PROFILE_PREFIX}#{team.app_profile_rid}>" }
-  let(:user_mention) { "#{PROFILE_PREFIX}#{profile.rid}" }
+  let(:bot_mention) { "<#{App.profile_prefix}#{team.app_profile_rid}>" }
+  let(:user_mention) { "#{App.profile_prefix}#{profile.rid}" }
 
   before do
     allow(MentionParser).to receive(:call)
@@ -181,23 +181,23 @@ RSpec.describe Actions::Message do
     context 'when text includes `++` with mixture of entities, spacing, and quantities' do
       let(:text) do
         <<~TEXT.chomp
-          hello <#{user_mention}>++ #{subteam_mention} 2+=5 <#{CHAN_PREFIX}#{channel.rid}> ++3 #{note}
+          hello <#{user_mention}>++ #{subteam_mention} 2+=5 <#{App.chan_prefix}#{channel.rid}> ++3 #{note}
         TEXT
       end
       let(:matches) do
         [
           {
-            rid: "#{PROFILE_PREFIX}#{profile.rid}",
+            rid: "#{App.profile_prefix}#{profile.rid}",
             inline: '++'
           },
           {
-            rid: "#{SUBTEAM_PREFIX}#{subteam.rid}",
+            rid: "#{App.subteam_prefix}#{subteam.rid}",
             prefix_quantity: 2,
             inline: '+=',
             suffix_quantity: 5
           },
           {
-            rid: "#{CHAN_PREFIX}#{channel.rid}",
+            rid: "#{App.chan_prefix}#{channel.rid}",
             inline: '++',
             suffix_quantity: 3
           }
@@ -210,7 +210,7 @@ RSpec.describe Actions::Message do
 
   context 'when Slack' do
     let(:subteam_mention) do
-      "<#{SUBTEAM_PREFIX}#{subteam.rid}|#{PROF_PREFIX}#{subteam.handle}>"
+      "<#{App.subteam_prefix}#{subteam.rid}|#{App.prof_prefix}#{subteam.handle}>"
     end
 
     it_behaves_like 'workspace behavior'

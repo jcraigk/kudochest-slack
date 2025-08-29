@@ -89,7 +89,7 @@ class MentionParser < Base::Service
   def tip_quantity(match)
     given = basic_quantity(match)
     return emoji_match_quantity(match, given) if match[:inline_emoji].present?
-    negative = match[:inline_text].in?(JAB_INLINES)
+    negative = match[:inline_text].in?(App.jab_inlines)
     given, default = negative ? [ 0 - given, -1 ] : [ given, 1 ]
     given.zero? ? default : given
   end

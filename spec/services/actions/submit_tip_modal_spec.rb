@@ -74,10 +74,10 @@ RSpec.describe Actions::SubmitTipModal do
     end
     let(:mentions) do
       [
-        Mention.new(rid: "#{PROF_PREFIX}#{profile.rid}", topic_id: nil, quantity:, note:),
-        Mention.new(rid: "#{CHAN_PREFIX}#{channel.rid}", topic_id: nil, quantity:, note:),
+        Mention.new(rid: "#{App.prof_prefix}#{profile.rid}", topic_id: nil, quantity:, note:),
+        Mention.new(rid: "#{App.chan_prefix}#{channel.rid}", topic_id: nil, quantity:, note:),
         Mention.new(
-          rid: "#{SUBTEAM_PREFIX}#{subteam.rid}",
+          rid: "#{App.subteam_prefix}#{subteam.rid}",
           topic_id: nil,
           quantity:,
           note:
