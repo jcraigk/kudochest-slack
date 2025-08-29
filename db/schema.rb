@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_24_192007) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_29_094505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -178,6 +178,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_192007) do
     t.datetime "weekly_report_notified_at"
     t.boolean "throttled", default: false, null: false
     t.boolean "enable_thumbsup", default: true, null: false
+    t.integer "default_inline_point_quantity", default: 1, null: false
+    t.integer "default_reaction_point_quantity", default: 1, null: false
     t.index ["api_key"], name: "index_teams_on_api_key", unique: true
     t.index ["name"], name: "index_teams_on_name"
     t.index ["rid"], name: "index_teams_on_rid", unique: true

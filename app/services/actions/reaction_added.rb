@@ -56,7 +56,12 @@ class Actions::ReactionAdded < Actions::ReactionBase
     Mention.new \
       rid: "#{App.prof_prefix}#{author_profile_rid}",
       topic_id:,
-      quantity: (source == "jab_reaction" ? -1 : 1)
+      quantity: reaction_quantity
+  end
+
+  def reaction_quantity
+    default_quantity = team.default_reaction_point_quantity
+    source == "jab_reaction" ? (0 - default_quantity) : default_quantity
   end
 
   def author_profile_rid

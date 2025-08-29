@@ -9,6 +9,7 @@ class Team < ApplicationRecord
     log_channel_rid hint_channel_rid max_points_per_tip
     response_mode response_theme show_channel show_note time_zone
     tip_notes enable_topics require_topic topics rid
+    default_inline_point_quantity default_reaction_point_quantity
   ].freeze
   CONFIG_CACHE_TTL = 5.minutes
 
@@ -66,6 +67,8 @@ class Team < ApplicationRecord
   attribute :work_days_mask,     :integer, default: 62 # monday - friday
   attribute :member_count,       :integer, default: 0
   attribute :max_points_per_tip, :integer, default: 5
+  attribute :default_inline_point_quantity,   :integer, default: -> { App.default_inline_point_quantity }
+  attribute :default_reaction_point_quantity, :integer, default: -> { App.default_reaction_point_quantity }
 
   validates :api_key, uniqueness: true
   validates :name, presence: true
@@ -95,6 +98,14 @@ class Team < ApplicationRecord
   validates :streak_reward, numericality: {
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: App.max_streak_reward
+  }
+  validates :default_inline_point_quantity, numericality: {
+    greater_than_or_equal_to: 1,
+    less_than_or_equal_to: App.max_points_per_tip
+  }
+  validates :default_reaction_point_quantity, numericality: {
+    greater_than_or_equal_to: 1,
+    less_than_or_equal_to: App.max_points_per_tip
   }
   validates_with RequireTopicValidator
   validates_with WorkDaysValidator

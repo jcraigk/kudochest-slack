@@ -12,6 +12,8 @@ Bundler.require(*Rails.groups)
 # Load configuration management
 require_relative "../lib/app_config"
 
+Dotenv::Rails.logger = nil
+
 module KudoChest
   class Application < Rails::Application
     config.load_defaults 8.0

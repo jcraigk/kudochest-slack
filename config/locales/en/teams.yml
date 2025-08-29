@@ -26,6 +26,10 @@ en:
     ditto_emoji_tooltip: Enter the name of the emoji icon (without the surrounding colons) you want to use for giving %{points} to recipients listed in a previous message. For example, if Bob posted "@Alice++", another user could react to Bob's message with the Ditto Emoji to give Alice more %{points}.
     max_points_per_tip: Maximum Quantity
     max_points_per_tip_tooltip: Maximum amount of %{points} a user can give at a time. Must be between 1 and %{max}.
+    default_inline_point_quantity: Default Inline Quantity
+    default_inline_point_quantity_tooltip: Default amount of %{points} or %{jabs} given when using ++ or -- without specifying a quantity. Also applies to single inline emoji.
+    default_reaction_point_quantity: Default Reaction Quantity
+    default_reaction_point_quantity_tooltip: Default amount of %{points} or %{jabs} given when reacting with emoji on messages.
     add_new_explain_html: "The largest team we can accommodate is %{count} members. Click a button only if you're an admin."
     add_new: Install %{app}
     confirm_reset_stats: Are you sure you want to reset all user %{points} immediately? This action cannot be undone.

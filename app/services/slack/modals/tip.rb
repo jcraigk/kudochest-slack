@@ -81,9 +81,9 @@ class Slack::Modals::Tip < Base::Service
         initial_option: {
           text: {
             type: :plain_text,
-            text: "1"
+            text: default_quantity.to_s
           },
-          value: "1"
+          value: default_quantity.to_s
         },
         options: quantity_options.map do |quantity|
           {
@@ -96,6 +96,10 @@ class Slack::Modals::Tip < Base::Service
         end
       }
     }
+  end
+
+  def default_quantity
+    team.default_inline_point_quantity
   end
 
   def topic_select
@@ -192,5 +196,9 @@ class Slack::Modals::Tip < Base::Service
 
   def config
     @config ||= Cache::TeamConfig.call(team_rid)
+  end
+
+  def team
+    @team ||= Team.find_by(rid: team_rid)
   end
 end

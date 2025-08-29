@@ -81,6 +81,8 @@ class AppConfig
       config.error_emoji = ENV.fetch("ERROR_EMOJI", "grimacing")
       config.default_throttle_quantity = parse_positive_int("DEFAULT_THROTTLE_QUANTITY", 100)
       config.max_throttle_quantity = parse_positive_int("MAX_THROTTLE_QUANTITY", 10_000)
+      config.default_inline_point_quantity = parse_positive_int("DEFAULT_INLINE_POINT_QUANTITY", 1)
+      config.default_reaction_point_quantity = parse_positive_int("DEFAULT_REACTION_POINT_QUANTITY", 1)
       config.default_team_time_zone = parse_time_zone("DEFAULT_TEAM_TIME_ZONE", "Pacific Time (US & Canada)")
       config.default_streak_duration = parse_positive_int("DEFAULT_STREAK_DURATION", 5)
       config.min_streak_duration = parse_positive_int("MIN_STREAK_DURATION", 3)
