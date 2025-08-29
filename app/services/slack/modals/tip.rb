@@ -99,7 +99,7 @@ class Slack::Modals::Tip < Base::Service
   end
 
   def default_quantity
-    team.default_inline_point_quantity
+    config[:default_inline_point_quantity] || 1
   end
 
   def topic_select
@@ -196,9 +196,5 @@ class Slack::Modals::Tip < Base::Service
 
   def config
     @config ||= Cache::TeamConfig.call(team_rid)
-  end
-
-  def team
-    @team ||= Team.find_by(rid: team_rid)
   end
 end

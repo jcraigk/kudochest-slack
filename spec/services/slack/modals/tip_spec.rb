@@ -10,7 +10,9 @@ RSpec.describe Slack::Modals::Tip do
       enable_topics: false,
       max_points_per_tip: 5,
       tip_notes: 'optional',
-      topics: []
+      topics: [],
+      default_inline_point_quantity: team.default_inline_point_quantity,
+      default_reaction_point_quantity: team.default_reaction_point_quantity
     }
   end
 
@@ -126,4 +128,3 @@ RSpec.describe Slack::Modals::Tip do
     end
   end
 end
-

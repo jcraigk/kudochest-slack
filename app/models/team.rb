@@ -101,11 +101,11 @@ class Team < ApplicationRecord
   }
   validates :default_inline_point_quantity, numericality: {
     greater_than_or_equal_to: 1,
-    less_than_or_equal_to: App.max_points_per_tip
+    less_than_or_equal_to: ->(team) { team.max_points_per_tip }
   }
   validates :default_reaction_point_quantity, numericality: {
     greater_than_or_equal_to: 1,
-    less_than_or_equal_to: App.max_points_per_tip
+    less_than_or_equal_to: ->(team) { team.max_points_per_tip }
   }
   validates_with RequireTopicValidator
   validates_with WorkDaysValidator
