@@ -7,7 +7,7 @@ module ProfileDecorator
   end
 
   def link
-    "<#{PROF_PREFIX}#{rid}>"
+    "<#{App.prof_prefix}#{rid}>"
   end
 
   def link_with_stat

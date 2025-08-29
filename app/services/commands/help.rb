@@ -37,8 +37,8 @@ class Commands::Help < Commands::Base
     str += "  * `levels`  See a chart mapping #{App.points_term} to levels\n" if team.enable_levels?
     # str += "  * `me`  See your current stats\n" # Commented: User can discover this for themselves
     str += "  * `preferences`  Update your preferences\n"
-    str += "  * `report [#{PROF_PREFIX}user] [number]`  #{report_str}\n"
-    str += "  * `stats [#{PROF_PREFIX}user]`  See your own or another user's stats\n"
+    str += "  * `report [#{App.prof_prefix}user] [number]`  #{report_str}\n"
+    str += "  * `stats [#{App.prof_prefix}user]`  See your own or another user's stats\n"
     str += "  * `top [number]`  See the leaderboard; optionally give number of entries\n"
     str += "  * `topics`  See all topics\n" if team.enable_topics?
     str + "  * `undo`  Revoke #{App.points_term} you just gave"
@@ -74,15 +74,15 @@ class Commands::Help < Commands::Base
   def slack_point_inlines
     "* Type `/#{App.base_command}` by itself for assistance " \
       "_(tip: use Tab key to navigate fields)_" \
-      "\n  * Type `#{PROF_PREFIX}[user]++`, `#{PROF_PREFIX}[group]++`, " \
-      "`#{CHAN_PREFIX}[channel]++`, `#{PROF_PREFIX}channel++`, `#{PROF_PREFIX}here++`, " \
-      "or `#{PROF_PREFIX}everyone++` _(tip: append a number like `++2`)_"
+      "\n  * Type `#{App.prof_prefix}[user]++`, `#{App.prof_prefix}[group]++`, " \
+      "`#{App.chan_prefix}[channel]++`, `#{App.prof_prefix}channel++`, `#{App.prof_prefix}here++`, " \
+      "or `#{App.prof_prefix}everyone++` _(tip: append a number like `++2`)_"
   end
 
   def slack_jab_inlines
-    "\n  * Type `#{PROF_PREFIX}[user]--`, `#{PROF_PREFIX}[group]--`, " \
-      "`#{CHAN_PREFIX}[channel]--`, `#{PROF_PREFIX}channel--`, `#{PROF_PREFIX}here--`, " \
-      "or `#{PROF_PREFIX}everyone--` _(tip: append a number like `--2`)_"
+    "\n  * Type `#{App.prof_prefix}[user]--`, `#{App.prof_prefix}[group]--`, " \
+      "`#{App.chan_prefix}[channel]--`, `#{App.prof_prefix}channel--`, `#{App.prof_prefix}here--`, " \
+      "or `#{App.prof_prefix}everyone--` _(tip: append a number like `--2`)_"
   end
 
   def slack_emojis # rubocop:disable Metrics/AbcSize
@@ -97,22 +97,22 @@ class Commands::Help < Commands::Base
 
   def slack_inline_point_emojis
     emoji = team.enable_thumbsup? ? ":+1:" : team.point_emoj
-    "\n  * Type `#{PROF_PREFIX}[user]`#{emoji}, " \
-      "`#{PROF_PREFIX}[group]`#{emoji}, " \
-      "`#{CHAN_PREFIX}[channel]`#{emoji}, " \
-      "`#{PROF_PREFIX}channel`#{emoji}, " \
-      "`#{PROF_PREFIX}here`#{emoji}, or " \
-      "`#{PROF_PREFIX}everyone`#{emoji} _(tip: try " \
+    "\n  * Type `#{App.prof_prefix}[user]`#{emoji}, " \
+      "`#{App.prof_prefix}[group]`#{emoji}, " \
+      "`#{App.chan_prefix}[channel]`#{emoji}, " \
+      "`#{App.prof_prefix}channel`#{emoji}, " \
+      "`#{App.prof_prefix}here`#{emoji}, or " \
+      "`#{App.prof_prefix}everyone`#{emoji} _(tip: try " \
       "#{emoji * 3})_"
   end
 
   def slack_inline_jab_emojis
-    "\n  * Type `#{PROF_PREFIX}[user]`#{team.jab_emoj}, " \
-      "`#{PROF_PREFIX}[group]`#{team.jab_emoj}, " \
-      "`#{CHAN_PREFIX}[channel]`#{team.jab_emoj}, " \
-      "`#{PROF_PREFIX}channel`#{team.jab_emoj}, " \
-      "`#{PROF_PREFIX}here`#{team.jab_emoj}, or " \
-      "`#{PROF_PREFIX}everyone`#{team.jab_emoj} _(tip: try " \
+    "\n  * Type `#{App.prof_prefix}[user]`#{team.jab_emoj}, " \
+      "`#{App.prof_prefix}[group]`#{team.jab_emoj}, " \
+      "`#{App.chan_prefix}[channel]`#{team.jab_emoj}, " \
+      "`#{App.prof_prefix}channel`#{team.jab_emoj}, " \
+      "`#{App.prof_prefix}here`#{team.jab_emoj}, or " \
+      "`#{App.prof_prefix}everyone`#{team.jab_emoj} _(tip: try " \
       "#{team.jab_emoj * 3})_"
   end
 end

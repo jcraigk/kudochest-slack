@@ -52,15 +52,15 @@ class Cache::TeamConfig < Base::Service
         <
           (?<entity_rid>
             (?:
-              #{Regexp.escape(PROFILE_PREFIX)}
+              #{Regexp.escape(App.profile_prefix)}
               |
-              #{Regexp.escape(CHAN_PREFIX)}
+              #{Regexp.escape(App.chan_prefix)}
               |
-              #{Regexp.escape(SUBTEAM_PREFIX)}
+              #{Regexp.escape(App.subteam_prefix)}
             )
-            #{RID_CHARS}+
+            #{App.rid_chars}+
           )
-          (?:#{LEGACY_SLACK_SUFFIX_PATTERN})?
+          (?:#{App.legacy_slack_suffix_pattern})?
         >
         |
         #{group_keyword_pattern}
@@ -73,8 +73,8 @@ class Cache::TeamConfig < Base::Service
   end
 
   def inlines
-    patterns = POINT_INLINES.map { |str| "(?:#{Regexp.escape(str)})+" }
-    patterns << JAB_INLINES.map { |str| "(?:#{Regexp.escape(str)})+" } if team.enable_jabs?
+    patterns = App.point_inlines.map { |str| "(?:#{Regexp.escape(str)})+" }
+    patterns << App.jab_inlines.map { |str| "(?:#{Regexp.escape(str)})+" } if team.enable_jabs?
     "(?<inlines>#{patterns.join('|')})"
   end
 
@@ -89,7 +89,7 @@ class Cache::TeamConfig < Base::Service
     patterns << team.point_emoji if team.enable_emoji?
     patterns << team.jab_emoji if team.enable_jabs?
     patterns += team.topics.pluck(:emoji) if team.enable_topics?
-    patterns += THUMBSUP_EMOJI_PATTERNS if team.enable_thumbsup?
+    patterns += App.thumbsup_emoji_patterns if team.enable_thumbsup?
     patterns
   end
 

@@ -41,7 +41,7 @@ class Image::TipService < Base::ImageService
     y = MAIN_HEIGHT + CHEER_PAD
     cheer_fragments.each do |text|
       x = BODY_PAD
-      text.split(IMG_DELIM).compact_blank.each_with_index do |chunk, idx|
+      text.split(App.img_delim).compact_blank.each_with_index do |chunk, idx|
         draw.annotate(comp, 0, 0, x, y, chunk) do |m|
           m.fill = colors[idx % 2]
         end
@@ -56,7 +56,7 @@ class Image::TipService < Base::ImageService
   def add_from_or_channel_text(comp)
     # Channel
     if config[:show_channel]
-      channel_name = "#{CHAN_PREFIX}#{first_tip.from_channel_name}"
+      channel_name = "#{App.chan_prefix}#{first_tip.from_channel_name}"
 
       draw = Magick::Draw.new
       draw.font = FONT_FILE
@@ -125,7 +125,7 @@ class Image::TipService < Base::ImageService
       next if fragment.blank?
 
       x = BODY_PAD
-      fragment.split(IMG_DELIM).each_with_index do |chunk, idx|
+      fragment.split(App.img_delim).each_with_index do |chunk, idx|
         next if chunk.blank?
 
         draw = Magick::Draw.new
@@ -159,7 +159,7 @@ class Image::TipService < Base::ImageService
   def raw_body_text
     @raw_body_text ||=
       main_fragments.compact
-                    .map { |frag| frag.gsub(IMG_DELIM, "").gsub(/\s+/, " ").gsub(" ,", ",") }
+                    .map { |frag| frag.gsub(App.img_delim, "").gsub(/\s+/, " ").gsub(" ,", ",") }
                     .join("\n")
   end
 

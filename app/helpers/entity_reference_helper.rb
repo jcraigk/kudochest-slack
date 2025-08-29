@@ -4,11 +4,11 @@ module EntityReferenceHelper
   end
 
   def channel_link(rid)
-    "<#{CHAN_PREFIX}#{rid}>"
+    "<#{App.chan_prefix}#{rid}>"
   end
 
   def channel_webref(name)
-    helpers.tag.span("#{CHAN_PREFIX}#{name}", class: "chat-ref")
+    helpers.tag.span("#{App.chan_prefix}#{name}", class: "chat-ref")
   end
 
   def subteam_webref(name)

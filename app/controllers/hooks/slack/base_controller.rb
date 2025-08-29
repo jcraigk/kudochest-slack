@@ -29,13 +29,13 @@ class Hooks::Slack::BaseController < Hooks::BaseController
 
   def private_command?
     return false if text.blank?
-    text.split(/\s+/).take(2).intersect?(PRIVATE_KEYWORDS)
+    text.split(/\s+/).take(2).intersect?(App.private_keywords)
   end
 
   def command?
     return false if text.blank?
     text&.split(/\s+/)&.take(2)&.intersect? \
-      (COMMAND_KEYWORDS.keys + COMMAND_KEYWORDS.values).flatten.map(&:to_s)
+      (App.command_keywords.keys + App.command_keywords.values).flatten.map(&:to_s)
   end
 
   def mentions_found?
@@ -47,7 +47,7 @@ class Hooks::Slack::BaseController < Hooks::BaseController
   end
 
   def relevant_text?
-    text&.start_with?("<#{PROF_PREFIX}#{team_config[:app_profile_rid]}>") || mentions_found?
+    text&.start_with?("<#{App.prof_prefix}#{team_config[:app_profile_rid]}>") || mentions_found?
   end
 
   def fast_ack_data

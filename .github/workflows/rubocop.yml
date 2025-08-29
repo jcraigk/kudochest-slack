@@ -1,0 +1,20 @@
+name: RuboCop
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  rubocop:
+    name: RuboCop
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Ruby Environment
+      uses: ./.github/actions/setup-ruby
+      with:
+        install-postgres-deps: 'true'
+    - name: Run RuboCop
+      run: |
+        bundle exec rubocop --format github

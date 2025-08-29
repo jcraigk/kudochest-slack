@@ -8,8 +8,8 @@ class Base::ImageService < Base::Service
   BASE_PATH = "lib/response_images".freeze
   DEBUG_FILE = "#{BASE_PATH}/debug.gif".freeze
 
-  TMP_PATH = "#{STORAGE_PATH}/response_images/tmp".freeze
-  CACHE_PATH = "#{STORAGE_PATH}/response_images/cache".freeze
+  TMP_PATH = "#{App.storage_path}/response_images/tmp".freeze
+  CACHE_PATH = "#{App.storage_path}/response_images/cache".freeze
   DEFAULT_AVATAR = "#{BASE_PATH}/avatars/default-avatar-36.png".freeze
 
   BG_COLOR = {
@@ -51,7 +51,7 @@ class Base::ImageService < Base::Service
   private
 
   def random_gif(size = 48)
-    folder = "#{BASE_PATH}/gifs/#{size}/#{GIFS[size.to_s].sample}"
+    folder = "#{BASE_PATH}/gifs/#{size}/#{App.gifs[size.to_s].sample}"
     files = (1..Dir["#{folder}/*"].size).to_a.map { |num| "#{folder}/#{num}.png" }
     Magick::ImageList.new(*files)
   end

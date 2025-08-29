@@ -31,7 +31,7 @@ class Actions::ReactionAdded < Actions::ReactionBase
   def ditto_mentions
     ditto_tips.map do |tip|
       Mention.new \
-        rid: "#{PROF_PREFIX}#{tip.to_profile.rid}",
+        rid: "#{App.prof_prefix}#{tip.to_profile.rid}",
         topic_id: tip.topic_id,
         quantity: tip.quantity
     end
@@ -54,7 +54,7 @@ class Actions::ReactionAdded < Actions::ReactionBase
 
   def author_mention
     Mention.new \
-      rid: "#{PROF_PREFIX}#{author_profile_rid}",
+      rid: "#{App.prof_prefix}#{author_profile_rid}",
       topic_id:,
       quantity: (source == "jab_reaction" ? -1 : 1)
   end

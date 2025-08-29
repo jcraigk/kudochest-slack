@@ -6,7 +6,7 @@ RSpec.describe TipDecorator do
   describe '#channel_webref' do
     it 'returns expected text' do
       expect(tip.channel_webref)
-        .to eq("<span class=\"chat-ref\">#{CHAN_PREFIX}#{tip.from_channel_name}</span>")
+        .to eq("<span class=\"chat-ref\">#{App.chan_prefix}#{tip.from_channel_name}</span>")
     end
   end
 end

@@ -24,16 +24,16 @@ RSpec.describe NoteSanitizer do
   context 'when Slack' do
     context 'when channel name is given after pipe char, extacts directly' do
       let(:given_name) { 'given-name' }
-      let(:text) { "hey <#{CHAN_PREFIX}#{channel.rid}|#{given_name}>" }
-      let(:result) { "hey #{CHAN_PREFIX}#{given_name}" }
+      let(:text) { "hey <#{App.chan_prefix}#{channel.rid}|#{given_name}>" }
+      let(:result) { "hey #{App.chan_prefix}#{given_name}" }
 
       it_behaves_like 'success'
     end
 
     context 'when profile display_name name is given after pipe char, extacts directly' do
       let(:given_name) { 'given-name' }
-      let(:text) { "hey <#{PROF_PREFIX}#{profile.rid}|#{given_name}>" }
-      let(:result) { "hey #{PROF_PREFIX}#{given_name}" }
+      let(:text) { "hey <#{App.prof_prefix}#{profile.rid}|#{given_name}>" }
+      let(:result) { "hey #{App.prof_prefix}#{given_name}" }
 
       it_behaves_like 'success'
     end
@@ -49,12 +49,12 @@ RSpec.describe NoteSanitizer do
     context 'when no names given after pipe char' do
       let(:text) do
         <<~TEXT
-          hey <#{SUBTEAM_PREFIX}#{subteam.rid}> yep <#{CHAN_PREFIX}#{channel.rid}> and <#{PROF_PREFIX}#{profile.rid}> with <http://google.com|google.com>
+          hey <#{App.subteam_prefix}#{subteam.rid}> yep <#{App.chan_prefix}#{channel.rid}> and <#{App.prof_prefix}#{profile.rid}> with <http://google.com|google.com>
         TEXT
       end
       let(:result) do
         <<~TEXT.squish
-          hey #{PROF_PREFIX}#{subteam.handle} yep #{CHAN_PREFIX}#{channel.name} and #{PROF_PREFIX}#{profile.display_name} with google.com
+          hey #{App.prof_prefix}#{subteam.handle} yep #{App.chan_prefix}#{channel.name} and #{App.prof_prefix}#{profile.display_name} with google.com
         TEXT
       end
 

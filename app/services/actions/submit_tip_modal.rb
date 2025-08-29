@@ -36,9 +36,9 @@ class Actions::SubmitTipModal < Actions::Base
   def prefix(val)
     return if val == "channel"
     case val.first
-    when "U" then PROF_PREFIX
-    when "C" then CHAN_PREFIX
-    when "S" then SUBTEAM_PREFIX
+    when "U" then App.prof_prefix
+    when "C" then App.chan_prefix
+    when "S" then App.subteam_prefix
     end
   end
 

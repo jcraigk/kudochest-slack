@@ -1,0 +1,18 @@
+name: Brakeman
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  brakeman:
+    name: Brakeman
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Ruby Environment
+      uses: ./.github/actions/setup-ruby
+    - name: Run Brakeman
+      run: |
+        bundle exec brakeman --exit-on-warn --format github

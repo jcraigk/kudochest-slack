@@ -1,4 +1,20 @@
 class EventService < Base::Service
+  # Allowed action names and their handlers (avoid unsafe constantize)
+  ACTION_CLASSES = {
+    "AppHomeOpened" => Actions::AppHomeOpened,
+    "ChannelSync" => Actions::ChannelSync,
+    "Message" => Actions::Message,
+    "ReactionAdded" => Actions::ReactionAdded,
+    "ReactionRemoved" => Actions::ReactionRemoved,
+    "ReplyTip" => Actions::ReplyTip,
+    "SubmitPrefsModal" => Actions::SubmitPrefsModal,
+    "SubmitTipModal" => Actions::SubmitTipModal,
+    "SubteamSync" => Actions::SubteamSync,
+    "TeamJoin" => Actions::TeamJoin,
+    "TeamRename" => Actions::TeamRename,
+    "UserChange" => Actions::UserChange
+  }.freeze
+
   option :params
 
   def call
@@ -33,9 +49,8 @@ class EventService < Base::Service
   end
 
   def action_service
-    const = "Actions::#{params[:action].titleize.tr(' ', '')}"
-    return unless Object.const_defined?(const)
-    const.constantize
+    action_name = params[:action].titleize.tr(" ", "")
+    self.class::ACTION_CLASSES[action_name]
   end
 
   def respond_in_chat?
@@ -71,7 +86,7 @@ class EventService < Base::Service
     # Preferences dialog must be opened by slash command (Slack requirement since 2022)
     key = :preferences
     command = params[:text]&.split&.last
-    return false unless command == key.to_s || command.in?(COMMAND_KEYWORDS[key].map(&:to_s))
+    return false unless command == key.to_s || command.in?(App.command_keywords[key].map(&:to_s))
     t("errors.config_dialog", command:)
   end
 end

@@ -10,7 +10,7 @@ class Actions::ReactionBase < Actions::Base
   end
 
   def thumbsup_regex
-    @thumbsup_regex ||= Regexp.new(THUMBSUP_EMOJI_PATTERNS.join("|"))
+    @thumbsup_regex ||= Regexp.new(App.thumbsup_emoji_patterns.join("|"))
   end
 
   def source

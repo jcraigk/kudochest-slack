@@ -68,7 +68,7 @@ class Actions::Message < Actions::Base
   end
 
   def command_key
-    @command_key ||= COMMAND_KEYWORDS.find do |k, v|
+    @command_key ||= App.command_keywords.find do |k, v|
       k.to_s == keyword || v.include?(keyword)
     end&.first
   end
@@ -101,7 +101,7 @@ class Actions::Message < Actions::Base
   end
 
   def app_profile_ref
-    @app_profile_ref ||= "<#{PROFILE_PREFIX}#{config[:app_profile_rid]}>"
+    @app_profile_ref ||= "<#{App.profile_prefix}#{config[:app_profile_rid]}>"
   end
 
   def respond_bad_input(message = nil)

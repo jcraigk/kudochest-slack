@@ -115,7 +115,7 @@ module ApplicationHelper
 
   def channel_ref(tip)
     return "Private" if tip.from_channel_name.blank?
-    "#{CHAN_PREFIX}#{tip.from_channel_name}"
+    "#{App.chan_prefix}#{tip.from_channel_name}"
   end
 
   def group_label(tip)

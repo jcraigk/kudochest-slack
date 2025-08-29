@@ -152,7 +152,7 @@ class Commands::Report < Commands::Base
   # If user specifies user(s) after keyword, show the first one's stats
   # Default to the user themself if no user specified
   def requested_profile_rid
-    words.first&.scan(PROFILE_REGEX)&.map(&:first)&.first || me
+    words.first&.scan(App.profile_regex)&.map(&:first)&.first || me
   end
 
   def me

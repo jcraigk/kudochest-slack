@@ -108,24 +108,24 @@ class TipMentionService < Base::Service
 
   def fetch_entity(rid)
     if rid.in?(%w[everyone here]) then rid
-    elsif rid.in?(%w[channel]) then channel_entity(channel_rid.delete(CHAN_PREFIX))
-    elsif rid.start_with?(SUBTEAM_PREFIX) then subteam_entity(rid)
-    elsif rid.start_with?(PROF_PREFIX) then profile_entity(rid)
-    elsif rid.start_with?(CHAN_PREFIX) then channel_entity(rid)
+    elsif rid.in?(%w[channel]) then channel_entity(channel_rid.delete(App.chan_prefix))
+    elsif rid.start_with?(App.subteam_prefix) then subteam_entity(rid)
+    elsif rid.start_with?(App.prof_prefix) then profile_entity(rid)
+    elsif rid.start_with?(App.chan_prefix) then channel_entity(rid)
     end
   end
 
   def channel_entity(rid)
-    rid = rid.delete(CHAN_PREFIX)
+    rid = rid.delete(App.chan_prefix)
     Channel.find_with_team(team.rid, rid) || Channel.new(name: channel_name, rid:)
   end
 
   def profile_entity(rid)
-    Profile.find_with_team(team.rid, rid.delete(PROFILE_PREFIX))
+    Profile.find_with_team(team.rid, rid.delete(App.profile_prefix))
   end
 
   def subteam_entity(rid)
-    raw_rid = rid.gsub(SUBTEAM_PREFIX, "")
+    raw_rid = rid.gsub(App.subteam_prefix, "")
     Subteam.find_with_team(team.rid, raw_rid)
   end
 

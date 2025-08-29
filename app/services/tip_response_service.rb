@@ -129,16 +129,16 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
 
   def channel_ref(medium, rid, name)
     case medium
-    when :slack then name == SLACK_DM_NAME ? SLACK_DM_PHRASE : channel_link(rid)
-    when :image then "#{IMG_DELIM}#{CHAN_PREFIX}#{name} #{IMG_DELIM}"
+    when :slack then name == App.slack_dm_name ? App.slack_dm_phrase : channel_link(rid)
+    when :image then "#{App.img_delim}#{App.chan_prefix}#{name} #{App.img_delim}"
     when :web then channel_webref(name)
     end
   end
 
   def subteam_ref(medium, rid, handle)
     case medium
-    when :slack then "<#{SUBTEAM_PREFIX}#{rid}>"
-    when :image then "#{IMG_DELIM}#{CHAN_PREFIX}#{handle} #{IMG_DELIM}" # TODO: test this
+    when :slack then "<#{App.subteam_prefix}#{rid}>"
+    when :image then "#{App.img_delim}#{App.chan_prefix}#{handle} #{App.img_delim}" # TODO: test this
     when :web then subteam_webref(handle)
     end
   end
@@ -152,7 +152,7 @@ class TipResponseService < Base::Service # rubocop:disable Metrics/ClassLength
     end
     case medium
     when :slack then chat_profile_link(profile)
-    when :image then "#{IMG_DELIM}#{profile.display_name} #{IMG_DELIM}"
+    when :image then "#{App.img_delim}#{profile.display_name} #{App.img_delim}"
     when :web then profile.web_profile_link
     end
   end

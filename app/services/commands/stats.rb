@@ -90,7 +90,7 @@ class Commands::Stats < Commands::Base
   # If user specifies user(s) after keyword, show the first one's stats
   # Default to the user themself if no user specified
   def effective_rid
-    text.scan(PROFILE_REGEX).map(&:first).first || profile_rid
+    text.scan(App.profile_regex).map(&:first).first || profile_rid
   end
 
   def requested_profile
