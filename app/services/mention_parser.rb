@@ -93,8 +93,8 @@ class MentionParser < Base::Service
 
     # Use team's default quantities if no explicit quantity is specified
     if given.zero?
-      default_quantity = team.default_inline_point_quantity
-      return negative ? (0 - default_quantity) : default_quantity
+      default_inline_quantity = team.default_inline_point_quantity
+      return negative ? (0 - default_inline_quantity) : default_inline_quantity
     end
 
     # Use explicit quantity if specified

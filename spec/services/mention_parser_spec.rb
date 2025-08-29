@@ -75,4 +75,160 @@ RSpec.describe MentionParser do
     # TODO: @Alice ++2 :fire:
     # TODO: @Alice :fire: :fire:
   end
+
+  context 'with default inline point quantities' do
+    let(:team) { create(:team, default_inline_point_quantity: 3) }
+
+    context 'when using ++ without explicit quantity' do
+      let(:matches) do
+        [
+          {
+            rid: to_profile.rid,
+            inline_text: '++',
+            inline: '++'
+          }
+        ]
+      end
+      let(:mentions) do
+        [
+          Mention.new(
+            rid: to_profile.rid,
+            quantity: 3,
+            note: nil
+          )
+        ]
+      end
+
+      it 'uses the team default quantity' do
+        expect(TipMentionService).to have_received(:call).with(tip_mention_args)
+      end
+    end
+
+    context 'when using -- without explicit quantity (jabs)' do
+      let(:matches) do
+        [
+          {
+            rid: to_profile.rid,
+            inline_text: '--',
+            inline: '--'
+          }
+        ]
+      end
+      let(:mentions) do
+        [
+          Mention.new(
+            rid: to_profile.rid,
+            quantity: -3,
+            note: nil
+          )
+        ]
+      end
+
+      it 'uses negative team default quantity for jabs' do
+        expect(TipMentionService).to have_received(:call).with(tip_mention_args)
+      end
+    end
+
+    context 'when explicit quantity is provided' do
+      let(:matches) do
+        [
+          {
+            rid: to_profile.rid,
+            inline_text: '++',
+            inline: '++',
+            prefix_quantity: '5'
+          }
+        ]
+      end
+      let(:mentions) do
+        [
+          Mention.new(
+            rid: to_profile.rid,
+            quantity: 5,
+            note: nil
+          )
+        ]
+      end
+
+      it 'uses explicit quantity over default' do
+        expect(TipMentionService).to have_received(:call).with(tip_mention_args)
+      end
+    end
+
+    context 'with single emoji and no explicit quantity' do
+      let(:team) { create(:team, default_inline_point_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
+      let(:matches) do
+        [
+          {
+            rid: to_profile.rid,
+            inline_emoji: ':fire:'
+          }
+        ]
+      end
+      let(:mentions) do
+        [
+          Mention.new(
+            rid: to_profile.rid,
+            quantity: 2,
+            note: nil
+          )
+        ]
+      end
+
+      it 'uses team default quantity for single emoji' do
+        expect(TipMentionService).to have_received(:call).with(tip_mention_args)
+      end
+    end
+
+    context 'with multiple emoji instances' do
+      let(:team) { create(:team, default_inline_point_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
+      let(:matches) do
+        [
+          {
+            rid: to_profile.rid,
+            inline_emoji: ':fire::fire::fire:'
+          }
+        ]
+      end
+      let(:mentions) do
+        [
+          Mention.new(
+            rid: to_profile.rid,
+            quantity: 3,
+            note: nil
+          )
+        ]
+      end
+
+      it 'uses emoji count as quantity' do
+        expect(TipMentionService).to have_received(:call).with(tip_mention_args)
+      end
+    end
+
+    context 'with emoji and explicit quantity' do
+      let(:team) { create(:team, default_inline_point_quantity: 2, enable_emoji: true, point_emoji: 'fire') }
+      let(:matches) do
+        [
+          {
+            rid: to_profile.rid,
+            inline_emoji: ':fire:',
+            prefix_quantity: '4'
+          }
+        ]
+      end
+      let(:mentions) do
+        [
+          Mention.new(
+            rid: to_profile.rid,
+            quantity: 4,
+            note: nil
+          )
+        ]
+      end
+
+      it 'uses explicit quantity over default' do
+        expect(TipMentionService).to have_received(:call).with(tip_mention_args)
+      end
+    end
+  end
 end

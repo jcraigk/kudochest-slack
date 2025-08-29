@@ -169,4 +169,61 @@ RSpec.describe Actions::ReactionAdded do
 
     it_behaves_like 'exits'
   end
+
+  context 'with custom default reaction point quantity' do
+    let(:team) { create(:team, default_reaction_point_quantity: 5, enable_emoji: true) }
+    let(:reaction) { team.point_emoji }
+
+    context 'when using point reaction' do
+      let(:args) do
+        {
+          profile: sender,
+          mentions: [
+            Mention.new(
+              rid: "#{App.prof_prefix}#{recipient.rid}",
+              quantity: 5,
+              topic_id: nil
+            )
+          ],
+          source: 'point_reaction',
+          event_ts: "#{ts}-point_reaction-#{sender.id}",
+          message_ts: ts,
+          channel_rid: channel.rid,
+          channel_name: channel.name
+        }
+      end
+
+      it 'uses team default reaction quantity' do
+        action
+        expect(TipMentionService).to have_received(:call).with(**args)
+      end
+    end
+
+    context 'when using jab reaction' do
+      let(:team) { create(:team, default_reaction_point_quantity: 3, enable_jabs: true, jab_emoji: 'thumbsdown') }
+      let(:reaction) { 'thumbsdown' }
+      let(:args) do
+        {
+          profile: sender,
+          mentions: [
+            Mention.new(
+              rid: "#{App.prof_prefix}#{recipient.rid}",
+              quantity: -3,
+              topic_id: nil
+            )
+          ],
+          source: 'jab_reaction',
+          event_ts: "#{ts}-jab_reaction-#{sender.id}",
+          message_ts: ts,
+          channel_rid: channel.rid,
+          channel_name: channel.name
+        }
+      end
+
+      it 'uses negative team default reaction quantity for jabs' do
+        action
+        expect(TipMentionService).to have_received(:call).with(**args)
+      end
+    end
+  end
 end

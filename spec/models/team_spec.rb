@@ -58,6 +58,22 @@ RSpec.describe Team do
       .is_less_than_or_equal_to(App.max_streak_reward)
   end
 
+  it { is_expected.to validate_numericality_of(:default_inline_point_quantity).is_greater_than_or_equal_to(1) }
+
+  it do
+    expect(team)
+      .to validate_numericality_of(:default_inline_point_quantity)
+      .is_less_than_or_equal_to(App.max_points_per_tip)
+  end
+
+  it { is_expected.to validate_numericality_of(:default_reaction_point_quantity).is_greater_than_or_equal_to(1) }
+
+  it do
+    expect(team)
+      .to validate_numericality_of(:default_reaction_point_quantity)
+      .is_less_than_or_equal_to(App.max_points_per_tip)
+  end
+
   describe 'custom validators' do
     let(:validators) { described_class.validators.map(&:class) }
     let(:expected_validators) do
