@@ -30,7 +30,7 @@ module KudoChest
     config.jabs_term = ENV.fetch("JABS_TERM", "kudonts")
     config.point_singular_prefix = ENV.fetch("POINT_SINGULAR_PREFIX", "a")
     config.jab_singular_prefix = ENV.fetch("JAB_SINGULAR_PREFIX", "a")
-    config.help_url = "https://github.com/jcraigk/kudochest-slack"
+    config.help_url = ENV.fetch("HELP_URL", "https://github.com/jcraigk/kudochest-slack")
     config.asset_host = ENV["ASSET_HOST"] if ENV["ASSET_HOST"].present?
 
     # Slack

@@ -33,6 +33,7 @@ gem "sluggi"
 gem "sprockets-rails", require: "sprockets/railtie"
 
 group :development do
+  gem "brakeman"
   gem "overmind"
   gem "rubocop-capybara"
   gem "rubocop-factory_bot"
