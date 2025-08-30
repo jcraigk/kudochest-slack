@@ -102,7 +102,8 @@ class TeamsController < ApplicationController
       :response_mode, :response_theme, :log_channel_rid, :point_emoji, :jab_emoji, :ditto_emoji,
       :enable_streaks, :streak_duration, :streak_reward, :time_zone, :weekly_report,
       :split_tip, :join_channels, :enable_cheers, :enable_loot,
-      :enable_jabs, :deduct_jabs, :enable_topics, :require_topic, :show_note, work_days: []
+      :enable_jabs, :deduct_jabs, :enable_topics, :require_topic, :show_note,
+      :default_inline_quantity, :default_reaction_quantity, work_days: []
   end
 
   def update_success

@@ -9,6 +9,7 @@ class Team < ApplicationRecord
     log_channel_rid hint_channel_rid max_points_per_tip
     response_mode response_theme show_channel show_note time_zone
     tip_notes enable_topics require_topic topics rid
+    default_inline_quantity default_reaction_quantity
   ].freeze
   CONFIG_CACHE_TTL = 5.minutes
 
@@ -39,33 +40,35 @@ class Team < ApplicationRecord
             in: %w[never hourly daily weekly],
             default: "never"
 
-  attribute :enable_cheers,      :boolean, default: true
-  attribute :enable_emoji,       :boolean, default: true
-  attribute :enable_thumbsup,    :boolean, default: false
-  attribute :enable_levels,      :boolean, default: true
-  attribute :enable_loot,        :boolean, default: false
-  attribute :enable_streaks,     :boolean, default: true
-  attribute :enable_topics,      :boolean, default: false
-  attribute :enable_jabs,        :boolean, default: false
-  attribute :deduct_jabs,        :boolean, default: false
-  attribute :installed,          :boolean, default: true
-  attribute :require_topic,      :boolean, default: false
-  attribute :show_channel,       :boolean, default: true
-  attribute :show_note,          :boolean, default: true
-  attribute :split_tip,          :boolean, default: false
-  attribute :weekly_report,      :boolean, default: false
-  attribute :point_emoji,        :string,  default: -> { App.default_point_emoji }
-  attribute :ditto_emoji,        :string,  default: -> { App.default_ditto_emoji }
-  attribute :jab_emoji,          :string,  default: -> { App.default_jab_emoji }
-  attribute :time_zone,          :string,  default: -> { App.default_team_time_zone }
-  attribute :streak_duration,    :integer, default: -> { App.default_streak_duration }
-  attribute :streak_reward,      :integer, default: -> { App.default_streak_reward }
-  attribute :max_level,          :integer, default: -> { App.default_max_level }
-  attribute :max_level_points,   :integer, default: -> { App.default_max_level_points }
-  attribute :throttle_quantity,  :integer, default: -> { App.default_throttle_quantity }
-  attribute :work_days_mask,     :integer, default: 62 # monday - friday
-  attribute :member_count,       :integer, default: 0
-  attribute :max_points_per_tip, :integer, default: 5
+  attribute :enable_cheers,             :boolean, default: true
+  attribute :enable_emoji,              :boolean, default: true
+  attribute :enable_thumbsup,           :boolean, default: false
+  attribute :enable_levels,             :boolean, default: true
+  attribute :enable_loot,               :boolean, default: false
+  attribute :enable_streaks,            :boolean, default: true
+  attribute :enable_topics,             :boolean, default: false
+  attribute :enable_jabs,               :boolean, default: false
+  attribute :deduct_jabs,               :boolean, default: false
+  attribute :installed,                 :boolean, default: true
+  attribute :require_topic,             :boolean, default: false
+  attribute :show_channel,              :boolean, default: true
+  attribute :show_note,                 :boolean, default: true
+  attribute :split_tip,                 :boolean, default: false
+  attribute :weekly_report,             :boolean, default: false
+  attribute :point_emoji,               :string,  default: -> { App.default_point_emoji }
+  attribute :ditto_emoji,               :string,  default: -> { App.default_ditto_emoji }
+  attribute :jab_emoji,                 :string,  default: -> { App.default_jab_emoji }
+  attribute :time_zone,                 :string,  default: -> { App.default_team_time_zone }
+  attribute :streak_duration,           :integer, default: -> { App.default_streak_duration }
+  attribute :streak_reward,             :integer, default: -> { App.default_streak_reward }
+  attribute :max_level,                 :integer, default: -> { App.default_max_level }
+  attribute :max_level_points,          :integer, default: -> { App.default_max_level_points }
+  attribute :throttle_quantity,         :integer, default: -> { App.default_throttle_quantity }
+  attribute :work_days_mask,            :integer, default: 62 # monday - friday
+  attribute :member_count,              :integer, default: 0
+  attribute :max_points_per_tip,        :integer, default: 10
+  attribute :default_inline_quantity,   :integer, default: -> { App.default_inline_quantity }
+  attribute :default_reaction_quantity, :integer, default: -> { App.default_reaction_quantity }
 
   validates :api_key, uniqueness: true
   validates :name, presence: true
@@ -95,6 +98,14 @@ class Team < ApplicationRecord
   validates :streak_reward, numericality: {
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: App.max_streak_reward
+  }
+  validates :default_inline_quantity, numericality: {
+    greater_than_or_equal_to: 1,
+    less_than_or_equal_to: ->(team) { team.max_points_per_tip }
+  }
+  validates :default_reaction_quantity, numericality: {
+    greater_than_or_equal_to: 1,
+    less_than_or_equal_to: ->(team) { team.max_points_per_tip }
   }
   validates_with RequireTopicValidator
   validates_with WorkDaysValidator

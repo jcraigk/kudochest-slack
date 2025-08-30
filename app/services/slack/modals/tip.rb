@@ -1,5 +1,5 @@
 class Slack::Modals::Tip < Base::Service
-  MAX_QUANTITY_OPTIONS = 99
+  MAX_QUANTITY_OPTIONS = 100
 
   option :team_rid
 
@@ -81,9 +81,9 @@ class Slack::Modals::Tip < Base::Service
         initial_option: {
           text: {
             type: :plain_text,
-            text: "1"
+            text: default_quantity.to_s
           },
-          value: "1"
+          value: default_quantity.to_s
         },
         options: quantity_options.map do |quantity|
           {
@@ -96,6 +96,10 @@ class Slack::Modals::Tip < Base::Service
         end
       }
     }
+  end
+
+  def default_quantity
+    config[:default_inline_quantity] || 1
   end
 
   def topic_select

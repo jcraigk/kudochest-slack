@@ -79,7 +79,7 @@ class MentionParser < Base::Service
   # Generate a quantity given a mention match
   #
   # Examples:
-  # "@user ++" => 1
+  # "@user ++" => team.default_inline_quantity (or 1 if not set)
   # "@user ++++++" => 3
   # "@user 3++2" => 3
   # "@user --4" => -4
@@ -90,12 +90,17 @@ class MentionParser < Base::Service
     given = basic_quantity(match)
     return emoji_match_quantity(match, given) if match[:inline_emoji].present?
     negative = match[:inline_text].in?(App.jab_inlines)
-    given, default = negative ? [ 0 - given, -1 ] : [ given, 1 ]
-    given.zero? ? default : given
+
+    if given.zero?
+      default_inline_quantity = team.default_inline_quantity
+      return negative ? (0 - default_inline_quantity) : default_inline_quantity
+    end
+
+    negative ? (0 - given) : given
   end
 
   def basic_quantity(match)
-    (match[:prefix_quantity].presence || match[:suffix_quantity].presence)&.to_i || 1
+    (match[:prefix_quantity].presence || match[:suffix_quantity].presence)&.to_i || 0
   end
 
   def emoji_match_quantity(match, quantity)
@@ -107,9 +112,8 @@ class MentionParser < Base::Service
   end
 
   def emojis_quantity(emojis, quantity)
-    # If single emoji with prefix/suffix, use those digits
-    return quantity if emojis.size == 1 && !quantity.zero?
-    # Otherwise, multiply by number of emoji instances
+    return quantity if !quantity.zero?
+    return team.default_inline_quantity if emojis.size == 1
     emojis.size
   end
 
