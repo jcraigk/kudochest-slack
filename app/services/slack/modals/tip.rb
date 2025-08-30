@@ -1,5 +1,5 @@
 class Slack::Modals::Tip < Base::Service
-  MAX_QUANTITY_OPTIONS = 99
+  MAX_QUANTITY_OPTIONS = 100
 
   option :team_rid
 

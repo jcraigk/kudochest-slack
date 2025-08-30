@@ -91,13 +91,11 @@ class MentionParser < Base::Service
     return emoji_match_quantity(match, given) if match[:inline_emoji].present?
     negative = match[:inline_text].in?(App.jab_inlines)
 
-    # Use team's default quantities if no explicit quantity is specified
     if given.zero?
       default_inline_quantity = team.default_inline_quantity
       return negative ? (0 - default_inline_quantity) : default_inline_quantity
     end
 
-    # Use explicit quantity if specified
     negative ? (0 - given) : given
   end
 
@@ -114,13 +112,8 @@ class MentionParser < Base::Service
   end
 
   def emojis_quantity(emojis, quantity)
-    # If explicit quantity provided, use it
     return quantity if !quantity.zero?
-
-    # If single emoji with no explicit quantity, use team default
     return team.default_inline_quantity if emojis.size == 1
-
-    # Otherwise, use the count of emoji instances
     emojis.size
   end
 
