@@ -38,6 +38,7 @@ RSpec.describe TipMentionService, :freeze_time do
     travel_to(Time.zone.local(2019, 11, 10, 21, 1, 1))
     allow(team.slack_client).to \
       receive(:chat_getPermalink).and_return(OpenStruct.new(permalink: 'link'))
+    allow(ChatPermalinkWorker).to receive(:perform_async)
   end
 
   context 'when `profile.announce_tip_sent `is false`' do

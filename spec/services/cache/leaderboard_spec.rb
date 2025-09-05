@@ -8,25 +8,59 @@ RSpec.describe Cache::Leaderboard do
   let(:key) { "leaderboard/#{team.id}/#{style}/#{action}" }
 
   shared_examples 'success' do
-    describe 'set' do
+    describe 'set_page' do
+      let(:page) { 1 }
+      let(:profiles) { [ { id: 1, name: 'Test' } ] }
+      let(:page_key) { "#{key}/page:#{page}" }
+
       before do
-        allow(REDIS).to receive(:set)
-        cache.set(val)
+        allow(REDIS).to receive(:setex)
+        cache.set_page(page, profiles)
       end
 
-      it 'calls Rails.cache' do
-        expect(REDIS).to have_received(:set).with(key, val.to_json)
+      it 'calls REDIS.setex with correct args' do
+        expect(REDIS).to have_received(:setex).with(page_key, Cache::Leaderboard::PAGE_TTL, profiles.to_json)
       end
     end
 
-    describe 'get' do
+    describe 'get_page' do
+      let(:page) { 1 }
+      let(:page_key) { "#{key}/page:#{page}" }
+
       before do
-        allow(REDIS).to receive(:get)
-        cache.get
+        allow(REDIS).to receive(:get).and_return('[]')
+        cache.get_page(page)
       end
 
-      it 'calls Rails.cache' do
-        expect(REDIS).to have_received(:get).with(key)
+      it 'calls REDIS.get with correct key' do
+        expect(REDIS).to have_received(:get).with(page_key)
+      end
+    end
+
+    describe 'set_metadata' do
+      let(:metadata) { { total_pages: 5, total_profiles: 100 } }
+      let(:metadata_key) { "#{key}/metadata" }
+
+      before do
+        allow(REDIS).to receive(:setex)
+        cache.set_metadata(metadata)
+      end
+
+      it 'calls REDIS.setex with correct args' do
+        expect(REDIS).to have_received(:setex).with(metadata_key, Cache::Leaderboard::PAGE_TTL, metadata.to_json)
+      end
+    end
+
+    describe 'get_metadata' do
+      let(:metadata_key) { "#{key}/metadata" }
+
+      before do
+        allow(REDIS).to receive(:get).and_return('{}')
+        cache.get_metadata
+      end
+
+      it 'calls REDIS.get with correct key' do
+        expect(REDIS).to have_received(:get).with(metadata_key)
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_04_212208) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_05_044137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -89,6 +89,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_04_212208) do
     t.index ["points_sent"], name: "index_profiles_on_points_sent"
     t.index ["rid", "team_id"], name: "index_profiles_on_rid_and_team_id", unique: true
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
+    t.index ["team_id", "deleted", "balance", "last_tip_received_at", "display_name"], name: "idx_leaderboard_balance", where: "((deleted = false) AND (last_tip_received_at IS NOT NULL))"
+    t.index ["team_id", "deleted", "jabs_received", "last_tip_received_at", "display_name"], name: "idx_leaderboard_jabs_received", where: "((deleted = false) AND (last_tip_received_at IS NOT NULL))"
+    t.index ["team_id", "deleted", "jabs_sent", "last_tip_sent_at", "display_name"], name: "idx_leaderboard_jabs_sent", where: "((deleted = false) AND (last_tip_sent_at IS NOT NULL))"
+    t.index ["team_id", "deleted", "points_received", "last_tip_received_at", "display_name"], name: "idx_leaderboard_points_received", where: "((deleted = false) AND (last_tip_received_at IS NOT NULL))"
+    t.index ["team_id", "deleted", "points_sent", "last_tip_sent_at", "display_name"], name: "idx_leaderboard_points_sent", where: "((deleted = false) AND (last_tip_sent_at IS NOT NULL))"
     t.index ["team_id"], name: "index_profiles_on_team_id"
     t.index ["weekly_report_notified_at"], name: "index_profiles_on_weekly_report_notified_at"
   end

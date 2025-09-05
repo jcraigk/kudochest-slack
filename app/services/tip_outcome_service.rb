@@ -65,13 +65,13 @@ class TipOutcomeService < Base::Service
 
   def refresh_leaderboards
     unless tips.all?(&:jab?)
-      LeaderboardRefreshWorker.perform_async(team.id, false, false)
-      LeaderboardRefreshWorker.perform_async(team.id, true, false)
+      LeaderboardBatchUpdateWorker.perform_async(team.id, false, false)
+      LeaderboardBatchUpdateWorker.perform_async(team.id, true, false)
     end
 
     return unless tips.any?(&:jab?)
-    LeaderboardRefreshWorker.perform_async(team.id, false, true)
-    LeaderboardRefreshWorker.perform_async(team.id, true, true)
+    LeaderboardBatchUpdateWorker.perform_async(team.id, false, true)
+    LeaderboardBatchUpdateWorker.perform_async(team.id, true, true)
   end
 
   def previous_received_at(to_profile)

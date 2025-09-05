@@ -48,7 +48,7 @@ class Base::TeamSyncService < Base::Service
 
   def refresh_leaderboards
     [ true, false ].product([ true, false ]) do |giving_board, jab_board|
-      LeaderboardRefreshWorker.perform_async(team.id, giving_board, jab_board)
+      LeaderboardBatchUpdateWorker.perform_async(team.id, giving_board, jab_board)
     end
   end
 

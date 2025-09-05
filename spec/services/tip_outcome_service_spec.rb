@@ -15,15 +15,15 @@ RSpec.describe TipOutcomeService, :freeze_time do
   let(:destroy) { nil }
 
   before do
-    allow(LeaderboardRefreshWorker).to receive(:perform_async)
+    allow(LeaderboardBatchUpdateWorker).to receive(:perform_async)
   end
 
-  it 'calls LeaderboardRefreshWorker' do
+  it 'calls LeaderboardBatchUpdateWorker' do
     call
-    expect(LeaderboardRefreshWorker).to have_received(:perform_async).with(team.id, false, false)
-    expect(LeaderboardRefreshWorker).to have_received(:perform_async).with(team.id, true, false)
-    expect(LeaderboardRefreshWorker).to have_received(:perform_async).with(team.id, false, true)
-    expect(LeaderboardRefreshWorker).to have_received(:perform_async).with(team.id, true, true)
+    expect(LeaderboardBatchUpdateWorker).to have_received(:perform_async).with(team.id, false, false)
+    expect(LeaderboardBatchUpdateWorker).to have_received(:perform_async).with(team.id, true, false)
+    expect(LeaderboardBatchUpdateWorker).to have_received(:perform_async).with(team.id, false, true)
+    expect(LeaderboardBatchUpdateWorker).to have_received(:perform_async).with(team.id, true, true)
   end
 
   context 'when creating tips' do

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'ostruct'
 
 RSpec.describe LeaderboardRefreshWorker, :freeze_time do
   subject(:perform) { described_class.new.perform(team.id, giving_board, jab_board) }
@@ -82,14 +83,64 @@ RSpec.describe LeaderboardRefreshWorker, :freeze_time do
 
   before do
     allow(Cache::Leaderboard).to receive(:new).and_return(mock_cache)
-    allow(mock_cache).to receive(:set)
+    allow(mock_cache).to receive(:set_page)
+    allow(mock_cache).to receive(:set_metadata)
+    allow(LeaderboardQueryService).to receive(:call).and_return({
+      profiles: ranked_profiles_with_rank,
+      total_count: ranked_profiles.length,
+      page: 1,
+      per_page: 100
+    })
     all_profiles
     perform
   end
 
+  let(:ranked_profiles_with_rank) do
+    ranked_profiles.map do |profile|
+      # Convert LeaderboardProfile to hash if needed, then to OpenStruct
+      profile_hash = profile.is_a?(Hash) ? profile : profile.to_h
+      # Add methods that the worker expects
+      profile_struct = OpenStruct.new(profile_hash.merge(
+        rank: profile_hash[:rank], # Use the rank from the test data
+        dashboard_link: profile_hash[:link],
+        balance: profile_hash[:points],
+        points_received: profile_hash[:points],
+        points_sent: profile_hash[:points],
+        jabs_received: profile_hash[:points],
+        jabs_sent: profile_hash[:points],
+        last_tip_received_at: Time.at(profile_hash[:last_timestamp]),
+        last_tip_sent_at: Time.at(profile_hash[:last_timestamp])
+      ))
+      profile_struct
+    end
+  end
+
   shared_examples 'success' do
-    it 'calls Cache::Leaderboard.set with expected data' do
-      expect(mock_cache).to have_received(:set).with(result)
+    it 'calls Cache::Leaderboard.set_page with expected data' do
+      expect(mock_cache).to have_received(:set_page) do |page, profiles|
+        expect(page).to eq(1)
+        expect(profiles.size).to eq(ranked_profiles.size)
+
+        # Verify each profile has the expected data
+        profiles.each_with_index do |profile, index|
+          expected = ranked_profiles[index]
+          expect(profile.id).to eq(expected.id)
+          expect(profile.rank).to eq(expected.rank)
+          expect(profile.slug).to eq(expected.slug)
+          expect(profile.display_name).to eq(expected.display_name)
+          expect(profile.points).to eq(expected.points)
+        end
+      end
+    end
+
+    it 'calls Cache::Leaderboard.set_metadata' do
+      metadata = {
+        updated_at: Time.current.to_i,
+        total_pages: 1,
+        total_profiles: ranked_profiles.length,
+        page_size: 100
+      }
+      expect(mock_cache).to have_received(:set_metadata).with(metadata)
     end
   end
 

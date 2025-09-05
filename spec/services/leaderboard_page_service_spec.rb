@@ -43,9 +43,19 @@ RSpec.describe LeaderboardPageService do
       receive(:new).with(team.id, true, false).and_return(mock_giving_cache)
     allow(Cache::Leaderboard).to \
       receive(:new).with(team.id, false, true).and_return(mock_jab_cache)
-    allow(mock_cache).to receive(:get).and_return(cache_data)
-    allow(mock_giving_cache).to receive(:get).and_return(cache_giving_data)
-    allow(mock_jab_cache).to receive(:get).and_return(cache_jab_data)
+    # Mock metadata for all cache instances
+    metadata = { updated_at: Time.current.to_i, total_pages: 1, total_profiles: profiles.size, page_size: 100 }
+    giving_metadata = { updated_at: Time.current.to_i, total_pages: 1, total_profiles: giving_profiles.size, page_size: 100 }
+    jab_metadata = { updated_at: Time.current.to_i, total_pages: 1, total_profiles: jab_profiles.size, page_size: 100 }
+
+    allow(mock_cache).to receive(:get_metadata).and_return(metadata)
+    allow(mock_cache).to receive(:get_page).with(1).and_return(profiles)
+
+    allow(mock_giving_cache).to receive(:get_metadata).and_return(giving_metadata)
+    allow(mock_giving_cache).to receive(:get_page).with(1).and_return(giving_profiles)
+
+    allow(mock_jab_cache).to receive(:get_metadata).and_return(jab_metadata)
+    allow(mock_jab_cache).to receive(:get_page).with(1).and_return(jab_profiles)
   end
 
   shared_examples 'success' do

@@ -1,6 +1,9 @@
 class LeaderboardRefreshWorker
   include Sidekiq::Worker
 
+  PAGE_SIZE = 100
+  CACHE_TTL = 1.hour
+
   attr_reader :team_id, :giving_board, :jab_board
 
   def perform(team_id, giving_board = false, jab_board = false)
@@ -8,50 +11,90 @@ class LeaderboardRefreshWorker
     @giving_board = giving_board
     @jab_board = jab_board
 
-    Cache::Leaderboard.new(team_id, giving_board, jab_board).set(leaderboard_data)
+    refresh_leaderboard_pages
+    update_metadata
   end
 
   private
 
-  def leaderboard_data
-    {
-      updated_at: Time.current.to_i,
-      profiles: sorted_ranked_profile_data
-    }
+  def refresh_leaderboard_pages
+    total_pages.times do |page_num|
+      page = page_num + 1
+      profiles = fetch_page(page)
+      cache_page(page, profiles)
+    end
   end
 
-  def sorted_ranked_profile_data # rubocop:disable Metrics/MethodLength
-    rank = 0
-    points = 0
-    timestamp = nil
+  def fetch_page(page)
+    result = LeaderboardQueryService.call(
+      team: team,
+      giving_board: giving_board,
+      jab_board: jab_board,
+      page: page,
+      per_page: PAGE_SIZE
+    )
 
-    profiles = sorted_active_profiles.map do |prof|
-      last_timestamp = last_timestamp_for(prof)
-      if points != prof.points || timestamp != last_timestamp
-        rank += 1
-        points = prof.points
-        timestamp = last_timestamp
+    format_profiles(result[:profiles])
+  end
+
+  def format_profiles(profiles)
+    profiles.map do |prof|
+      # Handle both ActiveRecord objects and OpenStruct from tests
+      rank_value = if prof.respond_to?(:attributes) && prof.attributes
+                     prof.attributes["rank"]
+      elsif prof.respond_to?(:rank)
+                     prof.rank
+      else
+                     nil
       end
 
-      profile_data(prof, rank, last_timestamp)
+      LeaderboardProfile.new(
+        id: prof.id,
+        rank: rank_value,
+        previous_rank: rank_value, # TODO: Track previous ranks
+        slug: prof.slug,
+        link: prof.dashboard_link,
+        display_name: prof.display_name,
+        real_name: prof.real_name,
+        points: prof.send(value_col),
+        last_timestamp: prof.send(last_timestamp_col).to_i,
+        avatar_url: prof.avatar_url
+      )
     end
-    profiles.compact.sort_by { |prof| [ prof.rank, prof.display_name ] }
   end
 
-  def profile_data(prof, rank, timestamp) # rubocop:disable Metrics/MethodLength
-    return if (points = prof.send(value_col)).zero?
-    LeaderboardProfile.new \
-      id: prof.id,
-      rank:,
-      previous_rank: rank, # TODO: Re-enable later
-      slug: prof.slug,
-      link: prof.dashboard_link,
-      display_name: prof.display_name,
-      real_name: prof.real_name,
-      points:,
-      last_timestamp: timestamp.to_i,
-      avatar_url: prof.avatar_url
+  def cache_page(page, profiles)
+    cache.set_page(page, profiles)
   end
+
+  def update_metadata
+    metadata = {
+      updated_at: Time.current.to_i,
+      total_pages: total_pages,
+      total_profiles: total_count,
+      page_size: PAGE_SIZE
+    }
+
+    cache.set_metadata(metadata)
+  end
+
+  def cache
+    @cache ||= Cache::Leaderboard.new(team_id, giving_board, jab_board)
+  end
+
+  def total_pages
+    @total_pages ||= (total_count.to_f / PAGE_SIZE).ceil
+  end
+
+  def total_count
+    @total_count ||= LeaderboardQueryService.call(
+      team: team,
+      giving_board: giving_board,
+      jab_board: jab_board,
+      page: 1
+    )[:total_count]
+  end
+
 
   def value_col
     @value_col ||=
@@ -72,16 +115,6 @@ class LeaderboardRefreshWorker
     @last_timestamp_col ||= "last_tip_#{verb}_at"
   end
 
-  def sorted_active_profiles
-    team.profiles
-        .active
-        .where.not(last_timestamp_col => nil)
-        .order(value_col => :desc, last_timestamp_col => :desc, display_name: :asc)
-  end
-
-  def last_timestamp_for(prof)
-    prof.send(last_timestamp_col)
-  end
 
   def team
     @team ||= Team.find(team_id)

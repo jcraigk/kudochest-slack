@@ -6,43 +6,88 @@ class LeaderboardPageService < Base::Service
   option :giving_board, default: proc { false }
   option :jab_board, default: proc { false }
 
+  attr_accessor :offset
+
   def call
-    @team ||= profile.team
+    @team ||= profile&.team
     @count = 1_000 if count == "all"
 
-    return if leaderboard_cache.blank?
+    return nil if metadata.blank?
 
-    leaderboard_page
+    fetch_leaderboard_data
   end
 
   private
 
-  def leaderboard_page
-    LeaderboardPage.new(leaderboard_cache.updated_at, page_profiles)
+  def fetch_leaderboard_data
+    if offset.present?
+      fetch_by_offset
+    else
+      fetch_contextual
+    end
   end
 
-  def page_profiles
-    leaderboard_cache.profiles[start_idx..end_idx]
+  def fetch_by_offset
+    profiles = []
+    start_page = (offset / LeaderboardRefreshWorker::PAGE_SIZE) + 1
+    end_offset = offset + count - 1
+    end_page = (end_offset / LeaderboardRefreshWorker::PAGE_SIZE) + 1
+
+    (start_page..end_page).each do |page|
+      page_profiles = cache.get_page(page)
+      next if page_profiles.blank?
+
+      profiles.concat(page_profiles)
+    end
+
+    start_idx = offset % LeaderboardRefreshWorker::PAGE_SIZE
+    end_idx = start_idx + count - 1
+
+    LeaderboardPage.new(metadata[:updated_at], profiles[start_idx..end_idx])
   end
 
-  def end_idx
-    start_idx + count - 1
+  def fetch_contextual
+    profile_page = find_profile_page
+    return fetch_page_centered_on_profile(profile_page) if profile_page
+
+    # Default to first page if no profile context
+    @offset = 0
+    fetch_by_offset
   end
 
-  def start_idx
-    offset.presence || contextual_start_idx
+  def find_profile_page
+    (1..metadata[:total_pages]).each do |page|
+      profiles = cache.get_page(page)
+      next if profiles.blank?
+
+      return page if profiles.any? { |p| p.slug == profile&.slug }
+    end
+    nil
   end
 
-  def contextual_start_idx
-    return 0 if count >= leaderboard_cache.profiles.size
-    [ 0, profile_idx - (count / 2.0).floor ].max
+  def fetch_page_centered_on_profile(center_page)
+    profiles = []
+    pages_needed = (count.to_f / LeaderboardRefreshWorker::PAGE_SIZE).ceil
+    start_page = [ 1, center_page - (pages_needed / 2) ].max
+    end_page = [ start_page + pages_needed - 1, metadata[:total_pages] ].min
+
+    (start_page..end_page).each do |page|
+      page_profiles = cache.get_page(page)
+      profiles.concat(page_profiles) if page_profiles.present?
+    end
+
+    profile_idx = profiles.index { |p| p.slug == profile&.slug } || 0
+    start_idx = [ 0, profile_idx - (count / 2) ].max
+    end_idx = [ start_idx + count - 1, profiles.length - 1 ].min
+
+    LeaderboardPage.new(metadata[:updated_at], profiles[start_idx..end_idx])
   end
 
-  def profile_idx
-    leaderboard_cache.profiles.index { |prof| prof.slug == profile&.slug } || 0
+  def metadata
+    @metadata ||= cache.get_metadata
   end
 
-  def leaderboard_cache
-    @leaderboard_cache ||= Cache::Leaderboard.new(team.id, giving_board, jab_board).get
+  def cache
+    @cache ||= Cache::Leaderboard.new(team.id, giving_board, jab_board)
   end
 end

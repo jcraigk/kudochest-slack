@@ -1,36 +1,48 @@
 class Cache::Leaderboard < Base::Service
+  PAGE_TTL = 1.hour
+
   param :team_id
   param :giving_board, default: -> { false }
   param :jab_board, default: -> { false }
 
-  def get
-    return if cache_value.blank?
-    LeaderboardPage.new(updated_at, profiles)
+  def get_page(page)
+    data = REDIS.get(page_key(page))
+    return nil if data.blank?
+
+    JSON.parse(data, symbolize_names: true).map { |p| LeaderboardProfile.new(p) }
   end
 
-  def set(value)
-    REDIS.set(key, value.to_json)
+  def set_page(page, profiles)
+    REDIS.setex(page_key(page), PAGE_TTL, profiles.to_json)
+  end
+
+  def get_metadata
+    data = REDIS.get(metadata_key)
+    return nil if data.blank?
+
+    JSON.parse(data, symbolize_names: true)
+  end
+
+  def set_metadata(metadata)
+    REDIS.setex(metadata_key, PAGE_TTL, metadata.to_json)
+  end
+
+  def delete_all_pages
+    keys = REDIS.keys("#{base_key}/page:*")
+    REDIS.del(*keys) if keys.any?
   end
 
   private
 
-  def updated_at
-    data[:updated_at]
+  def page_key(page)
+    "#{base_key}/page:#{page}"
   end
 
-  def profiles
-    data[:profiles].map { |p| LeaderboardProfile.new(p) }
+  def metadata_key
+    "#{base_key}/metadata"
   end
 
-  def data
-    @data ||= JSON.parse(cache_value, symbolize_names: true)
-  end
-
-  def cache_value
-    @cache_value ||= REDIS.get(key)
-  end
-
-  def key
+  def base_key
     "leaderboard/#{team_id}/#{style}/#{action}"
   end
 
