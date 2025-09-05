@@ -5,6 +5,12 @@ class BonusesController < ApplicationController
 
   def create
     authorize :bonus
+
+    unless App.enable_email
+      redirect_to bonuses_path, alert: t("bonuses.email_disabled")
+      return
+    end
+
     BonusCalculatorWorker.perform_async(worker_args.to_json)
     redirect_to \
       bonuses_path, notice: t("bonuses.calculation_requested", email: current_profile.email)

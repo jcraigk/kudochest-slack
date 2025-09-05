@@ -13,6 +13,7 @@ class Base::TeamSyncService < Base::Service
     sync_subteams
 
     return unless first_run
+    return unless App.enable_email
 
     OnboardingMailer.welcome(team).deliver_later
   end

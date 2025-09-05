@@ -12,5 +12,9 @@
     hr
     .centered-text
       p = t('teams.export_instructions', points: App.points_term)
+      - unless App.enable_email
+        br
+        .notification.is-warning
+          p = t('teams.email_disabled')
       br
       = export_data_button(current_team)

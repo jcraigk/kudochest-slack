@@ -2,6 +2,7 @@ en:
   bonuses:
     calculator_info: Using %{points} as a basis for giving out monetary bonuses is a great way to take advantage of natural peer review. Giving bigger bonuses to those who earn more %{points} reinforces their value in the organization and improves team collaboration. Use the controls below to specify how you want to aportion bonus money and click Request CSV. A customized CSV file containing a list of users, %{points}, percent share, and other values will be emailed to you. Open in Excel or spreadsheet of choice to complete your workflow.
     calculation_requested: The requested Bonus Calculation file will be emailed to %{email} shortly
+    email_disabled: Email functionality is disabled. Please contact your administrator to enable email features.
     request_csv: Request CSV
     start_date: Start Date
     start_date_tooltip: Specify the start date of the desired period - only %{points} earned between the dates you enter will be included in the bonus calculation.

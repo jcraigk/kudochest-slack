@@ -19,6 +19,12 @@ class TeamsController < ApplicationController
 
   def export_data
     authorize current_team
+
+    unless App.enable_email
+      redirect_to app_settings_path(section: :data), alert: t("teams.email_disabled")
+      return
+    end
+
     DataExportWorker.perform_async(current_team.id, current_profile.email)
     redirect_to app_settings_path(section: :data),
                 notice: t("teams.export_data_requested", email: current_profile.email)

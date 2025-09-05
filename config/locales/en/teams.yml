@@ -84,6 +84,7 @@ en:
     auto_join_channels_tooltip: When enabled, the bot will automatically be added to new public channels when they are created in Slack.
     join_channel_buttons: You can immediately add the bot to all public channels using the button below.
     export_data_requested: You will receive an email at %{email} with attached CSV file
+    email_disabled: Email functionality is disabled. Please contact your administrator to enable email features.
     loot_shop: Loot Shop
     enable_loot_tooltip: The loot shop allows you to setup real reward items for users to claim based on the amount of %{points} they have.
     schedule: Schedule

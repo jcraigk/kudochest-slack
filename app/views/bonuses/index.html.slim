@@ -2,6 +2,10 @@
 
 = javascript_include_tag 'bonuses'
 
+- unless App.enable_email
+  .notification.is-warning
+    p = t('bonuses.email_disabled')
+
 .card
   header.card-header
     p.card-header-title = t('nav.bonus_calculator')
