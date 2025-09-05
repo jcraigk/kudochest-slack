@@ -16,10 +16,16 @@ class Slack::ChannelSyncService < Base::ChannelSyncService
     channels = []
     loop do
       data = page_of_remote_channels(cursor)
-      channels += data[:channels]
+      channels += filter_local_channels(data[:channels])
       break if (cursor = data.dig(:response_metadata, :next_cursor)).blank?
     end
     channels
+  end
+
+  def filter_local_channels(channels)
+    channels.reject do |channel|
+      channel[:is_shared] || channel[:is_org_shared] || channel[:is_ext_shared]
+    end
   end
 
   def page_of_remote_channels(cursor)
