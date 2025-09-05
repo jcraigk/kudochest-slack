@@ -11,6 +11,7 @@ class WeeklyReport::ProfileWorker
   def perform(profile_id)
     @profile_id = profile_id
 
+    return unless App.enable_email
     return unless send_weekly_report?
 
     send_email

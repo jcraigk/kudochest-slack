@@ -4,6 +4,8 @@ class WeeklyReport::RecurrentWorker
   COOLDOWN = 6.days.freeze
 
   def perform
+    return unless App.enable_email
+
     run_team_report_workers
     run_profile_report_workers
   end

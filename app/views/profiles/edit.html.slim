@@ -61,23 +61,24 @@
                 = f.label :share_history, '&nbsp;'.html_safe, class: 'label'
                 = tooltip_btn('profiles.share_history_tooltip', 'nudge-up', points: App.points_term)
 
-        .field.is-horizontal
-          .field-label.is-switch-label
-            = f.label :weekly_report, t('profiles.weekly_report'), class: 'label'
-          .field-body
-            .field
-              .control
-                = f.check_box :weekly_report, class: 'switch is-rounded'
-                = f.label :weekly_report, '&nbsp;'.html_safe, class: 'label'
-                = tooltip_btn('profiles.weekly_report_tooltip', 'nudge-up')
+        - if App.enable_email
+          .field.is-horizontal
+            .field-label.is-switch-label
+              = f.label :weekly_report, t('profiles.weekly_report'), class: 'label'
+            .field-body
+              .field
+                .control
+                  = f.check_box :weekly_report, class: 'switch is-rounded'
+                  = f.label :weekly_report, '&nbsp;'.html_safe, class: 'label'
+                  = tooltip_btn('profiles.weekly_report_tooltip', 'nudge-up')
 
-        .field.is-horizontal
-          .field-label
-            = f.label :email, t('profiles.email'), class: 'label'
-          .field-body
-            .field
-              = current_profile.email
-              = tooltip_btn('profiles.email_tooltip', 'nudge-up')
+          .field.is-horizontal
+            .field-label
+              = f.label :email, t('profiles.email'), class: 'label'
+            .field-body
+              .field
+                = current_profile.email
+                = tooltip_btn('profiles.email_tooltip', 'nudge-up')
 
 
     br

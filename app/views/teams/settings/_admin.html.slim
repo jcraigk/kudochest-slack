@@ -4,15 +4,16 @@
       = t('teams.admin')
   .card-content
 
-    .field.is-horizontal
-      .field-label.is-switch-label
-        = f.label :weekly_report, t('teams.weekly_report'), class: 'label'
-      .field-body
-        .field
-          .control
-            = f.check_box :weekly_report, class: 'switch is-rounded'
-            = f.label :weekly_report, '&nbsp;'.html_safe, class: 'label'
-            = tooltip_btn('teams.weekly_report_tooltip', 'nudge-up')
+    - if App.enable_email
+      .field.is-horizontal
+        .field-label.is-switch-label
+          = f.label :weekly_report, t('teams.weekly_report'), class: 'label'
+        .field-body
+          .field
+            .control
+              = f.check_box :weekly_report, class: 'switch is-rounded'
+              = f.label :weekly_report, '&nbsp;'.html_safe, class: 'label'
+              = tooltip_btn('teams.weekly_report_tooltip', 'nudge-up')
 
     .field.is-horizontal
       .field-label.is-normal

@@ -9,6 +9,7 @@ class WeeklyReport::TeamWorker
   def perform(team_id)
     @team_id = team_id
 
+    return unless App.enable_email
     return unless send_weekly_report?
 
     send_email

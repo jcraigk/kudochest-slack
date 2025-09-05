@@ -61,6 +61,7 @@ class AppConfig
     end
 
     def load_email_config(config)
+      config.enable_email = ENV.fetch("ENABLE_EMAIL", "false").downcase == "true"
       config.action_mailer.default_url_options = { host: config.base_url }
       config.action_mailer.delivery_method = :smtp
       config.action_mailer.smtp_settings = {
