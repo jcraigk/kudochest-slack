@@ -24,4 +24,6 @@ production:
   username: <%= ENV.fetch('DB_USER', nil) %>
   password: <%= ENV.fetch('DB_PASSWORD', nil) %>
   database: <%= ENV.fetch('DB_NAME', nil) %>
-  pool: <%= ENV.fetch('DB_POOL', 10) %>
+  pool: <%= ENV.fetch('DB_POOL', 20) %>
+  checkout_timeout: 5
+  reaping_frequency: 10

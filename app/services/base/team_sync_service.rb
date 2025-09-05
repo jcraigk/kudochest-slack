@@ -9,7 +9,6 @@ class Base::TeamSyncService < Base::Service
   private
 
   def sync_team_data
-    sync_member_count
     sync_profiles
     sync_subteams
 
@@ -18,25 +17,27 @@ class Base::TeamSyncService < Base::Service
     OnboardingMailer.welcome(team).deliver_later
   end
 
-  def sync_member_count
-    team.update!(member_count:)
-  end
-
-  def member_count
-    remote_team_members.count { |member| active?(member) }
-  end
-
   def sync_subteams
     SubteamSyncWorker.perform_async(team.rid)
   end
 
   def sync_profiles
-    synced_profile_ids =
-      remote_team_members.each_with_object([]) do |member, profile_ids|
-        next unless app_bot?(member) || active?(member)
-        profile = create_or_update_profile(member)
-        profile_ids << profile.id
+    synced_profile_ids = []
+    active_member_count = 0
+    batch_size = 100
+
+    remote_team_members.each_slice(batch_size) do |member_batch|
+      Profile.transaction do
+        member_batch.each do |member|
+          active_member_count += 1 if active?(member)
+          next unless app_bot?(member) || active?(member)
+          profile = create_or_update_profile(member)
+          synced_profile_ids << profile.id
+        end
       end
+    end
+
+    team.update!(member_count: active_member_count)
 
     # Delete local profiles that were not found remotely
     return if (profiles = team.profiles.active.where.not(id: synced_profile_ids)).blank?

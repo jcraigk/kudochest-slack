@@ -4,34 +4,43 @@ class Base::ChannelSyncService < Base::Service
 
   def call
     sync_active_channels
-    destroy_old_channels
   end
 
   private
 
   def sync_active_channels
-    remote_channels.each do |remote_channel|
-      base_attrs = base_attributes(remote_channel)
-      sync_attrs = syncable_attributes(remote_channel)
+    # Mark all existing channels as pending deletion
+    team.channels.update_all(updated_at: 1.day.ago)
 
-      if (channel = Channel.find_by(base_attrs))
-        channel.update(sync_attrs)
-      else
-        Channel.create!(base_attrs.merge(sync_attrs))
+    batch_size = 50
+
+    fetch_remote_channels.each_slice(batch_size) do |channel_batch|
+      Channel.transaction do
+        channel_batch.each do |remote_channel|
+          base_attrs = base_attributes(remote_channel)
+          sync_attrs = syncable_attributes(remote_channel).merge(updated_at: Time.current)
+
+          if (channel = Channel.find_by(base_attrs))
+            channel.update!(sync_attrs)
+          else
+            Channel.create!(base_attrs.merge(sync_attrs))
+          end
+        end
       end
     end
-  end
 
-  def old_channel_rids
-    @old_channel_rids ||= team.channels.pluck(:rid) - remote_channels.pluck(:id)
+    # Destroy channels that weren't updated (they don't exist remotely anymore)
+    destroy_old_channels
   end
 
   def destroy_old_channels
-    team.channels.where(rid: old_channel_rids).destroy_all
-    team.update!(log_channel_rid: nil) if team.log_channel_rid.in?(old_channel_rids)
-  end
+    old_channels = team.channels.where("updated_at < ?", 1.hour.ago)
 
-  def remote_channels
-    @remote_channels ||= fetch_remote_channels
+    # Update team if log channel is being removed
+    if team.log_channel_rid && old_channels.exists?(rid: team.log_channel_rid)
+      team.update!(log_channel_rid: nil)
+    end
+
+    old_channels.destroy_all
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_29_094505) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_04_212208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -26,6 +26,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_094505) do
     t.index ["name", "team_id"], name: "index_channels_on_name_and_team_id", unique: true
     t.index ["rid", "team_id"], name: "index_channels_on_rid_and_team_id", unique: true
     t.index ["team_id"], name: "index_channels_on_team_id"
+    t.index ["updated_at"], name: "index_channels_on_updated_at"
   end
 
   create_table "claims", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -77,11 +78,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_094505) do
     t.boolean "superuser", default: false, null: false
     t.boolean "admin", default: false, null: false
     t.index ["auth_token"], name: "index_profiles_on_auth_token"
+    t.index ["balance", "deleted"], name: "index_profiles_on_balance_and_deleted"
     t.index ["created_at"], name: "index_profiles_on_created_at"
     t.index ["display_name"], name: "index_profiles_on_display_name"
     t.index ["email"], name: "index_profiles_on_email"
     t.index ["last_tip_received_at"], name: "index_profiles_on_last_tip_received_at"
+    t.index ["points_received", "deleted"], name: "index_profiles_on_points_received_and_deleted"
     t.index ["points_received"], name: "index_profiles_on_points_received"
+    t.index ["points_sent", "deleted"], name: "index_profiles_on_points_sent_and_deleted"
     t.index ["points_sent"], name: "index_profiles_on_points_sent"
     t.index ["rid", "team_id"], name: "index_profiles_on_rid_and_team_id", unique: true
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
@@ -208,8 +212,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_094505) do
     t.string "chat_permalink"
     t.boolean "to_here", default: false
     t.index "date_trunc('day'::text, created_at)", name: "idx_on_tips_created_at_truncated_to_day"
+    t.index ["created_at", "quantity"], name: "index_tips_on_created_at_and_quantity"
     t.index ["created_at"], name: "index_tips_on_created_at"
     t.index ["event_ts", "to_profile_id"], name: "index_tips_on_event_ts_and_to_profile_id", unique: true
+    t.index ["from_profile_id", "created_at"], name: "index_tips_on_from_profile_id_and_created_at"
     t.index ["from_profile_id"], name: "index_tips_on_from_profile_id"
     t.index ["source"], name: "index_tips_on_source"
     t.index ["to_profile_id"], name: "index_tips_on_to_profile_id"

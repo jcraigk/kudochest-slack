@@ -2,14 +2,14 @@ class Slack::TeamSyncService < Base::TeamSyncService
   private
 
   def fetch_team_members
-    cursor = nil
-    members = []
-    loop do
-      data = team.slack_client.users_list(cursor:)
-      members += data[:members]
-      break if (cursor = data.dig(:response_metadata, :next_cursor)).blank?
+    Enumerator.new do |yielder|
+      cursor = nil
+      loop do
+        data = team.slack_client.users_list(cursor:, limit: 200)
+        data[:members].each { |member| yielder << member }
+        break if (cursor = data.dig(:response_metadata, :next_cursor)).blank?
+      end
     end
-    members
   end
 
   def active?(member)

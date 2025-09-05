@@ -12,14 +12,14 @@ class Slack::ChannelSyncService < Base::ChannelSyncService
   end
 
   def fetch_remote_channels
-    cursor = nil
-    channels = []
-    loop do
-      data = page_of_remote_channels(cursor)
-      channels += filter_local_channels(data[:channels])
-      break if (cursor = data.dig(:response_metadata, :next_cursor)).blank?
+    Enumerator.new do |yielder|
+      cursor = nil
+      loop do
+        data = page_of_remote_channels(cursor)
+        filter_local_channels(data[:channels]).each { |channel| yielder << channel }
+        break if (cursor = data.dig(:response_metadata, :next_cursor)).blank?
+      end
     end
-    channels
   end
 
   def filter_local_channels(channels)
@@ -32,7 +32,8 @@ class Slack::ChannelSyncService < Base::ChannelSyncService
     team.slack_client.conversations_list \
       types: "public_channel",
       exclude_archived: true,
-      cursor:
+      cursor:,
+      limit: 200
   end
 
   def base_attributes(channel)
