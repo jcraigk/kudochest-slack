@@ -3,6 +3,9 @@ http_interactions:
 - request:
     method: post
     uri: https://slack.com/api/users.list
+    body:
+      encoding: UTF-8
+      string: limit=200
     headers:
       Accept:
       - application/json; charset=utf-8
